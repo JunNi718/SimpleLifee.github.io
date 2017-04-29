@@ -2,9 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://simplelife.github.io/search/index.html</loc>
+    
+    <lastmod>2017-04-29T13:04:59.826Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://simplelife.github.io/about/index.html</loc>
     
-    <lastmod>2017-04-29T12:49:16.750Z</lastmod>
+    <lastmod>2017-04-29T13:03:59.424Z</lastmod>
     
   </url>
   
@@ -12,13 +19,6 @@
     <loc>http://simplelife.github.io/404.html</loc>
     
     <lastmod>2017-04-29T12:07:02.754Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://simplelife.github.io/search/index.html</loc>
-    
-    <lastmod>2017-04-29T11:35:45.839Z</lastmod>
     
   </url>
   
