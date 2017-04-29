@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://simplelife.github.io/search/index.html</loc>
+    
+    <lastmod>2017-04-29T11:35:45.839Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://simplelife.github.io/about/index.html</loc>
     
     <lastmod>2017-04-29T06:01:25.417Z</lastmod>
@@ -37,7 +44,7 @@
   </url>
   
   <url>
-    <loc>http://simplelife.github.io/2017/04/28/hello-world/</loc>
+    <loc>http://simplelife.github.io/2017/04/29/hello-world/</loc>
     
     <lastmod>2017-04-28T07:28:12.154Z</lastmod>
     
