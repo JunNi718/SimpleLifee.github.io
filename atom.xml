@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://nijun.me/"/>
-  <updated>2017-04-30T13:38:38.635Z</updated>
+  <updated>2017-04-30T23:37:50.435Z</updated>
   <id>http://nijun.me/</id>
   
   <author>
@@ -20,11 +20,12 @@
     <link href="http://nijun.me/2017/05/01/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E5%88%B0%E4%BC%98%E5%8C%96/"/>
     <id>http://nijun.me/2017/05/01/自己动手搭建个人博客到优化/</id>
     <published>2017-05-01T12:46:25.000Z</published>
-    <updated>2017-04-30T13:38:38.635Z</updated>
+    <updated>2017-04-30T23:37:50.435Z</updated>
     
-    <content type="html"><![CDATA[<img src="/2017/05/01/自己动手搭建个人博客到优化/images/avatar.jpg">
+    <content type="html"><![CDATA[<p><img src="/2017/05/01/自己动手搭建个人博客到优化/avatar.jpg" class="img-topic"></p>
 <blockquote><p>今天，是你未来所有剩余的日子中，最早的一天</p>
 <footer><strong>stormzhang</strong></footer></blockquote>
+<p><img src="/2017/05/01/自己动手搭建个人博客到优化/avatar.jpg" alt=""></p>
 <h2 id="草稿"><a href="#草稿" class="headerlink" title="草稿"></a>草稿</h2><h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>我为什么要写这篇文章？是因为大学三年了，感觉学了这么多知识，但是并没有真正地去消化和总结过，最近又看到了<a href="http://www.baidu.com" title="stormzhang" target="_blank" rel="external">stormzhang</a>大神写的这篇<a href="http://stormzhang.com/android/2016/03/04/why-i-keep-writing-blog/" title="stormzhang" target="_blank" rel="external">我为什么坚持写博客？</a>。我真的感触很深，以前花了很多时间学的东西，不久之后便会印象模糊，想要回忆的时候，又不能快速找到。所以我决定从今天开始写博客，总结和梳理自己的知识。</p>
 <p>stormzhang在他的文章里推荐了hexo，基于Node框架，可以和Github Pages结合起来搭建个人博客。而且主题样式非常多，可以自己选择搭配的东西很多。当我第一次把博客跑起来的时候，真的惊呆了，没想到个人博客也可以这么轻松的搭建。我用了五一这个假期，自己动手搭建了现在您正看到的这个博客，虽然现在很粗糙，但是我会不断的学习和优化它的。</p>
 <h2 id="Hexo"><a href="#Hexo" class="headerlink" title="Hexo"></a>Hexo</h2><h3 id="什么是Hexo"><a href="#什么是Hexo" class="headerlink" title="什么是Hexo"></a>什么是Hexo</h3><p>Hexo是一个快速，简单和强大的博客框架。可以使用Markdown进行写作，Hexo会在几秒钟内生成具有美丽主题的静态文件。</p>
@@ -127,9 +128,11 @@ deploy:
 </tr>
 </tbody>
 </table>
-<blockquote class="pullquote"><p>不要处理我的文章  </p>
-<p>可以在Front-Matter 中的layout: 设为 false。</p>
-</blockquote>
+{% pullquote %} 
+不要处理我的文章  
+
+可以在Front-Matter 中的layout: 设为 false。
+{% endpullquote %}
 <h3 id="Front-matter"><a href="#Front-matter" class="headerlink" title="Front-matter"></a>Front-matter</h3><p>Front-matter 是文件最上方以 — 分隔的区域，用于指定个别文件的变量，例如</p>
 <pre><code>title: Hello World
 date: 2017/5/1 20:46:25
@@ -249,18 +252,32 @@ something important
 </blockquote>
 <p>参数 <code>-p</code> 覆盖默认端口，参数 <code>-w</code> 查看文件改动<br>看到下面的信息，说明已经成功，可以查看你的博客了。<br><img src="http://i.imgur.com/qqg116z.png" alt=""></p>
 <h4 id="静态模式"><a href="#静态模式" class="headerlink" title="静态模式"></a>静态模式</h4><p>在静态模式下，服务器只处理 public 文件夹内的文件，而不会处理文件变动，一般性用于你正在写博客的情况下。</p>
-<blockquote><p>hexo server -s</p>
-</blockquote>
-<h3 id="生成文件-Generating"><a href="#生成文件-Generating" class="headerlink" title="生成文件(Generating)"></a>生成文件(Generating)</h3><blockquote><p>hexo generate </p>
-</blockquote>
+{% blockquote %}
+hexo server -s
+{% endblockquote %}
+{% blockquote  %}
+hexo server -p 5000 //启动服务器， 可以简写 hexo s
+{% endblockquote %}
+<h3 id="生成文件-Generating"><a href="#生成文件-Generating" class="headerlink" title="生成文件(Generating)"></a>生成文件(Generating)</h3>{% blockquote %}
+hexo generate 6546484984
+{% endblockquote %}
 <p>生成静态文件，参数 <code>-d</code> 生成完成后部署，参数 <code>-w</code> 查看文件改动，下面两种写法都一样</p>
-<blockquote><p>hexo g -d<br>hexo d -g</p>
-</blockquote>
-<h4 id="监视文件变动"><a href="#监视文件变动" class="headerlink" title="监视文件变动"></a>监视文件变动</h4><blockquote><p>hexo generate –watch</p>
-</blockquote>
+{% blockquote  %}
+hexo g -d
+hexo d -g
+{% endblockquote %}
+<h4 id="监视文件变动"><a href="#监视文件变动" class="headerlink" title="监视文件变动"></a>监视文件变动</h4>{% blockquote %}
+	hexo generate --watch
+
+{% endblockquote %}
+{% blockquote %}
+hexo generate --watch
+
+{% endblockquote %}
 <p>Hexo 能够监视文件变动并立即重新生成静态文件，在生成时会比对文件的 SHA1 checksum，只有变动的文件才会写入。</p>
-<h3 id="部署（Deployment）"><a href="#部署（Deployment）" class="headerlink" title="部署（Deployment）"></a>部署（Deployment）</h3><blockquote><p>hexo deploy</p>
-</blockquote>
+<h3 id="部署（Deployment）"><a href="#部署（Deployment）" class="headerlink" title="部署（Deployment）"></a>部署（Deployment）</h3>{% blockquote  %}
+hexo deploy
+{% endblockquote %}
 <p>部署你的网站，在使用之前，需要在<code>站点配置文件</code> 进行配置。可以有多个deployer</p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="attr">deploy:</span></div><div class="line"><span class="attr">- type:</span> <span class="string">git</span></div><div class="line"><span class="attr">  repo:</span></div><div class="line"><span class="attr">- type:</span> <span class="string">heroku</span>    </div><div class="line"><span class="attr">  repo:</span></div></pre></td></tr></table></figure>
 <blockquote><p>缩进<br>YAML依靠缩进来确定元素间的从属关系。因此，请确保每个deployer的缩进长度相同，并且使用空格缩进。</p>
@@ -327,21 +344,19 @@ The file will have its original line endings in your working directory.
 </code></pre><p>就可以解决这个问题了</p>
 <p><a href="https://github.com/nihgwu/hexo-hey" target="_blank" rel="external">https://github.com/nihgwu/hexo-hey</a></p>
 <p>如果更新了css文件，那么需要把public的css文件删除，然后<br>$ hexo deploy –generate</p>
-<h3 id="一些好用的插件"><a href="#一些好用的插件" class="headerlink" title="一些好用的插件"></a>一些好用的插件</h3><blockquote><p>hexo可视化后台管理，很方便 - <a href="https://github.com/nihgwu/hexo-hey" target="_blank" rel="external">hexo-hey</a><br>在 hexo 中无痛使用本地图片 - <a href="https://github.com/CodeFalling/hexo-asset-image hexo-asset-image" target="_blank" rel="external">hexo-asset-image</a></p>
+<h3 id="一些好用的插件"><a href="#一些好用的插件" class="headerlink" title="一些好用的插件"></a>一些好用的插件</h3><blockquote><p>hexo可视化后台管理，很方便 - <a href="https://github.com/nihgwu/hexo-hey" target="_blank" rel="external">hexo-hey</a><br>在 hexo 中无痛使用本地图片 - <a href="https://github.com/CodeFalling/hexo-asset-image" target="_blank" rel="external">hexo-asset-image</a><br>备份整个博客包括主题 - <a href="https://github.com/coneycode/hexo-git-backup" target="_blank" rel="external">hexo-git-backup</a></p>
 </blockquote>
 ]]></content>
     
     <summary type="html">
     
-      &lt;img src=&quot;/2017/05/01/自己动手搭建个人博客到优化/images/avatar.jpg&quot;&gt;
+      &lt;p&gt;&lt;img src=&quot;/2017/05/01/自己动手搭建个人博客到优化/avatar.jpg&quot; class=&quot;img-topic&quot;&gt;&lt;/p&gt;
 &lt;blockquote&gt;&lt;p&gt;今天，是你未来所有剩余的日子中，最早的一天&lt;/p&gt;
-&lt;footer&gt;&lt;strong&gt;stormzhang&lt;/strong&gt;&lt;/footer
+&lt;footer&gt;&lt;strong&gt;stormzhan
     
     </summary>
     
-      <category term="文章" scheme="http://nijun.me/categories/%E6%96%87%E7%AB%A0/"/>
-    
-      <category term="技术" scheme="http://nijun.me/categories/%E6%96%87%E7%AB%A0/%E6%8A%80%E6%9C%AF/"/>
+      <category term="技术" scheme="http://nijun.me/categories/%E6%8A%80%E6%9C%AF/"/>
     
     
       <category term="技术" scheme="http://nijun.me/tags/%E6%8A%80%E6%9C%AF/"/>
@@ -350,9 +365,9 @@ The file will have its original line endings in your working directory.
   
   <entry>
     <title>Hello World</title>
-    <link href="http://nijun.me/2017/04/30/hello-world/"/>
-    <id>http://nijun.me/2017/04/30/hello-world/</id>
-    <published>2017-04-30T13:43:55.414Z</published>
+    <link href="http://nijun.me/2017/05/01/hello-world/"/>
+    <id>http://nijun.me/2017/05/01/hello-world/</id>
+    <published>2017-04-30T22:39:03.253Z</published>
     <updated>2017-04-28T07:28:12.154Z</updated>
     
     <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
