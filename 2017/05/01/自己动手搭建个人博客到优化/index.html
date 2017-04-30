@@ -1,0 +1,1316 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="技术," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="SimpleLifee" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="今天，是你未来所有剩余的日子中，最早的一天 stormzhang 草稿背景我为什么要写这篇文章？是因为大学三年了，感觉学了这么多知识，但是并没有真正地去消化和总结过，最近又看到了stormzhang大神写的这篇我为什么坚持写博客？。我真的感触很深，以前花了很多时间学的东西，不久之后便会印象模糊，想要回忆的时候，又不能快速找到。所以我决定从今天开始写博客，总结和梳理自己的知识。 stormzhan">
+<meta name="keywords" content="技术">
+<meta property="og:type" content="article">
+<meta property="og:title" content="自己动手搭建个人博客到优化">
+<meta property="og:url" content="http://nijun.me/2017/05/01/自己动手搭建个人博客到优化/index.html">
+<meta property="og:site_name" content="SimpleLifee">
+<meta property="og:description" content="今天，是你未来所有剩余的日子中，最早的一天 stormzhang 草稿背景我为什么要写这篇文章？是因为大学三年了，感觉学了这么多知识，但是并没有真正地去消化和总结过，最近又看到了stormzhang大神写的这篇我为什么坚持写博客？。我真的感触很深，以前花了很多时间学的东西，不久之后便会印象模糊，想要回忆的时候，又不能快速找到。所以我决定从今天开始写博客，总结和梳理自己的知识。 stormzhan">
+<meta property="og:image" content="http://nijun.me/images/avatar.jpg">
+<meta property="og:image" content="http://i.imgur.com/qqg116z.png">
+<meta property="og:updated_time" content="2017-04-30T11:51:01.549Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="自己动手搭建个人博客到优化">
+<meta name="twitter:description" content="今天，是你未来所有剩余的日子中，最早的一天 stormzhang 草稿背景我为什么要写这篇文章？是因为大学三年了，感觉学了这么多知识，但是并没有真正地去消化和总结过，最近又看到了stormzhang大神写的这篇我为什么坚持写博客？。我真的感触很深，以前花了很多时间学的东西，不久之后便会印象模糊，想要回忆的时候，又不能快速找到。所以我决定从今天开始写博客，总结和梳理自己的知识。 stormzhan">
+<meta name="twitter:image" content="http://nijun.me/images/avatar.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://nijun.me/2017/05/01/自己动手搭建个人博客到优化/"/>
+
+
+
+
+
+  <title>自己动手搭建个人博客到优化 | SimpleLifee</title>
+
+  <script>
+  class Circle {
+      //创建对象
+      //以一个圆为对象
+      //设置随机的 x，y坐标，r半径，_mx，_my移动的距离
+      //this.r是创建圆的半径，参数越大半径越大
+      //this._mx,this._my是移动的距离，参数越大移动
+      constructor(x, y) {
+          this.x = x;
+          this.y = y;
+          this.r = Math.random() * 10 ;
+          this._mx = Math.random() ;
+          this._my = Math.random() ;
+
+      }
+
+      //canvas 画圆和画直线
+      //画圆就是正常的用canvas画一个圆
+      //画直线是两个圆连线，为了避免直线过多，给圆圈距离设置了一个值，距离很远的圆圈，就不做连线处理
+      drawCircle(ctx) {
+          ctx.beginPath();
+          //arc() 方法使用一个中心点和半径，为一个画布的当前子路径添加一条弧。
+          ctx.arc(this.x, this.y, this.r, 0, 360)
+          ctx.closePath();
+          ctx.fillStyle = 'rgba(204, 204, 204, 0.3)';
+          ctx.fill();
+      }
+
+      drawLine(ctx, _circle) {
+          let dx = this.x - _circle.x;
+          let dy = this.y - _circle.y;
+          let d = Math.sqrt(dx * dx + dy * dy)
+          if (d < 150) {
+              ctx.beginPath();
+              //开始一条路径，移动到位置 this.x,this.y。创建到达位置 _circle.x,_circle.y 的一条线：
+              ctx.moveTo(this.x, this.y);   //起始点
+              ctx.lineTo(_circle.x, _circle.y);   //终点
+              ctx.closePath();
+              ctx.strokeStyle = 'rgba(204, 204, 204, 0.3)';
+              ctx.stroke();
+          }
+      }
+
+      // 圆圈移动
+      // 圆圈移动的距离必须在屏幕范围内
+      move(w, h) {
+          this._mx = (this.x < w && this.x > 0) ? this._mx : (-this._mx);
+          this._my = (this.y < h && this.y > 0) ? this._my : (-this._my);
+          this.x += this._mx / 2;
+          this.y += this._my / 2;
+      }
+  }
+  //鼠标点画圆闪烁变动
+  class currentCirle extends Circle {
+      constructor(x, y) {
+          super(x, y)
+      }
+
+      drawCircle(ctx) {
+          ctx.beginPath();
+          //注释内容为鼠标焦点的地方圆圈半径变化
+          //this.r = (this.r < 14 && this.r > 1) ? this.r + (Math.random() * 2 - 1) : 2;
+          this.r = 8;
+          ctx.arc(this.x, this.y, this.r, 0, 360);
+          ctx.closePath();
+          //ctx.fillStyle = 'rgba(0,0,0,' + (parseInt(Math.random() * 100) / 100) + ')'
+          ctx.fillStyle = 'rgba(255, 77, 54, 0.3)'
+          ctx.fill();
+
+      }
+  }
+  //更新页面用requestAnimationFrame替代setTimeout
+  window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
+
+  let canvas = document.getElementById('canvas');
+  let ctx = canvas.getContext('2d');
+  let w = canvas.width = canvas.offsetWidth;
+  let h = canvas.height = canvas.offsetHeight;
+  let circles = [];
+  let current_circle = new currentCirle(0, 0)
+
+  let draw = function () {
+      ctx.clearRect(0, 0, w, h);
+      for (let i = 0; i < circles.length; i++) {
+          circles[i].move(w, h);
+          circles[i].drawCircle(ctx);
+          for (j = i + 1; j < circles.length; j++) {
+              circles[i].drawLine(ctx, circles[j])
+          }
+      }
+      if (current_circle.x) {
+          current_circle.drawCircle(ctx);
+          for (var k = 1; k < circles.length; k++) {
+              current_circle.drawLine(ctx, circles[k])
+          }
+      }
+      requestAnimationFrame(draw)
+  }
+
+  let init = function (num) {
+      for (var i = 0; i < num; i++) {
+          circles.push(new Circle(Math.random() * w, Math.random() * h));
+      }
+      draw();
+  }
+  window.addEventListener('load', init(60));
+  window.onmousemove = function (e) {
+      e = e || window.event;
+      current_circle.x = e.clientX;
+      current_circle.y = e.clientY;
+  }
+  window.onmouseout = function () {
+      current_circle.x = null;
+      current_circle.y = null;
+
+  };
+  </script>
+
+</head>
+
+
+
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">SimpleLifee</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">code, mylife</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="st-search-show-outputs">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <form class="site-search-form">
+  <input type="text" id="st-search-input" class="st-search-input st-default-search-input" />
+</form>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', 'kws2PKakgNnLpRA_QL3j','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://nijun.me/2017/05/01/自己动手搭建个人博客到优化/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Nimon">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SimpleLifee">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                自己动手搭建个人博客到优化
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-01T20:46:25+08:00">
+                2017-05-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/文章/" itemprop="url" rel="index">
+                    <span itemprop="name">文章</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/文章/技术/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/05/01/自己动手搭建个人博客到优化/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/05/01/自己动手搭建个人博客到优化/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <img src="/images/avatar.jpg">
+<blockquote><p>今天，是你未来所有剩余的日子中，最早的一天</p>
+<footer><strong>stormzhang</strong></footer></blockquote>
+<h2 id="草稿"><a href="#草稿" class="headerlink" title="草稿"></a>草稿</h2><h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>我为什么要写这篇文章？是因为大学三年了，感觉学了这么多知识，但是并没有真正地去消化和总结过，最近又看到了<a href="http://www.baidu.com" title="stormzhang" target="_blank" rel="external">stormzhang</a>大神写的这篇<a href="http://stormzhang.com/android/2016/03/04/why-i-keep-writing-blog/" title="stormzhang" target="_blank" rel="external">我为什么坚持写博客？</a>。我真的感触很深，以前花了很多时间学的东西，不久之后便会印象模糊，想要回忆的时候，又不能快速找到。所以我决定从今天开始写博客，总结和梳理自己的知识。</p>
+<p>stormzhang在他的文章里推荐了hexo，基于Node框架，可以和Github Pages结合起来搭建个人博客。而且主题样式非常多，可以自己选择搭配的东西很多。当我第一次把博客跑起来的时候，真的惊呆了，没想到个人博客也可以这么轻松的搭建。我用了五一这个假期，自己动手搭建了现在您正看到的这个博客，虽然现在很粗糙，但是我会不断的学习和优化它的。</p>
+<h2 id="Hexo"><a href="#Hexo" class="headerlink" title="Hexo"></a>Hexo</h2><h3 id="什么是Hexo"><a href="#什么是Hexo" class="headerlink" title="什么是Hexo"></a>什么是Hexo</h3><p>Hexo是一个快速，简单和强大的博客框架。可以使用Markdown进行写作，Hexo会在几秒钟内生成具有美丽主题的静态文件。</p>
+<p>###安装要求 ###<br>这里具体的操作步骤可以到<a href="https://hexo.io/" target="_blank" rel="external">hexo官网</a>。</p>
+<ul>
+<li><a href="https://nodejs.org" target="_blank" rel="external">Node.js</a></li>
+<li><a href="https://git-scm.com/" target="_blank" rel="external">Git</a></li>
+</ul>
+<p>如果已经装好了这些，那么我们现在就开始吧！</p>
+<h4 id="第一步"><a href="#第一步" class="headerlink" title="第一步"></a>第一步</h4><p>一旦安装了所有要求，可以用npm安装Hexo。</p>
+<pre><code>npm install hexo-cli -g  //在本地安装hexo的环境 
+</code></pre><h4 id="第二步"><a href="#第二步" class="headerlink" title="第二步"></a>第二步</h4><p>首先选择一个目录作为hexo博客的根目录，使用git bash cd到这个目录，然后输入  </p>
+<pre><code>hexo init &lt;folder&gt;   //推荐 ，这里的folder参数如果指定，便会在终端当前的资料夹建立一个名为 folder 的新资料夹；
+hexo init  //直接使用当前目录初始化
+</code></pre><p>完成后</p>
+<pre><code>cd folder
+npm install  //在当前目录下安装hexo核心文件
+</code></pre><p>这样就安装完成了。这时候可以看到<code>floder</code>文件夹下具有这些子目录</p>
+<pre><code>.
+├── _config.yml   站点配置文件
+├── package.json
+├── scaffolds    存放模板的地方
+├── source       原文件夹，存放网站内容
+|   ├── _drafts  存放临时草稿文件的地方
+|   └── _posts   已经发布的文章
+└── themes       主题文件夹
+</code></pre><p><code>source</code>中带有前缀_(下划线)的文件夹，在<code>generate</code>的时候会渲染到<code>public</code>目录中，其他的文件夹和文件仅仅被简单地复制到<code>public</code>中。</p>
+<p>在<code>floder</code>目录下，有一个<code>_config.yml</code>，这个文件是整个网站的核心配置文件，由于后面主题文件夹中也有一个同名的配置文件，为了区分，网站的核心配置文件就叫做<code>站点配置文件</code>，主题中的叫做<code>主题配置文件</code>。</p>
+<p>打开<code>站点配置文件</code>,可以看到<code>Site</code>标签，这是我的配置。</p>
+<pre><code># Site
+title: SimpleLifee  #网站标题
+subtitle: code, mylife   #网站副标题
+description: start from zero     #网站描述
+author: Nimon        #你的名字
+language: zh-Hans    #语言，
+timezone: Asia/Shanghai  #时区
+</code></pre><p>还有<code>Deployment</code>标签，与Github Pages进行关联</p>
+<pre><code># Deployment
+## Docs: https://hexo.io/docs/deployment.html
+deploy:
+  type: git
+  repo: git@github.com:SimpleLifee/SimpleLifee.github.io.git 
+  branch: master
+</code></pre><p>其中<code>type</code>必须填git，<code>repo</code>填写你在git上创建的库的<code>ssh</code>地址，或者<code>https</code>地址。<code>注意</code>如果是https的那么以后每次<code>deploy</code>的时候都要求你输入用户名和密码,如果改成<code>ssh</code>并且你没有给你的id_rsa设置密码（空密码也一样）的话，就不用每次都输入密码了。</p>
+<pre><code>ssh-keygen -p -f /root/.ssh/id_dsa -N &apos;&apos; 
+</code></pre><p>如果你之前设置了密码，那么使用这条命令就可以更改你的私钥的密码了。参考<a href="https://superuser.com/questions/508408/public-key-always-asking-for-password-and-keyphrase" target="_blank" rel="external">superuser</a></p>
+<h2 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h2><h3 id="写作"><a href="#写作" class="headerlink" title="写作"></a>写作</h3><pre><code>hexo new [layout] &lt;title&gt;  
+</code></pre><p>创建一个新文章，<code>layout</code>可以有三个参数<code>post</code>、<code>page</code>、<code>draft</code>, hexo 会在 <code>Scaffold</code> 文件夹下寻找你写的 <code>layout.md</code> 文件模板来建立文件。如果 <code>title</code> 包含空格，请用引号括起来。</p>
+<h4 id="文件名称"><a href="#文件名称" class="headerlink" title="文件名称"></a>文件名称</h4><p>在站点配置文件中<code>Writing</code> 标签下添加</p>
+<pre><code>new_post_name: :year-:month-:day-:title.md
+</code></pre><p>其中 <code>:month</code> 和 <code>:i_month</code> 的区别在于 前者有前导零 （比如 <code>04</code> ）</p>
+<h4 id="草稿-1"><a href="#草稿-1" class="headerlink" title="草稿"></a>草稿</h4><p>如果创建新文章的时候，指定了 <code>draft</code> 参数，那么就是保存到 <code>source/_drafts</code> 文件夹中，可以使用下面的语句，将草稿移动到 <code>source/_posts</code>文件中。</p>
+<pre><code>hexo publish [layout] &lt;filename&gt;
+</code></pre><p>发布草稿变成正式文章。一般<code>filename</code>写你的草稿文件的名字，<code>layout</code>写<code>post</code></p>
+<h4 id="模版（Scaffold）"><a href="#模版（Scaffold）" class="headerlink" title="模版（Scaffold）"></a>模版（Scaffold）</h4><p>在新建文章时，Hexo 会根据 scaffolds 文件夹内相对应的文件来建立文件，例如：</p>
+<pre><code>hexo new photo &quot;My Gallery&quot;
+</code></pre><p>在执行这行指令时，Hexo 会尝试在 scaffolds 文件夹中寻找 photo.md，并根据其内容建立文章</p>
+<table>
+<thead>
+<tr>
+<th>变量</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>layout</code></td>
+<td>布局</td>
+</tr>
+<tr>
+<td><code>title</code></td>
+<td>标题</td>
+</tr>
+<tr>
+<td><code>date</code></td>
+<td>文件建立日期</td>
+</tr>
+</tbody>
+</table>
+<h3 id="布局（Layout）"><a href="#布局（Layout）" class="headerlink" title="布局（Layout）"></a>布局（Layout）</h3><p>Hexo 有三种默认布局：<code>post</code>、<code>page</code>、<code>draft</code>，它们分别对应不同的路径，自定义的其他布局和 <code>post</code> 相同，都将储存到 <code>source/_posts</code> 文件夹。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">布局</th>
+<th style="text-align:left">路径</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">post</td>
+<td style="text-align:left">source/_posts</td>
+</tr>
+<tr>
+<td style="text-align:left">page</td>
+<td style="text-align:left">source</td>
+</tr>
+<tr>
+<td style="text-align:left">draft</td>
+<td style="text-align:left">source/_drafts</td>
+</tr>
+</tbody>
+</table>
+<h4 id="不要处理我的文章-："><a href="#不要处理我的文章-：" class="headerlink" title="不要处理我的文章 ####："></a>不要处理我的文章 ####：</h4><p> 可以在Front-Matter 中的layout: 设为 false。</p>
+<h3 id="Front-matter"><a href="#Front-matter" class="headerlink" title="Front-matter"></a>Front-matter</h3><p>Front-matter 是文件最上方以 — 分隔的区域，用于指定个别文件的变量，例如</p>
+<pre><code>title: Hello World
+date: 2017/5/1 20:46:25
+---
+</code></pre><p>也可以使用JSON 格式，只需要把 — 换成 ;;;</p>
+<pre><code>&quot;title&quot;: &quot;Hello World&quot;,
+&quot;date&quot;: &quot;2017/5/1 20:46:25&quot;
+;;;
+</code></pre><p>Front-matter的参数列表</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>描述</th>
+<th>默认值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>layout</code></td>
+<td>布局</td>
+<td></td>
+</tr>
+<tr>
+<td><code>title</code></td>
+<td>标题</td>
+<td></td>
+</tr>
+<tr>
+<td><code>date</code></td>
+<td>建立日期</td>
+<td>文件建立日期</td>
+</tr>
+<tr>
+<td><code>updated</code></td>
+<td>更新日期</td>
+<td>文件更新日期</td>
+</tr>
+<tr>
+<td><code>comments</code></td>
+<td>开启文章的评论功能</td>
+<td>true</td>
+</tr>
+<tr>
+<td><code>tags</code></td>
+<td>标签（不适用于分页）</td>
+<td></td>
+</tr>
+<tr>
+<td><code>categories</code></td>
+<td>分类（不适用于分页）</td>
+<td></td>
+</tr>
+<tr>
+<td><code>permalink</code></td>
+<td>覆盖文章网址</td>
+</tr>
+</tbody>
+</table>
+<h4 id="分类和标签"><a href="#分类和标签" class="headerlink" title="分类和标签"></a>分类和标签</h4><pre><code>tags:
+- List
+- Dictionary
+- ArraryList
+- hashtable
+- Stack
+- Queue
+</code></pre><p>或者</p>
+<pre><code>tags:
+ [Python, Javascript, Hexo]
+</code></pre><h4 id="引用块（Block-Quote）"><a href="#引用块（Block-Quote）" class="headerlink" title="引用块（Block Quote）"></a>引用块（Block Quote）</h4><p>模板如下</p>
+<pre><code>{% blockquote [author[, source]] [link] [source_link_title] %}
+content
+{% endblockquote %}
+</code></pre><p>例如</p>
+<pre><code>{% blockquote stormzhang %}
+今天，是你未来所有剩余的日子中，最早的一天
+{% endblockquote %}
+</code></pre><blockquote><p>今天，是你未来所有剩余的日子中，最早的一天</p>
+<footer><strong>stormzhang</strong></footer></blockquote>
+<h4 id="代码块（Code-Block）"><a href="#代码块（Code-Block）" class="headerlink" title="代码块（Code Block）"></a>代码块（Code Block）</h4><p>模板如下</p>
+<pre><code>{% codeblock [title] [lang:language] [url] [link text]%}
+code snippet
+{% endcodeblock %}
+</code></pre><p>例如：</p>
+<pre><code>{% codeblock  main.java lang:java  http://www.runoob.com/java/java-tutorial.html Java%}
+public static void main(String []args){
+}
+{% endcodeblock  %}
+</code></pre><figure class="highlight java"><figcaption><span>main.java</span><a href="http://www.runoob.com/java/java-tutorial.html" target="_blank" rel="external">Java</a></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String []args)</span></span>&#123;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="醒目引文（Pull-Quote）"><a href="#醒目引文（Pull-Quote）" class="headerlink" title="醒目引文（Pull Quote）"></a>醒目引文（Pull Quote）</h4><pre><code>{% pullquote [class] %}
+something important
+{% endpullquote %}
+</code></pre><p>如下</p>
+<blockquote class="pullquote [class]"><p>something important</p>
+</blockquote>
+<h4 id="Image"><a href="#Image" class="headerlink" title="Image"></a>Image</h4><p>有两种方式，一种是markdown格式的</p>
+<pre><code>![](/images/avatar.jpg)
+</code></pre><p>另一种是hexo支持的格式</p>
+<pre><code>{% img [class names] /path/to/image [width] [height] [title text [alt text]] %}
+</code></pre><h4 id="Link"><a href="#Link" class="headerlink" title="Link"></a>Link</h4><p>在文章中插入链接，并自动给外部链接添加 target=”_blank” 属性。</p>
+<pre><code>{% link text url [external] [title] %}
+
+{% link 谷歌 http://www.google.com google %}
+</code></pre><p>如下</p>
+<a href="http://www.google.com" title="google" target="_blank" rel="external">谷歌</a>
+<h4 id="Include-Code"><a href="#Include-Code" class="headerlink" title="Include Code"></a>Include Code</h4><pre><code>{% include_code [title] [lang:language] path/to/file %}
+</code></pre><h4 id="更多"><a href="#更多" class="headerlink" title="更多"></a>更多</h4><p>hexo支持的还有很多，如<br><strong>jsFiddle</strong>、<strong>Gist</strong>、<strong>iframe</strong>、<strong>Youtube</strong>、<strong>Vimeo</strong>等等，有需要的建议自行查阅<a href="https://hexo.io/zh-cn/docs/tag-plugins.html" target="_blank" rel="external">官方文档</a></p>
+<h3 id="服务器"><a href="#服务器" class="headerlink" title="服务器"></a>服务器</h3><h4 id="安装与使用"><a href="#安装与使用" class="headerlink" title="安装与使用"></a>安装与使用</h4><p>要使用hexo的服务器，首先要安装</p>
+<pre><code>npm install hexo-server --save
+</code></pre><p>安装完成后，默认在 <a href="http://localhost:4000" target="_blank" rel="external">http://localhost:4000</a> 下启动。在服务器启动期间，Hexo 会监视文件变动并自动更新，无须重启服务器。</p>
+<pre><code>hexo server -p 5000 //启动服务器， 可以简写 hexo s
+</code></pre><p>参数 <code>-p</code> 覆盖默认端口，参数 <code>-w</code> 查看文件改动<br>看到下面的信息，说明已经成功，可以查看你的博客了。<br><img src="http://i.imgur.com/qqg116z.png" alt=""></p>
+<h4 id="静态模式"><a href="#静态模式" class="headerlink" title="静态模式"></a>静态模式</h4><p>在静态模式下，服务器只处理 public 文件夹内的文件，而不会处理文件变动，一般性用于你正在写博客的情况下。</p>
+<pre><code>hexo server -s
+</code></pre><h3 id="生成文件-Generating"><a href="#生成文件-Generating" class="headerlink" title="生成文件(Generating)"></a>生成文件(Generating)</h3><pre><code>hexo generate 
+</code></pre><p>生成静态文件，参数 <code>-d</code> 生成完成后部署，参数 <code>-w</code> 查看文件改动，下面两种写法都一样</p>
+<pre><code>hexo g -d
+hexo d -g
+</code></pre><h4 id="监视文件变动"><a href="#监视文件变动" class="headerlink" title="监视文件变动"></a>监视文件变动</h4><pre><code>hexo generate --watch
+</code></pre><p>Hexo 能够监视文件变动并立即重新生成静态文件，在生成时会比对文件的 SHA1 checksum，只有变动的文件才会写入。</p>
+<h3 id="部署（Deployment）"><a href="#部署（Deployment）" class="headerlink" title="部署（Deployment）"></a>部署（Deployment）</h3><pre><code>hexo deploy
+</code></pre><p>部署你的网站，在使用之前，需要在<code>站点配置文件</code> 进行配置。可以有多个deployer</p>
+<pre><code>deploy:
+- type: git
+  repo:
+- type: heroku    
+  repo:
+</code></pre><blockquote class="pullquote"><p>缩进<br>YAML依靠缩进来确定元素间的从属关系。因此，请确保每个deployer的缩进长度相同，并且使用空格缩进。</p>
+</blockquote>
+<h4 id="Git"><a href="#Git" class="headerlink" title="Git"></a>Git</h4><p>直接使用这个命令从 <a href="https://github.com/hexojs/hexo-deployer-git" target="_blank" rel="external">hexo-deployer-git</a> 上安装git的部署插件</p>
+<pre><code>npm install hexo-deployer-git --save
+</code></pre><p>修改配置。</p>
+<pre><code>deploy:
+type: git
+repo: &lt;repository url&gt;  
+branch: [branch]  
+message: [message]
+</code></pre><table>
+<thead>
+<tr>
+<th>参数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>repo</code></td>
+<td>库（Repository）地址</td>
+</tr>
+<tr>
+<td><code>branch</code></td>
+<td>分支名称。如果您使用的是 GitHub 或 GitCafe 的话，程序会尝试自动检测。                    最好填ssh，这样就每次deploy的时候都要输入密码了。</td>
+</tr>
+<tr>
+<td><code>message</code></td>
+<td>自定义提交信息 (默认为 <code>Site updated: { { now(&#39;YYYY-MM-DD HH:mm:ss&#39;) }}</code>)</td>
+</tr>
+</tbody>
+</table>
+<h4 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h4><p>其他部署方案，可以参见<a href="https://hexo.io/zh-cn/docs/tag-plugins.html" target="_blank" rel="external">官方文档</a></p>
+<pre><code>hexo clean
+</code></pre><p>清除缓存文件（db.json）和生成的文件（public）<br>    hexo list <type><br><code>type</code> 可以是<code>page</code>, <code>post</code>,<code>route</code>, <code>tag</code>, <code>category</code></type></p>
+<pre><code>hexo version
+</code></pre><p>显示版本信息</p>
+<pre><code>hexo --config custom.yml
+hexo --config custom.yml，custom2.json
+</code></pre><p>使用自定义配置文件（而不是_config.yml），还可以接受将文件合并为一个的JSON或YAML配置文件的逗号分隔列表（无空格）<br>​    </p>
+<p>自动更新文件<br>hexo g     //也可以这样写hexo generate<br>部署到git<br>hexo d<br>一般可以这样简写，就是说在部署到git之前，先进行更新<br>hexo d -g</p>
+<p>这时候万一遇到这个错误<br>ERROR Deployer not found: git<br>试试<br>npm install hexo-deployer-git –save<br>npm install hexo –save</p>
+<p>可以查看hexo的版本<br>hexo -v</p>
+<p>安装NexT</p>
+<p>如果你熟悉 Git， 建议你使用 克隆最新版本 的方式，之后的更新可以通过 git pull 来快速更新， 而不用再次下载压缩包替换。</p>
+<p>下载主题</p>
+<p>cd your-hexo-site<br>git clone <a href="https://github.com/iissnan/hexo-theme-next" target="_blank" rel="external">https://github.com/iissnan/hexo-theme-next</a> themes/next</p>
+<ol>
+<li>启用主题<br>与所有 Hexo 主题启用的模式一样。 当 克隆/下载 完成后，打开 站点配置文件， 找到 theme 字段，并将其值更改为 next。<br>启用 NexT 主题<br>theme: next<br>到此，NexT 主题安装完成。下一步我们将验证主题是否正确启用。在切换主题之后、验证之前， 我们最好使用 hexo clean 来清除 Hexo 的缓存。</li>
+</ol>
+<p>添加插件添加sitemap和feed插件<br>切换到你本地的hexo 目录CIA，在命令行窗口，属兔以下命令<br>npm install hexo-generator-feed -save<br>npm install hexo-generator-sitemap -save</p>
+<p>修改_config.yml，增加以下内容</p>
+<h1 id="ExtensionsPlugins"><a href="#ExtensionsPlugins" class="headerlink" title="ExtensionsPlugins:"></a>ExtensionsPlugins:</h1><ul>
+<li>hexo-generator-feed</li>
+<li>hexo-generator-sitemap<br>#Feed Atomfeed:<br>type: atom<br>path: atom.xml<br>limit: 20#sitemapsitemap:<br>path: sitemap.xml</li>
+</ul>
+<p>再执行以下命令，部署服务端<br>hexo d -g</p>
+<p>配完之后，就可以访问 <a href="https://gdutxiaoxu.github.io/atom.xml" target="_blank" rel="external">https://gdutxiaoxu.github.io/atom.xml</a> 和 <a href="https://gdutxiaoxu.github.io/sitemap.xml" target="_blank" rel="external">https://gdutxiaoxu.github.io/sitemap.xml</a> ，发现这两个文件已经成功生成了。</p>
+<p>踩坑提醒</p>
+<p>1.FATAL Cannot read property ‘replace’ of null hexo错误<br>原因是删除了站点配置文件中的 url后面的地址。</p>
+<p>2.如果出现</p>
+<pre><code>warning: LF will be replaced by CRLF in 2017/04/28/firstBlog/index.html.
+The file will have its original line endings in your working directory.
+</code></pre><p>原因分析：</p>
+<p>CRLF – Carriage-Return Line-Feed 回车换行，回车(CR, ASCII 13, \r) 换行(LF, ASCII 10, \n)</p>
+<pre><code>git config --gobal core.autocrlf false  
+</code></pre><p>就可以解决这个问题了</p>
+<p><a href="https://github.com/nihgwu/hexo-hey" target="_blank" rel="external">https://github.com/nihgwu/hexo-hey</a></p>
+<p>如果更新了css文件，那么需要把public的css文件删除，然后<br>$ hexo deploy –generate</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/技术/" rel="tag"># 技术</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/04/30/day2/" rel="prev" title="day2">
+                day2 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="Nimon" />
+          <p class="site-author-name" itemprop="name">Nimon</p>
+           
+              <p class="site-description motion-element" itemprop="description">start from zero</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/" target="_blank" title="github">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  github
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/your-user-name" target="_blank" title="twitter">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/your-user-name" target="_blank" title="weibo">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://douban.com/people/your-user-name" target="_blank" title="douban">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  douban
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.zhihu.com/people/your-user-name" target="_blank" title="zhihu">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  zhihu
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              github
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://www.github.com" title="Github" target="_blank">Github</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.weibo.com" title="Weibo" target="_blank">Weibo</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.google.com" title="Google" target="_blank">Google</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.google.com" title="QQ" target="_blank">QQ</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#草稿"><span class="nav-number">1.</span> <span class="nav-text">草稿</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#背景"><span class="nav-number"></span> <span class="nav-text">背景</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Hexo"><span class="nav-number">1.</span> <span class="nav-text">Hexo</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是Hexo"><span class="nav-number">1.1.</span> <span class="nav-text">什么是Hexo</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#第一步"><span class="nav-number">1.1.1.</span> <span class="nav-text">第一步</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第二步"><span class="nav-number">1.1.2.</span> <span class="nav-text">第二步</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#命令"><span class="nav-number">2.</span> <span class="nav-text">命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#写作"><span class="nav-number">2.1.</span> <span class="nav-text">写作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#文件名称"><span class="nav-number">2.1.1.</span> <span class="nav-text">文件名称</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#草稿-1"><span class="nav-number">2.1.2.</span> <span class="nav-text">草稿</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#模版（Scaffold）"><span class="nav-number">2.1.3.</span> <span class="nav-text">模版（Scaffold）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#布局（Layout）"><span class="nav-number">2.2.</span> <span class="nav-text">布局（Layout）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#不要处理我的文章-："><span class="nav-number">2.2.1.</span> <span class="nav-text">不要处理我的文章 ####：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Front-matter"><span class="nav-number">2.3.</span> <span class="nav-text">Front-matter</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#分类和标签"><span class="nav-number">2.3.1.</span> <span class="nav-text">分类和标签</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#引用块（Block-Quote）"><span class="nav-number">2.3.2.</span> <span class="nav-text">引用块（Block Quote）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#代码块（Code-Block）"><span class="nav-number">2.3.3.</span> <span class="nav-text">代码块（Code Block）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#醒目引文（Pull-Quote）"><span class="nav-number">2.3.4.</span> <span class="nav-text">醒目引文（Pull Quote）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Image"><span class="nav-number">2.3.5.</span> <span class="nav-text">Image</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Link"><span class="nav-number">2.3.6.</span> <span class="nav-text">Link</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Include-Code"><span class="nav-number">2.3.7.</span> <span class="nav-text">Include Code</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#更多"><span class="nav-number">2.3.8.</span> <span class="nav-text">更多</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#服务器"><span class="nav-number">2.4.</span> <span class="nav-text">服务器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#安装与使用"><span class="nav-number">2.4.1.</span> <span class="nav-text">安装与使用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#静态模式"><span class="nav-number">2.4.2.</span> <span class="nav-text">静态模式</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#生成文件-Generating"><span class="nav-number">2.5.</span> <span class="nav-text">生成文件(Generating)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#监视文件变动"><span class="nav-number">2.5.1.</span> <span class="nav-text">监视文件变动</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#部署（Deployment）"><span class="nav-number">2.6.</span> <span class="nav-text">部署（Deployment）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Git"><span class="nav-number">2.6.1.</span> <span class="nav-text">Git</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#其他"><span class="nav-number">2.6.2.</span> <span class="nav-text">其他</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ExtensionsPlugins"><span class="nav-number"></span> <span class="nav-text">ExtensionsPlugins:</span></a></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Nimon</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://nimon.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://nijun.me/2017/05/01/自己动手搭建个人博客到优化/';
+          this.page.identifier = '2017/05/01/自己动手搭建个人博客到优化/';
+          this.page.title = '自己动手搭建个人博客到优化';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://nimon.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<div class="bg_content">
+    <canvas id="canvas"></canvas>
+</div>
+
+
+
+
+</body>
+</html>
