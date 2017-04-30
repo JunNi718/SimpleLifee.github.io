@@ -4,9 +4,9 @@
   <subtitle>code, mylife</subtitle>
   <link href="/atom.xml" rel="self"/>
   
-  <link href="http://simplelife.github.io/"/>
+  <link href="http://nijun.me/"/>
   <updated>2017-04-28T07:28:12.154Z</updated>
-  <id>http://simplelife.github.io/</id>
+  <id>http://nijun.me/</id>
   
   <author>
     <name>Nimon</name>
@@ -17,8 +17,8 @@
   
   <entry>
     <title>Hello World</title>
-    <link href="http://simplelife.github.io/2017/04/29/hello-world/"/>
-    <id>http://simplelife.github.io/2017/04/29/hello-world/</id>
+    <link href="http://nijun.me/2017/04/29/hello-world/"/>
+    <id>http://nijun.me/2017/04/29/hello-world/</id>
     <published>2017-04-29T09:15:31.209Z</published>
     <updated>2017-04-28T07:28:12.154Z</updated>
     
@@ -44,8 +44,8 @@
   
   <entry>
     <title>firstBlog</title>
-    <link href="http://simplelife.github.io/2017/04/28/firstBlog/"/>
-    <id>http://simplelife.github.io/2017/04/28/firstBlog/</id>
+    <link href="http://nijun.me/2017/04/28/firstBlog/"/>
+    <id>http://nijun.me/2017/04/28/firstBlog/</id>
     <published>2017-04-28T07:42:58.000Z</published>
     <updated>2017-04-28T10:53:18.388Z</updated>
     
