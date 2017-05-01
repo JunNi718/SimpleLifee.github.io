@@ -7,10 +7,9 @@ title: SimpleLifee
 subtitle: code, mylife
 description: start from zero
 author: Nimon
-language: zh-Hans
+language: en
 timezone: Asia/Shanghai
-
-
+avatar: uploads/avatar.jpg
 
 
 # URL
@@ -102,7 +101,7 @@ admin:
 
 
 # Swiftype Search Key
-swiftype_key: kws2PKakgNnLpRA_QL3j
+#swiftype_key: kws2PKakgNnLpRA_QL3j
 
 
 index_generator:   
