@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://nijun.me/404.html</loc>
+    
+    <lastmod>2017-05-01T00:40:11.604Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://nijun.me/categories/index.html</loc>
     
     <lastmod>2017-04-30T23:58:05.108Z</lastmod>
@@ -54,13 +61,6 @@
     <loc>http://nijun.me/about/index.html</loc>
     
     <lastmod>2017-04-29T13:03:59.424Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://nijun.me/404.html</loc>
-    
-    <lastmod>2017-04-29T12:07:02.754Z</lastmod>
     
   </url>
   
