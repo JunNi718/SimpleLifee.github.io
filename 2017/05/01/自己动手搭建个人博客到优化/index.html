@@ -98,7 +98,7 @@
 <meta property="og:image" content="http://nijun.me/2017/05/01/自己动手搭建个人博客到优化/avatar.jpg">
 <meta property="og:image" content="http://nijun.me/2017/05/01/自己动手搭建个人博客到优化/avatar.jpg">
 <meta property="og:image" content="http://i.imgur.com/qqg116z.png">
-<meta property="og:updated_time" content="2017-05-01T03:28:46.338Z">
+<meta property="og:updated_time" content="2017-05-05T12:16:49.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="自己动手搭建个人博客到优化">
 <meta name="twitter:description" content="今天，是你未来所有剩余的日子中，最早的一天 stormzhang  背景我为什么要写这篇文章？是因为大学三年了，感觉学了这么多知识，但是并没有真正地去消化和总结过，最近又看到了stormzhang大神写的这篇我为什么坚持写博客？。我真的感触很深，以前花了很多时间学的东西，不久之后便会印象模糊，想要回忆的时候，又不能快速找到。所以我决定从今天开始写博客，总结和梳理自己的知识。 stormzhang">
@@ -683,11 +683,13 @@ something important
 {% link 谷歌 http://www.google.com google %}
 </code></pre><p>如下<a href="http://www.google.com" title="google" target="_blank" rel="external">谷歌</a></p>
 <h4 id="Include-Code"><a href="#Include-Code" class="headerlink" title="Include Code"></a>Include Code</h4><blockquote></blockquote>
+<p>​    </p>
 <h4 id="更多"><a href="#更多" class="headerlink" title="更多"></a>更多</h4><p>hexo支持的还有很多，如<br><strong>jsFiddle</strong>、<strong>Gist</strong>、<strong>iframe</strong>、<strong>Youtube</strong>、<strong>Vimeo</strong>等等，有需要的建议自行查阅<a href="https://hexo.io/zh-cn/docs/tag-plugins.html" target="_blank" rel="external">官方文档</a></p>
 <h3 id="服务器"><a href="#服务器" class="headerlink" title="服务器"></a>服务器</h3><h4 id="安装与使用"><a href="#安装与使用" class="headerlink" title="安装与使用"></a>安装与使用</h4><p>要使用hexo的服务器，首先要安装</p>
 <blockquote><p>npm install hexo-server –save</p>
 </blockquote>
 <p>安装完成后，默认在 <a href="http://localhost:4000" target="_blank" rel="external">http://localhost:4000</a> 下启动。在服务器启动期间，Hexo 会监视文件变动并自动更新，无须重启服务器。</p>
+<p>​    </p>
 <blockquote><p>hexo server -p 5000 //启动服务器， 可以简写 hexo s</p>
 </blockquote>
 <p>参数 <code>-p</code> 覆盖默认端口，参数 <code>-w</code> 查看文件改动<br>看到下面的信息，说明已经成功，可以查看你的博客了。<br><img src="http://i.imgur.com/qqg116z.png" alt=""></p>
@@ -724,7 +726,7 @@ hexo deploy
 </blockquote>
 <h4 id="Git"><a href="#Git" class="headerlink" title="Git"></a>Git</h4><p>部署提示找不到Git , 直接使用这个命令从 <a href="https://github.com/hexojs/hexo-deployer-git" target="_blank" rel="external">hexo-deployer-git</a> 上安装git的部署插件</p>
 <pre><code>npm install hexo-deployer-git --save
-</code></pre><p>修改配置。<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="attr">deploy:</span></div><div class="line"><span class="attr">type:</span> <span class="string">git</span></div><div class="line"><span class="attr">repo:</span> <span class="string">&lt;repository</span> <span class="string">url&gt;</span>  </div><div class="line"><span class="attr">branch:</span> <span class="string">[branch]</span>  </div><div class="line"><span class="attr">message:</span> <span class="string">[message]</span></div></pre></td></tr></table></figure></p>
+</code></pre><p>修改配置。<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="attr">deploy:</span></div><div class="line"><span class="attr">type:</span> <span class="string">git</span></div><div class="line"><span class="attr">repo:</span> <span class="string">&lt;repository</span> <span class="string">url&gt;</span>  </div><div class="line"><span class="attr">branch:</span> <span class="string">[branch]</span>  </div><div class="line"><span class="attr">message:</span> <span class="string">[message]</span></div></pre></td></tr></table></figure><br>​    </p>
 <table>
 <thead>
 <tr>
@@ -788,7 +790,6 @@ The file will have its original line endings in your working directory.
 </blockquote>
 <h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><blockquote><p>网易云音乐 - <a href="http://weqeo.com/2016/10/11/Hexo中播放网易云音乐的实践" target="_blank" rel="external">Hexo中播放网易云音乐的实践</a><br>网易云音乐 - <a href="https://github.com/blog/273-github-ribbons" target="_blank" rel="external">GitHub Ribbons</a><br>字数统计WordCount 、阅读时长预计Min2Read、总字数统计TotalCount - <a href="https://github.com/willin/hexo-wordcount" target="_blank" rel="external">hexo-wordcount</a>  </p>
 </blockquote>
-
       
     </div>
 
@@ -802,6 +803,27 @@ The file will have its original line endings in your working directory.
     <div>
       
         
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/uploads/wechatpay.png" alt="Nimon WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/uploads/alipay.png" alt="Nimon Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
 
       
     </div>
@@ -830,8 +852,8 @@ The file will have its original line endings in your working directory.
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/05/01/hello-world/" rel="next" title="Hello World">
-                <i class="fa fa-chevron-left"></i> Hello World
+              <a href="/2017/04/30/day04/2017-04-30-day04/" rel="next" title="day04">
+                <i class="fa fa-chevron-left"></i> day04
               </a>
             
           </div>
@@ -839,6 +861,10 @@ The file will have its original line endings in your working directory.
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/05/04/一些mac端好用端插件分享/老司机的踩坑提醒/" rel="prev" title="老司机的踩坑提醒">
+                老司机的踩坑提醒 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -944,7 +970,7 @@ The file will have its original line endings in your working directory.
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-count">9</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -966,7 +992,7 @@ The file will have its original line endings in your working directory.
             
             <div class="site-state-item site-state-tags">
               
-                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-count">4</span>
                 <span class="site-state-item-name">tags</span>
               
             </div>
