@@ -88,17 +88,17 @@
 
 
 
-<meta name="description" content="以下我是日常工作中所碰到的小问题和解决方案第一篇1. tomcat报Port already in use: xxxx 问题原因：当前有程序占用xxxx端口，需要将它结束进程。​    lsof -i:8087用以显示符合条件的进程情况 kill *pid*     2.hexo -s如果 1ERROR Plugin load failed: hexo-renderer-sass   npm re">
+<meta name="description" content="错误和问题？在所难免，来和我一起看看吧！">
 <meta name="keywords" content="技术">
 <meta property="og:type" content="article">
 <meta property="og:title" content="老司机的踩坑提醒">
 <meta property="og:url" content="http://nijun.me/2017/05/04/老司机的踩坑提醒/index.html">
 <meta property="og:site_name" content="SimpleLifee">
-<meta property="og:description" content="以下我是日常工作中所碰到的小问题和解决方案第一篇1. tomcat报Port already in use: xxxx 问题原因：当前有程序占用xxxx端口，需要将它结束进程。​    lsof -i:8087用以显示符合条件的进程情况 kill *pid*     2.hexo -s如果 1ERROR Plugin load failed: hexo-renderer-sass   npm re">
-<meta property="og:updated_time" content="2017-05-05T13:52:50.000Z">
+<meta property="og:description" content="错误和问题？在所难免，来和我一起看看吧！">
+<meta property="og:updated_time" content="2017-05-06T01:09:44.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="老司机的踩坑提醒">
-<meta name="twitter:description" content="以下我是日常工作中所碰到的小问题和解决方案第一篇1. tomcat报Port already in use: xxxx 问题原因：当前有程序占用xxxx端口，需要将它结束进程。​    lsof -i:8087用以显示符合条件的进程情况 kill *pid*     2.hexo -s如果 1ERROR Plugin load failed: hexo-renderer-sass   npm re">
+<meta name="twitter:description" content="错误和问题？在所难免，来和我一起看看吧！">
 
 
 
@@ -240,6 +240,16 @@
               <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
             
             Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            Commonweal 404
           </a>
         </li>
       
@@ -414,7 +424,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  117
+                  245
                 </span>
               
 
@@ -448,10 +458,14 @@
       
 
       
-        <h1 id="以下我是日常工作中所碰到的小问题和解决方案"><a href="#以下我是日常工作中所碰到的小问题和解决方案" class="headerlink" title="以下我是日常工作中所碰到的小问题和解决方案"></a>以下我是日常工作中所碰到的小问题和解决方案</h1><h2 id="第一篇"><a href="#第一篇" class="headerlink" title="第一篇"></a>第一篇</h2><h4 id="1-tomcat报"><a href="#1-tomcat报" class="headerlink" title="1. tomcat报"></a>1. tomcat报</h4><pre><code>Port already in use: xxxx
+        <div align="center"><br> 错误和问题？在所难免，来和我一起看看吧！<br></div>
+
+<a id="more"></a>
+<h2 id="第一篇"><a href="#第一篇" class="headerlink" title="第一篇"></a>第一篇</h2><h4 id="1"><a href="#1" class="headerlink" title="1."></a>1.</h4><p>tomcat报</p>
+<pre><code>Port already in use: xxxx
 </code></pre><p>问题原因：当前有程序占用xxxx端口，需要将它结束进程。<br>​<br>    lsof -i:8087<br>用以显示符合条件的进程情况</p>
 <pre><code>kill *pid*    
-</code></pre><h4 id="2-hexo-s"><a href="#2-hexo-s" class="headerlink" title="2.hexo -s"></a>2.hexo -s</h4><p>如果</p>
+</code></pre><h4 id="2"><a href="#2" class="headerlink" title="2."></a>2.</h4><p>在执行<code>hexo -s</code>时，如果</p>
 <figure class="highlight subunit"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">ERROR </span>Plugin load failed: hexo-renderer-sass</div></pre></td></tr></table></figure>
 <blockquote>
 <p> npm rebuild node-sass –force</p>
@@ -462,6 +476,18 @@
 <blockquote>
 <p>  npm install hexo –no-optional </p>
 </blockquote>
+<p>如果</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">FATAL Cannot read property 'replace' of null hexo</div></pre></td></tr></table></figure>
+<p>原因： 删除了站点配置文件中的 url后面的地址。</p>
+<h4 id="4"><a href="#4" class="headerlink" title="4."></a>4.</h4><p>如果出现</p>
+<pre><code>warning: LF will be replaced by CRLF in 2017/04/28/firstBlog/index.html.
+The file will have its original line endings in your working directory.
+</code></pre><p>原因分析：</p>
+<p>CRLF – Carriage-Return Line-Feed 回车换行，回车(CR, ASCII 13, \r) 换行(LF, ASCII 10, \n)</p>
+<pre><code>git config --gobal core.autocrlf false  
+</code></pre><p>就可以解决这个问题了</p>
+<h4 id="5"><a href="#5" class="headerlink" title="5."></a>5.</h4><p>如果更新了css文件，那么需要把public的css文件删除，然后</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy --<span class="keyword">generate</span></div></pre></td></tr></table></figure>
 
       
     </div>
@@ -747,7 +773,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#以下我是日常工作中所碰到的小问题和解决方案"><span class="nav-number">1.</span> <span class="nav-text">以下我是日常工作中所碰到的小问题和解决方案</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#第一篇"><span class="nav-number">1.1.</span> <span class="nav-text">第一篇</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-tomcat报"><span class="nav-number">1.1.0.1.</span> <span class="nav-text">1. tomcat报</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-hexo-s"><span class="nav-number">1.1.0.2.</span> <span class="nav-text">2.hexo -s</span></a></li></ol></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#第一篇"><span class="nav-number">1.</span> <span class="nav-text">第一篇</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1"><span class="nav-number">1.0.1.</span> <span class="nav-text">1.</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2"><span class="nav-number">1.0.2.</span> <span class="nav-text">2.</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4"><span class="nav-number">1.0.3.</span> <span class="nav-text">4.</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5"><span class="nav-number">1.0.4.</span> <span class="nav-text">5.</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>

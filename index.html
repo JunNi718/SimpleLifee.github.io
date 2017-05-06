@@ -243,6 +243,16 @@
           </a>
         </li>
       
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            Commonweal 404
+          </a>
+        </li>
+      
 
       
         <li class="menu-item menu-item-search">
@@ -417,7 +427,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  2,925
+                  2,681
                 </span>
               
 
@@ -433,7 +443,7 @@
                   <span class="post-meta-item-text">Reading time</span>
                 
                 <span title="Reading time">
-                  12
+                  11
                 </span>
               
             </div>
@@ -820,30 +830,14 @@
 
       
         
-          
-            <h2 id="Spring介绍"><a href="#Spring介绍" class="headerlink" title="Spring介绍"></a>Spring介绍</h2><p>Spring 框架是一个分层架构，由 7 个定义良好的模块组成。Spring 模块构建在核心容器之上，核心容器定义了创建、配置和管理 bean 的方式。</p>
-<h2 id="Spring中的事务管理"><a href="#Spring中的事务管理" class="headerlink" title="Spring中的事务管理"></a>Spring中的事务管理</h2><p> Spring 是 SSH 中的指挥员和管理者，它负责管理其他框架，控制着整个网站。Spring 中的事务分为：</p>
-<ul>
-<li>声明式事务  </li>
-<li><p>编程式事务</p>
-<p>其中声明式事务是在配置文件中进行相关的配置，而编程式事务就是用注解的方式写到代码里。配置文件中定义的bean要比注解里定义的加载早，所以有时会出现在启动阶段（listen 和filter ），是找不到bean 的。</p>
-<p>那么到底是选择声明式还是编程式，我们需要有如下的考虑：</p>
-</li>
-</ul>
-<ol>
-<li>如果是类级别并且不会发生变动的配置可以优先考虑注解配置，而对于那些第三方以及容易发生调整的配置就优先考虑XML配置文件方式。</li>
-<li>相比于 @Transaction 事务注解，使用 aop / tx命名空间的事务配置更加灵活和简单。</li>
-<li>注解可以有效减少配置的工作量，提高程序的内聚性。</li>
-<li>在第三方Bean 的配置，以及诸如数据源、缓存池、持久层操作模板类、事务管理等内容的配置上，XML 配置依然拥有不可替代的地位。</li>
-</ol>
-<p> Spring配置文件中关于事务配置总是由三个组成部分，分别是DataSource、TransactionManager 和代理机制这三部分，无论哪种配置方式，一般变化的只是代理机制这部分。DataSource、 TransactionManager 这两部分只是会根据数据访问方式有所变化，比如使用 Hibernate 进行数据访问时，DataSource 实际为 SessionFactory，TransactionManager 的实现为 HibernateTransactionManager。 下面一起看看三种声明式事务的具体配置：</p>
-<pre><code> &lt;!-- 配置SessionFactory,交给spring管理 --&gt;
-&lt;bean id=&quot;sessionFactory&quot; class=&quot;org.springframework.orm.hibernate4.LocalSessionFactoryBean&quot;&gt;
-&lt;property name=&quot;dataSource&quot; ref=&quot;dataSource&quot;&gt;&lt;/property&gt;
-&lt;!-- 引入hibernate配置文件 --&gt;
-&lt;property name=&quot;configLocation&quot; value=&quot;classpath:/hibernate.cfg.xml&quot;&gt;&lt;/property&gt;
-</code></pre>
-          
+          <h2 id="Spring介绍"><a href="#Spring介绍" class="headerlink" title="Spring介绍"></a>Spring介绍</h2><p>Spring 框架是一个分层架构，由 7 个定义良好的模块组成。Spring 模块构建在核心容器之上，核心容器定义了创建、配置和管理 bean 的方式。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/05/05/spring学习总结/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -978,7 +972,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  127
+                  368
                 </span>
               
 
@@ -994,7 +988,7 @@
                   <span class="post-meta-item-text">Reading time</span>
                 
                 <span title="Reading time">
-                  1
+                  2
                 </span>
               
             </div>
@@ -1013,15 +1007,14 @@
 
       
         
-          
-            <p>#以下是一些插件</p>
-<h2 id="百度云限速？试试Mac神器Aria2"><a href="#百度云限速？试试Mac神器Aria2" class="headerlink" title="百度云限速？试试Mac神器Aria2"></a>百度云限速？试试Mac神器Aria2</h2><p>使用Tampermonkey插件 + “百度网盘直接下载助手”脚本（2017-03-20更新）</p>
-<p>在Chrome上安装Tampermonkey插件。</p>
-<p>安装“百度网盘直接下载助手”脚本。</p>
-<p>会在百度云下载页面原来”下载”按钮旁边多出一个”下载助手”的按钮。</p>
-<p>点击“直接下载”会使用浏览器默认下载器进行下载。点击“显示链接”，可复制链接放入aria2进行下载。</p>
-
-          
+          <p><div align="center"><br>想要生活变得更好？来看看这些插件吧！<br></div><br><img src="/2017/05/05/一些mac端好用端插件分享/muhammad.jpg" alt=""><br></p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/05/05/一些mac端好用端插件分享/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1178,7 +1171,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  117
+                  245
                 </span>
               
 
@@ -1213,23 +1206,14 @@
 
       
         
-          
-            <h1 id="以下我是日常工作中所碰到的小问题和解决方案"><a href="#以下我是日常工作中所碰到的小问题和解决方案" class="headerlink" title="以下我是日常工作中所碰到的小问题和解决方案"></a>以下我是日常工作中所碰到的小问题和解决方案</h1><h2 id="第一篇"><a href="#第一篇" class="headerlink" title="第一篇"></a>第一篇</h2><h4 id="1-tomcat报"><a href="#1-tomcat报" class="headerlink" title="1. tomcat报"></a>1. tomcat报</h4><pre><code>Port already in use: xxxx
-</code></pre><p>问题原因：当前有程序占用xxxx端口，需要将它结束进程。<br>​<br>    lsof -i:8087<br>用以显示符合条件的进程情况</p>
-<pre><code>kill *pid*    
-</code></pre><h4 id="2-hexo-s"><a href="#2-hexo-s" class="headerlink" title="2.hexo -s"></a>2.hexo -s</h4><p>如果</p>
-<figure class="highlight subunit"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">ERROR </span>Plugin load failed: hexo-renderer-sass</div></pre></td></tr></table></figure>
-<blockquote>
-<p> npm rebuild node-sass –force</p>
-</blockquote>
-<p>使用上面这句可以解决问题。</p>
-<p>如果</p>
-<figure class="highlight subunit"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">Error: </span>Cannot find module './build/Release/DTraceProviderBindings'</div></pre></td></tr></table></figure>
-<blockquote>
-<p>  npm install hexo –no-optional </p>
-</blockquote>
-
-          
+          <div align="center"><br> 错误和问题？在所难免，来和我一起看看吧！<br></div>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/05/04/老司机的踩坑提醒/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>

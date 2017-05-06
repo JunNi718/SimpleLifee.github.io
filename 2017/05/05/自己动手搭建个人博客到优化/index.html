@@ -97,7 +97,7 @@
 <meta property="og:description" content="今天，是你未来所有剩余的日子中，最早的一天  ——stormzhang               背景 我为什么要写这篇文章？是因为大学三年了，感觉学了这么多知识，但是并没有真正地去消化和总结过，最近又看到了stormzhang大神写的这篇我为什么坚持写博客？。我真的感触很深，以前花了很多时间学的东西，不久之后便会印象模糊，想要回忆的时候，又不能快速找到。所以我决定从今天开始写博客，总结">
 <meta property="og:image" content="http://nijun.me/2017/05/05/自己动手搭建个人博客到优化/avatar.jpg">
 <meta property="og:image" content="http://i.imgur.com/qqg116z.png">
-<meta property="og:updated_time" content="2017-05-05T15:51:13.000Z">
+<meta property="og:updated_time" content="2017-05-06T02:20:40.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="自己动手搭建个人博客到优化">
 <meta name="twitter:description" content="今天，是你未来所有剩余的日子中，最早的一天  ——stormzhang               背景 我为什么要写这篇文章？是因为大学三年了，感觉学了这么多知识，但是并没有真正地去消化和总结过，最近又看到了stormzhang大神写的这篇我为什么坚持写博客？。我真的感触很深，以前花了很多时间学的东西，不久之后便会印象模糊，想要回忆的时候，又不能快速找到。所以我决定从今天开始写博客，总结">
@@ -243,6 +243,16 @@
               <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
             
             Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            Commonweal 404
           </a>
         </li>
       
@@ -417,7 +427,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  2,925
+                  2,681
                 </span>
               
 
@@ -433,7 +443,7 @@
                   <span class="post-meta-item-text">Reading time</span>
                 
                 <span title="Reading time">
-                  12
+                  11
                 </span>
               
             </div>
@@ -468,60 +478,30 @@
 <a id="more"></a>
 <p>stormzhang在他的文章里推荐了hexo，基于Node框架，可以和Github Pages结合起来搭建个人博客。而且主题样式非常多，可以自己选择搭配的东西很多。当我第一次把博客跑起来的时候，真的惊呆了，没想到个人博客也可以这么轻松的搭建。我用了五一这个假期，自己动手搭建了现在您正看到的这个博客，虽然现在很粗糙，但是我会不断的学习和优化它的。</p>
 <h2 id="Hexo"><a href="#Hexo" class="headerlink" title="Hexo"></a>Hexo</h2><h3 id="什么是Hexo"><a href="#什么是Hexo" class="headerlink" title="什么是Hexo"></a>什么是Hexo</h3><p>Hexo是一个快速，简单和强大的博客框架。可以使用Markdown进行写作，Hexo会在几秒钟内生成具有美丽主题的静态文件。</p>
-<p>###安装要求 ###<br>这里具体的操作步骤可以到<a href="https://hexo.io/" target="_blank" rel="external">hexo官网</a>。</p>
+<h3 id="安装要求"><a href="#安装要求" class="headerlink" title="安装要求"></a>安装要求</h3><p>这里具体的操作步骤可以到<a href="https://hexo.io/" target="_blank" rel="external">hexo官网</a>。</p>
 <ul>
 <li><a href="https://nodejs.org" target="_blank" rel="external">Node.js</a></li>
 <li><a href="https://git-scm.com/" target="_blank" rel="external">Git</a></li>
 </ul>
 <p>如果已经装好了这些，那么我们现在就开始吧！</p>
-<h4 id="第一步"><a href="#第一步" class="headerlink" title="第一步"></a>第一步</h4><p>一旦安装了所有要求，可以用npm安装Hexo。</p>
-<pre><code>npm install hexo-cli -g  //在本地安装hexo的环境 
-</code></pre><h4 id="第二步"><a href="#第二步" class="headerlink" title="第二步"></a>第二步</h4><p>首先选择一个目录作为hexo博客的根目录，使用git bash cd到这个目录，然后输入  </p>
-<pre><code>hexo init &lt;folder&gt;   //推荐 ，这里的folder参数如果指定，便会在终端当前的资料夹建立一个名为 folder 的新资料夹；
-hexo init  //直接使用当前目录初始化
-</code></pre><p>完成后</p>
-<pre><code>cd folder
-npm install  //在当前目录下安装hexo核心文件
-</code></pre><p>这样就安装完成了。这时候可以看到<code>floder</code>文件夹下具有这些子目录</p>
-<pre><code>.
-├── _config.yml   站点配置文件
-├── package.json
-├── scaffolds    存放模板的地方
-├── source       原文件夹，存放网站内容
-|   ├── _drafts  存放临时草稿文件的地方
-|   └── _posts   已经发布的文章
-└── themes       主题文件夹
-</code></pre><p><code>source</code>中带有前缀_(下划线)的文件夹，在<code>generate</code>的时候会渲染到<code>public</code>目录中，其他的文件夹和文件仅仅被简单地复制到<code>public</code>中。</p>
+<h4 id="第一步"><a href="#第一步" class="headerlink" title="第一步"></a>第一步</h4><p>一旦安装了所有要求，可以用npm安装Hexo。<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> npm install hexo-cli -g  //在本地安装hexo的环境</span></div></pre></td></tr></table></figure></p>
+<h4 id="第二步"><a href="#第二步" class="headerlink" title="第二步"></a>第二步</h4><p>首先选择一个目录作为hexo博客的根目录，使用git bash cd到这个目录，然后输入<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> hexo init &lt;folder&gt;   //推荐 ，这里的folder参数如果指定，便会在终端当前的资料夹建立一个名为 folder 的新资料夹；</span></div><div class="line"><span class="meta">$</span><span class="bash"> hexo init  //直接使用当前目录初始化</span></div></pre></td></tr></table></figure></p>
+<p>完成后<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">cd</span> folder</span></div><div class="line"><span class="meta">$</span><span class="bash"> npm install  //在当前目录下安装hexo核心文件</span></div></pre></td></tr></table></figure></p>
+<p>这样就安装完成了。这时候可以看到<code>floder</code>文件夹下具有这些子目录<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="string">.</span></div><div class="line"><span class="string">├──</span> <span class="string">_config.yml</span>   <span class="string">站点配置文件</span></div><div class="line"><span class="string">├──</span> <span class="string">package.json</span></div><div class="line"><span class="string">├──</span> <span class="string">scaffolds</span>    <span class="string">存放模板的地方</span></div><div class="line"><span class="string">├──</span> <span class="string">source</span>       <span class="string">原文件夹，存放网站内容</span></div><div class="line"><span class="string">|   ├── _drafts  存放临时草稿文件的地方</span></div><div class="line">|   └── _posts   已经发布的文章</div><div class="line">└── themes       主题文件夹</div></pre></td></tr></table></figure></p>
+<p><code>source</code>中带有前缀_(下划线)的文件夹，在<code>generate</code>的时候会渲染到<code>public</code>目录中，其他的文件夹和文件仅仅被简单地复制到<code>public</code>中。</p>
 <p>在<code>floder</code>目录下，有一个<code>_config.yml</code>，这个文件是整个网站的核心配置文件，由于后面主题文件夹中也有一个同名的配置文件，为了区分，网站的核心配置文件就叫做<code>站点配置文件</code>，主题中的叫做<code>主题配置文件</code>。</p>
-<p>打开<code>站点配置文件</code>,可以看到<code>Site</code>标签，这是我的配置。</p>
-<pre><code># Site
-title: SimpleLifee  #网站标题
-subtitle: code, mylife   #网站副标题
-description: start from zero     #网站描述
-author: Nimon        #你的名字
-language: zh-Hans    #语言，
-timezone: Asia/Shanghai  #时区
-</code></pre><p>还有<code>Deployment</code>标签，与Github Pages进行关联</p>
-<pre><code># Deployment
-## Docs: https://hexo.io/docs/deployment.html
-deploy:
-  type: git
-  repo: git@github.com:SimpleLifee/SimpleLifee.github.io.git 
-  branch: master
-</code></pre><p>其中<code>type</code>必须填git，<code>repo</code>填写你在git上创建的库的<code>ssh</code>地址，或者<code>https</code>地址。<code>注意</code>如果是https的那么以后每次<code>deploy</code>的时候都要求你输入用户名和密码,如果改成<code>ssh</code>并且你没有给你的id_rsa设置密码（空密码也一样）的话，就不用每次都输入密码了。</p>
-<pre><code>ssh-keygen -p -f /root/.ssh/id_dsa -N &apos;&apos; 
-</code></pre><p>如果你之前设置了密码，那么使用这条命令就可以更改你的私钥的密码了。参考<a href="https://superuser.com/questions/508408/public-key-always-asking-for-password-and-keyphrase" target="_blank" rel="external">superuser</a></p>
-<h2 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h2><h3 id="写作"><a href="#写作" class="headerlink" title="写作"></a>写作</h3><pre><code>hexo new [layout] &lt;title&gt;  
-</code></pre><p>创建一个新文章，<code>layout</code>可以有三个参数<code>post</code>、<code>page</code>、<code>draft</code>, hexo 会在 <code>Scaffold</code> 文件夹下寻找你写的 <code>layout.md</code> 文件模板来建立文件。如果 <code>title</code> 包含空格，请用引号括起来。</p>
-<h4 id="文件名称"><a href="#文件名称" class="headerlink" title="文件名称"></a>文件名称</h4><p>在站点配置文件中<code>Writing</code> 标签下添加</p>
-<pre><code>new_post_name: :year-:month-:day-:title.md
-</code></pre><p>其中 <code>:month</code> 和 <code>:i_month</code> 的区别在于 前者有前导零 （比如 <code>04</code> ）</p>
-<h4 id="草稿"><a href="#草稿" class="headerlink" title="草稿"></a>草稿</h4><p>如果创建新文章的时候，指定了 <code>draft</code> 参数，那么就是保存到 <code>source/_drafts</code> 文件夹中，可以使用下面的语句，将草稿移动到 <code>source/_posts</code>文件中。</p>
-<pre><code>hexo publish [layout] &lt;filename&gt;
-</code></pre><p>发布草稿变成正式文章。一般<code>filename</code>写你的草稿文件的名字，<code>layout</code>写<code>post</code></p>
-<h4 id="模版（Scaffold）"><a href="#模版（Scaffold）" class="headerlink" title="模版（Scaffold）"></a>模版（Scaffold）</h4><p>在新建文章时，Hexo 会根据 scaffolds 文件夹内相对应的文件来建立文件，例如：</p>
-<pre><code>hexo new photo &quot;My Gallery&quot;
-</code></pre><p>在执行这行指令时，Hexo 会尝试在 scaffolds 文件夹中寻找 photo.md，并根据其内容建立文章</p>
+<p>打开<code>站点配置文件</code>,可以看到<code>Site</code>标签，这是我的配置。<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># Site</span></div><div class="line"><span class="attr">title:</span> <span class="string">SimpleLifee</span>  <span class="comment">#网站标题</span></div><div class="line"><span class="attr">subtitle:</span> <span class="string">code,</span> <span class="string">mylife</span>   <span class="comment">#网站副标题</span></div><div class="line"><span class="attr">description:</span> <span class="string">start</span> <span class="string">from</span> <span class="string">zero</span>     <span class="comment">#网站描述</span></div><div class="line"><span class="attr">author:</span> <span class="string">Nimon</span>        <span class="comment">#你的名字</span></div><div class="line"><span class="attr">language:</span> <span class="string">zh-Hans</span>    <span class="comment">#语言，</span></div><div class="line"><span class="attr">timezone:</span> <span class="string">Asia/Shanghai</span>  <span class="comment">#时区</span></div></pre></td></tr></table></figure></p>
+<p>还有<code>Deployment</code>标签，与Github Pages进行关联<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># Deployment</span></div><div class="line"><span class="comment">## Docs: https://hexo.io/docs/deployment.html</span></div><div class="line"><span class="attr">deploy:</span></div><div class="line">	 <span class="attr">type:</span> <span class="string">git</span></div><div class="line">	 <span class="attr">repo:</span> <span class="string">git@github.com:SimpleLifee/SimpleLifee.github.io.git</span> </div><div class="line">	 <span class="attr">branch:</span> <span class="string">master</span></div></pre></td></tr></table></figure></p>
+<p>其中<code>type</code>必须填git，<code>repo</code>填写你在git上创建的库的<code>ssh</code>地址，或者<code>https</code>地址。<code>注意</code>如果是https的那么以后每次<code>deploy</code>的时候都要求你输入用户名和密码,如果改成<code>ssh</code>并且你没有给你的id_rsa设置密码（空密码也一样）的话，就不用每次都输入密码了。<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> ssh-keygen -p <span class="_">-f</span> /root/.ssh/id_dsa -N <span class="string">''</span></span></div></pre></td></tr></table></figure></p>
+<p>如果你之前设置了密码，那么使用这条命令就可以更改你的私钥的密码了。参考<a href="https://superuser.com/questions/508408/public-key-always-asking-for-password-and-keyphrase" target="_blank" rel="external">superuser</a></p>
+<h2 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h2><h3 id="写作"><a href="#写作" class="headerlink" title="写作"></a>写作</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> hexo new [layout] &lt;title&gt;</span></div></pre></td></tr></table></figure>
+<p>创建一个新文章，<code>layout</code>可以有三个参数<code>post</code>、<code>page</code>、<code>draft</code>, hexo 会在 <code>Scaffold</code> 文件夹下寻找你写的 <code>layout.md</code> 文件模板来建立文件。如果 <code>title</code> 包含空格，请用引号括起来。</p>
+<h4 id="文件名称"><a href="#文件名称" class="headerlink" title="文件名称"></a>文件名称</h4><p>在站点配置文件中<code>Writing</code> 标签下添加<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attr">new_post_name:</span> <span class="string">:year-:month-:day-:title.md</span></div></pre></td></tr></table></figure></p>
+<p>其中 <code>:month</code> 和 <code>:i_month</code> 的区别在于 前者有前导零 （比如 <code>04</code> ）</p>
+<h4 id="草稿"><a href="#草稿" class="headerlink" title="草稿"></a>草稿</h4><p>如果创建新文章的时候，指定了 <code>draft</code> 参数，那么就是保存到 <code>source/_drafts</code> 文件夹中，可以使用下面的语句，将草稿移动到 <code>source/_posts</code>文件中。<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> hexo publish [layout] &lt;filename&gt;</span></div></pre></td></tr></table></figure></p>
+<p>发布草稿变成正式文章。一般<code>filename</code>写你的草稿文件的名字，<code>layout</code>写<code>post</code></p>
+<h4 id="模版（Scaffold）"><a href="#模版（Scaffold）" class="headerlink" title="模版（Scaffold）"></a>模版（Scaffold）</h4><p>在新建文章时，Hexo 会根据 scaffolds 文件夹内相对应的文件来建立文件，例如：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> hexo new photo <span class="string">"My Gallery"</span></span></div></pre></td></tr></table></figure></p>
+<p>在执行这行指令时，Hexo 会尝试在 scaffolds 文件夹中寻找 photo.md，并根据其内容建立文章</p>
 <table>
 <thead>
 <tr>
@@ -567,20 +547,12 @@ deploy:
 </tr>
 </tbody>
 </table>
-{% pullquote %} 
-不要处理我的文章  
-
-可以在Front-Matter 中的layout: 设为 false。
-{% endpullquote %}
-<h3 id="Front-matter"><a href="#Front-matter" class="headerlink" title="Front-matter"></a>Front-matter</h3><p>Front-matter 是文件最上方以 — 分隔的区域，用于指定个别文件的变量，例如</p>
-<pre><code>title: Hello World
-date: 2017/5/1 20:46:25
----
-</code></pre><p>也可以使用JSON 格式，只需要把 — 换成 ;;;</p>
-<pre><code>&quot;title&quot;: &quot;Hello World&quot;,
-&quot;date&quot;: &quot;2017/5/1 20:46:25&quot;
-;;;
-</code></pre><p>Front-matter的参数列表</p>
+<blockquote>
+<p>不要处理我的文章<br>可以在Front-Matter 中的layout: 设为 false。</p>
+</blockquote>
+<h3 id="Front-matter"><a href="#Front-matter" class="headerlink" title="Front-matter"></a>Front-matter</h3><p>Front-matter 是文件最上方以 — 分隔的区域，用于指定个别文件的变量，例如<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="attr">title:</span> <span class="string">Hello</span> <span class="string">World</span></div><div class="line"><span class="attr">date:</span> <span class="number">2017</span><span class="string">/5/1</span> <span class="number">20</span><span class="string">:46:25</span></div><div class="line"><span class="meta">---</span></div></pre></td></tr></table></figure></p>
+<p>也可以使用JSON 格式，只需要把 — 换成 ;;;<br><figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="string">"title"</span>: <span class="string">"Hello World"</span>,</div><div class="line"><span class="string">"date"</span>: <span class="string">"2017/5/1 20:46:25"</span></div><div class="line"><span class="comment">;;;</span></div></pre></td></tr></table></figure></p>
+<p>Front-matter的参数列表</p>
 <table>
 <thead>
 <tr>
@@ -636,96 +608,56 @@ date: 2017/5/1 20:46:25
 </tr>
 </tbody>
 </table>
-<h4 id="分类和标签"><a href="#分类和标签" class="headerlink" title="分类和标签"></a>分类和标签</h4><pre><code>tags:
-- List
-- Dictionary
-- ArraryList
-- hashtable
-- Stack
-- Queue
-</code></pre><p>或者</p>
-<pre><code>tags:
- [Python, Javascript, Hexo]
-</code></pre><h4 id="引用块（Block-Quote）"><a href="#引用块（Block-Quote）" class="headerlink" title="引用块（Block Quote）"></a>引用块（Block Quote）</h4><p>模板如下</p>
-<pre><code>{% blockquote [author[, source]] [link] [source_link_title] %}
-content
-{% endblockquote %}
-</code></pre><p>例如</p>
-<pre><code>{% blockquote stormzhang %}
-今天，是你未来所有剩余的日子中，最早的一天
-{% endblockquote %}
-</code></pre><blockquote><p>今天，是你未来所有剩余的日子中，最早的一天</p>
+<h4 id="分类和标签"><a href="#分类和标签" class="headerlink" title="分类和标签"></a>分类和标签</h4><figure class="highlight yaml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="attr">tags:</span></div><div class="line"><span class="bullet">  -</span> <span class="string">List</span></div><div class="line"><span class="bullet">  -</span> <span class="string">Dictionary</span></div><div class="line"><span class="bullet">  -</span> <span class="string">ArraryList</span></div><div class="line"><span class="bullet">  -</span> <span class="string">hashtable</span></div><div class="line"><span class="bullet">  -</span> <span class="string">Stack</span></div><div class="line"><span class="bullet">  -</span> <span class="string">Queue</span></div></pre></td></tr></table></figure>
+<p>或者<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="attr">tags:</span></div><div class="line"><span class="string">[Python,</span> <span class="string">Javascript,</span> <span class="string">Hexo]</span></div></pre></td></tr></table></figure></p>
+<h4 id="引用块（Block-Quote）"><a href="#引用块（Block-Quote）" class="headerlink" title="引用块（Block Quote）"></a>引用块（Block Quote）</h4><p>模板如下<br><figure class="highlight twig"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="xml"></span><span class="template-tag">&#123;% <span class="name">blockquote</span> [author[, <span class="name">source</span>]] [link] [source_link_title] %&#125;</span><span class="xml"></span></div><div class="line">content</div><div class="line"><span class="template-tag">&#123;% <span class="name">endblockquote</span> %&#125;</span><span class="xml"></span></div></pre></td></tr></table></figure></p>
+<p>例如<br><figure class="highlight django"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="xml"></span><span class="template-tag">&#123;% <span class="name">blockquote</span> stormzhang %&#125;</span><span class="xml"></span></div><div class="line">今天，是你未来所有剩余的日子中，最早的一天</div><div class="line"><span class="template-tag">&#123;% <span class="name">endblockquote</span> %&#125;</span><span class="xml"></span></div></pre></td></tr></table></figure></p>
+<blockquote><p>今天，是你未来所有剩余的日子中，最早的一天</p>
 <footer><strong>stormzhang</strong></footer></blockquote>
-<h4 id="代码块（Code-Block）"><a href="#代码块（Code-Block）" class="headerlink" title="代码块（Code Block）"></a>代码块（Code Block）</h4><p>模板如下</p>
-<pre><code>{% codeblock [title] [lang:language] [url] [link text]%}
-code snippet
-{% endcodeblock %}
-</code></pre><p>例如：</p>
-<pre><code>{% codeblock  main.java lang:java  http://www.runoob.com/java/java-tutorial.html Java%}
-public static void main(String []args){
-}
-{% endcodeblock  %}
-</code></pre><figure class="highlight java"><figcaption><span>main.java</span><a href="http://www.runoob.com/java/java-tutorial.html" target="_blank" rel="external">Java</a></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String []args)</span></span>&#123;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h4 id="醒目引文（Pull-Quote）"><a href="#醒目引文（Pull-Quote）" class="headerlink" title="醒目引文（Pull Quote）"></a>醒目引文（Pull Quote）</h4><pre><code>{% pullquote [class] %}
-something important
-{% endpullquote %}
-</code></pre><p>如下</p>
+<h4 id="代码块（Code-Block）"><a href="#代码块（Code-Block）" class="headerlink" title="代码块（Code Block）"></a>代码块（Code Block）</h4><p>模板如下<br><figure class="highlight accesslog"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&#123;% codeblock <span class="string">[title]</span> <span class="string">[lang:language]</span> <span class="string">[url]</span> <span class="string">[link text]</span>%&#125;</div><div class="line">code snippet</div><div class="line">&#123;% endcodeblock %&#125;</div></pre></td></tr></table></figure></p>
+<p>例如：<br><figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&#123;% codeblock  main.java <span class="string">lang:</span>java  <span class="string">http:</span><span class="comment">//www.runoob.com/java/java-tutorial.html Java%&#125;</span></div><div class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> main(String []args)&#123;</div><div class="line">&#125;</div><div class="line">&#123;% endcodeblock  %&#125;</div></pre></td></tr></table></figure></p>
+<figure class="highlight java"><figcaption><span>main.java</span><a href="http://www.runoob.com/java/java-tutorial.html" target="_blank" rel="external">Java</a></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String []args)</span></span>&#123;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="醒目引文（Pull-Quote）"><a href="#醒目引文（Pull-Quote）" class="headerlink" title="醒目引文（Pull Quote）"></a>醒目引文（Pull Quote）</h4><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&#123;% pullquote [class] %&#125;</div><div class="line">something important</div><div class="line">&#123;% endpullquote %&#125;</div></pre></td></tr></table></figure>
+<p>如下</p>
 <blockquote class="pullquote [class]"><p>something important</p>
 </blockquote>
-<h4 id="Image"><a href="#Image" class="headerlink" title="Image"></a>Image</h4><p>有两种方式，一种是markdown格式的</p>
-<pre><code>![](/images/avatar.jpg)
-</code></pre><p>另一种是hexo支持的格式</p>
-<pre><code>{% img [class names] /path/to/image [width] [height][title text [alt text]] %}
-</code></pre><h4 id="Link"><a href="#Link" class="headerlink" title="Link"></a>Link</h4><p>在文章中插入链接，并自动给外部链接添加 target=”_blank” 属性。</p>
+<h4 id="图片（Image）"><a href="#图片（Image）" class="headerlink" title="图片（Image）"></a>图片（Image）</h4><p>有两种方式，一种是markdown格式的<br><figure class="highlight less"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">!<span class="selector-attr">[]</span>(/images/avatar.jpg)</div></pre></td></tr></table></figure></p>
+<p>另一种是hexo支持的格式</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&#123;% img [<span class="string">class names</span>] /path/to/image [<span class="string">width</span>] [<span class="string">height</span>][<span class="symbol">title text [alt text</span>]] %&#125;</div></pre></td></tr></table></figure>
+<h4 id="链接（Link）"><a href="#链接（Link）" class="headerlink" title="链接（Link）"></a>链接（Link）</h4><p>在文章中插入链接，并自动给外部链接添加 target=”_blank” 属性。</p>
 <pre><code>{% link text url [external] [title] %}
 
 {% link 谷歌 http://www.google.com google %}
-</code></pre><p>如下<a href="http://www.google.com" title="google" target="_blank" rel="external">谷歌</a></p>
-<h4 id="Include-Code"><a href="#Include-Code" class="headerlink" title="Include Code"></a>Include Code</h4><blockquote></blockquote>
-<p>​    </p>
-<h4 id="更多"><a href="#更多" class="headerlink" title="更多"></a>更多</h4><p>hexo支持的还有很多，如<br><strong>jsFiddle</strong>、<strong>Gist</strong>、<strong>iframe</strong>、<strong>Youtube</strong>、<strong>Vimeo</strong>等等，有需要的建议自行查阅<a href="https://hexo.io/zh-cn/docs/tag-plugins.html" target="_blank" rel="external">官方文档</a></p>
+</code></pre><p>如<a href="http://www.google.com" title="google" target="_blank" rel="external">谷歌</a></p>
+<h4 id="外部引用（Include-Code）"><a href="#外部引用（Include-Code）" class="headerlink" title="外部引用（Include Code）"></a>外部引用（Include Code）</h4><p>可以引入其他文件中的代码，例如下面语句<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&#123;% include_code [<span class="string">title</span>][<span class="symbol">lang:language</span>] path/to/file %&#125;</div></pre></td></tr></table></figure></p>
+<blockquote>
+<p>hexo支持的语法还有很多，如<br><strong>jsFiddle</strong>、<strong>Gist</strong>、<strong>iframe</strong>、<strong>Youtube</strong>、<strong>Vimeo</strong>等等，有需要的建议自行查阅<a href="https://hexo.io/zh-cn/docs/tag-plugins.html" target="_blank" rel="external">官方文档</a></p>
+</blockquote>
 <h3 id="服务器"><a href="#服务器" class="headerlink" title="服务器"></a>服务器</h3><h4 id="安装与使用"><a href="#安装与使用" class="headerlink" title="安装与使用"></a>安装与使用</h4><p>要使用hexo的服务器，首先要安装</p>
 <blockquote><p>npm install hexo-server –save</p>
 </blockquote>
 <p>安装完成后，默认在 <a href="http://localhost:4000" target="_blank" rel="external">http://localhost:4000</a> 下启动。在服务器启动期间，Hexo 会监视文件变动并自动更新，无须重启服务器。</p>
-<p>​    </p>
-<blockquote><p>hexo server -p 5000 //启动服务器， 可以简写 hexo s</p>
+<blockquote>
+<p> $ hexo server -p 5000 //启动服务器， 可以简写 hexo s</p>
 </blockquote>
 <p>参数 <code>-p</code> 覆盖默认端口，参数 <code>-w</code> 查看文件改动<br>看到下面的信息，说明已经成功，可以查看你的博客了。<br><img src="http://i.imgur.com/qqg116z.png" alt=""></p>
 <h4 id="静态模式"><a href="#静态模式" class="headerlink" title="静态模式"></a>静态模式</h4><p>在静态模式下，服务器只处理 public 文件夹内的文件，而不会处理文件变动，一般性用于你正在写博客的情况下。</p>
-{% blockquote %}
-hexo server -s
-{% endblockquote %}
-{% blockquote  %}
-hexo server -p 5000 //启动服务器， 可以简写 hexo s
-{% endblockquote %}
-<h3 id="生成文件-Generating"><a href="#生成文件-Generating" class="headerlink" title="生成文件(Generating)"></a>生成文件(Generating)</h3>{% blockquote %}
-hexo generate 6546484984
-{% endblockquote %}
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> hexo server <span class="_">-s</span></span></div></pre></td></tr></table></figure>
+<h3 id="生成文件-Generating"><a href="#生成文件-Generating" class="headerlink" title="生成文件(Generating)"></a>生成文件(Generating)</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> hexo generate</span></div></pre></td></tr></table></figure>
 <p>生成静态文件，参数 <code>-d</code> 生成完成后部署，参数 <code>-w</code> 查看文件改动，下面两种写法都一样</p>
-{% blockquote  %}
-hexo g -d
-hexo d -g
-{% endblockquote %}
-<h4 id="监视文件变动"><a href="#监视文件变动" class="headerlink" title="监视文件变动"></a>监视文件变动</h4>{% blockquote %}
-	hexo generate --watch
-
-{% endblockquote %}
-{% blockquote %}
-hexo generate --watch
-
-{% endblockquote %}
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> hexo g <span class="_">-d</span></span></div><div class="line"><span class="meta">$</span><span class="bash"> hexo d -g</span></div></pre></td></tr></table></figure>
+<h4 id="监视文件变动"><a href="#监视文件变动" class="headerlink" title="监视文件变动"></a>监视文件变动</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> hexo generate --watch</span></div></pre></td></tr></table></figure>
 <p>Hexo 能够监视文件变动并立即重新生成静态文件，在生成时会比对文件的 SHA1 checksum，只有变动的文件才会写入。</p>
-<h3 id="部署（Deployment）"><a href="#部署（Deployment）" class="headerlink" title="部署（Deployment）"></a>部署（Deployment）</h3>{% blockquote  %}
-hexo deploy
-{% endblockquote %}
+<h3 id="部署（Deployment）"><a href="#部署（Deployment）" class="headerlink" title="部署（Deployment）"></a>部署（Deployment）</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> hexo deploy</span></div></pre></td></tr></table></figure>
 <p>部署你的网站，在使用之前，需要在<code>站点配置文件</code> 进行配置。可以有多个deployer</p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="attr">deploy:</span></div><div class="line"><span class="attr">- type:</span> <span class="string">git</span></div><div class="line"><span class="attr">  repo:</span></div><div class="line"><span class="attr">- type:</span> <span class="string">heroku</span>    </div><div class="line"><span class="attr">  repo:</span></div></pre></td></tr></table></figure>
-<blockquote><p>缩进<br>YAML依靠缩进来确定元素间的从属关系。因此，请确保每个deployer的缩进长度相同，并且使用空格缩进。</p>
+<blockquote>
+<p>缩进</p>
+<p>YAML依靠缩进来确定元素间的从属关系。因此，请确保每个deployer的缩进长度相同，并且使用空格缩进。</p>
 </blockquote>
 <h4 id="Git"><a href="#Git" class="headerlink" title="Git"></a>Git</h4><p>部署提示找不到Git , 直接使用这个命令从 <a href="https://github.com/hexojs/hexo-deployer-git" target="_blank" rel="external">hexo-deployer-git</a> 上安装git的部署插件</p>
-<pre><code>npm install hexo-deployer-git --save
-</code></pre><p>修改配置。<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="attr">deploy:</span></div><div class="line"><span class="attr">type:</span> <span class="string">git</span></div><div class="line"><span class="attr">repo:</span> <span class="string">&lt;repository</span> <span class="string">url&gt;</span>  </div><div class="line"><span class="attr">branch:</span> <span class="string">[branch]</span>  </div><div class="line"><span class="attr">message:</span> <span class="string">[message]</span></div></pre></td></tr></table></figure><br>​    </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> npm install hexo-deployer-git --save</span></div></pre></td></tr></table></figure>
+<p>修改配置。<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="attr">deploy:</span></div><div class="line"><span class="attr">type:</span> <span class="string">git</span></div><div class="line"><span class="attr">repo:</span> <span class="string">&lt;repository</span> <span class="string">url&gt;</span>  </div><div class="line"><span class="attr">branch:</span> <span class="string">[branch]</span>  </div><div class="line"><span class="attr">message:</span> <span class="string">[message]</span></div></pre></td></tr></table></figure><br>​    </p>
 <table>
 <thead>
 <tr>
@@ -759,36 +691,24 @@ hexo --config custom.yml，custom2.json
 <p>自动更新文件<br>hexo g     //也可以这样写hexo generate<br>部署到git<br>hexo d<br>一般可以这样简写，就是说在部署到git之前，先进行更新<br>hexo d -g</p>
 <p>这时候万一遇到这个错误<br>ERROR Deployer not found: git<br>试试<br>npm install hexo-deployer-git –save<br>npm install hexo –save</p>
 <p>可以查看hexo的版本<br>hexo -v</p>
-<p>安装NexT</p>
+<p>#NexT</p>
 <p>如果你熟悉 Git， 建议你使用 克隆最新版本 的方式，之后的更新可以通过 git pull 来快速更新， 而不用再次下载压缩包替换。</p>
-<p>下载主题</p>
-<p>cd your-hexo-site<br>git clone <a href="https://github.com/iissnan/hexo-theme-next" target="_blank" rel="external">https://github.com/iissnan/hexo-theme-next</a> themes/next</p>
 <ol>
-<li>启用主题<br>与所有 Hexo 主题启用的模式一样。 当 克隆/下载 完成后，打开 站点配置文件， 找到 theme 字段，并将其值更改为 next。<br>启用 NexT 主题<br>theme: next<br>到此，NexT 主题安装完成。下一步我们将验证主题是否正确启用。在切换主题之后、验证之前， 我们最好使用 hexo clean 来清除 Hexo 的缓存。</li>
+<li>下载主题</li>
 </ol>
-<p>添加插件添加sitemap和feed插件<br>切换到你本地的hexo 目录CIA，在命令行窗口，属兔以下命令<br>npm install hexo-generator-feed -save<br>npm install hexo-generator-sitemap -save</p>
-<p>修改_config.yml，增加以下内容</p>
-<h1 id="ExtensionsPlugins"><a href="#ExtensionsPlugins" class="headerlink" title="ExtensionsPlugins:"></a>ExtensionsPlugins:</h1><ul>
-<li>hexo-generator-feed</li>
-<li>hexo-generator-sitemap<br>#Feed Atomfeed:<br>type: atom<br>path: atom.xml<br>limit: 20#sitemapsitemap:<br>path: sitemap.xml</li>
-</ul>
-<p>再执行以下命令，部署服务端<br>hexo d -g</p>
-<p>配完之后，就可以访问 <a href="https://gdutxiaoxu.github.io/atom.xml" target="_blank" rel="external">https://gdutxiaoxu.github.io/atom.xml</a> 和 <a href="https://gdutxiaoxu.github.io/sitemap.xml" target="_blank" rel="external">https://gdutxiaoxu.github.io/sitemap.xml</a> ，发现这两个文件已经成功生成了。</p>
-<p>踩坑提醒</p>
-<p>1.FATAL Cannot read property ‘replace’ of null hexo错误<br>原因是删除了站点配置文件中的 url后面的地址。</p>
-<p>2.如果出现</p>
-<pre><code>warning: LF will be replaced by CRLF in 2017/04/28/firstBlog/index.html.
-The file will have its original line endings in your working directory.
-</code></pre><p>原因分析：</p>
-<p>CRLF – Carriage-Return Line-Feed 回车换行，回车(CR, ASCII 13, \r) 换行(LF, ASCII 10, \n)</p>
-<pre><code>git config --gobal core.autocrlf false  
-</code></pre><p>就可以解决这个问题了</p>
-<p><a href="https://github.com/nihgwu/hexo-hey" target="_blank" rel="external">https://github.com/nihgwu/hexo-hey</a></p>
-<p>如果更新了css文件，那么需要把public的css文件删除，然后<br>$ hexo deploy –generate</p>
+<p>​<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">cd</span> your-hexo-site</span></div><div class="line"><span class="meta">$</span><span class="bash"> git <span class="built_in">clone</span> https://github.com/iissnan/hexo-theme-next themes/next</span></div></pre></td></tr></table></figure></p>
+<ol>
+<li><p>启用主题<br>与所有 Hexo 主题启用的模式一样。 当 克隆/下载 完成后，打开 <code>站点配置文件</code>， 找到<code>theme</code>字段，并将其值更改为<code>next</code>。</p>
+<figure class="highlight autoit"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">theme: <span class="keyword">next</span></div></pre></td></tr></table></figure>
+<p>到此，NexT 主题安装完成。下一步我们将验证主题是否正确启用。在切换主题之后、验证之前， 我们最好使用 <code>$ hexo clean</code> 来清除 Hexo 的缓存。</p>
+</li>
+</ol>
 <h3 id="一些好用的插件"><a href="#一些好用的插件" class="headerlink" title="一些好用的插件"></a>一些好用的插件</h3><blockquote><p>hexo可视化后台管理，很方便 - <a href="https://github.com/nihgwu/hexo-hey" target="_blank" rel="external">hexo-hey</a><br>在 hexo 中无痛使用本地图片 - <a href="https://github.com/CodeFalling/hexo-asset-image" target="_blank" rel="external">hexo-asset-image</a><br>备份整个博客包括主题 - <a href="https://github.com/coneycode/hexo-git-backup" target="_blank" rel="external">hexo-git-backup</a></p>
 </blockquote>
 <h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><blockquote><p>网易云音乐 - <a href="http://weqeo.com/2016/10/11/Hexo中播放网易云音乐的实践" target="_blank" rel="external">Hexo中播放网易云音乐的实践</a><br>网易云音乐 - <a href="https://github.com/blog/273-github-ribbons" target="_blank" rel="external">GitHub Ribbons</a><br>字数统计WordCount 、阅读时长预计Min2Read、总字数统计TotalCount - <a href="https://github.com/willin/hexo-wordcount" target="_blank" rel="external">hexo-wordcount</a>  </p>
 </blockquote>
+<p>```</p>
+
       
     </div>
 
@@ -1073,7 +993,7 @@ The file will have its original line endings in your working directory.
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#背景"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Hexo"><span class="nav-number">1.1.</span> <span class="nav-text">Hexo</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是Hexo"><span class="nav-number">1.1.1.</span> <span class="nav-text">什么是Hexo</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#第一步"><span class="nav-number">1.1.1.1.</span> <span class="nav-text">第一步</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第二步"><span class="nav-number">1.1.1.2.</span> <span class="nav-text">第二步</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#命令"><span class="nav-number">1.2.</span> <span class="nav-text">命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#写作"><span class="nav-number">1.2.1.</span> <span class="nav-text">写作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#文件名称"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">文件名称</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#草稿"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">草稿</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#模版（Scaffold）"><span class="nav-number">1.2.1.3.</span> <span class="nav-text">模版（Scaffold）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#布局（Layout）"><span class="nav-number">1.2.2.</span> <span class="nav-text">布局（Layout）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Front-matter"><span class="nav-number">1.2.3.</span> <span class="nav-text">Front-matter</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#分类和标签"><span class="nav-number">1.2.3.1.</span> <span class="nav-text">分类和标签</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#引用块（Block-Quote）"><span class="nav-number">1.2.3.2.</span> <span class="nav-text">引用块（Block Quote）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#代码块（Code-Block）"><span class="nav-number">1.2.3.3.</span> <span class="nav-text">代码块（Code Block）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#醒目引文（Pull-Quote）"><span class="nav-number">1.2.3.4.</span> <span class="nav-text">醒目引文（Pull Quote）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Image"><span class="nav-number">1.2.3.5.</span> <span class="nav-text">Image</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Link"><span class="nav-number">1.2.3.6.</span> <span class="nav-text">Link</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Include-Code"><span class="nav-number">1.2.3.7.</span> <span class="nav-text">Include Code</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#更多"><span class="nav-number">1.2.3.8.</span> <span class="nav-text">更多</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#服务器"><span class="nav-number">1.2.4.</span> <span class="nav-text">服务器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#安装与使用"><span class="nav-number">1.2.4.1.</span> <span class="nav-text">安装与使用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#静态模式"><span class="nav-number">1.2.4.2.</span> <span class="nav-text">静态模式</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#生成文件-Generating"><span class="nav-number">1.2.5.</span> <span class="nav-text">生成文件(Generating)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#监视文件变动"><span class="nav-number">1.2.5.1.</span> <span class="nav-text">监视文件变动</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#部署（Deployment）"><span class="nav-number">1.2.6.</span> <span class="nav-text">部署（Deployment）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Git"><span class="nav-number">1.2.6.1.</span> <span class="nav-text">Git</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#其他"><span class="nav-number">1.2.6.2.</span> <span class="nav-text">其他</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ExtensionsPlugins"><span class="nav-number">2.</span> <span class="nav-text">ExtensionsPlugins:</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#一些好用的插件"><span class="nav-number">2.0.1.</span> <span class="nav-text">一些好用的插件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考"><span class="nav-number">2.0.2.</span> <span class="nav-text">参考</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#背景"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Hexo"><span class="nav-number">1.1.</span> <span class="nav-text">Hexo</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是Hexo"><span class="nav-number">1.1.1.</span> <span class="nav-text">什么是Hexo</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装要求"><span class="nav-number">1.1.2.</span> <span class="nav-text">安装要求</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#第一步"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">第一步</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第二步"><span class="nav-number">1.1.2.2.</span> <span class="nav-text">第二步</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#命令"><span class="nav-number">1.2.</span> <span class="nav-text">命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#写作"><span class="nav-number">1.2.1.</span> <span class="nav-text">写作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#文件名称"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">文件名称</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#草稿"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">草稿</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#模版（Scaffold）"><span class="nav-number">1.2.1.3.</span> <span class="nav-text">模版（Scaffold）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#布局（Layout）"><span class="nav-number">1.2.2.</span> <span class="nav-text">布局（Layout）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Front-matter"><span class="nav-number">1.2.3.</span> <span class="nav-text">Front-matter</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#分类和标签"><span class="nav-number">1.2.3.1.</span> <span class="nav-text">分类和标签</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#引用块（Block-Quote）"><span class="nav-number">1.2.3.2.</span> <span class="nav-text">引用块（Block Quote）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#代码块（Code-Block）"><span class="nav-number">1.2.3.3.</span> <span class="nav-text">代码块（Code Block）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#醒目引文（Pull-Quote）"><span class="nav-number">1.2.3.4.</span> <span class="nav-text">醒目引文（Pull Quote）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#图片（Image）"><span class="nav-number">1.2.3.5.</span> <span class="nav-text">图片（Image）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#链接（Link）"><span class="nav-number">1.2.3.6.</span> <span class="nav-text">链接（Link）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#外部引用（Include-Code）"><span class="nav-number">1.2.3.7.</span> <span class="nav-text">外部引用（Include Code）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#服务器"><span class="nav-number">1.2.4.</span> <span class="nav-text">服务器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#安装与使用"><span class="nav-number">1.2.4.1.</span> <span class="nav-text">安装与使用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#静态模式"><span class="nav-number">1.2.4.2.</span> <span class="nav-text">静态模式</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#生成文件-Generating"><span class="nav-number">1.2.5.</span> <span class="nav-text">生成文件(Generating)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#监视文件变动"><span class="nav-number">1.2.5.1.</span> <span class="nav-text">监视文件变动</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#部署（Deployment）"><span class="nav-number">1.2.6.</span> <span class="nav-text">部署（Deployment）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Git"><span class="nav-number">1.2.6.1.</span> <span class="nav-text">Git</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#其他"><span class="nav-number">1.2.6.2.</span> <span class="nav-text">其他</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一些好用的插件"><span class="nav-number">1.2.7.</span> <span class="nav-text">一些好用的插件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考"><span class="nav-number">1.2.8.</span> <span class="nav-text">参考</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
