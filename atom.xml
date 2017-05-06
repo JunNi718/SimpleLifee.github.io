@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://nijun.me/"/>
-  <updated>2017-05-05T13:56:32.000Z</updated>
+  <updated>2017-05-05T15:51:13.000Z</updated>
   <id>http://nijun.me/</id>
   
   <author>
@@ -16,143 +16,27 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>GitHub</title>
-    <link href="http://nijun.me/2017/05/05/GitHub/2017-05-05-GitHub/"/>
-    <id>http://nijun.me/2017/05/05/GitHub/2017-05-05-GitHub/</id>
-    <published>2017-05-05T13:55:29.000Z</published>
-    <updated>2017-05-05T13:56:32.000Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="如何删除某个分支？"><a href="#如何删除某个分支？" class="headerlink" title="如何删除某个分支？"></a>如何删除某个分支？</h3><p>下载安装git管理工具<br>进入项目根目录（含.git文件夹）使用bash运行git命令</p>
-<blockquote>
-<p>git checkout the_local_branch // 切换到本地分支<br>git branch -d the_local_branch // 删除本地分支的所用记录<br>git branch -D the_local_branch // 上面执行有问题，需要-D强制删除<br>git push origin :the_remote_branch // 删除远程分支<br>至此该分支的所有记录都被完全删除了</p>
-</blockquote>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;如何删除某个分支？&quot;&gt;&lt;a href=&quot;#如何删除某个分支？&quot; class=&quot;headerlink&quot; title=&quot;如何删除某个分支？&quot;&gt;&lt;/a&gt;如何删除某个分支？&lt;/h3&gt;&lt;p&gt;下载安装git管理工具&lt;br&gt;进入项目根目录（含.git文件夹）使用bash运行gi
-    
-    </summary>
-    
-    
-      <category term="git" scheme="http://nijun.me/tags/git/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>spring学习总结</title>
-    <link href="http://nijun.me/2017/05/05/spring%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/2017-05-05-spring%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/"/>
-    <id>http://nijun.me/2017/05/05/spring学习总结/2017-05-05-spring学习总结/</id>
-    <published>2017-05-05T11:13:51.000Z</published>
-    <updated>2017-05-05T11:57:52.000Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="Spring介绍"><a href="#Spring介绍" class="headerlink" title="Spring介绍"></a>Spring介绍</h2><p>Spring 框架是一个分层架构，由 7 个定义良好的模块组成。Spring 模块构建在核心容器之上，核心容器定义了创建、配置和管理 bean 的方式。</p>
-<h2 id="Spring中的事务管理"><a href="#Spring中的事务管理" class="headerlink" title="Spring中的事务管理"></a>Spring中的事务管理</h2><p> Spring 是 SSH 中的指挥员和管理者，它负责管理其他框架，控制着整个网站。Spring 中的事务分为：</p>
-<ul>
-<li>声明式事务  </li>
-<li><p>编程式事务</p>
-<p>其中声明式事务是在配置文件中进行相关的配置，而编程式事务就是用注解的方式写到代码里。配置文件中定义的bean要比注解里定义的加载早，所以有时会出现在启动阶段（listen 和filter ），是找不到bean 的。</p>
-<p>那么到底是选择声明式还是编程式，我们需要有如下的考虑：</p>
-</li>
-</ul>
-<ol>
-<li>如果是类级别并且不会发生变动的配置可以优先考虑注解配置，而对于那些第三方以及容易发生调整的配置就优先考虑XML配置文件方式。</li>
-<li>相比于 @Transaction 事务注解，使用 aop / tx命名空间的事务配置更加灵活和简单。</li>
-<li>注解可以有效减少配置的工作量，提高程序的内聚性。</li>
-<li>在第三方Bean 的配置，以及诸如数据源、缓存池、持久层操作模板类、事务管理等内容的配置上，XML 配置依然拥有不可替代的地位。</li>
-</ol>
-<p> Spring配置文件中关于事务配置总是由三个组成部分，分别是DataSource、TransactionManager 和代理机制这三部分，无论哪种配置方式，一般变化的只是代理机制这部分。DataSource、 TransactionManager 这两部分只是会根据数据访问方式有所变化，比如使用 Hibernate 进行数据访问时，DataSource 实际为 SessionFactory，TransactionManager 的实现为 HibernateTransactionManager。 下面一起看看三种声明式事务的具体配置：</p>
-<pre><code> &lt;!-- 配置SessionFactory,交给spring管理 --&gt;
-&lt;bean id=&quot;sessionFactory&quot; class=&quot;org.springframework.orm.hibernate4.LocalSessionFactoryBean&quot;&gt;
-&lt;property name=&quot;dataSource&quot; ref=&quot;dataSource&quot;&gt;&lt;/property&gt;
-&lt;!-- 引入hibernate配置文件 --&gt;
-&lt;property name=&quot;configLocation&quot; value=&quot;classpath:/hibernate.cfg.xml&quot;&gt;&lt;/property&gt;
-</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;Spring介绍&quot;&gt;&lt;a href=&quot;#Spring介绍&quot; class=&quot;headerlink&quot; title=&quot;Spring介绍&quot;&gt;&lt;/a&gt;Spring介绍&lt;/h2&gt;&lt;p&gt;Spring 框架是一个分层架构，由 7 个定义良好的模块组成。Spring 模块构建在核心
-    
-    </summary>
-    
-    
-      <category term="spring" scheme="http://nijun.me/tags/spring/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>一些mac端好用端插件分享</title>
-    <link href="http://nijun.me/2017/05/05/%E4%B8%80%E4%BA%9Bmac%E7%AB%AF%E5%A5%BD%E7%94%A8%E7%AB%AF%E6%8F%92%E4%BB%B6%E5%88%86%E4%BA%AB/2017-05-05-%E4%B8%80%E4%BA%9Bmac%E7%AB%AF%E5%A5%BD%E7%94%A8%E7%AB%AF%E6%8F%92%E4%BB%B6%E5%88%86%E4%BA%AB/"/>
-    <id>http://nijun.me/2017/05/05/一些mac端好用端插件分享/2017-05-05-一些mac端好用端插件分享/</id>
-    <published>2017-05-05T05:28:27.000Z</published>
-    <updated>2017-05-05T05:33:27.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>#以下是一些插件</p>
-<h2 id="百度云限速？试试Mac神器Aria2"><a href="#百度云限速？试试Mac神器Aria2" class="headerlink" title="百度云限速？试试Mac神器Aria2"></a>百度云限速？试试Mac神器Aria2</h2><p>使用Tampermonkey插件 + “百度网盘直接下载助手”脚本（2017-03-20更新）</p>
-<p>在Chrome上安装Tampermonkey插件。</p>
-<p>安装“百度网盘直接下载助手”脚本。</p>
-<p>会在百度云下载页面原来”下载”按钮旁边多出一个”下载助手”的按钮。</p>
-<p>点击“直接下载”会使用浏览器默认下载器进行下载。点击“显示链接”，可复制链接放入aria2进行下载。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;#以下是一些插件&lt;/p&gt;
-&lt;h2 id=&quot;百度云限速？试试Mac神器Aria2&quot;&gt;&lt;a href=&quot;#百度云限速？试试Mac神器Aria2&quot; class=&quot;headerlink&quot; title=&quot;百度云限速？试试Mac神器Aria2&quot;&gt;&lt;/a&gt;百度云限速？试试Mac神器Ari
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>老司机的踩坑提醒</title>
-    <link href="http://nijun.me/2017/05/04/%E4%B8%80%E4%BA%9Bmac%E7%AB%AF%E5%A5%BD%E7%94%A8%E7%AB%AF%E6%8F%92%E4%BB%B6%E5%88%86%E4%BA%AB/%E8%80%81%E5%8F%B8%E6%9C%BA%E7%9A%84%E8%B8%A9%E5%9D%91%E6%8F%90%E9%86%92/"/>
-    <id>http://nijun.me/2017/05/04/一些mac端好用端插件分享/老司机的踩坑提醒/</id>
-    <published>2017-05-04T12:46:25.000Z</published>
-    <updated>2017-05-05T13:52:50.000Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="以下我是日常工作中所碰到的小问题和解决方案"><a href="#以下我是日常工作中所碰到的小问题和解决方案" class="headerlink" title="以下我是日常工作中所碰到的小问题和解决方案"></a>以下我是日常工作中所碰到的小问题和解决方案</h1><h2 id="第一篇"><a href="#第一篇" class="headerlink" title="第一篇"></a>第一篇</h2><h4 id="1-tomcat报"><a href="#1-tomcat报" class="headerlink" title="1. tomcat报"></a>1. tomcat报</h4><pre><code>Port already in use: xxxx
-</code></pre><p>问题原因：当前有程序占用xxxx端口，需要将它结束进程。<br>​<br>    lsof -i:8087<br>用以显示符合条件的进程情况</p>
-<pre><code>kill *pid*    
-</code></pre><h4 id="2-hexo-s"><a href="#2-hexo-s" class="headerlink" title="2.hexo -s"></a>2.hexo -s</h4><p>如果</p>
-<figure class="highlight subunit"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">ERROR </span>Plugin load failed: hexo-renderer-sass</div></pre></td></tr></table></figure>
-<blockquote>
-<p> npm rebuild node-sass –force</p>
-</blockquote>
-<p>使用上面这句可以解决问题。</p>
-<p>如果</p>
-<figure class="highlight subunit"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">Error: </span>Cannot find module './build/Release/DTraceProviderBindings'</div></pre></td></tr></table></figure>
-<blockquote>
-<p>  npm install hexo –no-optional </p>
-</blockquote>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;以下我是日常工作中所碰到的小问题和解决方案&quot;&gt;&lt;a href=&quot;#以下我是日常工作中所碰到的小问题和解决方案&quot; class=&quot;headerlink&quot; title=&quot;以下我是日常工作中所碰到的小问题和解决方案&quot;&gt;&lt;/a&gt;以下我是日常工作中所碰到的小问题和解决方案&lt;/
-    
-    </summary>
-    
-      <category term="技术" scheme="http://nijun.me/categories/%E6%8A%80%E6%9C%AF/"/>
-    
-    
-      <category term="技术" scheme="http://nijun.me/tags/%E6%8A%80%E6%9C%AF/"/>
-    
-  </entry>
-  
-  <entry>
     <title>自己动手搭建个人博客到优化</title>
-    <link href="http://nijun.me/2017/05/01/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E5%88%B0%E4%BC%98%E5%8C%96/"/>
-    <id>http://nijun.me/2017/05/01/自己动手搭建个人博客到优化/</id>
-    <published>2017-05-01T12:46:25.000Z</published>
-    <updated>2017-05-05T12:16:49.000Z</updated>
+    <link href="http://nijun.me/2017/05/05/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E5%88%B0%E4%BC%98%E5%8C%96/"/>
+    <id>http://nijun.me/2017/05/05/自己动手搭建个人博客到优化/</id>
+    <published>2017-05-05T14:07:56.000Z</published>
+    <updated>2017-05-05T15:51:13.000Z</updated>
     
-    <content type="html"><![CDATA[<p><img src="/2017/05/01/自己动手搭建个人博客到优化/avatar.jpg" class="img-topic"></p>
-<blockquote><p>今天，是你未来所有剩余的日子中，最早的一天</p>
-<footer><strong>stormzhang</strong></footer></blockquote>
-<p><img src="/2017/05/01/自己动手搭建个人博客到优化/avatar.jpg" alt=""></p>
-<h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>我为什么要写这篇文章？是因为大学三年了，感觉学了这么多知识，但是并没有真正地去消化和总结过，最近又看到了<a href="http://www.baidu.com" title="stormzhang" target="_blank" rel="external">stormzhang</a>大神写的这篇<a href="http://stormzhang.com/android/2016/03/04/why-i-keep-writing-blog/" title="stormzhang" target="_blank" rel="external">我为什么坚持写博客？</a>。我真的感触很深，以前花了很多时间学的东西，不久之后便会印象模糊，想要回忆的时候，又不能快速找到。所以我决定从今天开始写博客，总结和梳理自己的知识。</p>
+    <content type="html"><![CDATA[<p><img src="/2017/05/05/自己动手搭建个人博客到优化/avatar.jpg" alt=""></p>
+ <div align="center"><br>  今天，是你未来所有剩余的日子中，最早的一天<br><br></div>
+
+<div align="right">——<strong>stormzhang</strong>      </div>
+
+
+
+
+
+
+
+
+<h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p><br></p>
+<p>我为什么要写这篇文章？是因为大学三年了，感觉学了这么多知识，但是并没有真正地去消化和总结过，最近又看到了<a href="http://www.baidu.com" title="stormzhang" target="_blank" rel="external">stormzhang</a>大神写的这篇<a href="http://stormzhang.com/android/2016/03/04/why-i-keep-writing-blog/" title="stormzhang" target="_blank" rel="external">我为什么坚持写博客？</a>。我真的感触很深，以前花了很多时间学的东西，不久之后便会印象模糊，想要回忆的时候，又不能快速找到。所以我决定从今天开始写博客，总结和梳理自己的知识。</p>
+<a id="more"></a>
 <p>stormzhang在他的文章里推荐了hexo，基于Node框架，可以和Github Pages结合起来搭建个人博客。而且主题样式非常多，可以自己选择搭配的东西很多。当我第一次把博客跑起来的时候，真的惊呆了，没想到个人博客也可以这么轻松的搭建。我用了五一这个假期，自己动手搭建了现在您正看到的这个博客，虽然现在很粗糙，但是我会不断的学习和优化它的。</p>
 <h2 id="Hexo"><a href="#Hexo" class="headerlink" title="Hexo"></a>Hexo</h2><h3 id="什么是Hexo"><a href="#什么是Hexo" class="headerlink" title="什么是Hexo"></a>什么是Hexo</h3><p>Hexo是一个快速，简单和强大的博客框架。可以使用Markdown进行写作，Hexo会在几秒钟内生成具有美丽主题的静态文件。</p>
 <p>###安装要求 ###<br>这里具体的操作步骤可以到<a href="https://hexo.io/" target="_blank" rel="external">hexo官网</a>。</p>
@@ -479,9 +363,20 @@ The file will have its original line endings in your working directory.
     
     <summary type="html">
     
-      &lt;p&gt;&lt;img src=&quot;/2017/05/01/自己动手搭建个人博客到优化/avatar.jpg&quot; class=&quot;img-topic&quot;&gt;&lt;/p&gt;
-&lt;blockquote&gt;&lt;p&gt;今天，是你未来所有剩余的日子中，最早的一天&lt;/p&gt;
-&lt;footer&gt;&lt;strong&gt;stormzhan
+      &lt;p&gt;&lt;img src=&quot;/2017/05/05/自己动手搭建个人博客到优化/avatar.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+ &lt;div align=&quot;center&quot;&gt;&lt;br&gt;  今天，是你未来所有剩余的日子中，最早的一天&lt;br&gt;&lt;br&gt;&lt;/div&gt;
+
+&lt;div align=&quot;right&quot;&gt;——&lt;strong&gt;stormzhang&lt;/strong&gt;      &lt;/div&gt;
+
+
+
+
+
+
+
+
+&lt;h1 id=&quot;背景&quot;&gt;&lt;a href=&quot;#背景&quot; class=&quot;headerlink&quot; title=&quot;背景&quot;&gt;&lt;/a&gt;背景&lt;/h1&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+&lt;p&gt;我为什么要写这篇文章？是因为大学三年了，感觉学了这么多知识，但是并没有真正地去消化和总结过，最近又看到了&lt;a href=&quot;http://www.baidu.com&quot; title=&quot;stormzhang&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;stormzhang&lt;/a&gt;大神写的这篇&lt;a href=&quot;http://stormzhang.com/android/2016/03/04/why-i-keep-writing-blog/&quot; title=&quot;stormzhang&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;我为什么坚持写博客？&lt;/a&gt;。我真的感触很深，以前花了很多时间学的东西，不久之后便会印象模糊，想要回忆的时候，又不能快速找到。所以我决定从今天开始写博客，总结和梳理自己的知识。&lt;/p&gt;
     
     </summary>
     
@@ -493,81 +388,133 @@ The file will have its original line endings in your working directory.
   </entry>
   
   <entry>
-    <title>day04</title>
-    <link href="http://nijun.me/2017/04/30/day04/2017-04-30-day04/"/>
-    <id>http://nijun.me/2017/04/30/day04/2017-04-30-day04/</id>
-    <published>2017-04-30T13:03:48.000Z</published>
-    <updated>2017-04-30T13:05:06.000Z</updated>
+    <title>GitHub</title>
+    <link href="http://nijun.me/2017/05/05/GitHub/"/>
+    <id>http://nijun.me/2017/05/05/GitHub/</id>
+    <published>2017-05-05T13:55:29.000Z</published>
+    <updated>2017-05-05T15:43:19.000Z</updated>
     
-    <content type="html"><![CDATA[<p>你好 </p>
-<p><img src="/2017/04/30/day04/2017-04-30-day04/avatar.jpg" alt="logo"></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;你好 &lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;/2017/04/30/day04/2017-04-30-day04/avatar.jpg&quot; alt=&quot;logo&quot;&gt;&lt;/p&gt;
+    <content type="html"><![CDATA[<p><img src="/2017/05/05/GitHub/github.png" alt=""></p>
+<div align="center"><br><br>GitHub基本操作<br><br></div>
 
-    
-    </summary>
-    
-    
-      <category term="临时" scheme="http://nijun.me/tags/%E4%B8%B4%E6%97%B6/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>day2</title>
-    <link href="http://nijun.me/2017/04/30/day2/"/>
-    <id>http://nijun.me/2017/04/30/day2/</id>
-    <published>2017-04-30T05:16:31.000Z</published>
-    <updated>2017-04-30T05:16:32.000Z</updated>
-    
-    <summary type="html">
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>day1</title>
-    <link href="http://nijun.me/2017/04/30/day1/"/>
-    <id>http://nijun.me/2017/04/30/day1/</id>
-    <published>2017-04-30T05:14:47.000Z</published>
-    <updated>2017-04-30T05:14:48.000Z</updated>
-    
-    <summary type="html">
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>firstBlog</title>
-    <link href="http://nijun.me/2017/04/28/firstBlog/"/>
-    <id>http://nijun.me/2017/04/28/firstBlog/</id>
-    <published>2017-04-28T07:42:58.000Z</published>
-    <updated>2017-05-01T17:01:42.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>你好，欢迎来到我的个人技术博客。</p>
-<p>下载安装git管理工具<br>进入项目根目录（含.git文件夹）使用bash运行git命令</p>
+<a id="more"></a>
+<h3 id="如何删除某个分支？"><a href="#如何删除某个分支？" class="headerlink" title="如何删除某个分支？"></a>如何删除某个分支？</h3><p>下载安装git管理工具<br>进入项目根目录（含.git文件夹）使用bash运行git命令</p>
 <blockquote>
 <p>git checkout the_local_branch // 切换到本地分支<br>git branch -d the_local_branch // 删除本地分支的所用记录<br>git branch -D the_local_branch // 上面执行有问题，需要-D强制删除<br>git push origin :the_remote_branch // 删除远程分支<br>至此该分支的所有记录都被完全删除了</p>
 </blockquote>
-<p>你好</p>
 ]]></content>
     
     <summary type="html">
     
-      &lt;p&gt;你好，欢迎来到我的个人技术博客。&lt;/p&gt;
-&lt;p&gt;下载安装git管理工具&lt;br&gt;进入项目根目录（含.git文件夹）使用bash运行git命令&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;git checkout the_local_branch // 切换到本地分支&lt;br&gt;git
+      &lt;p&gt;&lt;img src=&quot;/2017/05/05/GitHub/github.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;div align=&quot;center&quot;&gt;&lt;br&gt;&lt;br&gt;GitHub基本操作&lt;br&gt;&lt;br&gt;&lt;/div&gt;
     
     </summary>
     
+    
+      <category term="git" scheme="http://nijun.me/tags/git/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>spring学习总结</title>
+    <link href="http://nijun.me/2017/05/05/spring%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/"/>
+    <id>http://nijun.me/2017/05/05/spring学习总结/</id>
+    <published>2017-05-05T11:13:51.000Z</published>
+    <updated>2017-05-05T11:57:52.000Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="Spring介绍"><a href="#Spring介绍" class="headerlink" title="Spring介绍"></a>Spring介绍</h2><p>Spring 框架是一个分层架构，由 7 个定义良好的模块组成。Spring 模块构建在核心容器之上，核心容器定义了创建、配置和管理 bean 的方式。</p>
+<h2 id="Spring中的事务管理"><a href="#Spring中的事务管理" class="headerlink" title="Spring中的事务管理"></a>Spring中的事务管理</h2><p> Spring 是 SSH 中的指挥员和管理者，它负责管理其他框架，控制着整个网站。Spring 中的事务分为：</p>
+<ul>
+<li>声明式事务  </li>
+<li><p>编程式事务</p>
+<p>其中声明式事务是在配置文件中进行相关的配置，而编程式事务就是用注解的方式写到代码里。配置文件中定义的bean要比注解里定义的加载早，所以有时会出现在启动阶段（listen 和filter ），是找不到bean 的。</p>
+<p>那么到底是选择声明式还是编程式，我们需要有如下的考虑：</p>
+</li>
+</ul>
+<ol>
+<li>如果是类级别并且不会发生变动的配置可以优先考虑注解配置，而对于那些第三方以及容易发生调整的配置就优先考虑XML配置文件方式。</li>
+<li>相比于 @Transaction 事务注解，使用 aop / tx命名空间的事务配置更加灵活和简单。</li>
+<li>注解可以有效减少配置的工作量，提高程序的内聚性。</li>
+<li>在第三方Bean 的配置，以及诸如数据源、缓存池、持久层操作模板类、事务管理等内容的配置上，XML 配置依然拥有不可替代的地位。</li>
+</ol>
+<p> Spring配置文件中关于事务配置总是由三个组成部分，分别是DataSource、TransactionManager 和代理机制这三部分，无论哪种配置方式，一般变化的只是代理机制这部分。DataSource、 TransactionManager 这两部分只是会根据数据访问方式有所变化，比如使用 Hibernate 进行数据访问时，DataSource 实际为 SessionFactory，TransactionManager 的实现为 HibernateTransactionManager。 下面一起看看三种声明式事务的具体配置：</p>
+<pre><code> &lt;!-- 配置SessionFactory,交给spring管理 --&gt;
+&lt;bean id=&quot;sessionFactory&quot; class=&quot;org.springframework.orm.hibernate4.LocalSessionFactoryBean&quot;&gt;
+&lt;property name=&quot;dataSource&quot; ref=&quot;dataSource&quot;&gt;&lt;/property&gt;
+&lt;!-- 引入hibernate配置文件 --&gt;
+&lt;property name=&quot;configLocation&quot; value=&quot;classpath:/hibernate.cfg.xml&quot;&gt;&lt;/property&gt;
+</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;Spring介绍&quot;&gt;&lt;a href=&quot;#Spring介绍&quot; class=&quot;headerlink&quot; title=&quot;Spring介绍&quot;&gt;&lt;/a&gt;Spring介绍&lt;/h2&gt;&lt;p&gt;Spring 框架是一个分层架构，由 7 个定义良好的模块组成。Spring 模块构建在核心
+    
+    </summary>
+    
+    
+      <category term="spring" scheme="http://nijun.me/tags/spring/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>一些mac端好用端插件分享</title>
+    <link href="http://nijun.me/2017/05/05/%E4%B8%80%E4%BA%9Bmac%E7%AB%AF%E5%A5%BD%E7%94%A8%E7%AB%AF%E6%8F%92%E4%BB%B6%E5%88%86%E4%BA%AB/"/>
+    <id>http://nijun.me/2017/05/05/一些mac端好用端插件分享/</id>
+    <published>2017-05-05T05:28:27.000Z</published>
+    <updated>2017-05-05T05:33:27.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>#以下是一些插件</p>
+<h2 id="百度云限速？试试Mac神器Aria2"><a href="#百度云限速？试试Mac神器Aria2" class="headerlink" title="百度云限速？试试Mac神器Aria2"></a>百度云限速？试试Mac神器Aria2</h2><p>使用Tampermonkey插件 + “百度网盘直接下载助手”脚本（2017-03-20更新）</p>
+<p>在Chrome上安装Tampermonkey插件。</p>
+<p>安装“百度网盘直接下载助手”脚本。</p>
+<p>会在百度云下载页面原来”下载”按钮旁边多出一个”下载助手”的按钮。</p>
+<p>点击“直接下载”会使用浏览器默认下载器进行下载。点击“显示链接”，可复制链接放入aria2进行下载。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;#以下是一些插件&lt;/p&gt;
+&lt;h2 id=&quot;百度云限速？试试Mac神器Aria2&quot;&gt;&lt;a href=&quot;#百度云限速？试试Mac神器Aria2&quot; class=&quot;headerlink&quot; title=&quot;百度云限速？试试Mac神器Aria2&quot;&gt;&lt;/a&gt;百度云限速？试试Mac神器Ari
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>老司机的踩坑提醒</title>
+    <link href="http://nijun.me/2017/05/04/%E8%80%81%E5%8F%B8%E6%9C%BA%E7%9A%84%E8%B8%A9%E5%9D%91%E6%8F%90%E9%86%92/"/>
+    <id>http://nijun.me/2017/05/04/老司机的踩坑提醒/</id>
+    <published>2017-05-04T12:46:25.000Z</published>
+    <updated>2017-05-05T13:52:50.000Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="以下我是日常工作中所碰到的小问题和解决方案"><a href="#以下我是日常工作中所碰到的小问题和解决方案" class="headerlink" title="以下我是日常工作中所碰到的小问题和解决方案"></a>以下我是日常工作中所碰到的小问题和解决方案</h1><h2 id="第一篇"><a href="#第一篇" class="headerlink" title="第一篇"></a>第一篇</h2><h4 id="1-tomcat报"><a href="#1-tomcat报" class="headerlink" title="1. tomcat报"></a>1. tomcat报</h4><pre><code>Port already in use: xxxx
+</code></pre><p>问题原因：当前有程序占用xxxx端口，需要将它结束进程。<br>​<br>    lsof -i:8087<br>用以显示符合条件的进程情况</p>
+<pre><code>kill *pid*    
+</code></pre><h4 id="2-hexo-s"><a href="#2-hexo-s" class="headerlink" title="2.hexo -s"></a>2.hexo -s</h4><p>如果</p>
+<figure class="highlight subunit"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">ERROR </span>Plugin load failed: hexo-renderer-sass</div></pre></td></tr></table></figure>
+<blockquote>
+<p> npm rebuild node-sass –force</p>
+</blockquote>
+<p>使用上面这句可以解决问题。</p>
+<p>如果</p>
+<figure class="highlight subunit"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">Error: </span>Cannot find module './build/Release/DTraceProviderBindings'</div></pre></td></tr></table></figure>
+<blockquote>
+<p>  npm install hexo –no-optional </p>
+</blockquote>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;以下我是日常工作中所碰到的小问题和解决方案&quot;&gt;&lt;a href=&quot;#以下我是日常工作中所碰到的小问题和解决方案&quot; class=&quot;headerlink&quot; title=&quot;以下我是日常工作中所碰到的小问题和解决方案&quot;&gt;&lt;/a&gt;以下我是日常工作中所碰到的小问题和解决方案&lt;/
+    
+    </summary>
+    
+      <category term="技术" scheme="http://nijun.me/categories/%E6%8A%80%E6%9C%AF/"/>
+    
+    
+      <category term="技术" scheme="http://nijun.me/tags/%E6%8A%80%E6%9C%AF/"/>
     
   </entry>
   
