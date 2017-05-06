@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://nijun.me/"/>
-  <updated>2017-05-06T02:20:40.000Z</updated>
+  <updated>2017-05-06T02:58:20.000Z</updated>
   <id>http://nijun.me/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://nijun.me/2017/05/05/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E5%88%B0%E4%BC%98%E5%8C%96/"/>
     <id>http://nijun.me/2017/05/05/自己动手搭建个人博客到优化/</id>
     <published>2017-05-05T14:07:56.000Z</published>
-    <updated>2017-05-06T02:20:40.000Z</updated>
+    <updated>2017-05-06T02:58:20.000Z</updated>
     
     <content type="html"><![CDATA[<p><img src="/2017/05/05/自己动手搭建个人博客到优化/avatar.jpg" alt=""></p>
  <div align="center"><br>  今天，是你未来所有剩余的日子中，最早的一天<br><br></div>
@@ -241,17 +241,18 @@
 </tr>
 </tbody>
 </table>
-<h4 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h4><p>其他部署方案，可以参见<a href="https://hexo.io/zh-cn/docs/tag-plugins.html" target="_blank" rel="external">官方文档</a></p>
-<pre><code>hexo clean
-</code></pre><p>清除缓存文件（db.json）和生成的文件（public）<br>    hexo list <type><br><code>type</code> 可以是<code>page</code>, <code>post</code>,<code>route</code>, <code>tag</code>, <code>category</code></type></p>
-<pre><code>hexo version
-</code></pre><p>显示版本信息</p>
-<pre><code>hexo --config custom.yml
-hexo --config custom.yml，custom2.json
-</code></pre><p>使用自定义配置文件（而不是_config.yml），还可以接受将文件合并为一个的JSON或YAML配置文件的逗号分隔列表（无空格）<br>​    </p>
-<p>自动更新文件<br>hexo g     //也可以这样写hexo generate<br>部署到git<br>hexo d<br>一般可以这样简写，就是说在部署到git之前，先进行更新<br>hexo d -g</p>
-<p>这时候万一遇到这个错误<br>ERROR Deployer not found: git<br>试试<br>npm install hexo-deployer-git –save<br>npm install hexo –save</p>
-<p>可以查看hexo的版本<br>hexo -v</p>
+<h4 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h4><p>其他部署方案，可以参见<a href="https://hexo.io/zh-cn/docs/tag-plugins.html" target="_blank" rel="external">官方文档</a><br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> hexo clean</span></div></pre></td></tr></table></figure></p>
+<p>清除缓存文件（db.json）和生成的文件（public）<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> hexo list &lt;<span class="built_in">type</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p><code>type</code> 可以是<code>page</code>, <code>post</code>,<code>route</code>, <code>tag</code>, <code>category</code><br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> hexo version</span></div></pre></td></tr></table></figure></p>
+<p>显示版本信息<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> hexo --config custom.yml</span></div><div class="line"><span class="meta">$</span><span class="bash"> hexo --config custom.yml，custom2.json</span></div></pre></td></tr></table></figure></p>
+<p>使用自定义配置文件（而不是_config.yml），还可以接受将文件合并为一个的JSON或YAML配置文件的逗号分隔列表（无空格）</p>
+<p>自动更新文件<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> hexo g     //也可以这样写hexo generate</span></div></pre></td></tr></table></figure></p>
+<p>部署到git<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> hexo d</span></div></pre></td></tr></table></figure></p>
+<p>一般可以这样简写，就是说在部署到git之前，先进行更新<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> hexo d -g</span></div></pre></td></tr></table></figure></p>
+<p>可以查看hexo的版本<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hexo -v</div></pre></td></tr></table></figure></p>
+<p>这时候万一遇到这个错误<br><figure class="highlight subunit"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">ERROR </span>Deployer not found: git</div></pre></td></tr></table></figure></p>
+<p>试试</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> npm install hexo-deployer-git --save</span></div><div class="line"><span class="meta">$</span><span class="bash"> npm install hexo --save</span></div></pre></td></tr></table></figure>
 <p>#NexT</p>
 <p>如果你熟悉 Git， 建议你使用 克隆最新版本 的方式，之后的更新可以通过 git pull 来快速更新， 而不用再次下载压缩包替换。</p>
 <ol>
@@ -331,9 +332,10 @@ hexo --config custom.yml，custom2.json
     <link href="http://nijun.me/2017/05/05/spring%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/"/>
     <id>http://nijun.me/2017/05/05/spring学习总结/</id>
     <published>2017-05-05T11:13:51.000Z</published>
-    <updated>2017-05-06T01:45:47.000Z</updated>
+    <updated>2017-05-06T03:12:47.000Z</updated>
     
     <content type="html"><![CDATA[<h2 id="Spring介绍"><a href="#Spring介绍" class="headerlink" title="Spring介绍"></a>Spring介绍</h2><p>Spring 框架是一个分层架构，由 7 个定义良好的模块组成。Spring 模块构建在核心容器之上，核心容器定义了创建、配置和管理 bean 的方式。</p>
+<p><img src="/2017/05/05/spring学习总结/anisur.jpg" alt=""></p>
 <a id="more"></a>
 <h2 id="Spring中的事务管理"><a href="#Spring中的事务管理" class="headerlink" title="Spring中的事务管理"></a>Spring中的事务管理</h2><p> Spring 是 SSH 中的指挥员和管理者，它负责管理其他框架，控制着整个网站。Spring 中的事务分为：</p>
 <ul>
@@ -360,6 +362,7 @@ hexo --config custom.yml，custom2.json
     <summary type="html">
     
       &lt;h2 id=&quot;Spring介绍&quot;&gt;&lt;a href=&quot;#Spring介绍&quot; class=&quot;headerlink&quot; title=&quot;Spring介绍&quot;&gt;&lt;/a&gt;Spring介绍&lt;/h2&gt;&lt;p&gt;Spring 框架是一个分层架构，由 7 个定义良好的模块组成。Spring 模块构建在核心容器之上，核心容器定义了创建、配置和管理 bean 的方式。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/2017/05/05/spring学习总结/anisur.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
     
     </summary>
     
@@ -411,7 +414,7 @@ hexo --config custom.yml，custom2.json
     <link href="http://nijun.me/2017/05/04/%E8%80%81%E5%8F%B8%E6%9C%BA%E7%9A%84%E8%B8%A9%E5%9D%91%E6%8F%90%E9%86%92/"/>
     <id>http://nijun.me/2017/05/04/老司机的踩坑提醒/</id>
     <published>2017-05-04T12:46:25.000Z</published>
-    <updated>2017-05-06T01:09:44.000Z</updated>
+    <updated>2017-05-06T02:58:30.000Z</updated>
     
     <content type="html"><![CDATA[<div align="center"><br> 错误和问题？在所难免，来和我一起看看吧！<br></div>
 
@@ -443,6 +446,9 @@ The file will have its original line endings in your working directory.
 </code></pre><p>就可以解决这个问题了</p>
 <h4 id="5"><a href="#5" class="headerlink" title="5."></a>5.</h4><p>如果更新了css文件，那么需要把public的css文件删除，然后</p>
 <figure class="highlight verilog"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy --<span class="keyword">generate</span></div></pre></td></tr></table></figure>
+<h4 id="6"><a href="#6" class="headerlink" title="6."></a>6.</h4><figure class="highlight subunit"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">ERROR </span>Deployer not found: git</div></pre></td></tr></table></figure>
+<p>试试</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> npm install hexo-deployer-git --save</span></div><div class="line"><span class="meta">$</span><span class="bash"> npm install hexo --save</span></div></pre></td></tr></table></figure>
 ]]></content>
     
     <summary type="html">

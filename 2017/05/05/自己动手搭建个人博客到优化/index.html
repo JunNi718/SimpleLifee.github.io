@@ -97,7 +97,7 @@
 <meta property="og:description" content="今天，是你未来所有剩余的日子中，最早的一天  ——stormzhang               背景 我为什么要写这篇文章？是因为大学三年了，感觉学了这么多知识，但是并没有真正地去消化和总结过，最近又看到了stormzhang大神写的这篇我为什么坚持写博客？。我真的感触很深，以前花了很多时间学的东西，不久之后便会印象模糊，想要回忆的时候，又不能快速找到。所以我决定从今天开始写博客，总结">
 <meta property="og:image" content="http://nijun.me/2017/05/05/自己动手搭建个人博客到优化/avatar.jpg">
 <meta property="og:image" content="http://i.imgur.com/qqg116z.png">
-<meta property="og:updated_time" content="2017-05-06T02:20:40.000Z">
+<meta property="og:updated_time" content="2017-05-06T02:58:20.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="自己动手搭建个人博客到优化">
 <meta name="twitter:description" content="今天，是你未来所有剩余的日子中，最早的一天  ——stormzhang               背景 我为什么要写这篇文章？是因为大学三年了，感觉学了这么多知识，但是并没有真正地去消化和总结过，最近又看到了stormzhang大神写的这篇我为什么坚持写博客？。我真的感触很深，以前花了很多时间学的东西，不久之后便会印象模糊，想要回忆的时候，又不能快速找到。所以我决定从今天开始写博客，总结">
@@ -427,7 +427,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  2,681
+                  2,692
                 </span>
               
 
@@ -680,17 +680,18 @@
 </tr>
 </tbody>
 </table>
-<h4 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h4><p>其他部署方案，可以参见<a href="https://hexo.io/zh-cn/docs/tag-plugins.html" target="_blank" rel="external">官方文档</a></p>
-<pre><code>hexo clean
-</code></pre><p>清除缓存文件（db.json）和生成的文件（public）<br>    hexo list <type><br><code>type</code> 可以是<code>page</code>, <code>post</code>,<code>route</code>, <code>tag</code>, <code>category</code></type></p>
-<pre><code>hexo version
-</code></pre><p>显示版本信息</p>
-<pre><code>hexo --config custom.yml
-hexo --config custom.yml，custom2.json
-</code></pre><p>使用自定义配置文件（而不是_config.yml），还可以接受将文件合并为一个的JSON或YAML配置文件的逗号分隔列表（无空格）<br>​    </p>
-<p>自动更新文件<br>hexo g     //也可以这样写hexo generate<br>部署到git<br>hexo d<br>一般可以这样简写，就是说在部署到git之前，先进行更新<br>hexo d -g</p>
-<p>这时候万一遇到这个错误<br>ERROR Deployer not found: git<br>试试<br>npm install hexo-deployer-git –save<br>npm install hexo –save</p>
-<p>可以查看hexo的版本<br>hexo -v</p>
+<h4 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h4><p>其他部署方案，可以参见<a href="https://hexo.io/zh-cn/docs/tag-plugins.html" target="_blank" rel="external">官方文档</a><br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> hexo clean</span></div></pre></td></tr></table></figure></p>
+<p>清除缓存文件（db.json）和生成的文件（public）<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> hexo list &lt;<span class="built_in">type</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p><code>type</code> 可以是<code>page</code>, <code>post</code>,<code>route</code>, <code>tag</code>, <code>category</code><br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> hexo version</span></div></pre></td></tr></table></figure></p>
+<p>显示版本信息<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> hexo --config custom.yml</span></div><div class="line"><span class="meta">$</span><span class="bash"> hexo --config custom.yml，custom2.json</span></div></pre></td></tr></table></figure></p>
+<p>使用自定义配置文件（而不是_config.yml），还可以接受将文件合并为一个的JSON或YAML配置文件的逗号分隔列表（无空格）</p>
+<p>自动更新文件<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> hexo g     //也可以这样写hexo generate</span></div></pre></td></tr></table></figure></p>
+<p>部署到git<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> hexo d</span></div></pre></td></tr></table></figure></p>
+<p>一般可以这样简写，就是说在部署到git之前，先进行更新<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> hexo d -g</span></div></pre></td></tr></table></figure></p>
+<p>可以查看hexo的版本<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hexo -v</div></pre></td></tr></table></figure></p>
+<p>这时候万一遇到这个错误<br><figure class="highlight subunit"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">ERROR </span>Deployer not found: git</div></pre></td></tr></table></figure></p>
+<p>试试</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> npm install hexo-deployer-git --save</span></div><div class="line"><span class="meta">$</span><span class="bash"> npm install hexo --save</span></div></pre></td></tr></table></figure>
 <p>#NexT</p>
 <p>如果你熟悉 Git， 建议你使用 克隆最新版本 的方式，之后的更新可以通过 git pull 来快速更新， 而不用再次下载压缩包替换。</p>
 <ol>
