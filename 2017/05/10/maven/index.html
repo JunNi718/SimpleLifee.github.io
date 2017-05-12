@@ -92,15 +92,15 @@
 <meta name="keywords" content="maven">
 <meta property="og:type" content="article">
 <meta property="og:title" content="maven">
-<meta property="og:url" content="http://nijun.me/2017/05/10/010001-2017-05-10-maven/index.html">
+<meta property="og:url" content="http://nijun.me/2017/05/10/maven/index.html">
 <meta property="og:site_name" content="SimpleLifee">
 <meta property="og:description" content="想学习Maven吗？">
-<meta property="og:image" content="http://nijun.me/2017/05/10/010001-2017-05-10-maven/maven.png">
+<meta property="og:image" content="http://nijun.me/2017/05/10/maven/maven.png">
 <meta property="og:updated_time" content="2017-05-11T01:17:55.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="maven">
 <meta name="twitter:description" content="想学习Maven吗？">
-<meta name="twitter:image" content="http://nijun.me/2017/05/10/010001-2017-05-10-maven/maven.png">
+<meta name="twitter:image" content="http://nijun.me/2017/05/10/maven/maven.png">
 
 
 
@@ -128,7 +128,7 @@
 
 
 
-  <link rel="canonical" href="http://nijun.me/2017/05/10/010001-2017-05-10-maven/"/>
+  <link rel="canonical" href="http://nijun.me/2017/05/10/maven/"/>
 
 
 
@@ -314,7 +314,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://nijun.me/2017/05/10/010001-2017-05-10-maven/">
+    <link itemprop="mainEntityOfPage" href="http://nijun.me/2017/05/10/maven/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Nimon">
@@ -350,7 +350,7 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-05-10T20:37:08+08:00">
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-05-10T00:00:00+08:00">
                 2017-05-10
               </time>
             
@@ -369,9 +369,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/05/10/010001-2017-05-10-maven/#comments" itemprop="discussionUrl">
+                <a href="/2017/05/10/maven/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/05/10/010001-2017-05-10-maven/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2017/05/10/maven/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -379,7 +379,7 @@
 
           
           
-             <span id="/2017/05/10/010001-2017-05-10-maven/" class="leancloud_visitors" data-flag-title="maven">
+             <span id="/2017/05/10/maven/" class="leancloud_visitors" data-flag-title="maven">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -586,7 +586,7 @@
 <blockquote>
 <p>archetypeCatalog表示插件使用的archetype元数据，不加这个参数时默认为remote，local，即中央仓库archetype元数据，由于中央仓库的archetype太多了，所以导致很慢，指定internal来表示仅使用内部元数据。</p>
 </blockquote>
-<p><img src="/2017/05/10/010001-2017-05-10-maven/maven.png" alt=""></p>
+<p><img src="/2017/05/10/maven/maven.png" alt=""></p>
 <p>使用 jetty 发布</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">plugin</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.eclipse.jetty<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jetty-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>9.4.4.v20170414<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">executions</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">execution</span>&gt;</span></div><div class="line">      <span class="comment">&lt;!--在打包成功后使用jetty:run来运行jetty服务--&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">phase</span>&gt;</span>package<span class="tag">&lt;/<span class="name">phase</span>&gt;</span>  <span class="comment">&lt;!--指定在package阶段的时候--&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">goals</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">goal</span>&gt;</span>run<span class="tag">&lt;/<span class="name">goal</span>&gt;</span></div><div class="line">      <span class="tag">&lt;/<span class="name">goals</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">execution</span>&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">executions</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></div></pre></td></tr></table></figure>
 
@@ -652,7 +652,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/05/08/010001-2017-05-08-断言详解/" rel="next" title="断言详解">
+              <a href="/2017/05/08/断言详解/" rel="next" title="断言详解">
                 <i class="fa fa-chevron-left"></i> 断言详解
               </a>
             
@@ -1027,8 +1027,8 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'http://nijun.me/2017/05/10/010001-2017-05-10-maven/';
-          this.page.identifier = '2017/05/10/010001-2017-05-10-maven/';
+          this.page.url = 'http://nijun.me/2017/05/10/maven/';
+          this.page.identifier = '2017/05/10/maven/';
           this.page.title = 'maven';
         };
         var d = document, s = d.createElement('script');

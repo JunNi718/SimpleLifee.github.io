@@ -95,7 +95,7 @@
 <meta property="og:url" content="http://nijun.me/2017/05/04/老司机的踩坑提醒/index.html">
 <meta property="og:site_name" content="SimpleLifee">
 <meta property="og:description" content="错误和问题？在所难免，来和我一起看看吧！">
-<meta property="og:updated_time" content="2017-05-06T02:58:30.000Z">
+<meta property="og:updated_time" content="2017-05-08T22:38:43.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="老司机的踩坑提醒">
 <meta name="twitter:description" content="错误和问题？在所难免，来和我一起看看吧！">
@@ -424,7 +424,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  265
+                  748
                 </span>
               
 
@@ -440,7 +440,7 @@
                   <span class="post-meta-item-text">Reading time</span>
                 
                 <span title="Reading time">
-                  1
+                  3
                 </span>
               
             </div>
@@ -491,6 +491,34 @@ The file will have its original line endings in your working directory.
 <h4 id="6"><a href="#6" class="headerlink" title="6."></a>6.</h4><figure class="highlight subunit"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">ERROR </span>Deployer not found: git</div></pre></td></tr></table></figure>
 <p>试试</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> npm install hexo-deployer-git --save</span></div><div class="line"><span class="meta">$</span><span class="bash"> npm install hexo --save</span></div></pre></td></tr></table></figure>
+<h4 id="7-Spring"><a href="#7-Spring" class="headerlink" title="7. Spring"></a>7. Spring</h4><blockquote>
+<p>BeanFactory not initialized or already closed - call ‘refresh’ before accessing beans via the ApplicationContext</p>
+</blockquote>
+<p>原因是</p>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">ApplicationContext context</span> = new ClassPathXmlApplicationContext();</div></pre></td></tr></table></figure>
+<p>没有指定路径。</p>
+<h4 id="8-spring"><a href="#8-spring" class="headerlink" title="8. spring"></a>8. spring</h4> <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Write operations are not allowed in read-<span class="function">only <span class="title">mode</span> <span class="params">(FlushMode.MANUAL)</span>: Turn your Session into FlushMode.COMMIT/AUTO or remove 'readOnly' marker from transaction definition.</span></div></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">tx:advice</span> <span class="attr">id</span>=<span class="string">"txAdvice"</span> <span class="attr">transaction-manager</span>=<span class="string">"transactionManager"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">tx:attributes</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">tx:method</span> <span class="attr">name</span>=<span class="string">"save*"</span> <span class="attr">read-only</span>=<span class="string">"false"</span> <span class="attr">propagation</span>=<span class="string">"REQUIRED"</span></span></div><div class="line">                       <span class="attr">rollback-for</span>=<span class="string">"Exception"</span>/&gt;</div><div class="line">        <span class="tag">&lt;/<span class="name">tx:attributes</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">tx:advice</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">aop:config</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">aop:pointcut</span> <span class="attr">id</span>=<span class="string">"pointcut1"</span> <span class="attr">expression</span>=<span class="string">"execution(* me.nini.*.*.*(..))"</span>/&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">aop:advisor</span> <span class="attr">advice-ref</span>=<span class="string">"txAdvice"</span> <span class="attr">pointcut-ref</span>=<span class="string">"pointcut1"</span>/&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">aop:config</span>&gt;</span></div></pre></td></tr></table></figure>
+<h4 id="9-如果出现sequence这个表，原因是没有指定数据库主键的生成策略"><a href="#9-如果出现sequence这个表，原因是没有指定数据库主键的生成策略" class="headerlink" title="9. 如果出现sequence这个表，原因是没有指定数据库主键的生成策略"></a>9. 如果出现sequence这个表，原因是没有指定数据库主键的生成策略</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Id</span></div><div class="line"><span class="meta">@GeneratedValue</span>(strategy= GenerationType.IDENTITY)</div></pre></td></tr></table></figure>
+<h4 id="10-在定义bean的时候，如果定义了多个bean继承或者实现同一个类或者接口，那么会报以下错误"><a href="#10-在定义bean的时候，如果定义了多个bean继承或者实现同一个类或者接口，那么会报以下错误" class="headerlink" title="10. 在定义bean的时候，如果定义了多个bean继承或者实现同一个类或者接口，那么会报以下错误"></a>10. 在定义bean的时候，如果定义了多个bean继承或者实现同一个类或者接口，那么会报以下错误</h4><p>在注入bean的时候，类中的bean的字段名可以和xml文件中配置的bean的id不一致。不然就会报</p>
+<figure class="highlight ada"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">NoUniqueBeanDefinitionException</div><div class="line">No qualifying bean <span class="keyword">of</span> <span class="keyword">type</span> <span class="type">[me.nini.dao.BaseDao] </span><span class="keyword">is</span> defined</div><div class="line">expected single matching bean but found <span class="number">2</span></div></pre></td></tr></table></figure>
+<p>​<br>那么如何解决呢？</p>
+<p>只要在具有相同父类型的组件前加上 @Component(“标识符”)</p>
+<p>​            </p>
+<blockquote>
+<p>注意 1 ： 在组件类前加上 @Component(“ 标识符 “) 的作用与在配置文件中配置是一样的。</p>
+<p>注意 2 ： 如果不指定 @Qualifier(“ 标识符 “) 的话，那么在类中注入bean的时候字段的名称必须和配置文件中bean的id、或者组件类前 @Component(“ 标识符 “)  的标识符相同。</p>
+<p>不然会出错     </p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Injection of autowired dependencies failed</div><div class="line"></div><div class="line">Could not autowire field</div></pre></td></tr></table></figure>
+<blockquote>
+<p>注意 3 ： 如果@Component(“ 标识符 “)，重复定义了，那么会出现以下异常</p>
+</blockquote>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">java.lang.IllegalStateException: Failed to load ApplicationContext</div><div class="line"></div><div class="line">Caused by: org.springframework.context.annotation.ConflictingBeanDefinitionException: Annotation-specified bean name 'dao2' for bean class [me.nini.dao.UserDaoImpl3] conflicts with existing, non-compatible bean definition of same name and class [me.nini.dao.UserDaoImpl2]</div></pre></td></tr></table></figure>
+<blockquote>
+<p>注意 4 ：即使组件类没有显式实现接口，但是注入的属性中可能实现的同一接口，这时如果只用 @AutoWired 的话也会报以下错误</p>
+</blockquote>
+<figure class="highlight ada"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">NoUniqueBeanDefinitionException</div><div class="line">No qualifying bean <span class="keyword">of</span> <span class="keyword">type</span> <span class="type">[me.nini.dao.BaseDao] </span><span class="keyword">is</span> defined</div><div class="line">expected single matching bean but found <span class="number">2</span></div></pre></td></tr></table></figure>
 
       
     </div>
@@ -668,7 +696,7 @@ The file will have its original line endings in your working directory.
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-count">12</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -690,7 +718,7 @@ The file will have its original line endings in your working directory.
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-count">8</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
@@ -776,7 +804,7 @@ The file will have its original line endings in your working directory.
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#第一篇"><span class="nav-number">1.</span> <span class="nav-text">第一篇</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1"><span class="nav-number">1.0.1.</span> <span class="nav-text">1.</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2"><span class="nav-number">1.0.2.</span> <span class="nav-text">2.</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4"><span class="nav-number">1.0.3.</span> <span class="nav-text">4.</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5"><span class="nav-number">1.0.4.</span> <span class="nav-text">5.</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6"><span class="nav-number">1.0.5.</span> <span class="nav-text">6.</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#第一篇"><span class="nav-number">1.</span> <span class="nav-text">第一篇</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1"><span class="nav-number">1.0.1.</span> <span class="nav-text">1.</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2"><span class="nav-number">1.0.2.</span> <span class="nav-text">2.</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4"><span class="nav-number">1.0.3.</span> <span class="nav-text">4.</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5"><span class="nav-number">1.0.4.</span> <span class="nav-text">5.</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6"><span class="nav-number">1.0.5.</span> <span class="nav-text">6.</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-Spring"><span class="nav-number">1.0.6.</span> <span class="nav-text">7. Spring</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-spring"><span class="nav-number">1.0.7.</span> <span class="nav-text">8. spring</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#9-如果出现sequence这个表，原因是没有指定数据库主键的生成策略"><span class="nav-number">1.0.8.</span> <span class="nav-text">9. 如果出现sequence这个表，原因是没有指定数据库主键的生成策略</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#10-在定义bean的时候，如果定义了多个bean继承或者实现同一个类或者接口，那么会报以下错误"><span class="nav-number">1.0.9.</span> <span class="nav-text">10. 在定义bean的时候，如果定义了多个bean继承或者实现同一个类或者接口，那么会报以下错误</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>

@@ -70,7 +70,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Spring," />
+  <meta name="keywords" content="Spring Annotation," />
 
 
 
@@ -88,22 +88,17 @@
 
 
 
-<meta name="description" content="使用容器管理beans">
-<meta name="keywords" content="Spring">
+<meta name="description" content="Java中如何自定义注解？">
+<meta name="keywords" content="Spring Annotation">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Spring使用容器管理beans">
-<meta property="og:url" content="http://nijun.me/2017/05/08/010001-2017-05-08-Spring使用容器管理beans/index.html">
+<meta property="og:title" content="Spring注解原理总结（二）">
+<meta property="og:url" content="http://nijun.me/2017/05/08/Spring注解原理总结（二）/index.html">
 <meta property="og:site_name" content="SimpleLifee">
-<meta property="og:description" content="使用容器管理beans">
-<meta property="og:image" content="http://nijun.me/2017/05/08/010001-2017-05-08-Spring使用容器管理beans/beans.png">
-<meta property="og:image" content="http://nijun.me/2017/05/08/010001-2017-05-08-Spring使用容器管理beans/bean_life_circle.png">
-<meta property="og:image" content="http://nijun.me/2017/05/08/010001-2017-05-08-Spring使用容器管理beans/spring_jar.png">
-<meta property="og:image" content="http://nijun.me/2017/05/08/010001-2017-05-08-Spring使用容器管理beans/modules.png">
-<meta property="og:updated_time" content="2017-05-08T22:41:49.000Z">
+<meta property="og:description" content="Java中如何自定义注解？">
+<meta property="og:updated_time" content="2017-05-08T22:42:46.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Spring使用容器管理beans">
-<meta name="twitter:description" content="使用容器管理beans">
-<meta name="twitter:image" content="http://nijun.me/2017/05/08/010001-2017-05-08-Spring使用容器管理beans/beans.png">
+<meta name="twitter:title" content="Spring注解原理总结（二）">
+<meta name="twitter:description" content="Java中如何自定义注解？">
 
 
 
@@ -131,13 +126,13 @@
 
 
 
-  <link rel="canonical" href="http://nijun.me/2017/05/08/010001-2017-05-08-Spring使用容器管理beans/"/>
+  <link rel="canonical" href="http://nijun.me/2017/05/08/Spring注解原理总结（二）/"/>
 
 
 
 
 
-     <title>Spring使用容器管理beans | SimpleLifee</title>
+     <title>Spring注解原理总结（二） | SimpleLifee</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -317,7 +312,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://nijun.me/2017/05/08/010001-2017-05-08-Spring使用容器管理beans/">
+    <link itemprop="mainEntityOfPage" href="http://nijun.me/2017/05/08/Spring注解原理总结（二）/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Nimon">
@@ -338,7 +333,7 @@
             
             
               
-                Spring使用容器管理beans
+                Spring注解原理总结（二）
               
             
           </h1>
@@ -353,7 +348,7 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-05-08T13:14:00+08:00">
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-05-08T09:26:13+08:00">
                 2017-05-08
               </time>
             
@@ -372,9 +367,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/05/08/010001-2017-05-08-Spring使用容器管理beans/#comments" itemprop="discussionUrl">
+                <a href="/2017/05/08/Spring注解原理总结（二）/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/05/08/010001-2017-05-08-Spring使用容器管理beans/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2017/05/08/Spring注解原理总结（二）/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -382,7 +377,7 @@
 
           
           
-             <span id="/2017/05/08/010001-2017-05-08-Spring使用容器管理beans/" class="leancloud_visitors" data-flag-title="Spring使用容器管理beans">
+             <span id="/2017/05/08/Spring注解原理总结（二）/" class="leancloud_visitors" data-flag-title="Spring注解原理总结（二）">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -407,7 +402,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  2,578
+                  498
                 </span>
               
 
@@ -423,7 +418,7 @@
                   <span class="post-meta-item-text">Reading time</span>
                 
                 <span title="Reading time">
-                  10
+                  2
                 </span>
               
             </div>
@@ -441,78 +436,33 @@
       
 
       
-        <div align="center"><br><br>使用容器管理beans<br><br></div>
+        <div align="center"><br><br>Java中如何自定义注解？<br><br></div>
 
 <a id="more"></a>
-<h1 id="使用容器管理beans"><a href="#使用容器管理beans" class="headerlink" title="使用容器管理beans"></a>使用容器管理beans</h1><p>基于Spring框架构建的应用中的对象，都由Spring容器（container）管理，如下图所示。Spring容器负责创建对象、编织对象和配置对象，负责对象的整个生命周期。</p>
-<p><img src="/2017/05/08/010001-2017-05-08-Spring使用容器管理beans/beans.png" alt=""></p>
-<p>容器是Spring框架的核心，通过依赖注入（DI）管理构成Spring应用的组件。正是因为有容器管理各个组件之间的协作关系，使得每个Spring组件都很好理解、便于复用和单元测试。</p>
-<p>Spring容器有多种实现，可以分为两类：</p>
+<h2 id="之-Java中如何自定义注解"><a href="#之-Java中如何自定义注解" class="headerlink" title="之 Java中如何自定义注解"></a>之 Java中如何自定义注解</h2><h6 id="1-先看注解定义示例"><a href="#1-先看注解定义示例" class="headerlink" title="1.先看注解定义示例"></a>1.先看注解定义示例</h6><p>@Override 源码定义：</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="variable">@Target</span>(ElementType.METHOD)</div><div class="line"><span class="variable">@Retention</span>(RetentionPolicy.SOURCE)</div><div class="line">public <span class="variable">@interface</span> Override &#123;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>使用 @interface 表示这是一个注解类。自动继承了java.lang.annotation.Annotation接口，由编译程序自动完成其他细节。<br>标注 @Target 元注解，声明@Override 的作用地方为METHOD。<br>标注 @Retention 元注解，指明@Override 被保留的级别-源码级别，编译的时候就被忽略。</p>
+</blockquote>
+<p><strong>引申1：注解定义格式：public @interface 注解名 {定义体} </strong><br><strong>引申2：定义注解时，不得继承其他的注解或者接口。</strong></p>
+<p>SpringMVC 的 @RequestMapping 源码示例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Target</span>(&#123;ElementType.METHOD, ElementType.TYPE&#125;)</div><div class="line"><span class="meta">@Retention</span>(RetentionPolicy.RUNTIME)  <span class="comment">// 注解一直保持到VM运行期，被反射读取。</span></div><div class="line"><span class="meta">@Documented</span></div><div class="line"><span class="meta">@Mapping</span>    <span class="comment">// SpringMVC定义的元注解，暂忽略此。</span></div><div class="line"><span class="keyword">public</span> <span class="meta">@interface</span> RequestMapping &#123;</div><div class="line">    <span class="function">String <span class="title">name</span><span class="params">()</span> <span class="keyword">default</span> ""</span>;</div><div class="line"></div><div class="line">    <span class="meta">@AliasFor</span>(<span class="string">"path"</span>)    <span class="comment">// SpringMVC中定义的别名注解。</span></div><div class="line">    String[] value() <span class="keyword">default</span> &#123;&#125;;</div><div class="line"></div><div class="line">    <span class="meta">@AliasFor</span>(<span class="string">"value"</span>)</div><div class="line">    String[] path() <span class="keyword">default</span> &#123;&#125;;</div><div class="line"></div><div class="line">    RequestMethod[] method() <span class="keyword">default</span> &#123;&#125;;</div><div class="line"></div><div class="line">    String[] params() <span class="keyword">default</span> &#123;&#125;;</div><div class="line"></div><div class="line">    String[] headers() <span class="keyword">default</span> &#123;&#125;;</div><div class="line"></div><div class="line">    String[] consumes() <span class="keyword">default</span> &#123;&#125;;</div><div class="line"></div><div class="line">    String[] produces() <span class="keyword">default</span> &#123;&#125;;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>用法示例：<br>@RequestMapping(value=”/user”, methods=RequestMethod.GET)，<br>@RequestMapping可供选择的参数有：<br>name, value, path, method, params, headers, consumes, produces。</p>
 <ul>
-<li><em>Bean factories</em>（由<em>org.springframework.beans.factory.BeanFactory</em>接口定义）是最简单的容器，只提供基本的依赖注入功能；</li>
-<li><em>Application context</em>（由<em>org.springframework.context.ApplicationContext</em>接口定义）在bean factory的基础上提供application-framework框架服务，例如可以从properties文件中解析配置信息、可以对外公布application events。</li>
+<li>注解的每个参数对应着 @RequestMapping 类中的方法名。</li>
+<li>每个参数指定一个默认值（default）。</li>
 </ul>
-<h2 id="应用上下文（application-context）"><a href="#应用上下文（application-context）" class="headerlink" title="应用上下文（application context）"></a>应用上下文（application context）</h2><p>Spring提供了多种application context，可列举如下：</p>
-<ul>
-<li><em>AnnotationConfigApplicationContext</em>——从Java配置文件中加载应用上下文；</li>
-<li><em>AnnotationConfigWebApplicationContext</em>——从Java配置文件中加载Spring web应用上下文；</li>
-<li><em>ClassPathXmlApplicationContext</em>——从classpath（resources目录）下加载XML格式的应用上下文定义文件；</li>
-<li><em>FileSystemXmlApplicationContext</em>——从指定文件系统目录下加载XML格式的应用上下文定义文件；</li>
-<li><em>XmlWebApplicationContext</em>——从classpath（resources目录）下加载XML格式的Spring web应用上下文。</li>
-</ul>
-<p><strong>通过应用上下文实例，可以通过<em>getBean()</em>方法获得对应的bean。</strong></p>
-<h2 id="bean的生命周期"><a href="#bean的生命周期" class="headerlink" title="bean的生命周期"></a>bean的生命周期</h2><p>在传统的Java应用中，一个对象的生命周期非常简单：通过new创建一个对象，然后该对象就可以使用，当这个对象不再使用时，由Java垃圾回收机制进行处理和回收。</p>
-<p>在Spring应用中，bean的生命周期的控制更加精细。Spring提供了很多节点供开发人员定制某个bean的创建过程，掌握这些节点如何使用非常重要。Spring中bean的生命周期如下图所示：</p>
-<p><img src="/2017/05/08/010001-2017-05-08-Spring使用容器管理beans/bean_life_circle.png" alt=""></p>
-<p>可以看出，bean factory负责bean创建的最初四步，然后移交给应用上下文做后续创建过程：</p>
-<ol>
-<li>Spring初始化bean</li>
-<li>Spring将值和其他bean的引用注入（inject）到当前bean的对应属性中；</li>
-<li>如果Bean实现了<em>BeanNameAware</em>接口，Spring会传入bean的ID来调用<em>setBeanName</em>方法；</li>
-<li>如果Bean实现了<em>BeanFactoryAware</em>接口，Spring传入bean factory的引用来调用<em>setBeanFactory</em>方法；</li>
-<li>如果Bean实现了<em>ApplicationContextAware</em>接口，Spring将传入应用上下文的引用来调用<em>setApplicationContext</em>方法；</li>
-<li>如果Bean实现了<em>BeanPostProcessor</em>接口，则Spring调用<em>postProcessBeforeInitialization</em>方法，这个方法在初始化和属性注入之后调用，在任何初始化代码之前调用；</li>
-<li>如果Bean实现了<em>InitializingBean</em>接口，则需要调用该接口的<em>afterPropertiesSet</em>方法；如果在bean定义的时候设置了<em>init-method</em>属性，则需要调用该属性指定的初始化方法；</li>
-<li>如果Bean实现了<em>BeanPostProcessor</em>接口，则Spring调用<em>postProcessAfterInitialization</em>方法</li>
-<li>在这个时候bean就可以用于在应用上下文中使用了，当上下文退出时bean也会被销毁；</li>
-<li>如果Bean实现了<em>DisposableBean</em>接口，Spring会调用<em>destroy()</em>方法;如果在bean定义的时候设置了<em>destroy-method</em>， 则此时需要调用指定的方法。</li>
-</ol>
-<p>本节主要总结了如何启动Spring容器，以及Spring应用中bean的生命周期。</p>
-<h2 id="Spring整体架构"><a href="#Spring整体架构" class="headerlink" title="Spring整体架构"></a>Spring整体架构</h2><p>除了Spring的核心模块，Spring还提供了其他的工具组件，这些组件扩展了Spring的功能，例如webservice、REST、mobile和NOSQL，形成了丰富的开发生态。</p>
-<h3 id="1-3-1-Spring模块"><a href="#1-3-1-Spring模块" class="headerlink" title="1.3.1 Spring模块"></a>1.3.1 Spring模块</h3><p>Spring 4.0you 20个独立的模块，每个包含三个文件：二进制库、源文件和文档，完整的库列表如下图所示：</p>
-<p><img src="/2017/05/08/010001-2017-05-08-Spring使用容器管理beans/spring_jar.png" alt=""></p>
-<p>按照功能划分，这些模块可以分成六组，如下图所示：</p>
-<p><img src="/2017/05/08/010001-2017-05-08-Spring使用容器管理beans/modules.png" alt=""></p>
-<p>这些模块几乎可以满足所有企业级应用开发的需求，但是开发人员并不需要完全使用Spring的这些模块，可以自由选择符合项目需求的第三方模块——Spring为一些第三方模块提供了交互接口。</p>
-<h4 id="CORE-SPRING-CONTAINER"><a href="#CORE-SPRING-CONTAINER" class="headerlink" title="CORE SPRING CONTAINER"></a>CORE SPRING CONTAINER</h4><p>Spring框架的核心模块，其他所有模块都基于该模块构建。Spring容器负责管理Spring应用中bean的创建、配置和管理。在这模块中有Spring bean factory，该接口提供了最基本的依赖注入（DI）功能；基于bean factory，该模块提供了集中Spring应用上下文的实现，可以供开发人员选择。</p>
-<p>除了bean factory和application context，该模块还支持其他企业级服务，例如email、JNDI access、EJB integration和scheduling。</p>
-<h4 id="SPRING’s-AOP-MODULE"><a href="#SPRING’s-AOP-MODULE" class="headerlink" title="SPRING’s AOP MODULE"></a>SPRING’s AOP MODULE</h4><p>Spring框架通过AOP模块提供面向切面编程的能力。通过AOP模块，一些系统层面的需求（事务、安全）可以与它们真正要作用到的模块相互解耦合。</p>
-<h4 id="DATA-ACCESS-AND-INTEGRATION"><a href="#DATA-ACCESS-AND-INTEGRATION" class="headerlink" title="DATA ACCESS AND INTEGRATION"></a>DATA ACCESS AND INTEGRATION</h4><p>Spring的JDBC和<em>data-access object</em>模块将数据库操作的一些样板式代码封装起来，免去了开发人员的很多工作量。这个模块还对数据库层的异常进行了封装，并向上提供含义更丰富的异常信息。</p>
-<p>Spring并未实现自己的ORM框架，但是它提供了跟其他几个ORM框架整合的能力，例如Hibernate、Mybatis、Java Persistence AP等等，而且这些ORM框架都支持使用Spring提供的事务管理模块。</p>
-<h4 id="WEB-AND-REMOTING"><a href="#WEB-AND-REMOTING" class="headerlink" title="WEB AND REMOTING"></a>WEB AND REMOTING</h4><p>Spring提供了自己的 WEB开发框架——Spring MVC，除此之外，这个模块还提供远程调用支持：Remote Method Invocation(RMI)、Hessian、Burlap和JAX-WS。</p>
-<h4 id="INSTRUMENTATION"><a href="#INSTRUMENTATION" class="headerlink" title="INSTRUMENTATION"></a>INSTRUMENTATION</h4><p>不常使用</p>
-<h4 id="TESTING"><a href="#TESTING" class="headerlink" title="TESTING"></a>TESTING</h4><p>可以与常用的JUNIT、Mockito、Spock等测试框架整合使用。</p>
-<h3 id="1-3-2-Spring-portfolio"><a href="#1-3-2-Spring-portfolio" class="headerlink" title="1.3.2 Spring portfolio"></a>1.3.2 Spring portfolio</h3><p>如果只是学习Spring的核心模块，将会错过不少Spring社区提供的经典项目，下面介绍的这些项目使得Spring几乎可以覆盖整个Java开发（PS：带*的项目值得每位Spring用户仔细学习）。</p>
-<h4 id="SPRING-WEB-FLOW"><a href="#SPRING-WEB-FLOW" class="headerlink" title="SPRING WEB FLOW"></a>SPRING WEB FLOW</h4><p>基于Spring MVC框架拓展，利用该框架可以构建流式web应用。</p>
-<h4 id="SPRING-WEB-SERVICE"><a href="#SPRING-WEB-SERVICE" class="headerlink" title="SPRING WEB SERVICE"></a>SPRING WEB SERVICE</h4><p>虽然核心的Spring 框架提供了将Spring Bean 以声明的方式发布为Web Service，但是这些服务基于一个具有争议性的架构（拙劣的契约置后模型）之上而构建的。这些服务的契约由Bean 的接口来决定。 Spring Web Service 提供了契约优先的Web Service模型，服务的实现都是为了满足服务的契约而编写的。</p>
-<h4 id="SPRING-SECURITY（-）"><a href="#SPRING-SECURITY（-）" class="headerlink" title="SPRING SECURITY（*）"></a>SPRING SECURITY（*）</h4><p>安全对于许多应用都是一个非常关键的切面。利用Spring AOP，Spring Security为Spring 应用提供了声明式的安全机制。我们将在第9 章讲解如何为应用添加SpringSecurity。你可以在主页<a href="http://static.springsource.org/spring-security/site" target="_blank" rel="external">http://static.springsource.org/spring-security/site</a> 获得关于SpringSecurity 更多的信息。</p>
-<h4 id="SPRING-INTEGRATION"><a href="#SPRING-INTEGRATION" class="headerlink" title="SPRING INTEGRATION"></a>SPRING INTEGRATION</h4><p>许多企业级应用都需要与其他应用进行交互。Spring Integration 提供了几种通用的应用集成模式的Spring 声明式风格的实现。</p>
-<p>我们不会在本书覆盖Spring Integration 内容，但是如果你想了解更多关于SpringIntegration 的信息， 我推荐Mark Fisher、Jonas Partner、Marius Bogoevici 和IweinFuld 编写的《Spring Integration in Action》；或者还可以访问Spring Integration 的主页<a href="http://www.springsource.org/spring-integration" target="_blank" rel="external">http://www.springsource.org/spring-integration</a>。</p>
-<h4 id="SPRING-BATCH"><a href="#SPRING-BATCH" class="headerlink" title="SPRING BATCH"></a>SPRING BATCH</h4><p>当我们需要对数据进行大量操作时，没有任何技术可以比批处理更能胜任此场景的。如果需要开发一个批处理应用，你可以借助于Spring 强大的面向POJO 的编程模型来使用Spring Batch 来实现。</p>
-<p>Spring Batch 超出了本书的范畴，但是你可以阅读Thierry Templier 和Arnaud Cogoluègnes编写的《Spring Batch in Action》，或者访问Spring Batch 的主页<a href="http://static.springsource.org/spring-batch" target="_blank" rel="external">http://static.springsource.org/spring-batch</a>。</p>
-<h4 id="SPRING-DATA（-）"><a href="#SPRING-DATA（-）" class="headerlink" title="SPRING DATA（*）"></a>SPRING DATA（*）</h4><p>Spring Data用于简化数据库相关的开发工作。尽管多年以来关系型数据库都是企业级应用开发的主流，但是随着移动互联网的发展，对NoSQL这类菲关系型数据库的需求也越来越强。</p>
-<p>无论你选择NoSQL还是关系型数据库，Spring Datat都能提供简洁的编程模型，例如非常方便的repository机制，可以为开发人员自动创建具体的SQL实现。</p>
-<h4 id="SPRING-SOCIAL"><a href="#SPRING-SOCIAL" class="headerlink" title="SPRING SOCIAL"></a>SPRING SOCIAL</h4><p>社交网络是互联网冉冉升起的一颗新星，越来越多的应用正在融入社交网络网站，例如Facebook 或者Twitter。如果对此感兴趣，你可以了解下Spring Social，Spring 的一个社交网络扩展模块。</p>
-<p>Spring Social 相对还比较新颖，我并没有计划将它放入本书，但是你可以访问<a href="http://www.springsource.org/spring-social" target="_blank" rel="external">http://www.springsource.org/spring-social</a> 了解Spring Social 更多的相关信息。</p>
-<h4 id="SPRING-MOBILE"><a href="#SPRING-MOBILE" class="headerlink" title="SPRING MOBILE"></a>SPRING MOBILE</h4><p>移动应用是另一个引人瞩目的软件开发领域。智能手机和平板设备已成为许多用户首选的客户端。Spring Mobile 是Spring 新的扩展模块用于支持移动Web 应用开发。<br>与Spring Mobile 相关的是Spring Android 项目。这个新项目旨在通过Spring 框架为开发基于Android 设备的本地应用提供某些简单的支持。最初，这个项目提供了Spring 的RestTemplate 版本（请查看第11 章了解RestTemplete）可以用于Android 应用。<br>再次声明，这两个项目已超出了本书的范围，但是如果你对这两个项目感兴趣，可以访问<a href="http://www.springsource.org/spring-mobile" target="_blank" rel="external">http://www.springsource.org/spring-mobile</a> 和<a href="http://www.springsource.org/spring-android" target="_blank" rel="external">http://www.springsource.org/spring-android</a> 了解更多相关的信息。</p>
-<h4 id="SPRING-BOOT（-）"><a href="#SPRING-BOOT（-）" class="headerlink" title="SPRING BOOT（*）"></a>SPRING BOOT（*）</h4><p>Spring Boot是Spring社区中发展速度最快的框架之一，它旨在简化Spring的使用，解决Spring开发时遇到的“配置地狱”问题。</p>
-<p>Spring Boot通过大量使用自动配置技术，可以取消大量的XML配置文件，同时该框架提出了starter的概念，用于简化pom文件。可以参考我的一系列博文：<a href="http://www.jianshu.com/p/5ac18abc91f0" target="_blank" rel="external">《Spring Boot Cookbook》阅读笔记</a></p>
-<p>主要总结下Spring社区的趋势：</p>
-<ol>
-<li>注重注解，能用注解解决的尽量用注解，尽量少写XML配置文件；</li>
-<li>Spring Boot已经是Spring社区中增长最迅速的框架，前三名是：Spring Framework，Spring Boot和Spring Security</li>
-<li>支持Java 8，通过Java8的lambda表达式，使得一些回调接口更易使用和阅读。</li>
-</ol>
+</blockquote>
+<p><strong>引申3：注解类体中，每一个方法实际上声明了一个注解参数。方法名就是参数名，返回值类型就是参数类型。</strong></p>
+<p><strong>引申4：注解参数支持的类型：8种基本类型（byte，short，int，long，float，double，char，boolean），String类型，Class类型，enum类型，Annotation类型，以上所有类型的数组。</strong></p>
+<p><strong>引申5：访问修饰权限：public或者默认default。</strong></p>
+<p><strong>引申6：注解元素必须要有默认值。在定义注解的默认值中指定，或者在使用注解的时候指定。非基本类型不能默认null。</strong></p>
+<blockquote>
+<p>当自定义注解类之后，便可以在类（ElementType.TYPE）、方法（ElementType.METHOD）上标注 @RequestMapping。</p>
+</blockquote>
+<p>那怎样做才能让注解被Java程序所运行？</p>
+<p>请参考：</p>
 
       
     </div>
@@ -563,7 +513,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Spring/" rel="tag"># Spring</a>
+            <a href="/tags/Spring-Annotation/" rel="tag"># Spring Annotation</a>
           
         </div>
       
@@ -576,8 +526,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/05/08/010001-2017-05-08-Spring注解原理总结（二）/" rel="next" title="Spring注解原理总结（二）">
-                <i class="fa fa-chevron-left"></i> Spring注解原理总结（二）
+              <a href="/2017/05/08/Spring注解原理总结（一）/" rel="next" title="Spring注解原理总结">
+                <i class="fa fa-chevron-left"></i> Spring注解原理总结
               </a>
             
           </div>
@@ -586,8 +536,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/05/08/010001-2017-05-08-Spring中jdbcTemplate和HibernateTemplate/" rel="prev" title="Spring中jdbcTemplate的用法实例（一）">
-                Spring中jdbcTemplate的用法实例（一） <i class="fa fa-chevron-right"></i>
+              <a href="/2017/05/08/Spring使用容器管理beans/" rel="prev" title="Spring使用容器管理beans">
+                Spring使用容器管理beans <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -802,7 +752,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#使用容器管理beans"><span class="nav-number">1.</span> <span class="nav-text">使用容器管理beans</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#应用上下文（application-context）"><span class="nav-number">1.1.</span> <span class="nav-text">应用上下文（application context）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#bean的生命周期"><span class="nav-number">1.2.</span> <span class="nav-text">bean的生命周期</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Spring整体架构"><span class="nav-number">1.3.</span> <span class="nav-text">Spring整体架构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-1-Spring模块"><span class="nav-number">1.3.1.</span> <span class="nav-text">1.3.1 Spring模块</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#CORE-SPRING-CONTAINER"><span class="nav-number">1.3.1.1.</span> <span class="nav-text">CORE SPRING CONTAINER</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SPRING’s-AOP-MODULE"><span class="nav-number">1.3.1.2.</span> <span class="nav-text">SPRING’s AOP MODULE</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DATA-ACCESS-AND-INTEGRATION"><span class="nav-number">1.3.1.3.</span> <span class="nav-text">DATA ACCESS AND INTEGRATION</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#WEB-AND-REMOTING"><span class="nav-number">1.3.1.4.</span> <span class="nav-text">WEB AND REMOTING</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#INSTRUMENTATION"><span class="nav-number">1.3.1.5.</span> <span class="nav-text">INSTRUMENTATION</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#TESTING"><span class="nav-number">1.3.1.6.</span> <span class="nav-text">TESTING</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-2-Spring-portfolio"><span class="nav-number">1.3.2.</span> <span class="nav-text">1.3.2 Spring portfolio</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#SPRING-WEB-FLOW"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">SPRING WEB FLOW</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SPRING-WEB-SERVICE"><span class="nav-number">1.3.2.2.</span> <span class="nav-text">SPRING WEB SERVICE</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SPRING-SECURITY（-）"><span class="nav-number">1.3.2.3.</span> <span class="nav-text">SPRING SECURITY（*）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SPRING-INTEGRATION"><span class="nav-number">1.3.2.4.</span> <span class="nav-text">SPRING INTEGRATION</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SPRING-BATCH"><span class="nav-number">1.3.2.5.</span> <span class="nav-text">SPRING BATCH</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SPRING-DATA（-）"><span class="nav-number">1.3.2.6.</span> <span class="nav-text">SPRING DATA（*）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SPRING-SOCIAL"><span class="nav-number">1.3.2.7.</span> <span class="nav-text">SPRING SOCIAL</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SPRING-MOBILE"><span class="nav-number">1.3.2.8.</span> <span class="nav-text">SPRING MOBILE</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SPRING-BOOT（-）"><span class="nav-number">1.3.2.9.</span> <span class="nav-text">SPRING BOOT（*）</span></a></li></ol></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#之-Java中如何自定义注解"><span class="nav-number">1.</span> <span class="nav-text">之 Java中如何自定义注解</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#1-先看注解定义示例"><span class="nav-number">1.0.0.0.1.</span> <span class="nav-text">1.先看注解定义示例</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></div>
             
 
           </div>
@@ -955,9 +905,9 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'http://nijun.me/2017/05/08/010001-2017-05-08-Spring使用容器管理beans/';
-          this.page.identifier = '2017/05/08/010001-2017-05-08-Spring使用容器管理beans/';
-          this.page.title = 'Spring使用容器管理beans';
+          this.page.url = 'http://nijun.me/2017/05/08/Spring注解原理总结（二）/';
+          this.page.identifier = '2017/05/08/Spring注解原理总结（二）/';
+          this.page.title = 'Spring注解原理总结（二）';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://nimon.disqus.com/embed.js';

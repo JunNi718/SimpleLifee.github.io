@@ -92,15 +92,15 @@
 <meta name="keywords" content="java">
 <meta property="og:type" content="article">
 <meta property="og:title" content="断言详解">
-<meta property="og:url" content="http://nijun.me/2017/05/08/010001-2017-05-08-断言详解/index.html">
+<meta property="og:url" content="http://nijun.me/2017/05/08/断言详解/index.html">
 <meta property="og:site_name" content="SimpleLifee">
 <meta property="og:description" content="想了解更多JAVA中的断言？">
-<meta property="og:image" content="http://nijun.me/2017/05/08/010001-2017-05-08-断言详解/assert.png">
+<meta property="og:image" content="http://nijun.me/2017/05/08/断言详解/assert.png">
 <meta property="og:updated_time" content="2017-05-08T07:25:15.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="断言详解">
 <meta name="twitter:description" content="想了解更多JAVA中的断言？">
-<meta name="twitter:image" content="http://nijun.me/2017/05/08/010001-2017-05-08-断言详解/assert.png">
+<meta name="twitter:image" content="http://nijun.me/2017/05/08/断言详解/assert.png">
 
 
 
@@ -128,7 +128,7 @@
 
 
 
-  <link rel="canonical" href="http://nijun.me/2017/05/08/010001-2017-05-08-断言详解/"/>
+  <link rel="canonical" href="http://nijun.me/2017/05/08/断言详解/"/>
 
 
 
@@ -314,7 +314,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://nijun.me/2017/05/08/010001-2017-05-08-断言详解/">
+    <link itemprop="mainEntityOfPage" href="http://nijun.me/2017/05/08/断言详解/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Nimon">
@@ -369,9 +369,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/05/08/010001-2017-05-08-断言详解/#comments" itemprop="discussionUrl">
+                <a href="/2017/05/08/断言详解/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/05/08/010001-2017-05-08-断言详解/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2017/05/08/断言详解/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -379,7 +379,7 @@
 
           
           
-             <span id="/2017/05/08/010001-2017-05-08-断言详解/" class="leancloud_visitors" data-flag-title="断言详解">
+             <span id="/2017/05/08/断言详解/" class="leancloud_visitors" data-flag-title="断言详解">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -445,7 +445,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="function"><span class="keyword">public</span> InputStream <span class="title">getData</span><span class="params">(String file)</span> </span>&#123; </div><div class="line">    <span class="keyword">if</span> (file == <span class="keyword">null</span> || file.length() == <span class="number">0</span>|| file.replaceAll(<span class="string">"\\s"</span>, <span class="string">""</span>).length() == <span class="number">0</span>) &#123; </div><div class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"file入参不是有效的文件地址"</span>); </div><div class="line">    &#125; </div><div class="line">… </div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>在Spring中，给我们提供了 org.springframework.util.Assert 通用类完成这一任务。</p>
 <p>Assert 翻译为中文为“断言”，使用过 JUnit 的读者都熟知这个概念，它断定某一个实际的运行值和预期想一样，否则就抛出异常。Spring 对方法入参的检测借用了这个概念，其提供的 Assert 类拥有众多按规则对方法入参进行断言的方法，可以满足大部分方法入参检测的要求。这些断言方法在入参不满足要求时就会抛出 IllegalArgumentException。下面，我们来认识一下 Assert 类中的常用断言方法：<br>Spring Assert的所有方法：</p>
-<p><img src="/2017/05/08/010001-2017-05-08-断言详解/assert.png" alt=""></p>
+<p><img src="/2017/05/08/断言详解/assert.png" alt=""></p>
 <p>断言方法 说明 </p>
 <ol>
 <li>notNull(Object object)  </li>
@@ -540,7 +540,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/05/08/010001-2017-05-08-Spring中jdbcTemplate和HibernateTemplate/" rel="next" title="Spring中jdbcTemplate的用法实例（一）">
+              <a href="/2017/05/08/Spring中jdbcTemplate和HibernateTemplate/" rel="next" title="Spring中jdbcTemplate的用法实例（一）">
                 <i class="fa fa-chevron-left"></i> Spring中jdbcTemplate的用法实例（一）
               </a>
             
@@ -550,7 +550,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/05/10/010001-2017-05-10-maven/" rel="prev" title="maven">
+              <a href="/2017/05/10/maven/" rel="prev" title="maven">
                 maven <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -919,8 +919,8 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'http://nijun.me/2017/05/08/010001-2017-05-08-断言详解/';
-          this.page.identifier = '2017/05/08/010001-2017-05-08-断言详解/';
+          this.page.url = 'http://nijun.me/2017/05/08/断言详解/';
+          this.page.identifier = '2017/05/08/断言详解/';
           this.page.title = '断言详解';
         };
         var d = document, s = d.createElement('script');

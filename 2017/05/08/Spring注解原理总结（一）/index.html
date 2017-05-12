@@ -70,7 +70,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Spring," />
+  <meta name="keywords" content="Spring 注解," />
 
 
 
@@ -88,17 +88,17 @@
 
 
 
-<meta name="description" content="Spring整合Hibernate">
-<meta name="keywords" content="Spring">
+<meta name="description" content="Java元注解释义">
+<meta name="keywords" content="Spring 注解">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Spring整合Hibernate">
-<meta property="og:url" content="http://nijun.me/2017/05/08/010001-2017-05-08-Spring整合Hibernate/index.html">
+<meta property="og:title" content="Spring注解原理总结">
+<meta property="og:url" content="http://nijun.me/2017/05/08/Spring注解原理总结（一）/index.html">
 <meta property="og:site_name" content="SimpleLifee">
-<meta property="og:description" content="Spring整合Hibernate">
-<meta property="og:updated_time" content="2017-05-08T22:44:08.000Z">
+<meta property="og:description" content="Java元注解释义">
+<meta property="og:updated_time" content="2017-05-08T22:43:17.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Spring整合Hibernate">
-<meta name="twitter:description" content="Spring整合Hibernate">
+<meta name="twitter:title" content="Spring注解原理总结">
+<meta name="twitter:description" content="Java元注解释义">
 
 
 
@@ -126,13 +126,13 @@
 
 
 
-  <link rel="canonical" href="http://nijun.me/2017/05/08/010001-2017-05-08-Spring整合Hibernate/"/>
+  <link rel="canonical" href="http://nijun.me/2017/05/08/Spring注解原理总结（一）/"/>
 
 
 
 
 
-     <title>Spring整合Hibernate | SimpleLifee</title>
+     <title>Spring注解原理总结 | SimpleLifee</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -312,7 +312,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://nijun.me/2017/05/08/010001-2017-05-08-Spring整合Hibernate/">
+    <link itemprop="mainEntityOfPage" href="http://nijun.me/2017/05/08/Spring注解原理总结（一）/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Nimon">
@@ -333,7 +333,7 @@
             
             
               
-                Spring整合Hibernate
+                Spring注解原理总结
               
             
           </h1>
@@ -348,7 +348,7 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-05-08T07:55:47+08:00">
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-05-08T08:35:40+08:00">
                 2017-05-08
               </time>
             
@@ -367,9 +367,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/05/08/010001-2017-05-08-Spring整合Hibernate/#comments" itemprop="discussionUrl">
+                <a href="/2017/05/08/Spring注解原理总结（一）/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/05/08/010001-2017-05-08-Spring整合Hibernate/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2017/05/08/Spring注解原理总结（一）/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -377,7 +377,7 @@
 
           
           
-             <span id="/2017/05/08/010001-2017-05-08-Spring整合Hibernate/" class="leancloud_visitors" data-flag-title="Spring整合Hibernate">
+             <span id="/2017/05/08/Spring注解原理总结（一）/" class="leancloud_visitors" data-flag-title="Spring注解原理总结">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -402,7 +402,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  490
+                  931
                 </span>
               
 
@@ -418,7 +418,7 @@
                   <span class="post-meta-item-text">Reading time</span>
                 
                 <span title="Reading time">
-                  2
+                  4
                 </span>
               
             </div>
@@ -436,26 +436,69 @@
       
 
       
-        <div align="center"><br><br>Spring整合Hibernate<br><br></div>
+        <div align="center"><br><br>Java元注解释义<br><br></div>
 
 <a id="more"></a>
-<p>hibernate.cfg.xml   Hibernate配置文件</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">hibernate-configuration</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">session-factory</span>&gt;</span></div><div class="line">		<span class="comment">&lt;!-- 第一部分： 配置数据库信息 必须的 --&gt;</span></div><div class="line">	 	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"hibernate.connection.driver_class"</span>&gt;</span>com.mysql.jdbc.Driver<span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"hibernate.connection.url"</span>&gt;</span>jdbc:mysql:///spring_day04<span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"hibernate.connection.username"</span>&gt;</span>root<span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"hibernate.connection.password"</span>&gt;</span>root<span class="tag">&lt;/<span class="name">property</span>&gt;</span>   </div><div class="line">		</div><div class="line">		<span class="comment">&lt;!-- 第二部分： 配置hibernate信息  可选的--&gt;</span></div><div class="line">		<span class="comment">&lt;!-- 输出底层sql语句 --&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"hibernate.show_sql"</span>&gt;</span>true<span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line">		<span class="comment">&lt;!-- 输出底层sql语句格式 --&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"hibernate.format_sql"</span>&gt;</span>true<span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line">		<span class="comment">&lt;!-- hibernate帮创建表，需要配置之后 </span></div><div class="line">			update: 如果已经有表，更新，如果没有，创建</div><div class="line">		--&gt;</div><div class="line">		<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"hibernate.hbm2ddl.auto"</span>&gt;</span>update<span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line">		<span class="comment">&lt;!-- 配置数据库方言</span></div><div class="line">			在mysql里面实现分页 关键字 limit，只能使用mysql里面</div><div class="line">			在oracle数据库，实现分页rownum</div><div class="line">			让hibernate框架识别不同数据库的自己特有的语句</div><div class="line">		 --&gt;</div><div class="line">		<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"hibernate.dialect"</span>&gt;</span>org.hibernate.dialect.MySQLDialect<span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line">		</div><div class="line">		<span class="comment">&lt;!-- 第三部分： 把映射文件放到核心配置文件中 必须的--&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">mapping</span> <span class="attr">resource</span>=<span class="string">"cn/nini/entity/User.hbm.xml"</span>/&gt;</span></div><div class="line">	<span class="tag">&lt;/<span class="name">session-factory</span>&gt;</span></div></pre></td></tr></table></figure>
-<p>ApplicationContext.xml</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"sessionFactory"</span> <span class="attr">class</span>=<span class="string">"org.springframework.orm.hibernate4.LocalSessionFactoryBean"</span>&gt;</span></div><div class="line">       <span class="comment">&lt;!--把数据源 bean 注入到sessionFactory的dataSource属性--&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"dataSource"</span> <span class="attr">ref</span>=<span class="string">"dataSource"</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line">	<span class="comment">&lt;!-- 引入hibernate配置文件 --&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"configLocation"</span> <span class="attr">value</span>=<span class="string">"classpath:/hibernate.cfg.xml"</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span><span class="comment">&lt;!-- 1 --&gt;</span></div><div class="line">       <span class="comment">&lt;!-- 引入映射文件，如果有多个可以继续添加 --&gt;</span></div><div class="line">       <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"mappingResources"</span>&gt;</span>     <span class="comment">&lt;!-- 2 --&gt;</span></div><div class="line">           <span class="tag">&lt;<span class="name">list</span>&gt;</span></div><div class="line">               <span class="tag">&lt;<span class="name">value</span>&gt;</span>cn/nini/entity/User.hbm.xml<span class="tag">&lt;/<span class="name">value</span>&gt;</span></div><div class="line">           <span class="tag">&lt;/<span class="name">list</span>&gt;</span></div><div class="line">       <span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line">	<span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line">	<span class="comment">&lt;!-- 映射文件 --&gt;</span></div><div class="line">	 <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"mappingLocations"</span> <span class="attr">value</span>=<span class="string">"classpath:org/hhx/ssh/entities/*.hbm.xml"</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span> </div><div class="line">	<span class="comment">&lt;!-- 使用注解 --&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"packagesToScan"</span> <span class="attr">value</span>=<span class="string">"org.nan.entities"</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></div></pre></td></tr></table></figure>
-<p>优化：</p>
-<p>可以去掉这句<!-- 1 --></p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"configLocation"</span> <span class="attr">value</span>=<span class="string">"classpath:/hibernate.cfg.xml"</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></div></pre></td></tr></table></figure>
-<p>在spring的配置文件中直接添加以下配置语句</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"hibernateProperties"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">props</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">prop</span> <span class="attr">key</span>=<span class="string">"hibernate.show_sql"</span>&gt;</span>true<span class="tag">&lt;/<span class="name">prop</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">prop</span> <span class="attr">key</span>=<span class="string">"hibernate.format_sql"</span>&gt;</span>true<span class="tag">&lt;/<span class="name">prop</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">prop</span> <span class="attr">key</span>=<span class="string">"hibernate.hbm2ddl.auto"</span>&gt;</span>update<span class="tag">&lt;/<span class="name">prop</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">prop</span> <span class="attr">key</span>=<span class="string">"hibernate.dialect"</span>&gt;</span>org.hibernate.dialect.MySQLDialect<span class="tag">&lt;/<span class="name">prop</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">props</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></div></pre></td></tr></table></figure>
-<p>如果用到映射文件</p>
-<p>可以这样写</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">      <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"mappingResources"</span>&gt;</span>     <span class="comment">&lt;!-- 2 --&gt;</span></div><div class="line">          <span class="tag">&lt;<span class="name">list</span>&gt;</span></div><div class="line">              <span class="tag">&lt;<span class="name">value</span>&gt;</span>cn/nini/entity/User.hbm.xml<span class="tag">&lt;/<span class="name">value</span>&gt;</span></div><div class="line">          <span class="tag">&lt;/<span class="name">list</span>&gt;</span></div><div class="line">      <span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></div></pre></td></tr></table></figure>
-<p>也可以这样写</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">&lt;!-- 映射文件 --&gt;</span></div><div class="line"> <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"mappingLocations"</span> <span class="attr">value</span>=<span class="string">"classpath:org/hhx/ssh/entities/*.hbm.xml"</span>&gt;</span>			<span class="tag">&lt;/<span class="name">property</span>&gt;</span></div></pre></td></tr></table></figure>
-<p>如果是用注解</p>
-<p>只要在sessionFactory中添加如下代码</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"packagesToScan"</span> <span class="attr">value</span>=<span class="string">"org.nan.entities"</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>转载自<a href="http://www.jianshu.com/p/5cb8b4c186be" target="_blank" rel="external">ibyr</a></p>
+<h2 id="之-Java元注解释义"><a href="#之-Java元注解释义" class="headerlink" title="之 Java元注解释义"></a>之 Java元注解释义</h2><h5 id="Question"><a href="#Question" class="headerlink" title="Question"></a>Question</h5><ul>
+<li>注解在Java中如何起作用？</li>
+<li>Spring是如何识别注解？</li>
+<li>如何自定义注解为我所用？</li>
+</ul>
+<blockquote>
+<ul>
+<li>Spring注解：<br>@Aotuwired @Required @Qualifier @Provider @Scope …</li>
+<li>Spring MVC 注解：<br>@Controller @Service @Repository @Component @RequestMapping @RequetBody @ResponseBody …</li>
+</ul>
+</blockquote>
+<h5 id="Extension"><a href="#Extension" class="headerlink" title="Extension"></a>Extension</h5><h5 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h5><p>Java注解起源：JDK1.5<br>常见Java注解 ：</p>
+<ul>
+<li>@Override</li>
+<li>@Deprecated</li>
+<li>@SupressWarnings</li>
+</ul>
+<ol>
+<li>从@Override说起，引出Java注解和元注解。</li>
+</ol>
+<p>@Override 源码如下：</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/*If a method is annotated with this annotation type </span></div><div class="line"> * compilers are required to generate an error message </div><div class="line"> * unless at least one of the following conditions hold:</div><div class="line"> *</div><div class="line"> * The method does override or implement a method declared in a</div><div class="line"> * supertype.</div><div class="line"> * The method has a signature that is override-equivalent to that of</div><div class="line"> * any public method declared in &#123;@linkplain Object&#125;.</div><div class="line"> */</div><div class="line"><span class="variable">@Target</span>(ElementType.METHOD)</div><div class="line"><span class="variable">@Retention</span>(RetentionPolicy.SOURCE)</div><div class="line">public <span class="variable">@interface</span> Override &#123;    <span class="comment">// @interface 修饰注解类</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>注意@Override 源码中有3个要点：</p>
+<blockquote>
+<ul>
+<li>@interface：修饰注解类使用@interface，而不是interface。这就定义了一个注解 @Override。</li>
+<li>Java元注解：@Target, @Retention。Java元注解即：定义注解的注解（To annotate the annotation）。</li>
+<li>元注解参数：ElementType.METHOD, RetentionPolicy.SOURCE</li>
+</ul>
+</blockquote>
+<ol>
+<li><p>@Retention源码（保留：保留，滞留之意。）</p>
+<p>指明这个注解将保留多长时间，如果没有指定，那么默认的保留策略是 <code>RetentionPolicy.CLASS</code></p>
+<p>元注释类型只有直接用于注释，保留元注释才会起作用。如果元注释类型用作另一种注释类型中的成员类型，则没有效果。</p>
+</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/* Indicates how long annotations with the annotated type are to</span></div><div class="line"> * be retained.  If no Retention annotation is present on</div><div class="line"> * an annotation type declaration, the retention policy defaults to</div><div class="line"> * &#123;@code RetentionPolicy.CLASS&#125;.</div><div class="line"> *</div><div class="line"> * A Retention meta-annotation has effect only if the</div><div class="line"> * meta-annotated type is used directly for annotation.  It has no</div><div class="line"> * effect if the meta-annotated type is used as a member type in</div><div class="line"> * another annotation type.</div><div class="line">*/</div><div class="line"><span class="meta">@Documented</span>     <span class="comment">// 表明 注解会被包含在Java API文档中。</span></div><div class="line"><span class="meta">@Retention</span>(RetentionPolicy.RUNTIME)</div><div class="line"><span class="meta">@Target</span>(ElementType.ANNOTATION_TYPE)</div><div class="line"><span class="keyword">public</span> <span class="meta">@interface</span> Retention &#123;</div><div class="line">    <span class="comment">/**</span></div><div class="line">     * Returns the retention policy.</div><div class="line">     * <span class="doctag">@return</span> the retention policy.</div><div class="line">     */</div><div class="line">    <span class="function">RetentionPolicy <span class="title">value</span><span class="params">()</span></span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">enum</span> RetentionPolicy &#123;</div><div class="line">    <span class="comment">/**</span></div><div class="line">     * Annotations are to be discarded by the compiler.</div><div class="line">     */</div><div class="line">    SOURCE,</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * Annotations are to be recorded in the class file by the compiler</div><div class="line">     * but need not be retained by the VM at run time.  This is the default</div><div class="line">     * behavior.</div><div class="line">     */</div><div class="line">    CLASS,</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * Annotations are to be recorded in the class file by the compiler and</div><div class="line">     * retained by the VM at run time, so they may be read reflectively.</div><div class="line">     *</div><div class="line">     * <span class="doctag">@see</span> java.lang.reflect.AnnotatedElement</div><div class="line">     */</div><div class="line">    RUNTIME</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>RetentionPolicy.SOURCE：只保留在源码中，在编译的时候会丢失，如上面的Override</p>
+<p>RetentionPolicy.CLASS：注解将保留到 class 文件，但是在运行时将会丢失。</p>
+<p>RetentionPolicy.RUNTIME：注解将一直保留到运行时期。<strong>可以被反射读取</strong>。如 @Retention 元注解本身。</p>
+</blockquote>
+<p><strong>引申1：如果定义一个注解需要被反射读取，则在定义这个注解的时候将添加@Retention(RetentionPolicy.RUNTIME) 元注解。</strong></p>
+<ol>
+<li>@Target 元注解，<strong>定义了注解应该起作用的地方</strong></li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Documented</span></div><div class="line"><span class="meta">@Retention</span>(RetentionPolicy.RUNTIME)   <span class="comment">// 保留到运行时</span></div><div class="line"><span class="meta">@Target</span>(ElementType.ANNOTATION_TYPE)</div><div class="line"><span class="keyword">public</span> <span class="meta">@interface</span> Target &#123;</div><div class="line">    <span class="comment">/**</span></div><div class="line">     * Returns an array of the kinds of elements an annotation type</div><div class="line">     * can be applied to.</div><div class="line">     * <span class="doctag">@return</span> an array of the kinds of elements an annotation type</div><div class="line">     * can be applied to.</div><div class="line">     */</div><div class="line">    ElementType[] value();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>注解作用位置：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">enum</span> ElementType &#123;</div><div class="line">    TYPE,                             <span class="comment">// 类，接口（包括注解），enum;</span></div><div class="line">    FIELD,                            <span class="comment">// 属性域</span></div><div class="line">    METHOD,                           <span class="comment">// 方法</span></div><div class="line">    PARAMETER,                        <span class="comment">// 参数</span></div><div class="line">    CONSTRUCTOR,                      <span class="comment">// 构造函数</span></div><div class="line">    LOCAL_VARIABLE,                   <span class="comment">// 局部变量</span></div><div class="line">    ANNOTATION_TYPE,                  <span class="comment">// 注解类型</span></div><div class="line">    PACKAGE,                          <span class="comment">// 包</span></div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * Type parameter declaration</div><div class="line">     * <span class="doctag">@since</span> 1.8</div><div class="line">     */</div><div class="line">    TYPE_PARAMETER,                   <span class="comment">// 表明可以标注 类型参数</span></div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * Use of a type</div><div class="line">     * <span class="doctag">@since</span> 1.8</div><div class="line">     */</div><div class="line">    TYPE_USE                          <span class="comment">// 可以注解 任何类型名称</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><strong>引申2：如果想要自定义一个注解，就必须指定注解作用的位置。作用在 类，方法，属性域，构造函数等。</strong></p>
+<p><em>举例 SpringMVC 中的 @RequestMapping。</em><br>其源码定义如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Target</span>(&#123;ElementType.METHOD, ElementType.TYPE&#125;)</div><div class="line"><span class="meta">@Retention</span>(RetentionPolicy.RUNTIME)</div><div class="line"><span class="meta">@Documented</span></div><div class="line"><span class="meta">@Mapping</span></div><div class="line"><span class="keyword">public</span> <span class="meta">@interface</span> RequestMapping &#123;</div><div class="line">    <span class="comment">// skip its class code.</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>@RequestMapping 的@Target元注解 表明它可以被使用在方法和类（或接口，注解，enum）上。@RequestMapping 的@Retention元注解表明它可以保留到运行时(RUNTIME)，被反射读取。</p>
+</blockquote>
+<p><strong>引申3：如果想要自定义注解，除了添加@interface 修饰类名，必须满足上述引申1和引申2。 </strong></p>
+<p>那么如何自定义注解？</p>
+<p>请参考：</p>
 
       
     </div>
@@ -506,7 +549,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Spring/" rel="tag"># Spring</a>
+            <a href="/tags/Spring-注解/" rel="tag"># Spring 注解</a>
           
         </div>
       
@@ -519,8 +562,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/05/05/010001-2017-05-05-自己动手搭建个人博客到优化/" rel="next" title="自己动手搭建个人博客到优化">
-                <i class="fa fa-chevron-left"></i> 自己动手搭建个人博客到优化
+              <a href="/2017/05/08/Spring整合Hibernate/" rel="next" title="Spring整合Hibernate">
+                <i class="fa fa-chevron-left"></i> Spring整合Hibernate
               </a>
             
           </div>
@@ -529,8 +572,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/05/08/010001-2017-05-08-Spring注解原理总结（一）/" rel="prev" title="Spring注解原理总结">
-                Spring注解原理总结 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/05/08/Spring注解原理总结（二）/" rel="prev" title="Spring注解原理总结（二）">
+                Spring注解原理总结（二） <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -612,8 +655,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/uploads/avatar.jpg"
@@ -726,6 +778,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#之-Java元注解释义"><span class="nav-number">1.</span> <span class="nav-text">之 Java元注解释义</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Question"><span class="nav-number">1.0.0.1.</span> <span class="nav-text">Question</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Extension"><span class="nav-number">1.0.0.2.</span> <span class="nav-text">Extension</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Solution"><span class="nav-number">1.0.0.3.</span> <span class="nav-text">Solution</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -873,9 +941,9 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'http://nijun.me/2017/05/08/010001-2017-05-08-Spring整合Hibernate/';
-          this.page.identifier = '2017/05/08/010001-2017-05-08-Spring整合Hibernate/';
-          this.page.title = 'Spring整合Hibernate';
+          this.page.url = 'http://nijun.me/2017/05/08/Spring注解原理总结（一）/';
+          this.page.identifier = '2017/05/08/Spring注解原理总结（一）/';
+          this.page.title = 'Spring注解原理总结';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://nimon.disqus.com/embed.js';
