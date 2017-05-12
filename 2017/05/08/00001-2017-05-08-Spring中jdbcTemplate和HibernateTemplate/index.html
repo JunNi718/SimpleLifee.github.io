@@ -70,7 +70,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Spring Annotation," />
+  <meta name="keywords" content="Spring," />
 
 
 
@@ -88,17 +88,17 @@
 
 
 
-<meta name="description" content="Java中如何自定义注解？">
-<meta name="keywords" content="Spring Annotation">
+<meta name="description" content="JdbcTemplate详解">
+<meta name="keywords" content="Spring">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Spring注解原理总结（二）">
-<meta property="og:url" content="http://nijun.me/2017/05/08/Spring注解原理总结（二）/index.html">
+<meta property="og:title" content="Spring中jdbcTemplate的用法实例（一）">
+<meta property="og:url" content="http://nijun.me/2017/05/08/00001-2017-05-08-Spring中jdbcTemplate和HibernateTemplate/index.html">
 <meta property="og:site_name" content="SimpleLifee">
-<meta property="og:description" content="Java中如何自定义注解？">
-<meta property="og:updated_time" content="2017-05-08T22:42:46.000Z">
+<meta property="og:description" content="JdbcTemplate详解">
+<meta property="og:updated_time" content="2017-05-08T08:56:44.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Spring注解原理总结（二）">
-<meta name="twitter:description" content="Java中如何自定义注解？">
+<meta name="twitter:title" content="Spring中jdbcTemplate的用法实例（一）">
+<meta name="twitter:description" content="JdbcTemplate详解">
 
 
 
@@ -126,13 +126,13 @@
 
 
 
-  <link rel="canonical" href="http://nijun.me/2017/05/08/Spring注解原理总结（二）/"/>
+  <link rel="canonical" href="http://nijun.me/2017/05/08/00001-2017-05-08-Spring中jdbcTemplate和HibernateTemplate/"/>
 
 
 
 
 
-     <title>Spring注解原理总结（二） | SimpleLifee</title>
+     <title>Spring中jdbcTemplate的用法实例（一） | SimpleLifee</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -312,7 +312,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://nijun.me/2017/05/08/Spring注解原理总结（二）/">
+    <link itemprop="mainEntityOfPage" href="http://nijun.me/2017/05/08/00001-2017-05-08-Spring中jdbcTemplate和HibernateTemplate/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Nimon">
@@ -333,7 +333,7 @@
             
             
               
-                Spring注解原理总结（二）
+                Spring中jdbcTemplate的用法实例（一）
               
             
           </h1>
@@ -348,7 +348,7 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-05-08T09:26:13+08:00">
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-05-08T13:56:19+08:00">
                 2017-05-08
               </time>
             
@@ -367,9 +367,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/05/08/Spring注解原理总结（二）/#comments" itemprop="discussionUrl">
+                <a href="/2017/05/08/00001-2017-05-08-Spring中jdbcTemplate和HibernateTemplate/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/05/08/Spring注解原理总结（二）/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2017/05/08/00001-2017-05-08-Spring中jdbcTemplate和HibernateTemplate/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -377,7 +377,7 @@
 
           
           
-             <span id="/2017/05/08/Spring注解原理总结（二）/" class="leancloud_visitors" data-flag-title="Spring注解原理总结（二）">
+             <span id="/2017/05/08/00001-2017-05-08-Spring中jdbcTemplate和HibernateTemplate/" class="leancloud_visitors" data-flag-title="Spring中jdbcTemplate的用法实例（一）">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -402,7 +402,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  498
+                  1,115
                 </span>
               
 
@@ -418,7 +418,7 @@
                   <span class="post-meta-item-text">Reading time</span>
                 
                 <span title="Reading time">
-                  2
+                  5
                 </span>
               
             </div>
@@ -436,33 +436,46 @@
       
 
       
-        <div align="center"><br><br>Java中如何自定义注解？<br><br></div>
+        <div align="center"><br><br>JdbcTemplate详解<br><br></div>
 
 <a id="more"></a>
-<h2 id="之-Java中如何自定义注解"><a href="#之-Java中如何自定义注解" class="headerlink" title="之 Java中如何自定义注解"></a>之 Java中如何自定义注解</h2><h6 id="1-先看注解定义示例"><a href="#1-先看注解定义示例" class="headerlink" title="1.先看注解定义示例"></a>1.先看注解定义示例</h6><p>@Override 源码定义：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">@Target(ElementType.METHOD)</div><div class="line">@Retention(RetentionPolicy.SOURCE)</div><div class="line">public @interface Override &#123;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<blockquote>
-<p>使用 @interface 表示这是一个注解类。自动继承了java.lang.annotation.Annotation接口，由编译程序自动完成其他细节。<br>标注 @Target 元注解，声明@Override 的作用地方为METHOD。<br>标注 @Retention 元注解，指明@Override 被保留的级别-源码级别，编译的时候就被忽略。</p>
+<h1 id="注入JdbcTemplate的三种方式"><a href="#注入JdbcTemplate的三种方式" class="headerlink" title="注入JdbcTemplate的三种方式"></a>注入JdbcTemplate的三种方式</h1><p>​      第一种方式： 在 Spring 的 IoC 容器中配置一个 JdbcTemplate 的 bean，将 DataSource 注入进来，然后再把JdbcTemplate 注入到自定义DAO 中。 </p>
+<p>​      第二种方式：我们可以在自己定义的DAO 实现类中注入一个DataSource 引用来完 成JdbcTemplate 的实例化。也就是它是从外部“注入” DataSource 到DAO 中，然后 自己实例化JdbcTemplate，然后将DataSource 设置到JdbcTemplate 对象中。 </p>
+<p>​<br>​      第三种方式: Spring 提供了 org.springframework.jdbc.core.support.JdbcDaoSupport 类 ， 这 个 类 中 定 义 了 JdbcTemplate 属性，也定义了DataSource 属性，当设置DataSource 属性的时候，会创 建jdbcTemplate 的实例，所以我们自己编写的DAO 只需要继承JdbcDaoSupport 类， 然后注入DataSource 即可。<strong>提倡采用第三种方法</strong>。</p>
+<p>第一种方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserServiceImpl</span> <span class="keyword">implements</span> <span class="title">UserService</span> </span>&#123;  </div><div class="line">  </div><div class="line">    <span class="keyword">private</span> JdbcTemplate jdbcTemplate;  </div><div class="line">      </div><div class="line">    <span class="function"><span class="keyword">public</span> JdbcTemplate <span class="title">getJdbcTemplate</span><span class="params">()</span> </span>&#123;  </div><div class="line">        <span class="keyword">return</span> jdbcTemplate;  </div><div class="line">    &#125;  </div><div class="line">  </div><div class="line">    <span class="comment">//注入方法1     </span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setJdbcTemplate</span><span class="params">(JdbcTemplate jdbcTemplate)</span> </span>&#123;  </div><div class="line">        <span class="keyword">this</span>.jdbcTemplate = jdbcTemplate;  </div><div class="line">    &#125;  </div><div class="line">  </div><div class="line">    <span class="comment">//其它方法这里省略……  </span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"jdbcTemplate"</span> <span class="attr">class</span>=<span class="string">"org.springframework.jdbc.core.JdbcTemplate"</span>&gt;</span>  </div><div class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span> = <span class="string">"dataSource"</span> <span class="attr">ref</span>=<span class="string">"dataSource"</span>&gt;</span>  </div><div class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span>  </div><div class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"userService"</span> <span class="attr">class</span>=<span class="string">"com.nini.account.jdbcTemplate.UserServiceImpl"</span>&gt;</span>  </div><div class="line">     <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"jdbcTemplate"</span> <span class="attr">ref</span>=<span class="string">"jdbcTemplate"</span>/&gt;</span>  </div><div class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>第二种方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserServiceImpl</span> <span class="keyword">implements</span> <span class="title">UserService</span> </span>&#123;  </div><div class="line">  </div><div class="line">        <span class="keyword">private</span> JdbcTemplate jdbcTemplate;  </div><div class="line">          </div><div class="line">        <span class="comment">//注入方法2  </span></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setDataSource</span><span class="params">(DataSource dataSource)</span> </span>&#123;  </div><div class="line">                   <span class="keyword">this</span>.jdbcTemplate = <span class="keyword">new</span> JdbcTemplate(dataSource);  </div><div class="line">        &#125;  </div><div class="line">       </div><div class="line">       <span class="comment">//其它方法省略……  </span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"userService"</span> <span class="attr">class</span>=<span class="string">"com.nini.account.jdbcTemplate.UserServiceImpl"</span>&gt;</span>  </div><div class="line">       <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"dataSource"</span> <span class="attr">ref</span>=<span class="string">"dataSource"</span>/&gt;</span>  </div><div class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>第三种方法</p>
+<p>继承JdbcDaoSupport，其内部有个JdbcTemplate ，需要注入DataSource 属性来实例化。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"> <span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserDaoImpl</span> <span class="keyword">extends</span> <span class="title">JdbcDaoSupport</span> <span class="keyword">implements</span> <span class="title">UserDao</span> </span>&#123;  </div><div class="line">  </div><div class="line">    <span class="meta">@Override</span>  </div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">save</span><span class="params">(User user)</span> </span>&#123;  </div><div class="line">        String sql = <span class="keyword">null</span>;  </div><div class="line">        <span class="keyword">this</span>.getJdbcTemplate().update(sql);  </div><div class="line">    &#125;  </div><div class="line">        <span class="comment">//其它方法省略……  </span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"userDao"</span> <span class="attr">class</span>=<span class="string">"com.nini.account.jdbcTemplate.UserDaoImpl"</span>&gt;</span>  </div><div class="line">           <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"dataSource"</span> <span class="attr">ref</span>=<span class="string">"dataSource"</span>/&gt;</span>  </div><div class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></div></pre></td></tr></table></figure>
+<h1 id="常用方法"><a href="#常用方法" class="headerlink" title="常用方法"></a>常用方法</h1><blockquote>
+<p>jdbcTemplate 中的sql均是用“?”做占位符的</p>
 </blockquote>
-<p><strong>引申1：注解定义格式：public @interface 注解名 {定义体} </strong><br><strong>引申2：定义注解时，不得继承其他的注解或者接口。</strong></p>
-<p>SpringMVC 的 @RequestMapping 源码示例：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Target</span>(&#123;ElementType.METHOD, ElementType.TYPE&#125;)</div><div class="line"><span class="meta">@Retention</span>(RetentionPolicy.RUNTIME)  <span class="comment">// 注解一直保持到VM运行期，被反射读取。</span></div><div class="line"><span class="meta">@Documented</span></div><div class="line"><span class="meta">@Mapping</span>    <span class="comment">// SpringMVC定义的元注解，暂忽略此。</span></div><div class="line"><span class="keyword">public</span> <span class="meta">@interface</span> RequestMapping &#123;</div><div class="line">    <span class="function">String <span class="title">name</span><span class="params">()</span> <span class="keyword">default</span> ""</span>;</div><div class="line"></div><div class="line">    <span class="meta">@AliasFor</span>(<span class="string">"path"</span>)    <span class="comment">// SpringMVC中定义的别名注解。</span></div><div class="line">    String[] value() <span class="keyword">default</span> &#123;&#125;;</div><div class="line"></div><div class="line">    <span class="meta">@AliasFor</span>(<span class="string">"value"</span>)</div><div class="line">    String[] path() <span class="keyword">default</span> &#123;&#125;;</div><div class="line"></div><div class="line">    RequestMethod[] method() <span class="keyword">default</span> &#123;&#125;;</div><div class="line"></div><div class="line">    String[] params() <span class="keyword">default</span> &#123;&#125;;</div><div class="line"></div><div class="line">    String[] headers() <span class="keyword">default</span> &#123;&#125;;</div><div class="line"></div><div class="line">    String[] consumes() <span class="keyword">default</span> &#123;&#125;;</div><div class="line"></div><div class="line">    String[] produces() <span class="keyword">default</span> &#123;&#125;;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span> </span>&#123;  </div><div class="line">    <span class="keyword">private</span> <span class="keyword">int</span> id;  </div><div class="line">    <span class="keyword">private</span> String username;  </div><div class="line">    <span class="keyword">private</span> String password;  </div><div class="line">    <span class="keyword">private</span> String sex;  </div><div class="line">              </div><div class="line">               <span class="comment">//setter和getter方法省略……  </span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <blockquote>
-<p>用法示例：<br>@RequestMapping(value=”/user”, methods=RequestMethod.GET)，<br>@RequestMapping可供选择的参数有：<br>name, value, path, method, params, headers, consumes, produces。</p>
-<ul>
-<li>注解的每个参数对应着 @RequestMapping 类中的方法名。</li>
-<li>每个参数指定一个默认值（default）。</li>
-</ul>
+<p>jdbcTemplate.update 适合于 insert 、update 和 delete操作；  </p>
 </blockquote>
-<p><strong>引申3：注解类体中，每一个方法实际上声明了一个注解参数。方法名就是参数名，返回值类型就是参数类型。</strong></p>
-<p><strong>引申4：注解参数支持的类型：8种基本类型（byte，short，int，long，float，double，char，boolean），String类型，Class类型，enum类型，Annotation类型，以上所有类型的数组。</strong></p>
-<p><strong>引申5：访问修饰权限：public或者默认default。</strong></p>
-<p><strong>引申6：注解元素必须要有默认值。在定义注解的默认值中指定，或者在使用注解的时候指定。非基本类型不能默认null。</strong></p>
-<blockquote>
-<p>当自定义注解类之后，便可以在类（ElementType.TYPE）、方法（ElementType.METHOD）上标注 @RequestMapping。</p>
-</blockquote>
-<p>那怎样做才能让注解被Java程序所运行？</p>
-<p>请参考：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**   </span></div><div class="line">    * 第一个参数为执行sql   </div><div class="line">    * 第二个参数为参数数据   </div><div class="line">    */   </div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">save3</span><span class="params">(User user)</span> </span>&#123;  </div><div class="line">       Assert.isNull(user, <span class="string">"user is not null"</span>);  </div><div class="line">       jdbcTemplate.update(<span class="string">"insert into tb_test1(name,password) values(?,?)"</span>,   </div><div class="line">               <span class="keyword">new</span> Object[]&#123;user.getUsername(),user.getPassword()&#125;);  </div><div class="line">   &#125;  </div><div class="line">     </div><div class="line">   <span class="comment">/**   </span></div><div class="line">    * 第一个参数为执行sql   </div><div class="line">    * 第二个参数为参数数据   </div><div class="line">    * 第三个参数为参数类型   </div><div class="line">    */   </div><div class="line">   <span class="meta">@Override</span>  </div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">save</span><span class="params">(User user)</span> </span>&#123;  </div><div class="line">       Assert.isNull(user, <span class="string">"user is not null"</span>);  </div><div class="line">       jdbcTemplate.update(  </div><div class="line">               <span class="string">"insert into tb_test1(name,password) values(?,?)"</span>,   </div><div class="line">               <span class="keyword">new</span> Object[]&#123;user.getUsername(),user.getPassword()&#125;,   </div><div class="line">               <span class="keyword">new</span> <span class="keyword">int</span>[]&#123;java.sql.Types.VARCHAR,java.sql.Types.VARCHAR&#125;  </div><div class="line">               );  </div><div class="line">   &#125;  </div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">//避免sql注入  </span></div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">save2</span><span class="params">(<span class="keyword">final</span> User user)</span> </span>&#123;  </div><div class="line">       Assert.isNull(user, <span class="string">"user is not null"</span>);  </div><div class="line">         </div><div class="line">       jdbcTemplate.update(<span class="string">"insert into tb_test1(name,password) values(?,?)"</span>,   </div><div class="line">               <span class="keyword">new</span> PreparedStatementSetter()&#123;  </div><div class="line">             </div><div class="line">                   <span class="meta">@Override</span>  </div><div class="line">                   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setValues</span><span class="params">(PreparedStatement ps)</span> <span class="keyword">throws</span> SQLException </span>&#123;  </div><div class="line">                       ps.setString(<span class="number">1</span>, user.getUsername());  </div><div class="line">                       ps.setString(<span class="number">2</span>, user.getPassword());  </div><div class="line">                   &#125;  </div><div class="line">       &#125;);  </div><div class="line">         </div><div class="line">   &#125;  </div><div class="line"></div><div class="line"><span class="comment">//返回插入的主键  </span></div><div class="line">   <span class="function"><span class="keyword">public</span> List <span class="title">save5</span><span class="params">(<span class="keyword">final</span> User user)</span> </span>&#123;  </div><div class="line">         </div><div class="line">       KeyHolder keyHolder = <span class="keyword">new</span> GeneratedKeyHolder();  </div><div class="line"> </div><div class="line">       jdbcTemplate.update(<span class="keyword">new</span> PreparedStatementCreator() &#123;  </div><div class="line">                     </div><div class="line">                               <span class="meta">@Override</span>  </div><div class="line">                               <span class="function"><span class="keyword">public</span> PreparedStatement <span class="title">createPreparedStatement</span><span class="params">(Connection connection)</span> <span class="keyword">throws</span> SQLException </span>&#123;  </div><div class="line">                                   PreparedStatement ps = connection.prepareStatement(<span class="string">"insert into tb_test1(name,password) values(?,?)"</span>, <span class="keyword">new</span> String[] &#123;<span class="string">"id"</span>&#125;);  </div><div class="line">                                   ps.setString(<span class="number">1</span>, user.getUsername());  </div><div class="line">                                   ps.setString(<span class="number">2</span>, user.getPassword());  </div><div class="line">                                   <span class="keyword">return</span> ps;  </div><div class="line">                               &#125;  </div><div class="line">                           &#125;,  </div><div class="line">               keyHolder);  </div><div class="line">         </div><div class="line">       <span class="keyword">return</span> keyHolder.getKeyList();  </div><div class="line">   &#125; </div><div class="line"></div><div class="line">   <span class="meta">@Override</span>  </div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">delete</span><span class="params">(User user)</span> </span>&#123;  </div><div class="line">       Assert.isNull(user, <span class="string">"user is not null"</span>);  </div><div class="line">       jdbcTemplate.update(  </div><div class="line">               <span class="string">"delete from tb_test1 where id = ?"</span>,   </div><div class="line">               <span class="keyword">new</span> Object[]&#123;user.getId()&#125;,   </div><div class="line">               <span class="keyword">new</span> <span class="keyword">int</span>[]&#123;java.sql.Types.INTEGER&#125;);  </div><div class="line">   &#125;  </div><div class="line"></div><div class="line">   <span class="comment">//最全的参数3个  </span></div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">queryForInt3</span><span class="params">(User user)</span></span>&#123;  </div><div class="line">       <span class="keyword">return</span> jdbcTemplate.queryForInt(<span class="string">"select count(0) from tb_test1 where username = ?"</span> ,  </div><div class="line">               <span class="keyword">new</span> Object[]&#123;user.getUsername()&#125;,  </div><div class="line">               <span class="keyword">new</span> <span class="keyword">int</span>[]&#123;java.sql.Types.VARCHAR&#125;);  </div><div class="line">   &#125;  </div><div class="line"></div><div class="line">   <span class="function"><span class="keyword">public</span> User <span class="title">queryForObject5</span><span class="params">(User user)</span> </span>&#123;  </div><div class="line">       <span class="keyword">return</span> (User) jdbcTemplate.queryForObject(  </div><div class="line">               <span class="string">"select * from tb_test1 where id = ?"</span>,   </div><div class="line">               <span class="keyword">new</span> Object[]&#123;user.getId()&#125;,  </div><div class="line">               <span class="keyword">new</span> RowMapper()&#123;  </div><div class="line"> </div><div class="line">                   <span class="meta">@Override</span>  </div><div class="line">                   <span class="function"><span class="keyword">public</span> Object <span class="title">mapRow</span><span class="params">(ResultSet rs,<span class="keyword">int</span> rowNum)</span><span class="keyword">throws</span> SQLException </span>&#123;  </div><div class="line">                       User user  = <span class="keyword">new</span> User();  </div><div class="line">                       user.setId(rs.getInt(<span class="string">"id"</span>));  </div><div class="line">                       user.setUsername(rs.getString(<span class="string">"username"</span>));  </div><div class="line">                       user.setPassword(rs.getString(<span class="string">"password"</span>));  </div><div class="line">                       <span class="keyword">return</span> user;  </div><div class="line">                   &#125;  </div><div class="line">             </div><div class="line">       &#125;); <span class="comment">//class是结果数据的java类型  </span></div><div class="line">   &#125;  </div><div class="line"></div><div class="line">   <span class="meta">@SuppressWarnings</span>(<span class="string">"unchecked"</span>)  </div><div class="line">   <span class="comment">//最全的参数查询  </span></div><div class="line">   <span class="function"><span class="keyword">public</span> List&lt;User&gt; <span class="title">queryForList3</span><span class="params">(User user)</span> </span>&#123;  </div><div class="line">       <span class="keyword">return</span> (List&lt;User&gt;) jdbcTemplate.queryForList(<span class="string">"select * from tb_test1 where username = ?"</span>,  </div><div class="line">                           <span class="keyword">new</span> Object[]&#123;user.getUsername()&#125;,  </div><div class="line">                           <span class="keyword">new</span> <span class="keyword">int</span>[]&#123;java.sql.Types.VARCHAR&#125;,  </div><div class="line">                           User.class);  </div><div class="line">   &#125;  </div><div class="line"></div><div class="line"></div><div class="line">   <span class="comment">//批量操作    适合于增、删、改操作  </span></div><div class="line">   <span class="keyword">public</span> <span class="keyword">int</span>[] batchUpdate(<span class="keyword">final</span> List users) &#123;  </div><div class="line">         </div><div class="line">       <span class="keyword">int</span>[] updateCounts = jdbcTemplate.batchUpdate(  </div><div class="line">               <span class="string">"update tb_test1 set username = ?, password = ? where id = ?"</span>,  </div><div class="line">               <span class="keyword">new</span> BatchPreparedStatementSetter() &#123;  </div><div class="line">                     </div><div class="line">                       <span class="meta">@Override</span>  </div><div class="line">                       <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setValues</span><span class="params">(PreparedStatement ps, <span class="keyword">int</span> i)</span> <span class="keyword">throws</span> SQLException </span>&#123;  </div><div class="line">                           ps.setString(<span class="number">1</span>, ((User)users.get(i)).getUsername());  </div><div class="line">                           ps.setString(<span class="number">2</span>, ((User)users.get(i)).getPassword());  </div><div class="line">                           ps.setLong(<span class="number">3</span>, ((User)users.get(i)).getId());  </div><div class="line">                       &#125;  </div><div class="line">                         </div><div class="line">                       <span class="meta">@Override</span>  </div><div class="line">                       <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getBatchSize</span><span class="params">()</span> </span>&#123;  </div><div class="line">                           <span class="keyword">return</span> users.size();  </div><div class="line">                       &#125;  </div><div class="line">               &#125;   </div><div class="line">       );  </div><div class="line">         </div><div class="line">       <span class="keyword">return</span> updateCounts;  </div><div class="line">   &#125;  </div><div class="line"></div><div class="line"><span class="comment">//调用存储过程  </span></div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">callProcedure</span><span class="params">(<span class="keyword">int</span> id)</span></span>&#123;  </div><div class="line">       <span class="keyword">this</span>.jdbcTemplate.update(<span class="string">"call SUPPORT.REFRESH_USERS_SUMMARY(?)"</span>, <span class="keyword">new</span> Object[]&#123;Long.valueOf(id)&#125;);  </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>其中，batchUpdate适合于批量增、删、改操作；</p>
+<p>​         update(…)：使用于增、删、改操作；</p>
+<p>​         execute（）：执行一个独立的sql语句，包括ddl语句；</p>
+<p>​         queryForInt ：查询出一个整数值</p>
+<h1 id="HibernateTemplate"><a href="#HibernateTemplate" class="headerlink" title="HibernateTemplate"></a>HibernateTemplate</h1><p>下面是 HibernateTemplate的常用方法。</p>
+<p>delete(Object entity): 删除指定持久化实例。    </p>
+<p>deleteAll(Collection entities): 删除集合内全部持久化类实例。  </p>
+<p>find(String queryString): 根据 HQL 查询字符串来返回实例集合。 </p>
+<p>findByNamedQuery(String queryName): 根据命名查询返回实例集合。    </p>
+<p>get(Classentity Class,Serializable id): 根据主键加载特定持久化类的实例。    </p>
+<p>save(Object entity): 保存新的实例。    </p>
+<p>saveOrUpdate(Object entity): 根据实例状态，选择保存或者更新。    </p>
+<p>update(Object entity): 更新实例的状态，要求entity 是持久状态。   </p>
+<p>setMaxResults(intmax Results): 设置分页的大小。</p>
+<p>hql语句</p>
+<p>Select/update/delete…… from …… where …… group by …… having …… orderby …… asc/desc</p>
 
       
     </div>
@@ -513,7 +526,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Spring-Annotation/" rel="tag"># Spring Annotation</a>
+            <a href="/tags/Spring/" rel="tag"># Spring</a>
           
         </div>
       
@@ -526,8 +539,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/05/08/Spring注解原理总结（一）/" rel="next" title="Spring注解原理总结">
-                <i class="fa fa-chevron-left"></i> Spring注解原理总结
+              <a href="/2017/05/08/00001-2017-05-08-Spring使用容器管理beans/" rel="next" title="Spring使用容器管理beans">
+                <i class="fa fa-chevron-left"></i> Spring使用容器管理beans
               </a>
             
           </div>
@@ -536,8 +549,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/05/08/Spring使用容器管理beans/" rel="prev" title="Spring使用容器管理beans">
-                Spring使用容器管理beans <i class="fa fa-chevron-right"></i>
+              <a href="/2017/05/08/00001-2017-05-08-断言详解/" rel="prev" title="断言详解">
+                断言详解 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -752,7 +765,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#之-Java中如何自定义注解"><span class="nav-number">1.</span> <span class="nav-text">之 Java中如何自定义注解</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#1-先看注解定义示例"><span class="nav-number">1.0.0.0.1.</span> <span class="nav-text">1.先看注解定义示例</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#注入JdbcTemplate的三种方式"><span class="nav-number">1.</span> <span class="nav-text">注入JdbcTemplate的三种方式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#常用方法"><span class="nav-number">2.</span> <span class="nav-text">常用方法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HibernateTemplate"><span class="nav-number">3.</span> <span class="nav-text">HibernateTemplate</span></a></li></ol></div>
             
 
           </div>
@@ -842,8 +855,6 @@
 
 
 
-  
-
 
 
 
@@ -868,9 +879,6 @@
 
   
   <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-
-  
-  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
 
 
   
@@ -910,9 +918,9 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'http://nijun.me/2017/05/08/Spring注解原理总结（二）/';
-          this.page.identifier = '2017/05/08/Spring注解原理总结（二）/';
-          this.page.title = 'Spring注解原理总结（二）';
+          this.page.url = 'http://nijun.me/2017/05/08/00001-2017-05-08-Spring中jdbcTemplate和HibernateTemplate/';
+          this.page.identifier = '2017/05/08/00001-2017-05-08-Spring中jdbcTemplate和HibernateTemplate/';
+          this.page.title = 'Spring中jdbcTemplate的用法实例（一）';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://nimon.disqus.com/embed.js';
