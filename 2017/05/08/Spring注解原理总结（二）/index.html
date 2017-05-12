@@ -440,7 +440,7 @@
 
 <a id="more"></a>
 <h2 id="之-Java中如何自定义注解"><a href="#之-Java中如何自定义注解" class="headerlink" title="之 Java中如何自定义注解"></a>之 Java中如何自定义注解</h2><h6 id="1-先看注解定义示例"><a href="#1-先看注解定义示例" class="headerlink" title="1.先看注解定义示例"></a>1.先看注解定义示例</h6><p>@Override 源码定义：</p>
-<figure class="highlight less"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="variable">@Target</span>(ElementType.METHOD)</div><div class="line"><span class="variable">@Retention</span>(RetentionPolicy.SOURCE)</div><div class="line">public <span class="variable">@interface</span> Override &#123;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">@Target(ElementType.METHOD)</div><div class="line">@Retention(RetentionPolicy.SOURCE)</div><div class="line">public @interface Override &#123;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <blockquote>
 <p>使用 @interface 表示这是一个注解类。自动继承了java.lang.annotation.Annotation接口，由编译程序自动完成其他细节。<br>标注 @Target 元注解，声明@Override 的作用地方为METHOD。<br>标注 @Retention 元注解，指明@Override 被保留的级别-源码级别，编译的时候就被忽略。</p>
 </blockquote>

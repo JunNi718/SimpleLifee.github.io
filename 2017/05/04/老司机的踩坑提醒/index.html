@@ -466,13 +466,13 @@
 </code></pre><p>问题原因：当前有程序占用xxxx端口，需要将它结束进程。<br>​<br>    lsof -i:8087<br>用以显示符合条件的进程情况</p>
 <pre><code>kill *pid*    
 </code></pre><h4 id="2"><a href="#2" class="headerlink" title="2."></a>2.</h4><p>在执行<code>hexo -s</code>时，如果</p>
-<figure class="highlight subunit"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">ERROR </span>Plugin load failed: hexo-renderer-sass</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ERROR Plugin load failed: hexo-renderer-sass</div></pre></td></tr></table></figure>
 <blockquote>
 <p> npm rebuild node-sass –force</p>
 </blockquote>
 <p>使用上面这句可以解决问题。</p>
 <p>如果</p>
-<figure class="highlight subunit"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">Error: </span>Cannot find module './build/Release/DTraceProviderBindings'</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Error: Cannot find module &apos;./build/Release/DTraceProviderBindings&apos;</div></pre></td></tr></table></figure>
 <blockquote>
 <p>  npm install hexo –no-optional </p>
 </blockquote>
@@ -487,21 +487,21 @@ The file will have its original line endings in your working directory.
 <pre><code>git config --gobal core.autocrlf false  
 </code></pre><p>就可以解决这个问题了</p>
 <h4 id="5"><a href="#5" class="headerlink" title="5."></a>5.</h4><p>如果更新了css文件，那么需要把public的css文件删除，然后</p>
-<figure class="highlight verilog"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy --<span class="keyword">generate</span></div></pre></td></tr></table></figure>
-<h4 id="6"><a href="#6" class="headerlink" title="6."></a>6.</h4><figure class="highlight subunit"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">ERROR </span>Deployer not found: git</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy --generate</div></pre></td></tr></table></figure>
+<h4 id="6"><a href="#6" class="headerlink" title="6."></a>6.</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ERROR Deployer not found: git</div></pre></td></tr></table></figure>
 <p>试试</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> npm install hexo-deployer-git --save</span></div><div class="line"><span class="meta">$</span><span class="bash"> npm install hexo --save</span></div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> npm install hexo-deployer-git --save</div><div class="line"><span class="meta">$</span> npm install hexo --save</div></pre></td></tr></table></figure>
 <h4 id="7-Spring"><a href="#7-Spring" class="headerlink" title="7. Spring"></a>7. Spring</h4><blockquote>
 <p>BeanFactory not initialized or already closed - call ‘refresh’ before accessing beans via the ApplicationContext</p>
 </blockquote>
 <p>原因是</p>
-<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">ApplicationContext context</span> = new ClassPathXmlApplicationContext();</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ApplicationContext context = new ClassPathXmlApplicationContext();</div></pre></td></tr></table></figure>
 <p>没有指定路径。</p>
 <h4 id="8-spring"><a href="#8-spring" class="headerlink" title="8. spring"></a>8. spring</h4> <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Write operations are not allowed in read-<span class="function">only <span class="title">mode</span> <span class="params">(FlushMode.MANUAL)</span>: Turn your Session into FlushMode.COMMIT/AUTO or remove 'readOnly' marker from transaction definition.</span></div></pre></td></tr></table></figure>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">tx:advice</span> <span class="attr">id</span>=<span class="string">"txAdvice"</span> <span class="attr">transaction-manager</span>=<span class="string">"transactionManager"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">tx:attributes</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">tx:method</span> <span class="attr">name</span>=<span class="string">"save*"</span> <span class="attr">read-only</span>=<span class="string">"false"</span> <span class="attr">propagation</span>=<span class="string">"REQUIRED"</span></span></div><div class="line">                       <span class="attr">rollback-for</span>=<span class="string">"Exception"</span>/&gt;</div><div class="line">        <span class="tag">&lt;/<span class="name">tx:attributes</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">tx:advice</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">aop:config</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">aop:pointcut</span> <span class="attr">id</span>=<span class="string">"pointcut1"</span> <span class="attr">expression</span>=<span class="string">"execution(* me.nini.*.*.*(..))"</span>/&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">aop:advisor</span> <span class="attr">advice-ref</span>=<span class="string">"txAdvice"</span> <span class="attr">pointcut-ref</span>=<span class="string">"pointcut1"</span>/&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">aop:config</span>&gt;</span></div></pre></td></tr></table></figure>
 <h4 id="9-如果出现sequence这个表，原因是没有指定数据库主键的生成策略"><a href="#9-如果出现sequence这个表，原因是没有指定数据库主键的生成策略" class="headerlink" title="9. 如果出现sequence这个表，原因是没有指定数据库主键的生成策略"></a>9. 如果出现sequence这个表，原因是没有指定数据库主键的生成策略</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Id</span></div><div class="line"><span class="meta">@GeneratedValue</span>(strategy= GenerationType.IDENTITY)</div></pre></td></tr></table></figure>
 <h4 id="10-在定义bean的时候，如果定义了多个bean继承或者实现同一个类或者接口，那么会报以下错误"><a href="#10-在定义bean的时候，如果定义了多个bean继承或者实现同一个类或者接口，那么会报以下错误" class="headerlink" title="10. 在定义bean的时候，如果定义了多个bean继承或者实现同一个类或者接口，那么会报以下错误"></a>10. 在定义bean的时候，如果定义了多个bean继承或者实现同一个类或者接口，那么会报以下错误</h4><p>在注入bean的时候，类中的bean的字段名可以和xml文件中配置的bean的id不一致。不然就会报</p>
-<figure class="highlight ada"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">NoUniqueBeanDefinitionException</div><div class="line">No qualifying bean <span class="keyword">of</span> <span class="keyword">type</span> <span class="type">[me.nini.dao.BaseDao] </span><span class="keyword">is</span> defined</div><div class="line">expected single matching bean but found <span class="number">2</span></div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">NoUniqueBeanDefinitionException</div><div class="line">No qualifying bean of type [me.nini.dao.BaseDao] is defined</div><div class="line">expected single matching bean but found 2</div></pre></td></tr></table></figure>
 <p>​<br>那么如何解决呢？</p>
 <p>只要在具有相同父类型的组件前加上 @Component(“标识符”)</p>
 <p>​            </p>
@@ -518,7 +518,7 @@ The file will have its original line endings in your working directory.
 <blockquote>
 <p>注意 4 ：即使组件类没有显式实现接口，但是注入的属性中可能实现的同一接口，这时如果只用 @AutoWired 的话也会报以下错误</p>
 </blockquote>
-<figure class="highlight ada"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">NoUniqueBeanDefinitionException</div><div class="line">No qualifying bean <span class="keyword">of</span> <span class="keyword">type</span> <span class="type">[me.nini.dao.BaseDao] </span><span class="keyword">is</span> defined</div><div class="line">expected single matching bean but found <span class="number">2</span></div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">NoUniqueBeanDefinitionException</div><div class="line">No qualifying bean of type [me.nini.dao.BaseDao] is defined</div><div class="line">expected single matching bean but found 2</div></pre></td></tr></table></figure>
 
       
     </div>
