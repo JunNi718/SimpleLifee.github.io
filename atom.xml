@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://nijun.me/"/>
-  <updated>2017-05-06T02:58:20.000Z</updated>
+  <updated>2017-05-11T01:17:55.000Z</updated>
   <id>http://nijun.me/</id>
   
   <author>
@@ -16,13 +16,565 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>maven</title>
+    <link href="http://nijun.me/2017/05/10/010001-2017-05-10-maven/"/>
+    <id>http://nijun.me/2017/05/10/010001-2017-05-10-maven/</id>
+    <published>2017-05-10T12:37:08.000Z</published>
+    <updated>2017-05-11T01:17:55.000Z</updated>
+    
+    <content type="html"><![CDATA[ <div align="center"><br>  想学习Maven吗？<br><br></div>
+
+<a id="more"></a>
+<h1 id="常用的构建命令"><a href="#常用的构建命令" class="headerlink" title="常用的构建命令"></a>常用的构建命令</h1><p>mvn </p>
+<ul>
+<li>v 查看版本</li>
+</ul>
+<ul>
+<li>compile 编译</li>
+</ul>
+<ul>
+<li>test 测试</li>
+</ul>
+<ul>
+<li>package  打包<ul>
+<li>会依次执行  clean 、</li>
+</ul>
+</li>
+<li>clean 删除target文件夹</li>
+<li>Install 安装jar包到本地仓库中</li>
+</ul>
+<h1 id="自动创建目录骨架"><a href="#自动创建目录骨架" class="headerlink" title="自动创建目录骨架"></a>自动创建目录骨架</h1><p>创建目录的两种方式：</p>
+<ol>
+<li>mvn archetype:generate 按照提示进行选择</li>
+</ol>
+<ol>
+<li><p>mvn archetype:generate -DgroupId=组织名，公司网址的反写+项目名</p>
+<p>​                        -DartifactId=项目名-模块名</p>
+<p>​                        -Dversion=版本号</p>
+<p>​                        -Dpackage=代码所在的包名</p>
+</li>
+</ol>
+<p>src/main/java:存放java源文件</p>
+<p>src/main/resources:存放项目配置文件，如spring.xml,hibernate.cfg.xml。。。</p>
+<p>src/test/java:存放test的java文件</p>
+<p>src/test/resources:存放test时候所需的配置文件</p>
+<h1 id="maven中的坐标和仓库"><a href="#maven中的坐标和仓库" class="headerlink" title="maven中的坐标和仓库"></a>maven中的坐标和仓库</h1><h2 id="坐标"><a href="#坐标" class="headerlink" title="坐标"></a>坐标</h2><p>在<code>&lt;dependency&gt;</code>中的就是坐标</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.nimon.maven01<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven01-model<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span>  </div><div class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>0.0.1SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div></pre></td></tr></table></figure>
+<blockquote>
+<p>项目的包名，建议和groupId和artifactId相吻合，这样看起来，就更加清晰，符合逻辑，也更方便搜索。</p>
+</blockquote>
+<h2 id="构件"><a href="#构件" class="headerlink" title="构件"></a>构件</h2><p>在maven世界中，任何一个依赖、插件、项目构建的输出，都可以被称作为<strong>构件</strong>。</p>
+<p><strong>构件</strong>通过坐标作为其唯一的标识，就好像我们的工作单位和家庭地址。</p>
+<blockquote>
+<p>收宝贝的时候，不是收到的那一刻，而是中间等待的过程。</p>
+</blockquote>
+<h2 id="仓库"><a href="#仓库" class="headerlink" title="仓库"></a>仓库</h2><p>​    本地仓库和远程仓库</p>
+<p>​    <a href="http://search.maven.org/" target="_blank" rel="external">查看仓库</a></p>
+<p>​    <a href="https://repo.maven.apache.org/maven2/" target="_blank" rel="external">全球中央仓库</a></p>
+<p>​    <a href="http://mvnrepository.com/" target="_blank" rel="external">MVN Repository</a></p>
+<h2 id="镜像仓库"><a href="#镜像仓库" class="headerlink" title="镜像仓库"></a>镜像仓库</h2><blockquote>
+<p>一旦配置了镜像，那么所有访问都会到镜像仓库中，原仓库将不能直接访问。</p>
+<p>maven主目录 &gt; conf &gt; settings.xml &gt; 146行</p>
+</blockquote>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">mirror</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">id</span>&gt;</span>maven.net.cn<span class="tag">&lt;/<span class="name">id</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">mirrorOf</span>&gt;</span>central<span class="tag">&lt;/<span class="name">mirrorOf</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">name</span>&gt;</span>Central mirror in china<span class="tag">&lt;/<span class="name">name</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">url</span>&gt;</span>http://maven.net.cn/content/groups/public<span class="tag">&lt;/<span class="name">url</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">mirror</span>&gt;</span></div></pre></td></tr></table></figure>
+<h2 id="更改仓库位置"><a href="#更改仓库位置" class="headerlink" title="更改仓库位置"></a>更改仓库位置</h2><blockquote>
+<p>maven从远程中央仓库下载默认是存放在当前用户目录中</p>
+<p>​    即 ~/.m2/repository</p>
+</blockquote>
+<p>修改 <code>settings.xml</code>文件，复制第 53 行的内容</p>
+<figure class="highlight dts"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="params">&lt;localRepository&gt;</span>/Users<span class="meta-keyword">/nimon/</span>nj<span class="meta-keyword">/proj/</span>maven/repo<span class="params">&lt;/localRepository&gt;</span></div></pre></td></tr></table></figure>
+<p>其中路径表示新仓库的位置。然后复制一份 <code>settings.xml</code>  到 <code>repo</code> 目录下，这样我们以后更新maven版本就不用再修改原始的 <code>settings.xml</code></p>
+<h1 id="maven的生命周期和插件"><a href="#maven的生命周期和插件" class="headerlink" title="maven的生命周期和插件"></a>maven的生命周期和插件</h1><h2 id="完整的项目构建过程包括"><a href="#完整的项目构建过程包括" class="headerlink" title="完整的项目构建过程包括"></a>完整的项目构建过程包括</h2><p>清理、编译、测试、打包、集成测试、验证、部署</p>
+<p>maven将其进行抽象。实际上，maven和插件是密不可分的，maven抽象出一套项目构建的生命周期，而插件是对maven抽象的具体实现。</p>
+<p>比如，我们对项目进行编译，</p>
+<h2 id="maven中定义了三套独立的生命周期"><a href="#maven中定义了三套独立的生命周期" class="headerlink" title="maven中定义了三套独立的生命周期"></a>maven中定义了三套独立的生命周期</h2><ol>
+<li>clean    清理项目</li>
+<li>default  构建项目</li>
+<li>site   生成项目站点</li>
+</ol>
+<p>这三套生命周期是相互独立的，每个生命周期又包含一些阶段，这些阶段是有顺序的，后面的阶段依赖于前面的阶段。在执行的时候，前面的阶段会顺序执行，并不会触发另外两个生命周期中的阶段。</p>
+<h3 id="clean-清理项目阶段"><a href="#clean-清理项目阶段" class="headerlink" title="clean 清理项目阶段"></a>clean 清理项目阶段</h3><p>pre-clean 执行清理前的工作</p>
+<p>clean 清理上一次构建的文件</p>
+<p>post-clean 执行清理后的文件</p>
+<h3 id="default-构建项目（最核心）"><a href="#default-构建项目（最核心）" class="headerlink" title="default 构建项目（最核心）"></a>default 构建项目（最核心）</h3><p>compile test package install</p>
+<h3 id="site-生成项目站点"><a href="#site-生成项目站点" class="headerlink" title="site 生成项目站点"></a>site 生成项目站点</h3><p>pre-site 在生成项目站点前要完成工作</p>
+<p>site  生成项目的站点文档</p>
+<p>post-site  在生成项目站点后要完成的工作</p>
+<p>site-deploy  发布生成的站点到服务器</p>
+<p>可以去 <strong><a href="https://maven.apache.org/plugins" target="_blank" rel="external">官方插件</a></strong> ，查找使用插件</p>
+<h1 id="pom-xml常用元素"><a href="#pom-xml常用元素" class="headerlink" title="pom.xml常用元素"></a>pom.xml常用元素</h1><p>pom.xml是maven项目的核心管理文件，用于项目描述、组织管理、依赖管理和构建信息的管理。 </p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">project</span> <span class="attr">xmlns</span>=<span class="string">"http://maven.apache.org/POM/4.0.0"</span></span></div><div class="line">         <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></div><div class="line">         <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd"</span>&gt;</div><div class="line">    <span class="tag">&lt;<span class="name">modelVersion</span>&gt;</span>4.0.0<span class="tag">&lt;/<span class="name">modelVersion</span>&gt;</span>   </div><div class="line">  </div><div class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>组织名，公司网址的反写+项目名<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>项目名-模块名<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">  	<span class="comment">&lt;!--打包类型，默认是jar</span></div><div class="line">		war zip pom	</div><div class="line">	--&gt;</div><div class="line">    <span class="tag">&lt;<span class="name">packaging</span>&gt;</span>war<span class="tag">&lt;/<span class="name">packaging</span>&gt;</span></div><div class="line">  	<span class="comment">&lt;!--第一个0表示大版本号</span></div><div class="line">	第二个0 表示分支版本号</div><div class="line">	第三个0 表示小版本号</div><div class="line">	SNAPSHOT ：不稳定，尚处于开发中，快照版本</div><div class="line">	ALPHA ：是内部测试版,一般不向外部发布,会有很多Bug.一般只有测试人员使用。</div><div class="line">	Beta：也是测试版，这个阶段的版本会一直加入新的功能。在Alpha版之后推出。</div><div class="line">	RELEASE ：稳定版</div><div class="line">	GA ：正式发布</div><div class="line">	--&gt;</div><div class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>0.0.1-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line">    <span class="comment">&lt;!--项目描述名--&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>maven05-demo Maven Webapp<span class="tag">&lt;/<span class="name">name</span>&gt;</span></div><div class="line">  	<span class="comment">&lt;!--项目地址--&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">url</span>&gt;</span>http://maven.apache.org<span class="tag">&lt;/<span class="name">url</span>&gt;</span></div><div class="line">    <span class="comment">&lt;!--项目描述--&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">description</span>&gt;</span><span class="tag">&lt;/<span class="name">description</span>&gt;</span></div><div class="line">  	<span class="tag">&lt;<span class="name">developers</span>&gt;</span><span class="tag">&lt;/<span class="name">developers</span>&gt;</span></div><div class="line">  	<span class="tag">&lt;<span class="name">licenses</span>&gt;</span><span class="tag">&lt;/<span class="name">licenses</span>&gt;</span></div><div class="line">  	<span class="tag">&lt;<span class="name">organization</span>&gt;</span><span class="tag">&lt;/<span class="name">organization</span>&gt;</span></div><div class="line">  </div><div class="line">    <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>4.10<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line">          	<span class="comment">&lt;!--只存在于测试的 classpath 中--&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></div><div class="line">          	<span class="tag">&lt;<span class="name">type</span>&gt;</span><span class="tag">&lt;/<span class="name">type</span>&gt;</span></div><div class="line">          	<span class="comment">&lt;!--设置依赖是否可选--&gt;</span></div><div class="line">          	<span class="tag">&lt;<span class="name">optional</span>&gt;</span><span class="tag">&lt;/<span class="name">optional</span>&gt;</span></div><div class="line">          	<span class="comment">&lt;!--排除依赖传递列表--&gt;</span></div><div class="line">          	<span class="tag">&lt;<span class="name">exclusions</span>&gt;</span></div><div class="line">          		<span class="tag">&lt;<span class="name">exclusion</span>&gt;</span></div><div class="line">              		</div><div class="line">              	<span class="tag">&lt;/<span class="name">exclusion</span>&gt;</span></div><div class="line">          	<span class="tag">&lt;/<span class="name">exclusions</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></div><div class="line">  </div><div class="line">  	<span class="comment">&lt;!--依赖的管理，不会被运行和引入到实际的依赖中--&gt;</span></div><div class="line">  	<span class="tag">&lt;<span class="name">dependencyManagerment</span>&gt;</span></div><div class="line">      	<span class="comment">&lt;!--主要定义在父模块中，供子模块集成用的--&gt;</span></div><div class="line">  		<span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">      		</div><div class="line">      	<span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div><div class="line">  	<span class="tag">&lt;/<span class="name">dependencyManagerment</span>&gt;</span></div><div class="line">  </div><div class="line">  	<span class="comment">&lt;!--插件列表--&gt;</span></div><div class="line">  	 <span class="tag">&lt;<span class="name">build</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">plugins</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></div><div class="line">                <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.maven.plugins<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">                <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven-source-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">                <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.4<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line">              	<span class="comment">&lt;!--上面三项是坐标--&gt;</span></div><div class="line">                <span class="tag">&lt;<span class="name">executions</span>&gt;</span></div><div class="line">                    <span class="tag">&lt;<span class="name">execution</span>&gt;</span></div><div class="line">                        <span class="tag">&lt;<span class="name">phase</span>&gt;</span>package<span class="tag">&lt;/<span class="name">phase</span>&gt;</span></div><div class="line">                        <span class="tag">&lt;<span class="name">goals</span>&gt;</span></div><div class="line">                            <span class="tag">&lt;<span class="name">goal</span>&gt;</span>jar-no-fork<span class="tag">&lt;/<span class="name">goal</span>&gt;</span></div><div class="line">                        <span class="tag">&lt;/<span class="name">goals</span>&gt;</span></div><div class="line">                    <span class="tag">&lt;/<span class="name">execution</span>&gt;</span></div><div class="line">                <span class="tag">&lt;/<span class="name">executions</span>&gt;</span></div><div class="line">            <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></div><div class="line"></div><div class="line">            <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></div><div class="line">                <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.maven.plugins<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">                <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven-jar-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">                <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.0.2<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line">            <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></div><div class="line">		<span class="comment">&lt;!--子模块对父模块的继承--&gt;</span></div><div class="line">       	<span class="tag">&lt;<span class="name">parent</span>&gt;</span><span class="tag">&lt;/<span class="name">parent</span>&gt;</span></div><div class="line">		<span class="comment">&lt;!--聚合多个maven运行项--&gt;</span></div><div class="line">       	<span class="tag">&lt;<span class="name">modules</span>&gt;</span><span class="tag">&lt;/<span class="name">modules</span>&gt;</span></div><div class="line">       </div><div class="line">        <span class="tag">&lt;<span class="name">finalName</span>&gt;</span>maven05-demo<span class="tag">&lt;/<span class="name">finalName</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">build</span>&gt;</span></div><div class="line">  </div><div class="line"><span class="tag">&lt;/<span class="name">project</span>&gt;</span></div></pre></td></tr></table></figure>
+<h1 id="依赖范围"><a href="#依赖范围" class="headerlink" title="依赖范围"></a>依赖范围</h1><p>我们平时在开发时，如果要使用某一个框架，就需要把框架的jar包引入项目的 classpath 中，这样我们的项目就可以使用 框架为我们封装好的一些方法。maven给我们提供了三种classpath：</p>
+<ol>
+<li>编译</li>
+<li>测试 test</li>
+<li>运行  </li>
+</ol>
+<p>所以依赖的范围就是控制依赖于三种 classpath 的关系的。</p>
+<p>有六中依赖范围的值可以选择：</p>
+<ul>
+<li>compile 默认的范围，如果没有明确指定，编译依赖将在所有的 classpath 中都有效，而且会传递到依赖项目中。</li>
+<li>provided  在编译和测试的时候有效</li>
+<li>runtime 在测试和运行时有效</li>
+<li>test 只在测试的时候有效</li>
+<li>system 于本机系统相关联，可移植性差</li>
+<li>import 导入的范围，它只使用在 dependencyManagerment ，表示从其他 pom 中导入的 dependency 的配置。</li>
+</ul>
+<p>例如</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">project</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">modelVersion</span>&gt;</span>4.0.0<span class="tag">&lt;/<span class="name">modelVersion</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>maven<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>B<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">packaging</span>&gt;</span>pom<span class="tag">&lt;/<span class="name">packaging</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">name</span>&gt;</span>B<span class="tag">&lt;/<span class="name">name</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">dependencyManagement</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>maven<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>A<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">type</span>&gt;</span>pom<span class="tag">&lt;/<span class="name">type</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">scope</span>&gt;</span>import<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></div><div class="line">      <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div><div class="line">      .....</div></pre></td></tr></table></figure>
+<h1 id="依赖传递"><a href="#依赖传递" class="headerlink" title="依赖传递"></a>依赖传递</h1><p>一个小案例</p>
+<p>shanji 依赖于 nage</p>
+<p>nage 依赖于 bge</p>
+<p>bge的依赖关系</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">version</span>&gt;</span>4.10<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div><div class="line"> <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>nage的依赖关系</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></div><div class="line">  </div><div class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.8.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div><div class="line"></div><div class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.hongxing<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>hongxing-bge<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div><div class="line"></div><div class="line">  <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>shanji的依赖关系</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.8.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div><div class="line">  </div><div class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.hongxing<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>hongxing-nage<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">exclusions</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">exclusion</span>&gt;</span></div><div class="line">          <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.hongxing<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">          <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>hongxing-bge<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">exclusion</span>&gt;</span></div><div class="line">      <span class="tag">&lt;/<span class="name">exclusions</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>这时候nage下就有bge的依赖jar包，shanji下有bge和nage的依赖jar包。</p>
+<p>但是由于依赖的传递性，shanji 只依赖于nage ，shanji 项目中会出现 bge 的jar包。有时候，这不是我们想要的。</p>
+<p>这时可以在 nage 依赖下使用 <exclusions>  把 bge 排除在外。</exclusions></p>
+<h1 id="依赖冲突"><a href="#依赖冲突" class="headerlink" title="依赖冲突"></a>依赖冲突</h1><blockquote>
+<p>eg 对不同版本的同一个构建。</p>
+</blockquote>
+<ol>
+<li><p>短路优先</p>
+<p>A -&gt; B -&gt; C -&gt; X（JAR)</p>
+<p>A -&gt; D -&gt; X（JAR)    <strong>优先</strong></p>
+</li>
+</ol>
+<p>举例：</p>
+<p>在 bge 中添加commons-io 2.5的版本依赖</p>
+<p>在 nage 中添加commons-io 2.0的版本依赖</p>
+<p>这时候在 shanji 项目中就会出现 2.0 的版本，因为shanji 离 nage 比较近。</p>
+<ol>
+<li>先声明先优先</li>
+</ol>
+<p>如果路径长度相同，谁先声明，先解析谁。</p>
+<p>举例：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.8.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div><div class="line"></div><div class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.hongxing<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>hongxing-bge<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div><div class="line"></div><div class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.hongxing<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>hongxing-nage<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line">      <span class="comment">&lt;!--&lt;exclusions&gt;--&gt;</span></div><div class="line">        <span class="comment">&lt;!--&lt;exclusion&gt;--&gt;</span></div><div class="line">          <span class="comment">&lt;!--&lt;groupId&gt;com.hongxing&lt;/groupId&gt;--&gt;</span></div><div class="line">          <span class="comment">&lt;!--&lt;artifactId&gt;hongxing-bge&lt;/artifactId&gt;--&gt;</span></div><div class="line">        <span class="comment">&lt;!--&lt;/exclusion&gt;--&gt;</span></div><div class="line">      <span class="comment">&lt;!--&lt;/exclusions&gt;--&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>这时候，项目中 commons-io 的版本就变成了 2.5，因为是先声明 bge ，后声明 nage 。</p>
+<h1 id="聚合和继承"><a href="#聚合和继承" class="headerlink" title="聚合和继承"></a>聚合和继承</h1><p>如果在maven中有多个项目，我们想要 install 将其放到本地仓库中， 必须对其依次执行 install 命令</p>
+<p>maven 给我提供了一个解决办法，就是使用 <strong>聚合</strong> </p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">modules</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">module</span>&gt;</span>../hongxing-bge<span class="tag">&lt;/<span class="name">module</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">module</span>&gt;</span>../hongxing-nage<span class="tag">&lt;/<span class="name">module</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">module</span>&gt;</span>../hongxing-shanji<span class="tag">&lt;/<span class="name">module</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">modules</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>然后执行 install 命令，就会自动把三个module都安装到本地仓库中了。</p>
+<p>定义父容器</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">properties</span>&gt;</span></div><div class="line">     <span class="tag">&lt;<span class="name">project.build.sourceEncoding</span>&gt;</span>UTF-8<span class="tag">&lt;/<span class="name">project.build.sourceEncoding</span>&gt;</span></div><div class="line">     <span class="tag">&lt;<span class="name">junit.version</span>&gt;</span></div><div class="line">         3.8.1</div><div class="line">     <span class="tag">&lt;/<span class="name">junit.version</span>&gt;</span></div><div class="line"> <span class="tag">&lt;/<span class="name">properties</span>&gt;</span></div><div class="line"></div><div class="line"> <span class="tag">&lt;<span class="name">dependencyManagement</span>&gt;</span></div><div class="line">     <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></div><div class="line">         <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">             <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">             <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">             <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;junit.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line">         <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div><div class="line">     <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></div><div class="line"> <span class="tag">&lt;/<span class="name">dependencyManagement</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>然后在子类中使用</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">parent</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.hongxing<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>hongxing-parent<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">parent</span>&gt;</span></div></pre></td></tr></table></figure>
+<blockquote>
+<p>注意修改  <strong><packaging></packaging></strong> 为pom</p>
+</blockquote>
+<h1 id="使用maven构建web项目"><a href="#使用maven构建web项目" class="headerlink" title="使用maven构建web项目"></a>使用maven构建web项目</h1><p>Next，这里在Properties中添加一个参数<code>archetypeCatalog=internal</code>，不加这个参数，在maven生成骨架的时候将会非常慢，有时候会直接卡住。</p>
+<p>来自网上的解释：</p>
+<blockquote>
+<p>archetypeCatalog表示插件使用的archetype元数据，不加这个参数时默认为remote，local，即中央仓库archetype元数据，由于中央仓库的archetype太多了，所以导致很慢，指定internal来表示仅使用内部元数据。</p>
+</blockquote>
+<p><img src="/2017/05/10/010001-2017-05-10-maven/maven.png" alt=""></p>
+<p>使用 jetty 发布</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">plugin</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.eclipse.jetty<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jetty-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>9.4.4.v20170414<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">executions</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">execution</span>&gt;</span></div><div class="line">      <span class="comment">&lt;!--在打包成功后使用jetty:run来运行jetty服务--&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">phase</span>&gt;</span>package<span class="tag">&lt;/<span class="name">phase</span>&gt;</span>  <span class="comment">&lt;!--指定在package阶段的时候--&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">goals</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">goal</span>&gt;</span>run<span class="tag">&lt;/<span class="name">goal</span>&gt;</span></div><div class="line">      <span class="tag">&lt;/<span class="name">goals</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">execution</span>&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">executions</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></div></pre></td></tr></table></figure>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;div align=&quot;center&quot;&gt;&lt;br&gt;  想学习Maven吗？&lt;br&gt;&lt;br&gt;&lt;/div&gt;
+    
+    </summary>
+    
+    
+      <category term="maven" scheme="http://nijun.me/tags/maven/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>断言详解</title>
+    <link href="http://nijun.me/2017/05/08/010001-2017-05-08-%E6%96%AD%E8%A8%80%E8%AF%A6%E8%A7%A3/"/>
+    <id>http://nijun.me/2017/05/08/010001-2017-05-08-断言详解/</id>
+    <published>2017-05-08T07:10:49.000Z</published>
+    <updated>2017-05-08T07:25:15.000Z</updated>
+    
+    <content type="html"><![CDATA[<div align="center"><br><br>想了解更多JAVA中的断言？<br><br></div>
+
+<a id="more"></a>
+<h1 id="Spring中的断言"><a href="#Spring中的断言" class="headerlink" title="Spring中的断言"></a>Spring中的断言</h1><p>Web 应用在接受表单提交的数据后都需要对其进行合法性检查，如果表单数据不合法，请求将被驳回。类似的，当我们在编写类的方法时，也常常需要对方法入参进行合 法性检查，如果入参不符合要求，方法将通过抛出异常的方式拒绝后续处理。举一个例子：有一个根据文件名获取输入流的方法：InputStream getData(String file)，为了使方法能够成功执行，必须保证 file 入参不能为 null 或空白字符，否则根本无须进行后继的处理。这时方法的编写者通常会在方法体的最前面编写一段对入参进行检测的代码，如下所示：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="function"><span class="keyword">public</span> InputStream <span class="title">getData</span><span class="params">(String file)</span> </span>&#123; </div><div class="line">    <span class="keyword">if</span> (file == <span class="keyword">null</span> || file.length() == <span class="number">0</span>|| file.replaceAll(<span class="string">"\\s"</span>, <span class="string">""</span>).length() == <span class="number">0</span>) &#123; </div><div class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"file入参不是有效的文件地址"</span>); </div><div class="line">    &#125; </div><div class="line">… </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>在Spring中，给我们提供了 org.springframework.util.Assert 通用类完成这一任务。</p>
+<p>Assert 翻译为中文为“断言”，使用过 JUnit 的读者都熟知这个概念，它断定某一个实际的运行值和预期想一样，否则就抛出异常。Spring 对方法入参的检测借用了这个概念，其提供的 Assert 类拥有众多按规则对方法入参进行断言的方法，可以满足大部分方法入参检测的要求。这些断言方法在入参不满足要求时就会抛出 IllegalArgumentException。下面，我们来认识一下 Assert 类中的常用断言方法：<br>Spring Assert的所有方法：</p>
+<p><img src="/2017/05/08/010001-2017-05-08-断言详解/assert.png" alt=""></p>
+<p>断言方法 说明 </p>
+<ol>
+<li>notNull(Object object)  </li>
+</ol>
+<p>当 object 不为 null 时抛出异常，notNull(Object object, String message) 方法允许您通过 message 定制异常信息。和 notNull() 方法断言规则相反的方法是 isNull(Object object)/isNull(Object object, String message)，它要求入参一定是 null； </p>
+<ol>
+<li>isTrue(boolean expression) / isTrue(boolean expression, String message)  </li>
+</ol>
+<p>当 expression 不为 true 抛出异常； </p>
+<ol>
+<li>notEmpty(Collection collection) / notEmpty(Collection collection, String message)  </li>
+</ol>
+<p>当集合未包含元素时抛出异常。<br>notEmpty(Map map) / notEmpty(Map map, String message) 和 notEmpty(Object[] array, String message) / notEmpty(Object[] array, String message) 分别对 Map 和 Object[] 类型的入参进行判断； </p>
+<ol>
+<li>hasLength(String text) / hasLength(String text, String message) </li>
+</ol>
+<p>当 text 为 null 或长度为 0 时抛出异常； </p>
+<ol>
+<li>hasText(String text) / hasText(String text, String message) </li>
+</ol>
+<p>text 不能为 null 且必须至少包含一个非空格的字符，否则抛出异常； </p>
+<ol>
+<li>isInstanceOf(Class clazz, Object obj) / isInstanceOf(Class type, Object obj, String message) </li>
+</ol>
+<p>如果 obj 不能被正确造型为 clazz 指定的类将抛出异常； </p>
+<ol>
+<li>isAssignable(Class superType, Class subType) / isAssignable(Class superType, Class subType, String message) </li>
+</ol>
+<p>subType 必须可以按类型匹配于 superType，否则将抛出异常； </p>
+<p>使用 Assert 断言类可以简化方法入参检测的代码，如 InputStream getData(String file) 在应用 Assert 断言类后，其代码可以简化为以下的形式： </p>
+<p>public InputStream getData(String file){<br>​    Assert.hasText(file,”file入参不是有效的文件地址”);<br>​    ① 使用 <a href="http://lib.csdn.net/base/javaee" target="_blank" rel="external">spring</a> 断言类进行方法入参检测<br>…<br>}</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;div align=&quot;center&quot;&gt;&lt;br&gt;&lt;br&gt;想了解更多JAVA中的断言？&lt;br&gt;&lt;br&gt;&lt;/div&gt;
+    
+    </summary>
+    
+    
+      <category term="java" scheme="http://nijun.me/tags/java/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Spring中jdbcTemplate的用法实例（一）</title>
+    <link href="http://nijun.me/2017/05/08/010001-2017-05-08-Spring%E4%B8%ADjdbcTemplate%E5%92%8CHibernateTemplate/"/>
+    <id>http://nijun.me/2017/05/08/010001-2017-05-08-Spring中jdbcTemplate和HibernateTemplate/</id>
+    <published>2017-05-08T05:56:19.000Z</published>
+    <updated>2017-05-08T08:56:44.000Z</updated>
+    
+    <content type="html"><![CDATA[<div align="center"><br><br>JdbcTemplate详解<br><br></div>
+
+<a id="more"></a>
+<h1 id="注入JdbcTemplate的三种方式"><a href="#注入JdbcTemplate的三种方式" class="headerlink" title="注入JdbcTemplate的三种方式"></a>注入JdbcTemplate的三种方式</h1><p>​      第一种方式： 在 Spring 的 IoC 容器中配置一个 JdbcTemplate 的 bean，将 DataSource 注入进来，然后再把JdbcTemplate 注入到自定义DAO 中。 </p>
+<p>​      第二种方式：我们可以在自己定义的DAO 实现类中注入一个DataSource 引用来完 成JdbcTemplate 的实例化。也就是它是从外部“注入” DataSource 到DAO 中，然后 自己实例化JdbcTemplate，然后将DataSource 设置到JdbcTemplate 对象中。 </p>
+<p>​<br>​      第三种方式: Spring 提供了 org.springframework.jdbc.core.support.JdbcDaoSupport 类 ， 这 个 类 中 定 义 了 JdbcTemplate 属性，也定义了DataSource 属性，当设置DataSource 属性的时候，会创 建jdbcTemplate 的实例，所以我们自己编写的DAO 只需要继承JdbcDaoSupport 类， 然后注入DataSource 即可。<strong>提倡采用第三种方法</strong>。</p>
+<p>第一种方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserServiceImpl</span> <span class="keyword">implements</span> <span class="title">UserService</span> </span>&#123;  </div><div class="line">  </div><div class="line">    <span class="keyword">private</span> JdbcTemplate jdbcTemplate;  </div><div class="line">      </div><div class="line">    <span class="function"><span class="keyword">public</span> JdbcTemplate <span class="title">getJdbcTemplate</span><span class="params">()</span> </span>&#123;  </div><div class="line">        <span class="keyword">return</span> jdbcTemplate;  </div><div class="line">    &#125;  </div><div class="line">  </div><div class="line">    <span class="comment">//注入方法1     </span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setJdbcTemplate</span><span class="params">(JdbcTemplate jdbcTemplate)</span> </span>&#123;  </div><div class="line">        <span class="keyword">this</span>.jdbcTemplate = jdbcTemplate;  </div><div class="line">    &#125;  </div><div class="line">  </div><div class="line">    <span class="comment">//其它方法这里省略……  </span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"jdbcTemplate"</span> <span class="attr">class</span>=<span class="string">"org.springframework.jdbc.core.JdbcTemplate"</span>&gt;</span>  </div><div class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span> = <span class="string">"dataSource"</span> <span class="attr">ref</span>=<span class="string">"dataSource"</span>&gt;</span>  </div><div class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span>  </div><div class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"userService"</span> <span class="attr">class</span>=<span class="string">"com.nini.account.jdbcTemplate.UserServiceImpl"</span>&gt;</span>  </div><div class="line">     <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"jdbcTemplate"</span> <span class="attr">ref</span>=<span class="string">"jdbcTemplate"</span>/&gt;</span>  </div><div class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>第二种方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserServiceImpl</span> <span class="keyword">implements</span> <span class="title">UserService</span> </span>&#123;  </div><div class="line">  </div><div class="line">        <span class="keyword">private</span> JdbcTemplate jdbcTemplate;  </div><div class="line">          </div><div class="line">        <span class="comment">//注入方法2  </span></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setDataSource</span><span class="params">(DataSource dataSource)</span> </span>&#123;  </div><div class="line">                   <span class="keyword">this</span>.jdbcTemplate = <span class="keyword">new</span> JdbcTemplate(dataSource);  </div><div class="line">        &#125;  </div><div class="line">       </div><div class="line">       <span class="comment">//其它方法省略……  </span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"userService"</span> <span class="attr">class</span>=<span class="string">"com.nini.account.jdbcTemplate.UserServiceImpl"</span>&gt;</span>  </div><div class="line">       <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"dataSource"</span> <span class="attr">ref</span>=<span class="string">"dataSource"</span>/&gt;</span>  </div><div class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>第三种方法</p>
+<p>继承JdbcDaoSupport，其内部有个JdbcTemplate ，需要注入DataSource 属性来实例化。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"> <span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserDaoImpl</span> <span class="keyword">extends</span> <span class="title">JdbcDaoSupport</span> <span class="keyword">implements</span> <span class="title">UserDao</span> </span>&#123;  </div><div class="line">  </div><div class="line">    <span class="meta">@Override</span>  </div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">save</span><span class="params">(User user)</span> </span>&#123;  </div><div class="line">        String sql = <span class="keyword">null</span>;  </div><div class="line">        <span class="keyword">this</span>.getJdbcTemplate().update(sql);  </div><div class="line">    &#125;  </div><div class="line">        <span class="comment">//其它方法省略……  </span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"userDao"</span> <span class="attr">class</span>=<span class="string">"com.nini.account.jdbcTemplate.UserDaoImpl"</span>&gt;</span>  </div><div class="line">           <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"dataSource"</span> <span class="attr">ref</span>=<span class="string">"dataSource"</span>/&gt;</span>  </div><div class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></div></pre></td></tr></table></figure>
+<h1 id="常用方法"><a href="#常用方法" class="headerlink" title="常用方法"></a>常用方法</h1><blockquote>
+<p>jdbcTemplate 中的sql均是用“?”做占位符的</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span> </span>&#123;  </div><div class="line">    <span class="keyword">private</span> <span class="keyword">int</span> id;  </div><div class="line">    <span class="keyword">private</span> String username;  </div><div class="line">    <span class="keyword">private</span> String password;  </div><div class="line">    <span class="keyword">private</span> String sex;  </div><div class="line">              </div><div class="line">               <span class="comment">//setter和getter方法省略……  </span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>jdbcTemplate.update 适合于 insert 、update 和 delete操作；  </p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**   </span></div><div class="line">    * 第一个参数为执行sql   </div><div class="line">    * 第二个参数为参数数据   </div><div class="line">    */   </div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">save3</span><span class="params">(User user)</span> </span>&#123;  </div><div class="line">       Assert.isNull(user, <span class="string">"user is not null"</span>);  </div><div class="line">       jdbcTemplate.update(<span class="string">"insert into tb_test1(name,password) values(?,?)"</span>,   </div><div class="line">               <span class="keyword">new</span> Object[]&#123;user.getUsername(),user.getPassword()&#125;);  </div><div class="line">   &#125;  </div><div class="line">     </div><div class="line">   <span class="comment">/**   </span></div><div class="line">    * 第一个参数为执行sql   </div><div class="line">    * 第二个参数为参数数据   </div><div class="line">    * 第三个参数为参数类型   </div><div class="line">    */   </div><div class="line">   <span class="meta">@Override</span>  </div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">save</span><span class="params">(User user)</span> </span>&#123;  </div><div class="line">       Assert.isNull(user, <span class="string">"user is not null"</span>);  </div><div class="line">       jdbcTemplate.update(  </div><div class="line">               <span class="string">"insert into tb_test1(name,password) values(?,?)"</span>,   </div><div class="line">               <span class="keyword">new</span> Object[]&#123;user.getUsername(),user.getPassword()&#125;,   </div><div class="line">               <span class="keyword">new</span> <span class="keyword">int</span>[]&#123;java.sql.Types.VARCHAR,java.sql.Types.VARCHAR&#125;  </div><div class="line">               );  </div><div class="line">   &#125;  </div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">//避免sql注入  </span></div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">save2</span><span class="params">(<span class="keyword">final</span> User user)</span> </span>&#123;  </div><div class="line">       Assert.isNull(user, <span class="string">"user is not null"</span>);  </div><div class="line">         </div><div class="line">       jdbcTemplate.update(<span class="string">"insert into tb_test1(name,password) values(?,?)"</span>,   </div><div class="line">               <span class="keyword">new</span> PreparedStatementSetter()&#123;  </div><div class="line">             </div><div class="line">                   <span class="meta">@Override</span>  </div><div class="line">                   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setValues</span><span class="params">(PreparedStatement ps)</span> <span class="keyword">throws</span> SQLException </span>&#123;  </div><div class="line">                       ps.setString(<span class="number">1</span>, user.getUsername());  </div><div class="line">                       ps.setString(<span class="number">2</span>, user.getPassword());  </div><div class="line">                   &#125;  </div><div class="line">       &#125;);  </div><div class="line">         </div><div class="line">   &#125;  </div><div class="line"></div><div class="line"><span class="comment">//返回插入的主键  </span></div><div class="line">   <span class="function"><span class="keyword">public</span> List <span class="title">save5</span><span class="params">(<span class="keyword">final</span> User user)</span> </span>&#123;  </div><div class="line">         </div><div class="line">       KeyHolder keyHolder = <span class="keyword">new</span> GeneratedKeyHolder();  </div><div class="line"> </div><div class="line">       jdbcTemplate.update(<span class="keyword">new</span> PreparedStatementCreator() &#123;  </div><div class="line">                     </div><div class="line">                               <span class="meta">@Override</span>  </div><div class="line">                               <span class="function"><span class="keyword">public</span> PreparedStatement <span class="title">createPreparedStatement</span><span class="params">(Connection connection)</span> <span class="keyword">throws</span> SQLException </span>&#123;  </div><div class="line">                                   PreparedStatement ps = connection.prepareStatement(<span class="string">"insert into tb_test1(name,password) values(?,?)"</span>, <span class="keyword">new</span> String[] &#123;<span class="string">"id"</span>&#125;);  </div><div class="line">                                   ps.setString(<span class="number">1</span>, user.getUsername());  </div><div class="line">                                   ps.setString(<span class="number">2</span>, user.getPassword());  </div><div class="line">                                   <span class="keyword">return</span> ps;  </div><div class="line">                               &#125;  </div><div class="line">                           &#125;,  </div><div class="line">               keyHolder);  </div><div class="line">         </div><div class="line">       <span class="keyword">return</span> keyHolder.getKeyList();  </div><div class="line">   &#125; </div><div class="line"></div><div class="line">   <span class="meta">@Override</span>  </div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">delete</span><span class="params">(User user)</span> </span>&#123;  </div><div class="line">       Assert.isNull(user, <span class="string">"user is not null"</span>);  </div><div class="line">       jdbcTemplate.update(  </div><div class="line">               <span class="string">"delete from tb_test1 where id = ?"</span>,   </div><div class="line">               <span class="keyword">new</span> Object[]&#123;user.getId()&#125;,   </div><div class="line">               <span class="keyword">new</span> <span class="keyword">int</span>[]&#123;java.sql.Types.INTEGER&#125;);  </div><div class="line">   &#125;  </div><div class="line"></div><div class="line">   <span class="comment">//最全的参数3个  </span></div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">queryForInt3</span><span class="params">(User user)</span></span>&#123;  </div><div class="line">       <span class="keyword">return</span> jdbcTemplate.queryForInt(<span class="string">"select count(0) from tb_test1 where username = ?"</span> ,  </div><div class="line">               <span class="keyword">new</span> Object[]&#123;user.getUsername()&#125;,  </div><div class="line">               <span class="keyword">new</span> <span class="keyword">int</span>[]&#123;java.sql.Types.VARCHAR&#125;);  </div><div class="line">   &#125;  </div><div class="line"></div><div class="line">   <span class="function"><span class="keyword">public</span> User <span class="title">queryForObject5</span><span class="params">(User user)</span> </span>&#123;  </div><div class="line">       <span class="keyword">return</span> (User) jdbcTemplate.queryForObject(  </div><div class="line">               <span class="string">"select * from tb_test1 where id = ?"</span>,   </div><div class="line">               <span class="keyword">new</span> Object[]&#123;user.getId()&#125;,  </div><div class="line">               <span class="keyword">new</span> RowMapper()&#123;  </div><div class="line"> </div><div class="line">                   <span class="meta">@Override</span>  </div><div class="line">                   <span class="function"><span class="keyword">public</span> Object <span class="title">mapRow</span><span class="params">(ResultSet rs,<span class="keyword">int</span> rowNum)</span><span class="keyword">throws</span> SQLException </span>&#123;  </div><div class="line">                       User user  = <span class="keyword">new</span> User();  </div><div class="line">                       user.setId(rs.getInt(<span class="string">"id"</span>));  </div><div class="line">                       user.setUsername(rs.getString(<span class="string">"username"</span>));  </div><div class="line">                       user.setPassword(rs.getString(<span class="string">"password"</span>));  </div><div class="line">                       <span class="keyword">return</span> user;  </div><div class="line">                   &#125;  </div><div class="line">             </div><div class="line">       &#125;); <span class="comment">//class是结果数据的java类型  </span></div><div class="line">   &#125;  </div><div class="line"></div><div class="line">   <span class="meta">@SuppressWarnings</span>(<span class="string">"unchecked"</span>)  </div><div class="line">   <span class="comment">//最全的参数查询  </span></div><div class="line">   <span class="function"><span class="keyword">public</span> List&lt;User&gt; <span class="title">queryForList3</span><span class="params">(User user)</span> </span>&#123;  </div><div class="line">       <span class="keyword">return</span> (List&lt;User&gt;) jdbcTemplate.queryForList(<span class="string">"select * from tb_test1 where username = ?"</span>,  </div><div class="line">                           <span class="keyword">new</span> Object[]&#123;user.getUsername()&#125;,  </div><div class="line">                           <span class="keyword">new</span> <span class="keyword">int</span>[]&#123;java.sql.Types.VARCHAR&#125;,  </div><div class="line">                           User.class);  </div><div class="line">   &#125;  </div><div class="line"></div><div class="line"></div><div class="line">   <span class="comment">//批量操作    适合于增、删、改操作  </span></div><div class="line">   <span class="keyword">public</span> <span class="keyword">int</span>[] batchUpdate(<span class="keyword">final</span> List users) &#123;  </div><div class="line">         </div><div class="line">       <span class="keyword">int</span>[] updateCounts = jdbcTemplate.batchUpdate(  </div><div class="line">               <span class="string">"update tb_test1 set username = ?, password = ? where id = ?"</span>,  </div><div class="line">               <span class="keyword">new</span> BatchPreparedStatementSetter() &#123;  </div><div class="line">                     </div><div class="line">                       <span class="meta">@Override</span>  </div><div class="line">                       <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setValues</span><span class="params">(PreparedStatement ps, <span class="keyword">int</span> i)</span> <span class="keyword">throws</span> SQLException </span>&#123;  </div><div class="line">                           ps.setString(<span class="number">1</span>, ((User)users.get(i)).getUsername());  </div><div class="line">                           ps.setString(<span class="number">2</span>, ((User)users.get(i)).getPassword());  </div><div class="line">                           ps.setLong(<span class="number">3</span>, ((User)users.get(i)).getId());  </div><div class="line">                       &#125;  </div><div class="line">                         </div><div class="line">                       <span class="meta">@Override</span>  </div><div class="line">                       <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getBatchSize</span><span class="params">()</span> </span>&#123;  </div><div class="line">                           <span class="keyword">return</span> users.size();  </div><div class="line">                       &#125;  </div><div class="line">               &#125;   </div><div class="line">       );  </div><div class="line">         </div><div class="line">       <span class="keyword">return</span> updateCounts;  </div><div class="line">   &#125;  </div><div class="line"></div><div class="line"><span class="comment">//调用存储过程  </span></div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">callProcedure</span><span class="params">(<span class="keyword">int</span> id)</span></span>&#123;  </div><div class="line">       <span class="keyword">this</span>.jdbcTemplate.update(<span class="string">"call SUPPORT.REFRESH_USERS_SUMMARY(?)"</span>, <span class="keyword">new</span> Object[]&#123;Long.valueOf(id)&#125;);  </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>其中，batchUpdate适合于批量增、删、改操作；</p>
+<p>​         update(…)：使用于增、删、改操作；</p>
+<p>​         execute（）：执行一个独立的sql语句，包括ddl语句；</p>
+<p>​         queryForInt ：查询出一个整数值</p>
+<h1 id="HibernateTemplate"><a href="#HibernateTemplate" class="headerlink" title="HibernateTemplate"></a>HibernateTemplate</h1><p>下面是 HibernateTemplate的常用方法。</p>
+<p>delete(Object entity): 删除指定持久化实例。    </p>
+<p>deleteAll(Collection entities): 删除集合内全部持久化类实例。  </p>
+<p>find(String queryString): 根据 HQL 查询字符串来返回实例集合。 </p>
+<p>findByNamedQuery(String queryName): 根据命名查询返回实例集合。    </p>
+<p>get(Classentity Class,Serializable id): 根据主键加载特定持久化类的实例。    </p>
+<p>save(Object entity): 保存新的实例。    </p>
+<p>saveOrUpdate(Object entity): 根据实例状态，选择保存或者更新。    </p>
+<p>update(Object entity): 更新实例的状态，要求entity 是持久状态。   </p>
+<p>setMaxResults(intmax Results): 设置分页的大小。</p>
+<p>hql语句</p>
+<p>Select/update/delete…… from …… where …… group by …… having …… orderby …… asc/desc</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;div align=&quot;center&quot;&gt;&lt;br&gt;&lt;br&gt;JdbcTemplate详解&lt;br&gt;&lt;br&gt;&lt;/div&gt;
+    
+    </summary>
+    
+    
+      <category term="Spring" scheme="http://nijun.me/tags/Spring/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Spring使用容器管理beans</title>
+    <link href="http://nijun.me/2017/05/08/010001-2017-05-08-Spring%E4%BD%BF%E7%94%A8%E5%AE%B9%E5%99%A8%E7%AE%A1%E7%90%86beans/"/>
+    <id>http://nijun.me/2017/05/08/010001-2017-05-08-Spring使用容器管理beans/</id>
+    <published>2017-05-08T05:14:00.000Z</published>
+    <updated>2017-05-08T22:41:49.000Z</updated>
+    
+    <content type="html"><![CDATA[<div align="center"><br><br>使用容器管理beans<br><br></div>
+
+<a id="more"></a>
+<h1 id="使用容器管理beans"><a href="#使用容器管理beans" class="headerlink" title="使用容器管理beans"></a>使用容器管理beans</h1><p>基于Spring框架构建的应用中的对象，都由Spring容器（container）管理，如下图所示。Spring容器负责创建对象、编织对象和配置对象，负责对象的整个生命周期。</p>
+<p><img src="/2017/05/08/010001-2017-05-08-Spring使用容器管理beans/beans.png" alt=""></p>
+<p>容器是Spring框架的核心，通过依赖注入（DI）管理构成Spring应用的组件。正是因为有容器管理各个组件之间的协作关系，使得每个Spring组件都很好理解、便于复用和单元测试。</p>
+<p>Spring容器有多种实现，可以分为两类：</p>
+<ul>
+<li><em>Bean factories</em>（由<em>org.springframework.beans.factory.BeanFactory</em>接口定义）是最简单的容器，只提供基本的依赖注入功能；</li>
+<li><em>Application context</em>（由<em>org.springframework.context.ApplicationContext</em>接口定义）在bean factory的基础上提供application-framework框架服务，例如可以从properties文件中解析配置信息、可以对外公布application events。</li>
+</ul>
+<h2 id="应用上下文（application-context）"><a href="#应用上下文（application-context）" class="headerlink" title="应用上下文（application context）"></a>应用上下文（application context）</h2><p>Spring提供了多种application context，可列举如下：</p>
+<ul>
+<li><em>AnnotationConfigApplicationContext</em>——从Java配置文件中加载应用上下文；</li>
+<li><em>AnnotationConfigWebApplicationContext</em>——从Java配置文件中加载Spring web应用上下文；</li>
+<li><em>ClassPathXmlApplicationContext</em>——从classpath（resources目录）下加载XML格式的应用上下文定义文件；</li>
+<li><em>FileSystemXmlApplicationContext</em>——从指定文件系统目录下加载XML格式的应用上下文定义文件；</li>
+<li><em>XmlWebApplicationContext</em>——从classpath（resources目录）下加载XML格式的Spring web应用上下文。</li>
+</ul>
+<p><strong>通过应用上下文实例，可以通过<em>getBean()</em>方法获得对应的bean。</strong></p>
+<h2 id="bean的生命周期"><a href="#bean的生命周期" class="headerlink" title="bean的生命周期"></a>bean的生命周期</h2><p>在传统的Java应用中，一个对象的生命周期非常简单：通过new创建一个对象，然后该对象就可以使用，当这个对象不再使用时，由Java垃圾回收机制进行处理和回收。</p>
+<p>在Spring应用中，bean的生命周期的控制更加精细。Spring提供了很多节点供开发人员定制某个bean的创建过程，掌握这些节点如何使用非常重要。Spring中bean的生命周期如下图所示：</p>
+<p><img src="/2017/05/08/010001-2017-05-08-Spring使用容器管理beans/bean_life_circle.png" alt=""></p>
+<p>可以看出，bean factory负责bean创建的最初四步，然后移交给应用上下文做后续创建过程：</p>
+<ol>
+<li>Spring初始化bean</li>
+<li>Spring将值和其他bean的引用注入（inject）到当前bean的对应属性中；</li>
+<li>如果Bean实现了<em>BeanNameAware</em>接口，Spring会传入bean的ID来调用<em>setBeanName</em>方法；</li>
+<li>如果Bean实现了<em>BeanFactoryAware</em>接口，Spring传入bean factory的引用来调用<em>setBeanFactory</em>方法；</li>
+<li>如果Bean实现了<em>ApplicationContextAware</em>接口，Spring将传入应用上下文的引用来调用<em>setApplicationContext</em>方法；</li>
+<li>如果Bean实现了<em>BeanPostProcessor</em>接口，则Spring调用<em>postProcessBeforeInitialization</em>方法，这个方法在初始化和属性注入之后调用，在任何初始化代码之前调用；</li>
+<li>如果Bean实现了<em>InitializingBean</em>接口，则需要调用该接口的<em>afterPropertiesSet</em>方法；如果在bean定义的时候设置了<em>init-method</em>属性，则需要调用该属性指定的初始化方法；</li>
+<li>如果Bean实现了<em>BeanPostProcessor</em>接口，则Spring调用<em>postProcessAfterInitialization</em>方法</li>
+<li>在这个时候bean就可以用于在应用上下文中使用了，当上下文退出时bean也会被销毁；</li>
+<li>如果Bean实现了<em>DisposableBean</em>接口，Spring会调用<em>destroy()</em>方法;如果在bean定义的时候设置了<em>destroy-method</em>， 则此时需要调用指定的方法。</li>
+</ol>
+<p>本节主要总结了如何启动Spring容器，以及Spring应用中bean的生命周期。</p>
+<h2 id="Spring整体架构"><a href="#Spring整体架构" class="headerlink" title="Spring整体架构"></a>Spring整体架构</h2><p>除了Spring的核心模块，Spring还提供了其他的工具组件，这些组件扩展了Spring的功能，例如webservice、REST、mobile和NOSQL，形成了丰富的开发生态。</p>
+<h3 id="1-3-1-Spring模块"><a href="#1-3-1-Spring模块" class="headerlink" title="1.3.1 Spring模块"></a>1.3.1 Spring模块</h3><p>Spring 4.0you 20个独立的模块，每个包含三个文件：二进制库、源文件和文档，完整的库列表如下图所示：</p>
+<p><img src="/2017/05/08/010001-2017-05-08-Spring使用容器管理beans/spring_jar.png" alt=""></p>
+<p>按照功能划分，这些模块可以分成六组，如下图所示：</p>
+<p><img src="/2017/05/08/010001-2017-05-08-Spring使用容器管理beans/modules.png" alt=""></p>
+<p>这些模块几乎可以满足所有企业级应用开发的需求，但是开发人员并不需要完全使用Spring的这些模块，可以自由选择符合项目需求的第三方模块——Spring为一些第三方模块提供了交互接口。</p>
+<h4 id="CORE-SPRING-CONTAINER"><a href="#CORE-SPRING-CONTAINER" class="headerlink" title="CORE SPRING CONTAINER"></a>CORE SPRING CONTAINER</h4><p>Spring框架的核心模块，其他所有模块都基于该模块构建。Spring容器负责管理Spring应用中bean的创建、配置和管理。在这模块中有Spring bean factory，该接口提供了最基本的依赖注入（DI）功能；基于bean factory，该模块提供了集中Spring应用上下文的实现，可以供开发人员选择。</p>
+<p>除了bean factory和application context，该模块还支持其他企业级服务，例如email、JNDI access、EJB integration和scheduling。</p>
+<h4 id="SPRING’s-AOP-MODULE"><a href="#SPRING’s-AOP-MODULE" class="headerlink" title="SPRING’s AOP MODULE"></a>SPRING’s AOP MODULE</h4><p>Spring框架通过AOP模块提供面向切面编程的能力。通过AOP模块，一些系统层面的需求（事务、安全）可以与它们真正要作用到的模块相互解耦合。</p>
+<h4 id="DATA-ACCESS-AND-INTEGRATION"><a href="#DATA-ACCESS-AND-INTEGRATION" class="headerlink" title="DATA ACCESS AND INTEGRATION"></a>DATA ACCESS AND INTEGRATION</h4><p>Spring的JDBC和<em>data-access object</em>模块将数据库操作的一些样板式代码封装起来，免去了开发人员的很多工作量。这个模块还对数据库层的异常进行了封装，并向上提供含义更丰富的异常信息。</p>
+<p>Spring并未实现自己的ORM框架，但是它提供了跟其他几个ORM框架整合的能力，例如Hibernate、Mybatis、Java Persistence AP等等，而且这些ORM框架都支持使用Spring提供的事务管理模块。</p>
+<h4 id="WEB-AND-REMOTING"><a href="#WEB-AND-REMOTING" class="headerlink" title="WEB AND REMOTING"></a>WEB AND REMOTING</h4><p>Spring提供了自己的 WEB开发框架——Spring MVC，除此之外，这个模块还提供远程调用支持：Remote Method Invocation(RMI)、Hessian、Burlap和JAX-WS。</p>
+<h4 id="INSTRUMENTATION"><a href="#INSTRUMENTATION" class="headerlink" title="INSTRUMENTATION"></a>INSTRUMENTATION</h4><p>不常使用</p>
+<h4 id="TESTING"><a href="#TESTING" class="headerlink" title="TESTING"></a>TESTING</h4><p>可以与常用的JUNIT、Mockito、Spock等测试框架整合使用。</p>
+<h3 id="1-3-2-Spring-portfolio"><a href="#1-3-2-Spring-portfolio" class="headerlink" title="1.3.2 Spring portfolio"></a>1.3.2 Spring portfolio</h3><p>如果只是学习Spring的核心模块，将会错过不少Spring社区提供的经典项目，下面介绍的这些项目使得Spring几乎可以覆盖整个Java开发（PS：带*的项目值得每位Spring用户仔细学习）。</p>
+<h4 id="SPRING-WEB-FLOW"><a href="#SPRING-WEB-FLOW" class="headerlink" title="SPRING WEB FLOW"></a>SPRING WEB FLOW</h4><p>基于Spring MVC框架拓展，利用该框架可以构建流式web应用。</p>
+<h4 id="SPRING-WEB-SERVICE"><a href="#SPRING-WEB-SERVICE" class="headerlink" title="SPRING WEB SERVICE"></a>SPRING WEB SERVICE</h4><p>虽然核心的Spring 框架提供了将Spring Bean 以声明的方式发布为Web Service，但是这些服务基于一个具有争议性的架构（拙劣的契约置后模型）之上而构建的。这些服务的契约由Bean 的接口来决定。 Spring Web Service 提供了契约优先的Web Service模型，服务的实现都是为了满足服务的契约而编写的。</p>
+<h4 id="SPRING-SECURITY（-）"><a href="#SPRING-SECURITY（-）" class="headerlink" title="SPRING SECURITY（*）"></a>SPRING SECURITY（*）</h4><p>安全对于许多应用都是一个非常关键的切面。利用Spring AOP，Spring Security为Spring 应用提供了声明式的安全机制。我们将在第9 章讲解如何为应用添加SpringSecurity。你可以在主页<a href="http://static.springsource.org/spring-security/site" target="_blank" rel="external">http://static.springsource.org/spring-security/site</a> 获得关于SpringSecurity 更多的信息。</p>
+<h4 id="SPRING-INTEGRATION"><a href="#SPRING-INTEGRATION" class="headerlink" title="SPRING INTEGRATION"></a>SPRING INTEGRATION</h4><p>许多企业级应用都需要与其他应用进行交互。Spring Integration 提供了几种通用的应用集成模式的Spring 声明式风格的实现。</p>
+<p>我们不会在本书覆盖Spring Integration 内容，但是如果你想了解更多关于SpringIntegration 的信息， 我推荐Mark Fisher、Jonas Partner、Marius Bogoevici 和IweinFuld 编写的《Spring Integration in Action》；或者还可以访问Spring Integration 的主页<a href="http://www.springsource.org/spring-integration" target="_blank" rel="external">http://www.springsource.org/spring-integration</a>。</p>
+<h4 id="SPRING-BATCH"><a href="#SPRING-BATCH" class="headerlink" title="SPRING BATCH"></a>SPRING BATCH</h4><p>当我们需要对数据进行大量操作时，没有任何技术可以比批处理更能胜任此场景的。如果需要开发一个批处理应用，你可以借助于Spring 强大的面向POJO 的编程模型来使用Spring Batch 来实现。</p>
+<p>Spring Batch 超出了本书的范畴，但是你可以阅读Thierry Templier 和Arnaud Cogoluègnes编写的《Spring Batch in Action》，或者访问Spring Batch 的主页<a href="http://static.springsource.org/spring-batch" target="_blank" rel="external">http://static.springsource.org/spring-batch</a>。</p>
+<h4 id="SPRING-DATA（-）"><a href="#SPRING-DATA（-）" class="headerlink" title="SPRING DATA（*）"></a>SPRING DATA（*）</h4><p>Spring Data用于简化数据库相关的开发工作。尽管多年以来关系型数据库都是企业级应用开发的主流，但是随着移动互联网的发展，对NoSQL这类菲关系型数据库的需求也越来越强。</p>
+<p>无论你选择NoSQL还是关系型数据库，Spring Datat都能提供简洁的编程模型，例如非常方便的repository机制，可以为开发人员自动创建具体的SQL实现。</p>
+<h4 id="SPRING-SOCIAL"><a href="#SPRING-SOCIAL" class="headerlink" title="SPRING SOCIAL"></a>SPRING SOCIAL</h4><p>社交网络是互联网冉冉升起的一颗新星，越来越多的应用正在融入社交网络网站，例如Facebook 或者Twitter。如果对此感兴趣，你可以了解下Spring Social，Spring 的一个社交网络扩展模块。</p>
+<p>Spring Social 相对还比较新颖，我并没有计划将它放入本书，但是你可以访问<a href="http://www.springsource.org/spring-social" target="_blank" rel="external">http://www.springsource.org/spring-social</a> 了解Spring Social 更多的相关信息。</p>
+<h4 id="SPRING-MOBILE"><a href="#SPRING-MOBILE" class="headerlink" title="SPRING MOBILE"></a>SPRING MOBILE</h4><p>移动应用是另一个引人瞩目的软件开发领域。智能手机和平板设备已成为许多用户首选的客户端。Spring Mobile 是Spring 新的扩展模块用于支持移动Web 应用开发。<br>与Spring Mobile 相关的是Spring Android 项目。这个新项目旨在通过Spring 框架为开发基于Android 设备的本地应用提供某些简单的支持。最初，这个项目提供了Spring 的RestTemplate 版本（请查看第11 章了解RestTemplete）可以用于Android 应用。<br>再次声明，这两个项目已超出了本书的范围，但是如果你对这两个项目感兴趣，可以访问<a href="http://www.springsource.org/spring-mobile" target="_blank" rel="external">http://www.springsource.org/spring-mobile</a> 和<a href="http://www.springsource.org/spring-android" target="_blank" rel="external">http://www.springsource.org/spring-android</a> 了解更多相关的信息。</p>
+<h4 id="SPRING-BOOT（-）"><a href="#SPRING-BOOT（-）" class="headerlink" title="SPRING BOOT（*）"></a>SPRING BOOT（*）</h4><p>Spring Boot是Spring社区中发展速度最快的框架之一，它旨在简化Spring的使用，解决Spring开发时遇到的“配置地狱”问题。</p>
+<p>Spring Boot通过大量使用自动配置技术，可以取消大量的XML配置文件，同时该框架提出了starter的概念，用于简化pom文件。可以参考我的一系列博文：<a href="http://www.jianshu.com/p/5ac18abc91f0" target="_blank" rel="external">《Spring Boot Cookbook》阅读笔记</a></p>
+<p>主要总结下Spring社区的趋势：</p>
+<ol>
+<li>注重注解，能用注解解决的尽量用注解，尽量少写XML配置文件；</li>
+<li>Spring Boot已经是Spring社区中增长最迅速的框架，前三名是：Spring Framework，Spring Boot和Spring Security</li>
+<li>支持Java 8，通过Java8的lambda表达式，使得一些回调接口更易使用和阅读。</li>
+</ol>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;div align=&quot;center&quot;&gt;&lt;br&gt;&lt;br&gt;使用容器管理beans&lt;br&gt;&lt;br&gt;&lt;/div&gt;
+    
+    </summary>
+    
+    
+      <category term="Spring" scheme="http://nijun.me/tags/Spring/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Spring注解原理总结（二）</title>
+    <link href="http://nijun.me/2017/05/08/010001-2017-05-08-Spring%E6%B3%A8%E8%A7%A3%E5%8E%9F%E7%90%86%E6%80%BB%E7%BB%93%EF%BC%88%E4%BA%8C%EF%BC%89/"/>
+    <id>http://nijun.me/2017/05/08/010001-2017-05-08-Spring注解原理总结（二）/</id>
+    <published>2017-05-08T01:26:13.000Z</published>
+    <updated>2017-05-08T22:42:46.000Z</updated>
+    
+    <content type="html"><![CDATA[<div align="center"><br><br>Java中如何自定义注解？<br><br></div>
+
+<a id="more"></a>
+<h2 id="之-Java中如何自定义注解"><a href="#之-Java中如何自定义注解" class="headerlink" title="之 Java中如何自定义注解"></a>之 Java中如何自定义注解</h2><h6 id="1-先看注解定义示例"><a href="#1-先看注解定义示例" class="headerlink" title="1.先看注解定义示例"></a>1.先看注解定义示例</h6><p>@Override 源码定义：</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="variable">@Target</span>(ElementType.METHOD)</div><div class="line"><span class="variable">@Retention</span>(RetentionPolicy.SOURCE)</div><div class="line">public <span class="variable">@interface</span> Override &#123;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>使用 @interface 表示这是一个注解类。自动继承了java.lang.annotation.Annotation接口，由编译程序自动完成其他细节。<br>标注 @Target 元注解，声明@Override 的作用地方为METHOD。<br>标注 @Retention 元注解，指明@Override 被保留的级别-源码级别，编译的时候就被忽略。</p>
+</blockquote>
+<p><strong>引申1：注解定义格式：public @interface 注解名 {定义体} </strong><br><strong>引申2：定义注解时，不得继承其他的注解或者接口。</strong></p>
+<p>SpringMVC 的 @RequestMapping 源码示例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Target</span>(&#123;ElementType.METHOD, ElementType.TYPE&#125;)</div><div class="line"><span class="meta">@Retention</span>(RetentionPolicy.RUNTIME)  <span class="comment">// 注解一直保持到VM运行期，被反射读取。</span></div><div class="line"><span class="meta">@Documented</span></div><div class="line"><span class="meta">@Mapping</span>    <span class="comment">// SpringMVC定义的元注解，暂忽略此。</span></div><div class="line"><span class="keyword">public</span> <span class="meta">@interface</span> RequestMapping &#123;</div><div class="line">    <span class="function">String <span class="title">name</span><span class="params">()</span> <span class="keyword">default</span> ""</span>;</div><div class="line"></div><div class="line">    <span class="meta">@AliasFor</span>(<span class="string">"path"</span>)    <span class="comment">// SpringMVC中定义的别名注解。</span></div><div class="line">    String[] value() <span class="keyword">default</span> &#123;&#125;;</div><div class="line"></div><div class="line">    <span class="meta">@AliasFor</span>(<span class="string">"value"</span>)</div><div class="line">    String[] path() <span class="keyword">default</span> &#123;&#125;;</div><div class="line"></div><div class="line">    RequestMethod[] method() <span class="keyword">default</span> &#123;&#125;;</div><div class="line"></div><div class="line">    String[] params() <span class="keyword">default</span> &#123;&#125;;</div><div class="line"></div><div class="line">    String[] headers() <span class="keyword">default</span> &#123;&#125;;</div><div class="line"></div><div class="line">    String[] consumes() <span class="keyword">default</span> &#123;&#125;;</div><div class="line"></div><div class="line">    String[] produces() <span class="keyword">default</span> &#123;&#125;;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>用法示例：<br>@RequestMapping(value=”/user”, methods=RequestMethod.GET)，<br>@RequestMapping可供选择的参数有：<br>name, value, path, method, params, headers, consumes, produces。</p>
+<ul>
+<li>注解的每个参数对应着 @RequestMapping 类中的方法名。</li>
+<li>每个参数指定一个默认值（default）。</li>
+</ul>
+</blockquote>
+<p><strong>引申3：注解类体中，每一个方法实际上声明了一个注解参数。方法名就是参数名，返回值类型就是参数类型。</strong></p>
+<p><strong>引申4：注解参数支持的类型：8种基本类型（byte，short，int，long，float，double，char，boolean），String类型，Class类型，enum类型，Annotation类型，以上所有类型的数组。</strong></p>
+<p><strong>引申5：访问修饰权限：public或者默认default。</strong></p>
+<p><strong>引申6：注解元素必须要有默认值。在定义注解的默认值中指定，或者在使用注解的时候指定。非基本类型不能默认null。</strong></p>
+<blockquote>
+<p>当自定义注解类之后，便可以在类（ElementType.TYPE）、方法（ElementType.METHOD）上标注 @RequestMapping。</p>
+</blockquote>
+<p>那怎样做才能让注解被Java程序所运行？</p>
+<p>请参考：</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;div align=&quot;center&quot;&gt;&lt;br&gt;&lt;br&gt;Java中如何自定义注解？&lt;br&gt;&lt;br&gt;&lt;/div&gt;
+    
+    </summary>
+    
+    
+      <category term="Spring Annotation" scheme="http://nijun.me/tags/Spring-Annotation/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Spring注解原理总结</title>
+    <link href="http://nijun.me/2017/05/08/010001-2017-05-08-Spring%E6%B3%A8%E8%A7%A3%E5%8E%9F%E7%90%86%E6%80%BB%E7%BB%93%EF%BC%88%E4%B8%80%EF%BC%89/"/>
+    <id>http://nijun.me/2017/05/08/010001-2017-05-08-Spring注解原理总结（一）/</id>
+    <published>2017-05-08T00:35:40.000Z</published>
+    <updated>2017-05-08T22:43:17.000Z</updated>
+    
+    <content type="html"><![CDATA[<div align="center"><br><br>Java元注解释义<br><br></div>
+
+<a id="more"></a>
+<p>转载自<a href="http://www.jianshu.com/p/5cb8b4c186be" target="_blank" rel="external">ibyr</a></p>
+<h2 id="之-Java元注解释义"><a href="#之-Java元注解释义" class="headerlink" title="之 Java元注解释义"></a>之 Java元注解释义</h2><h5 id="Question"><a href="#Question" class="headerlink" title="Question"></a>Question</h5><ul>
+<li>注解在Java中如何起作用？</li>
+<li>Spring是如何识别注解？</li>
+<li>如何自定义注解为我所用？</li>
+</ul>
+<blockquote>
+<ul>
+<li>Spring注解：<br>@Aotuwired @Required @Qualifier @Provider @Scope …</li>
+<li>Spring MVC 注解：<br>@Controller @Service @Repository @Component @RequestMapping @RequetBody @ResponseBody …</li>
+</ul>
+</blockquote>
+<h5 id="Extension"><a href="#Extension" class="headerlink" title="Extension"></a>Extension</h5><h5 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h5><p>Java注解起源：JDK1.5<br>常见Java注解 ：</p>
+<ul>
+<li>@Override</li>
+<li>@Deprecated</li>
+<li>@SupressWarnings</li>
+</ul>
+<ol>
+<li>从@Override说起，引出Java注解和元注解。</li>
+</ol>
+<p>@Override 源码如下：</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/*If a method is annotated with this annotation type </span></div><div class="line"> * compilers are required to generate an error message </div><div class="line"> * unless at least one of the following conditions hold:</div><div class="line"> *</div><div class="line"> * The method does override or implement a method declared in a</div><div class="line"> * supertype.</div><div class="line"> * The method has a signature that is override-equivalent to that of</div><div class="line"> * any public method declared in &#123;@linkplain Object&#125;.</div><div class="line"> */</div><div class="line"><span class="variable">@Target</span>(ElementType.METHOD)</div><div class="line"><span class="variable">@Retention</span>(RetentionPolicy.SOURCE)</div><div class="line">public <span class="variable">@interface</span> Override &#123;    <span class="comment">// @interface 修饰注解类</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>注意@Override 源码中有3个要点：</p>
+<blockquote>
+<ul>
+<li>@interface：修饰注解类使用@interface，而不是interface。这就定义了一个注解 @Override。</li>
+<li>Java元注解：@Target, @Retention。Java元注解即：定义注解的注解（To annotate the annotation）。</li>
+<li>元注解参数：ElementType.METHOD, RetentionPolicy.SOURCE</li>
+</ul>
+</blockquote>
+<ol>
+<li><p>@Retention源码（保留：保留，滞留之意。）</p>
+<p>指明这个注解将保留多长时间，如果没有指定，那么默认的保留策略是 <code>RetentionPolicy.CLASS</code></p>
+<p>元注释类型只有直接用于注释，保留元注释才会起作用。如果元注释类型用作另一种注释类型中的成员类型，则没有效果。</p>
+</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/* Indicates how long annotations with the annotated type are to</span></div><div class="line"> * be retained.  If no Retention annotation is present on</div><div class="line"> * an annotation type declaration, the retention policy defaults to</div><div class="line"> * &#123;@code RetentionPolicy.CLASS&#125;.</div><div class="line"> *</div><div class="line"> * A Retention meta-annotation has effect only if the</div><div class="line"> * meta-annotated type is used directly for annotation.  It has no</div><div class="line"> * effect if the meta-annotated type is used as a member type in</div><div class="line"> * another annotation type.</div><div class="line">*/</div><div class="line"><span class="meta">@Documented</span>     <span class="comment">// 表明 注解会被包含在Java API文档中。</span></div><div class="line"><span class="meta">@Retention</span>(RetentionPolicy.RUNTIME)</div><div class="line"><span class="meta">@Target</span>(ElementType.ANNOTATION_TYPE)</div><div class="line"><span class="keyword">public</span> <span class="meta">@interface</span> Retention &#123;</div><div class="line">    <span class="comment">/**</span></div><div class="line">     * Returns the retention policy.</div><div class="line">     * <span class="doctag">@return</span> the retention policy.</div><div class="line">     */</div><div class="line">    <span class="function">RetentionPolicy <span class="title">value</span><span class="params">()</span></span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">enum</span> RetentionPolicy &#123;</div><div class="line">    <span class="comment">/**</span></div><div class="line">     * Annotations are to be discarded by the compiler.</div><div class="line">     */</div><div class="line">    SOURCE,</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * Annotations are to be recorded in the class file by the compiler</div><div class="line">     * but need not be retained by the VM at run time.  This is the default</div><div class="line">     * behavior.</div><div class="line">     */</div><div class="line">    CLASS,</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * Annotations are to be recorded in the class file by the compiler and</div><div class="line">     * retained by the VM at run time, so they may be read reflectively.</div><div class="line">     *</div><div class="line">     * <span class="doctag">@see</span> java.lang.reflect.AnnotatedElement</div><div class="line">     */</div><div class="line">    RUNTIME</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>RetentionPolicy.SOURCE：只保留在源码中，在编译的时候会丢失，如上面的Override</p>
+<p>RetentionPolicy.CLASS：注解将保留到 class 文件，但是在运行时将会丢失。</p>
+<p>RetentionPolicy.RUNTIME：注解将一直保留到运行时期。<strong>可以被反射读取</strong>。如 @Retention 元注解本身。</p>
+</blockquote>
+<p><strong>引申1：如果定义一个注解需要被反射读取，则在定义这个注解的时候将添加@Retention(RetentionPolicy.RUNTIME) 元注解。</strong></p>
+<ol>
+<li>@Target 元注解，<strong>定义了注解应该起作用的地方</strong></li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Documented</span></div><div class="line"><span class="meta">@Retention</span>(RetentionPolicy.RUNTIME)   <span class="comment">// 保留到运行时</span></div><div class="line"><span class="meta">@Target</span>(ElementType.ANNOTATION_TYPE)</div><div class="line"><span class="keyword">public</span> <span class="meta">@interface</span> Target &#123;</div><div class="line">    <span class="comment">/**</span></div><div class="line">     * Returns an array of the kinds of elements an annotation type</div><div class="line">     * can be applied to.</div><div class="line">     * <span class="doctag">@return</span> an array of the kinds of elements an annotation type</div><div class="line">     * can be applied to.</div><div class="line">     */</div><div class="line">    ElementType[] value();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>注解作用位置：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">enum</span> ElementType &#123;</div><div class="line">    TYPE,                             <span class="comment">// 类，接口（包括注解），enum;</span></div><div class="line">    FIELD,                            <span class="comment">// 属性域</span></div><div class="line">    METHOD,                           <span class="comment">// 方法</span></div><div class="line">    PARAMETER,                        <span class="comment">// 参数</span></div><div class="line">    CONSTRUCTOR,                      <span class="comment">// 构造函数</span></div><div class="line">    LOCAL_VARIABLE,                   <span class="comment">// 局部变量</span></div><div class="line">    ANNOTATION_TYPE,                  <span class="comment">// 注解类型</span></div><div class="line">    PACKAGE,                          <span class="comment">// 包</span></div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * Type parameter declaration</div><div class="line">     * <span class="doctag">@since</span> 1.8</div><div class="line">     */</div><div class="line">    TYPE_PARAMETER,                   <span class="comment">// 表明可以标注 类型参数</span></div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * Use of a type</div><div class="line">     * <span class="doctag">@since</span> 1.8</div><div class="line">     */</div><div class="line">    TYPE_USE                          <span class="comment">// 可以注解 任何类型名称</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><strong>引申2：如果想要自定义一个注解，就必须指定注解作用的位置。作用在 类，方法，属性域，构造函数等。</strong></p>
+<p><em>举例 SpringMVC 中的 @RequestMapping。</em><br>其源码定义如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Target</span>(&#123;ElementType.METHOD, ElementType.TYPE&#125;)</div><div class="line"><span class="meta">@Retention</span>(RetentionPolicy.RUNTIME)</div><div class="line"><span class="meta">@Documented</span></div><div class="line"><span class="meta">@Mapping</span></div><div class="line"><span class="keyword">public</span> <span class="meta">@interface</span> RequestMapping &#123;</div><div class="line">    <span class="comment">// skip its class code.</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>@RequestMapping 的@Target元注解 表明它可以被使用在方法和类（或接口，注解，enum）上。@RequestMapping 的@Retention元注解表明它可以保留到运行时(RUNTIME)，被反射读取。</p>
+</blockquote>
+<p><strong>引申3：如果想要自定义注解，除了添加@interface 修饰类名，必须满足上述引申1和引申2。 </strong></p>
+<p>那么如何自定义注解？</p>
+<p>请参考：</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;div align=&quot;center&quot;&gt;&lt;br&gt;&lt;br&gt;Java元注解释义&lt;br&gt;&lt;br&gt;&lt;/div&gt;
+    
+    </summary>
+    
+    
+      <category term="Spring 注解" scheme="http://nijun.me/tags/Spring-%E6%B3%A8%E8%A7%A3/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Spring整合Hibernate</title>
+    <link href="http://nijun.me/2017/05/08/010001-2017-05-08-Spring%E6%95%B4%E5%90%88Hibernate/"/>
+    <id>http://nijun.me/2017/05/08/010001-2017-05-08-Spring整合Hibernate/</id>
+    <published>2017-05-07T23:55:47.000Z</published>
+    <updated>2017-05-08T22:44:08.000Z</updated>
+    
+    <content type="html"><![CDATA[<div align="center"><br><br>Spring整合Hibernate<br><br></div>
+
+<a id="more"></a>
+<p>hibernate.cfg.xml   Hibernate配置文件</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">hibernate-configuration</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">session-factory</span>&gt;</span></div><div class="line">		<span class="comment">&lt;!-- 第一部分： 配置数据库信息 必须的 --&gt;</span></div><div class="line">	 	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"hibernate.connection.driver_class"</span>&gt;</span>com.mysql.jdbc.Driver<span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"hibernate.connection.url"</span>&gt;</span>jdbc:mysql:///spring_day04<span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"hibernate.connection.username"</span>&gt;</span>root<span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"hibernate.connection.password"</span>&gt;</span>root<span class="tag">&lt;/<span class="name">property</span>&gt;</span>   </div><div class="line">		</div><div class="line">		<span class="comment">&lt;!-- 第二部分： 配置hibernate信息  可选的--&gt;</span></div><div class="line">		<span class="comment">&lt;!-- 输出底层sql语句 --&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"hibernate.show_sql"</span>&gt;</span>true<span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line">		<span class="comment">&lt;!-- 输出底层sql语句格式 --&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"hibernate.format_sql"</span>&gt;</span>true<span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line">		<span class="comment">&lt;!-- hibernate帮创建表，需要配置之后 </span></div><div class="line">			update: 如果已经有表，更新，如果没有，创建</div><div class="line">		--&gt;</div><div class="line">		<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"hibernate.hbm2ddl.auto"</span>&gt;</span>update<span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line">		<span class="comment">&lt;!-- 配置数据库方言</span></div><div class="line">			在mysql里面实现分页 关键字 limit，只能使用mysql里面</div><div class="line">			在oracle数据库，实现分页rownum</div><div class="line">			让hibernate框架识别不同数据库的自己特有的语句</div><div class="line">		 --&gt;</div><div class="line">		<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"hibernate.dialect"</span>&gt;</span>org.hibernate.dialect.MySQLDialect<span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line">		</div><div class="line">		<span class="comment">&lt;!-- 第三部分： 把映射文件放到核心配置文件中 必须的--&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">mapping</span> <span class="attr">resource</span>=<span class="string">"cn/nini/entity/User.hbm.xml"</span>/&gt;</span></div><div class="line">	<span class="tag">&lt;/<span class="name">session-factory</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>ApplicationContext.xml</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"sessionFactory"</span> <span class="attr">class</span>=<span class="string">"org.springframework.orm.hibernate4.LocalSessionFactoryBean"</span>&gt;</span></div><div class="line">       <span class="comment">&lt;!--把数据源 bean 注入到sessionFactory的dataSource属性--&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"dataSource"</span> <span class="attr">ref</span>=<span class="string">"dataSource"</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line">	<span class="comment">&lt;!-- 引入hibernate配置文件 --&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"configLocation"</span> <span class="attr">value</span>=<span class="string">"classpath:/hibernate.cfg.xml"</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span><span class="comment">&lt;!-- 1 --&gt;</span></div><div class="line">       <span class="comment">&lt;!-- 引入映射文件，如果有多个可以继续添加 --&gt;</span></div><div class="line">       <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"mappingResources"</span>&gt;</span>     <span class="comment">&lt;!-- 2 --&gt;</span></div><div class="line">           <span class="tag">&lt;<span class="name">list</span>&gt;</span></div><div class="line">               <span class="tag">&lt;<span class="name">value</span>&gt;</span>cn/nini/entity/User.hbm.xml<span class="tag">&lt;/<span class="name">value</span>&gt;</span></div><div class="line">           <span class="tag">&lt;/<span class="name">list</span>&gt;</span></div><div class="line">       <span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line">	<span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line">	<span class="comment">&lt;!-- 映射文件 --&gt;</span></div><div class="line">	 <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"mappingLocations"</span> <span class="attr">value</span>=<span class="string">"classpath:org/hhx/ssh/entities/*.hbm.xml"</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span> </div><div class="line">	<span class="comment">&lt;!-- 使用注解 --&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"packagesToScan"</span> <span class="attr">value</span>=<span class="string">"org.nan.entities"</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>优化：</p>
+<p>可以去掉这句<!-- 1 --></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"configLocation"</span> <span class="attr">value</span>=<span class="string">"classpath:/hibernate.cfg.xml"</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>在spring的配置文件中直接添加以下配置语句</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"hibernateProperties"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">props</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">prop</span> <span class="attr">key</span>=<span class="string">"hibernate.show_sql"</span>&gt;</span>true<span class="tag">&lt;/<span class="name">prop</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">prop</span> <span class="attr">key</span>=<span class="string">"hibernate.format_sql"</span>&gt;</span>true<span class="tag">&lt;/<span class="name">prop</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">prop</span> <span class="attr">key</span>=<span class="string">"hibernate.hbm2ddl.auto"</span>&gt;</span>update<span class="tag">&lt;/<span class="name">prop</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">prop</span> <span class="attr">key</span>=<span class="string">"hibernate.dialect"</span>&gt;</span>org.hibernate.dialect.MySQLDialect<span class="tag">&lt;/<span class="name">prop</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">props</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>如果用到映射文件</p>
+<p>可以这样写</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">      <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"mappingResources"</span>&gt;</span>     <span class="comment">&lt;!-- 2 --&gt;</span></div><div class="line">          <span class="tag">&lt;<span class="name">list</span>&gt;</span></div><div class="line">              <span class="tag">&lt;<span class="name">value</span>&gt;</span>cn/nini/entity/User.hbm.xml<span class="tag">&lt;/<span class="name">value</span>&gt;</span></div><div class="line">          <span class="tag">&lt;/<span class="name">list</span>&gt;</span></div><div class="line">      <span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>也可以这样写</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">&lt;!-- 映射文件 --&gt;</span></div><div class="line"> <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"mappingLocations"</span> <span class="attr">value</span>=<span class="string">"classpath:org/hhx/ssh/entities/*.hbm.xml"</span>&gt;</span>			<span class="tag">&lt;/<span class="name">property</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>如果是用注解</p>
+<p>只要在sessionFactory中添加如下代码</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"packagesToScan"</span> <span class="attr">value</span>=<span class="string">"org.nan.entities"</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></div></pre></td></tr></table></figure>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;div align=&quot;center&quot;&gt;&lt;br&gt;&lt;br&gt;Spring整合Hibernate&lt;br&gt;&lt;br&gt;&lt;/div&gt;
+    
+    </summary>
+    
+    
+      <category term="Spring" scheme="http://nijun.me/tags/Spring/"/>
+    
+  </entry>
+  
+  <entry>
     <title>自己动手搭建个人博客到优化</title>
-    <link href="http://nijun.me/2017/05/05/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E5%88%B0%E4%BC%98%E5%8C%96/"/>
-    <id>http://nijun.me/2017/05/05/自己动手搭建个人博客到优化/</id>
+    <link href="http://nijun.me/2017/05/05/010001-2017-05-05-%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E5%88%B0%E4%BC%98%E5%8C%96/"/>
+    <id>http://nijun.me/2017/05/05/010001-2017-05-05-自己动手搭建个人博客到优化/</id>
     <published>2017-05-05T14:07:56.000Z</published>
     <updated>2017-05-06T02:58:20.000Z</updated>
     
-    <content type="html"><![CDATA[<p><img src="/2017/05/05/自己动手搭建个人博客到优化/avatar.jpg" alt=""></p>
+    <content type="html"><![CDATA[<p><img src="/2017/05/05/010001-2017-05-05-自己动手搭建个人博客到优化/avatar.jpg" alt=""></p>
  <div align="center"><br>  今天，是你未来所有剩余的日子中，最早的一天<br><br></div>
 
 <div align="right">——<strong>stormzhang</strong>      </div>
@@ -274,7 +826,7 @@
     
     <summary type="html">
     
-      &lt;p&gt;&lt;img src=&quot;/2017/05/05/自己动手搭建个人博客到优化/avatar.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+      &lt;p&gt;&lt;img src=&quot;/2017/05/05/010001-2017-05-05-自己动手搭建个人博客到优化/avatar.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
  &lt;div align=&quot;center&quot;&gt;&lt;br&gt;  今天，是你未来所有剩余的日子中，最早的一天&lt;br&gt;&lt;br&gt;&lt;/div&gt;
 
 &lt;div align=&quot;right&quot;&gt;——&lt;strong&gt;stormzhang&lt;/strong&gt;      &lt;/div&gt;
@@ -300,12 +852,12 @@
   
   <entry>
     <title>GitHub</title>
-    <link href="http://nijun.me/2017/05/05/GitHub/"/>
-    <id>http://nijun.me/2017/05/05/GitHub/</id>
+    <link href="http://nijun.me/2017/05/05/010001-2017-05-05-GitHub/"/>
+    <id>http://nijun.me/2017/05/05/010001-2017-05-05-GitHub/</id>
     <published>2017-05-05T13:55:29.000Z</published>
     <updated>2017-05-05T15:43:19.000Z</updated>
     
-    <content type="html"><![CDATA[<p><img src="/2017/05/05/GitHub/github.png" alt=""></p>
+    <content type="html"><![CDATA[<p><img src="/2017/05/05/010001-2017-05-05-GitHub/github.png" alt=""></p>
 <div align="center"><br><br>GitHub基本操作<br><br></div>
 
 <a id="more"></a>
@@ -317,7 +869,7 @@
     
     <summary type="html">
     
-      &lt;p&gt;&lt;img src=&quot;/2017/05/05/GitHub/github.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+      &lt;p&gt;&lt;img src=&quot;/2017/05/05/010001-2017-05-05-GitHub/github.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
 &lt;div align=&quot;center&quot;&gt;&lt;br&gt;&lt;br&gt;GitHub基本操作&lt;br&gt;&lt;br&gt;&lt;/div&gt;
     
     </summary>
@@ -328,19 +880,27 @@
   </entry>
   
   <entry>
-    <title>spring学习总结</title>
-    <link href="http://nijun.me/2017/05/05/spring%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/"/>
-    <id>http://nijun.me/2017/05/05/spring学习总结/</id>
+    <title>spring学习总结——事务管理</title>
+    <link href="http://nijun.me/2017/05/05/010001-2017-05-05-spring%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/"/>
+    <id>http://nijun.me/2017/05/05/010001-2017-05-05-spring学习总结/</id>
     <published>2017-05-05T11:13:51.000Z</published>
-    <updated>2017-05-06T03:12:47.000Z</updated>
+    <updated>2017-05-08T22:29:26.000Z</updated>
     
     <content type="html"><![CDATA[<h2 id="Spring介绍"><a href="#Spring介绍" class="headerlink" title="Spring介绍"></a>Spring介绍</h2><p>Spring 框架是一个分层架构，由 7 个定义良好的模块组成。Spring 模块构建在核心容器之上，核心容器定义了创建、配置和管理 bean 的方式。</p>
-<p><img src="/2017/05/05/spring学习总结/anisur.jpg" alt=""></p>
+<p><img src="/2017/05/05/010001-2017-05-05-spring学习总结/anisur.jpg" alt=""></p>
 <a id="more"></a>
-<h2 id="Spring中的事务管理"><a href="#Spring中的事务管理" class="headerlink" title="Spring中的事务管理"></a>Spring中的事务管理</h2><p> Spring 是 SSH 中的指挥员和管理者，它负责管理其他框架，控制着整个网站。Spring 中的事务分为：</p>
+<h1 id="Spring中的事务管理"><a href="#Spring中的事务管理" class="headerlink" title="Spring中的事务管理"></a>Spring中的事务管理</h1><p> Spring 是 SSH 中的指挥员和管理者，它负责管理其他框架，控制着整个网站。Spring 中的事务分为：</p>
 <ul>
-<li>声明式事务  </li>
+<li>声明式事务  <ul>
+<li>开发中<strong>推荐使用</strong>（代码侵入性最小）</li>
+<li>Spring的声明式事务是通过<strong>AOP</strong>实现的</li>
+</ul>
+</li>
 <li><p>编程式事务</p>
+<ul>
+<li>在实际中很少使用</li>
+<li>通过<strong>TransactionTemplate</strong>手动管理事务</li>
+</ul>
 <p>其中声明式事务是在配置文件中进行相关的配置，而编程式事务就是用注解的方式写到代码里。配置文件中定义的bean要比注解里定义的加载早，所以有时会出现在启动阶段（listen 和filter ），是找不到bean 的。</p>
 <p>那么到底是选择声明式还是编程式，我们需要有如下的考虑：</p>
 <ol>
@@ -352,33 +912,305 @@
 </li>
 </ul>
 <p> Spring配置文件中关于事务配置总是由三个组成部分，分别是DataSource、TransactionManager 和代理机制这三部分，无论哪种配置方式，一般变化的只是代理机制这部分。DataSource、 TransactionManager 这两部分只是会根据数据访问方式有所变化，比如使用 Hibernate 进行数据访问时，DataSource 实际为 SessionFactory，TransactionManager 的实现为 HibernateTransactionManager。 下面一起看看三种声明式事务的具体配置：</p>
-<pre><code> &lt;!-- 配置SessionFactory,交给spring管理 --&gt;
-&lt;bean id=&quot;sessionFactory&quot; class=&quot;org.springframework.orm.hibernate4.LocalSessionFactoryBean&quot;&gt;
-&lt;property name=&quot;dataSource&quot; ref=&quot;dataSource&quot;&gt;&lt;/property&gt;
-&lt;!-- 引入hibernate配置文件 --&gt;
-&lt;property name=&quot;configLocation&quot; value=&quot;classpath:/hibernate.cfg.xml&quot;&gt;&lt;/property&gt;
-</code></pre>]]></content>
+<h2 id="事务管理高层抽象主要包括3个接口"><a href="#事务管理高层抽象主要包括3个接口" class="headerlink" title="事务管理高层抽象主要包括3个接口"></a>事务管理高层抽象主要包括3个接口</h2><h3 id="PlatformTransactionManager"><a href="#PlatformTransactionManager" class="headerlink" title="PlatformTransactionManager"></a>PlatformTransactionManager</h3><p>事务管理器，真正管理事务的类，Spring为不同的持久化框架提供了不同的PlatformTransactionManager接口实现。</p>
+<table>
+<thead>
+<tr>
+<th>事务</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>org.springframework.jdbc.datasource.DataSourceTransactionManager</td>
+<td>使用Spring JDBC或iBatis进行持久化数据使用</td>
+</tr>
+<tr>
+<td>org.springframework.orm.hibernate5.HibernateTransactionManager</td>
+<td>使用Hibernate5.0版本进行持久化数据时使用</td>
+</tr>
+</tbody>
+</table>
+<h3 id="TransactionDefinition"><a href="#TransactionDefinition" class="headerlink" title="TransactionDefinition"></a>TransactionDefinition</h3><p>事务定义信息（隔离、传播、超时、只读）</p>
+<p>事务的特性：原子性、一致性、隔离性、持久性。</p>
+<p>如果不考虑隔离性，会引发</p>
+<blockquote>
+<p>脏读：一个事务读取了另一个事务改写的但未提交的数据，如果这些数据被回滚，则读到的数据是无效的。</p>
+<p>不可重复读：在同一事务中，多次读取同一数据返回的结果有所不同.</p>
+<p>幻读：一个事务读取了几行记录后，另一个事务插入了一些记录。在后来的查询中，第一个事务就有些原来没有的记录。</p>
+</blockquote>
+<h4 id="隔离级别"><a href="#隔离级别" class="headerlink" title="隔离级别"></a>隔离级别</h4><table>
+<thead>
+<tr>
+<th>隔离级别</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DEFAULT</td>
+<td>使用后端数据库默认的隔离级别（spring中的选择项）</td>
+</tr>
+<tr>
+<td>READ_UNCOMMITED</td>
+<td>允许你读取还未提交的改变了的数据，是可能导致脏读、幻读、不可重复读的。</td>
+</tr>
+<tr>
+<td>READ_COMMITED</td>
+<td>允许在并发事务已经提交后读取。可防止脏读，但幻读、不可重复读仍可能发发生</td>
+</tr>
+<tr>
+<td>REPEATABLE_READ</td>
+<td>对相同字段对此读取时一致的，除非数据本身被事务改变，可防脏读和不可重复读，幻读仍可能发生。</td>
+</tr>
+<tr>
+<td>SERIALIZABLE</td>
+<td>完全服从ACID的隔离级别，确保不发生任意的读问题，事务排队，不会出现并发。</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>如果选择了Spring默认的隔离级别，那么使用Mysql对应的默认级别是REPEATABLE_READ， Oracle对应的默认级别是READ_COMMITED。</p>
+</blockquote>
+<h4 id="传播行为"><a href="#传播行为" class="headerlink" title="传播行为"></a>传播行为</h4><p><strong>解决业务层方法之间的相互调用问题。</strong></p>
+<p>假设业务层有两个方法aaa和bbb，当有复杂的事务情况发生时，比如某个事务需要同时调用aaa和bbb。</p>
+<table>
+<thead>
+<tr>
+<th>事务的传播行为</th>
+<th>说明</th>
+<th>举例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PROPAGATION_REQUIRED</td>
+<td>支持当前事务，如果不存在就新建一个</td>
+<td>如果aaa有事务，则使用之。如果没有就新建一个</td>
+</tr>
+<tr>
+<td>PROPAGATION_SUPPORTS</td>
+<td>支持当前事务，如果不存在，就不使用事务</td>
+<td>如果aaa有事务，则使用之。如果没有就不使用事务</td>
+</tr>
+<tr>
+<td>PROPAGATION_MANDATORY</td>
+<td>支持当前事务，如果不存在，就抛出异常</td>
+<td>如果aaa有事务，则使用之。如果没有就抛出异常</td>
+</tr>
+<tr>
+<td>PROPAGATION_REQUIRES_NEW</td>
+<td>如果有事务，挂起当前事务，创建一个新的事务</td>
+<td>aaa和bbb没有在一个事务中</td>
+</tr>
+<tr>
+<td>PROPAGATION_NOT_SUPPORTED</td>
+<td>以非事务方式允许，如果有事务运行，则挂起当前事务</td>
+<td>aaa有事务，在执行bbb的时候，把aaa的事务挂起</td>
+</tr>
+<tr>
+<td>PROPAGATION_NEVER</td>
+<td>以非事务方式允许，如果有事务运行，则抛出异常</td>
+<td>aaa有事务，在执行bbb的时候，会抛出异常</td>
+</tr>
+<tr>
+<td>PROPAGATION_NESTED</td>
+<td>如果当前事务存在，则使用嵌套事务</td>
+<td>aaa一执行完后会使用事务设置一个保存点。在执行bbb的时候，如果bbb没有报异常，那么他们就一起提交了。如果bbb中发生了异常，你可以控制回滚到保存点还是初始位置。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="TransactionStatus"><a href="#TransactionStatus" class="headerlink" title="TransactionStatus"></a>TransactionStatus</h3><p><strong>事务具体运行状态</strong></p>
+<p>提供了一组可以获得事务当前状态的方法。</p>
+<h2 id="编程式的事务控制"><a href="#编程式的事务控制" class="headerlink" title="编程式的事务控制"></a>编程式的事务控制</h2><ul>
+<li>在你需要使用<strong>TransactionTemplate</strong>模板的的bean中进行注入。</li>
+<li><strong>TransactionTemplate </strong>以来 <strong>DataSourceTransactionManager</strong> </li>
+<li><strong>DataSourceTransactionManager</strong> 以来 <strong>DataSource</strong> 构造</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">    <span class="comment">&lt;!--  配置hibernate事务管理器 --&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"transactionManager"</span> <span class="attr">class</span>=<span class="string">"org.springframework.orm.hibernate5.HibernateTransactionManager"</span>&gt;</span></div><div class="line">        <span class="comment">&lt;!--注入sessionFactory--&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"sessionFactory"</span> <span class="attr">ref</span>=<span class="string">"sessionFactory"</span>/&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></div><div class="line">    <span class="comment">&lt;!--或者配置JDBC事务管理器--&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"transactionManager"</span> <span class="attr">class</span>=<span class="string">"org.springframework.jdbc.datasource.DataSourceTransactionManager"</span>&gt;</span></div><div class="line">       <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"dataSource"</span> <span class="attr">ref</span>=<span class="string">"dataSource"</span>/&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">&lt;!--配置事务管理的模板,spring为了简化事务管理的代码而提供的类--&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"transactionTemplate"</span> <span class="attr">class</span>=<span class="string">"org.springframework.transaction.support.TransactionTemplate"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"transactionManager"</span> <span class="attr">ref</span>=<span class="string">"transactionManager"</span>/&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></div></pre></td></tr></table></figure>
+<h3 id="如果是使用JDBCTemplate"><a href="#如果是使用JDBCTemplate" class="headerlink" title="如果是使用JDBCTemplate"></a>如果是使用JDBCTemplate</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserDaoImpl</span>  <span class="keyword">extends</span> <span class="title">JdbcDaoSupport</span> <span class="keyword">implements</span> <span class="title">UserDao</span></span>&#123;</div><div class="line">      <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">()</span> </span>&#123;</div><div class="line">        String sql = <span class="string">"insert t_user values(null,?)"</span>;</div><div class="line">        <span class="keyword">this</span>.getJdbcTemplate().execute(sql,<span class="string">" nimon"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="如果是使用HibernateTemplate"><a href="#如果是使用HibernateTemplate" class="headerlink" title="如果是使用HibernateTemplate"></a>如果是使用HibernateTemplate</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">   <span class="comment">//注入模板</span></div><div class="line"><span class="keyword">private</span> HibernateTemplate hibernateTemplate;</div><div class="line"></div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setHibernateTemplate</span><span class="params">(HibernateTemplate hibernateTemplate)</span> </span>&#123;</div><div class="line">       <span class="keyword">this</span>.hibernateTemplate = hibernateTemplate;</div><div class="line">   &#125;</div><div class="line"></div><div class="line">   <span class="meta">@Override</span></div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">()</span> </span>&#123;</div><div class="line">       User user = <span class="keyword">new</span> User();</div><div class="line">       user.setName(<span class="string">"nimon"</span>);</div><div class="line">       <span class="comment">//调用save方法实现添加</span></div><div class="line">       hibernateTemplate.save(user);</div><div class="line">   &#125;</div></pre></td></tr></table></figure>
+<p>​        </p>
+<p>UserService</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">()</span> </span>&#123;</div><div class="line">    System.out.println(<span class="string">"userService........"</span>);</div><div class="line">    mTransactionTemplate.execute(<span class="keyword">new</span> TransactionCallbackWithoutResult() &#123;</div><div class="line">        <span class="meta">@Override</span></div><div class="line">        <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">doInTransactionWithoutResult</span><span class="params">(TransactionStatus status)</span> </span>&#123;  <span class="comment">//这里需要一个TransactionCallback参数</span></div><div class="line">            userDao.add();</div><div class="line">        &#125;</div><div class="line">    &#125;);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>需要手动改service的代码，所以是不建议的。</p>
+<h2 id="声明式的事务管理"><a href="#声明式的事务管理" class="headerlink" title="声明式的事务管理"></a>声明式的事务管理</h2><h3 id="公共配置"><a href="#公共配置" class="headerlink" title="公共配置"></a>公共配置</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">&lt;!-- 配置SessionFactory,交给spring管理 --&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"sessionFactory"</span> <span class="attr">class</span>=<span class="string">"org.springframework.orm.hibernate4.LocalSessionFactoryBean"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"dataSource"</span> <span class="attr">ref</span>=<span class="string">"dataSource"</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line"><span class="comment">&lt;!-- 引入hibernate配置文件 --&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"configLocation"</span> <span class="attr">value</span>=<span class="string">"classpath:/hibernate.cfg.xml"</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></div></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">&lt;!-- 事务管理器 --&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"transactionManager"</span> <span class="attr">class</span>=<span class="string">"org.springframework.orm.hibernate4.HibernateTransactionManager"</span>&gt;</span></div><div class="line">   <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"sessionFactory"</span> <span class="attr">ref</span>=<span class="string">"sessionFactory"</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></div></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">&lt;!-- 配置DAO --&gt;</span> </div><div class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"userDao"</span> <span class="attr">class</span>=<span class="string">"com.dao.UserDaoImpl"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"sessionFactory"</span> <span class="attr">ref</span>=<span class="string">"sessionFactory"</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></div></pre></td></tr></table></figure>
+<h3 id="注入bean"><a href="#注入bean" class="headerlink" title="注入bean"></a>注入bean</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"userDaoImpl"</span> <span class="attr">class</span>=<span class="string">"cn.nini.dao.UserDaoImpl"</span>&gt;</span></div><div class="line">       <span class="comment">&lt;!--需要继承JDBCDaoSupport --&gt;</span></div><div class="line">       <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"dataSource"</span> <span class="attr">ref</span>=<span class="string">"dataSource"</span>/&gt;</span></div><div class="line">   <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></div><div class="line"></div><div class="line">   <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"transactionTemplate"</span> <span class="attr">class</span>=<span class="string">"org.springframework.transaction.support.TransactionTemplate"</span>&gt;</span></div><div class="line">       <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"transactionManager"</span> <span class="attr">ref</span>=<span class="string">"transactionManager"</span>/&gt;</span></div><div class="line">   <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></div><div class="line">   </div><div class="line">   <span class="comment">&lt;!--没有增强过的对象--&gt;</span></div><div class="line">   <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"userService"</span> <span class="attr">class</span>=<span class="string">"cn.nini.service.UserService"</span>&gt;</span></div><div class="line">       <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"userDao"</span> <span class="attr">ref</span>=<span class="string">"userDaoImpl"</span>/&gt;</span></div><div class="line">       <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"transactionTemplate"</span> <span class="attr">ref</span>=<span class="string">"transactionTemplate"</span>/&gt;</span></div><div class="line">   <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></div></pre></td></tr></table></figure>
+<h3 id="第一种传统方式"><a href="#第一种传统方式" class="headerlink" title="第一种传统方式"></a>第一种传统方式</h3><p><strong>使用原始的TransactionProxyFactoryBean配置声明式事务</strong>，需要为每一个事务管理的类，配置 TransactionProxyFactoryBean 进行增强。</p>
+<ol>
+<li>要增强的bean</li>
+<li>transactionManager</li>
+<li>目标增强代理对象。</li>
+</ol>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"transactionManager"</span></span></div><div class="line">      <span class="attr">class</span>=<span class="string">"org.springframework.jdbc.datasource.DataSourceTransactionManager"</span>&gt;</div><div class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"dataSource"</span> <span class="attr">ref</span>=<span class="string">"dataSource"</span>/&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></div><div class="line"></div><div class="line"><span class="comment">&lt;!--增强过的对象--&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"userServiceProxy"</span> <span class="attr">class</span>=<span class="string">"org.springframework.transaction.interceptor.TransactionProxyFactoryBean"</span>&gt;</span></div><div class="line">    <span class="comment">&lt;!--配置目标对象--&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"target"</span> <span class="attr">ref</span>=<span class="string">"userService"</span>/&gt;</span></div><div class="line">    <span class="comment">&lt;!--注入事务管理器--&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"transactionManager"</span> <span class="attr">ref</span>=<span class="string">"transactionManager"</span>/&gt;</span></div><div class="line">    <span class="comment">&lt;!--注入事务的属性--&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"transactionAttributes"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">props</span>&gt;</span></div><div class="line">            <span class="comment">&lt;!--</span></div><div class="line">                prop的格式</div><div class="line">                    PROPAGATION : 事务的传播行为</div><div class="line">                    ISOLATION : 事务的隔离级别</div><div class="line">                    readOnly : 只读</div><div class="line">                    -Exception : 发生哪些异常回滚事务</div><div class="line">                    +Exception :发生哪些异常不回滚事务</div><div class="line">            --&gt;</div><div class="line">        <span class="tag">&lt;<span class="name">prop</span> <span class="attr">key</span>=<span class="string">"add*"</span>&gt;</span>PROPAGATION_REQUIRED,readOnly<span class="tag">&lt;/<span class="name">prop</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">props</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></div></pre></td></tr></table></figure>
+<blockquote>
+<p>如果设置了readOnly,那么只要进行了写操作就会出现， Connection is read-only.错误。</p>
+</blockquote>
+<ul>
+<li>prop的格式<ul>
+<li>PROPAGATION : 事务的传播行为</li>
+<li>ISOLATION : 事务的隔离级别</li>
+<li>readOnly : 只读</li>
+<li>-Exception : 发生哪些异常回滚事务</li>
+<li>+Exception :发生哪些异常不回滚事务</li>
+</ul>
+</li>
+</ul>
+<h3 id="第二种方式：tx-aop"><a href="#第二种方式：tx-aop" class="headerlink" title="第二种方式：tx/aop"></a>第二种方式：tx/aop</h3><p>tx / aop 方式，一旦配置好，类就不需要添加任何东西。    </p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="comment">&lt;!--配置事务的通知  (事务的增强)--&gt;</span></div><div class="line">   <span class="tag">&lt;<span class="name">tx:advice</span> <span class="attr">id</span>=<span class="string">"txAdvice"</span> <span class="attr">transaction-manager</span>=<span class="string">"transactionManager"</span>&gt;</span></div><div class="line">       <span class="tag">&lt;<span class="name">tx:attributes</span>&gt;</span></div><div class="line">           <span class="comment">&lt;!-- </span></div><div class="line">			propagation	:事务传播行为</div><div class="line">			isolation	:事务的隔离级别</div><div class="line">			read-only	:只读</div><div class="line">			rollback-for:发生哪些异常回滚</div><div class="line">			no-rollback-for	:发生哪些异常不回滚</div><div class="line">			timeout		:过期信息</div><div class="line">		 --&gt;</div><div class="line">           <span class="tag">&lt;<span class="name">tx:method</span> <span class="attr">name</span>=<span class="string">"add*"</span> <span class="attr">propagation</span>=<span class="string">"REQUIRED"</span> <span class="attr">isolation</span>=<span class="string">"DEFAULT"</span>  <span class="attr">read-only</span>=<span class="string">"false"</span> <span class="attr">timeout</span>=<span class="string">"-1"</span>/&gt;</span></div><div class="line">       <span class="tag">&lt;/<span class="name">tx:attributes</span>&gt;</span></div><div class="line">   <span class="tag">&lt;/<span class="name">tx:advice</span>&gt;</span></div><div class="line">   <span class="tag">&lt;<span class="name">aop:config</span>&gt;</span></div><div class="line">       <span class="comment">&lt;!--切入点--&gt;</span></div><div class="line">       <span class="tag">&lt;<span class="name">aop:pointcut</span> <span class="attr">id</span>=<span class="string">"pointcut1"</span> <span class="attr">expression</span>=<span class="string">"execution(* cn.nini.service.UserService+.*(..))"</span>/&gt;</span></div><div class="line">       <span class="comment">&lt;!--切面--&gt;</span></div><div class="line">       <span class="tag">&lt;<span class="name">aop:advisor</span> <span class="attr">advice-ref</span>=<span class="string">"txAdvice"</span> <span class="attr">pointcut-ref</span>=<span class="string">"pointcut1"</span>/&gt;</span></div><div class="line">   <span class="tag">&lt;/<span class="name">aop:config</span>&gt;</span></div></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="comment">&lt;!-- 事务属性 --&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">tx:advice</span> <span class="attr">id</span>=<span class="string">"txAdvice"</span> <span class="attr">transaction-manager</span>=<span class="string">"transactionManager"</span>&gt;</span></div><div class="line">   <span class="tag">&lt;<span class="name">tx:attributes</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">tx:method</span> <span class="attr">name</span>=<span class="string">"get*"</span> <span class="attr">propagation</span>=<span class="string">"REQUIRED"</span> <span class="attr">rollback-for</span>=<span class="string">"Exception"</span> <span class="attr">read-only</span>=<span class="string">"true"</span>/&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">tx:method</span> <span class="attr">name</span>=<span class="string">"modify*"</span> <span class="attr">propagation</span>=<span class="string">"REQUIRED"</span> <span class="attr">rollback-for</span>=<span class="string">"Exception"</span> /&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">tx:method</span> <span class="attr">name</span>=<span class="string">"del*"</span> <span class="attr">propagation</span>=<span class="string">"REQUIRED"</span> <span class="attr">rollback-for</span>=<span class="string">"Exception"</span>/&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">tx:method</span> <span class="attr">name</span>=<span class="string">"*"</span> <span class="attr">propagation</span>=<span class="string">"REQUIRED"</span> <span class="attr">read-only</span>=<span class="string">"true"</span>/&gt;</span></div><div class="line">   <span class="tag">&lt;/<span class="name">tx:attributes</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">tx:advice</span>&gt;</span></div><div class="line"> </div><div class="line"><span class="tag">&lt;<span class="name">aop:config</span>&gt;</span></div><div class="line">   <span class="comment">&lt;!--第一个*代表返回值,第二个代表service下子包,第三个达标方法名,(..)代表参数    --&gt;</span></div><div class="line">   <span class="tag">&lt;<span class="name">aop:pointcut</span>  <span class="attr">id</span>=<span class="string">"txPointCut"</span> <span class="attr">expression</span>=<span class="string">"execution(* org.nan.service.*.*(..))"</span>/&gt;</span></div><div class="line">   <span class="tag">&lt;<span class="name">aop:advisor</span> <span class="attr">advice-ref</span>=<span class="string">"txAdvice"</span> <span class="attr">pointcut-ref</span>=<span class="string">"txPointCut"</span>/&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">aop:config</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>execution(<em> org.nan.service.\</em>.*(..)) </p>
+<p>第一个*代表返回值,第二个代表service下子包,第三个达标方法名,(..)代表参数 </p>
+<p>execution(<em> org.nan.service.UserService+.</em>(..))</p>
+<p>这里的 “+” 是代表 UserService 的子类。</p>
+<h3 id="第三种方式：注解"><a href="#第三种方式：注解" class="headerlink" title="第三种方式：注解"></a>第三种方式：注解</h3><p>使用注解方式，配置简单，需要在业务类上添加 <code>@Transactional</code> 注解</p>
+<p>在xml中开启注解事务</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"transactionManager"</span> <span class="attr">class</span>=<span class="string">"org.springframework.jdbc.datasource.DataSourceTransactionManager"</span>&gt;</span></div><div class="line">       <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"dataSource"</span> <span class="attr">ref</span>=<span class="string">"dataSource"</span>/&gt;</span></div><div class="line">   <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></div><div class="line"> <span class="comment">&lt;!--开启注解事务--&gt;</span></div><div class="line"> <span class="tag">&lt;<span class="name">tx:annotation-driven</span> <span class="attr">transaction-manager</span>=<span class="string">"transactionManager"</span>/&gt;</span></div></pre></td></tr></table></figure>
+<p>在需要开启事务的类前面加上</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"> <span class="comment">/*@Transactional中的的属性</span></div><div class="line"> *propagation	:事务的传播行为</div><div class="line"> *isolation		:事务的隔离级别</div><div class="line"> *readOnly		:只读</div><div class="line"> *rollbackFor	:发生哪些异常回滚</div><div class="line"> *noRollbackFor	:发生哪些异常不回滚</div><div class="line"> *rollbackForClassName 根据异常类名回滚</div><div class="line"> */</div><div class="line"><span class="meta">@Transactional</span>(propagation = Propagation.REQUIRED,isolation = Isolation.DEFAULT,readOnly = <span class="keyword">false</span>,timeout = -<span class="number">1</span>)</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserService</span> </span>&#123;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="Spring-的-Bean-管理的中常用的注解"><a href="#Spring-的-Bean-管理的中常用的注解" class="headerlink" title="Spring 的 Bean 管理的中常用的注解"></a>Spring 的 Bean 管理的中常用的注解</h2><p>Spring 中提供@Component 的三个衍生注解:(功能目前来讲是一致的)</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">* <span class="variable">@Component         :</span>组件.(作用在类上)</div><div class="line">* <span class="variable">@Controller</span>        :WEB 层</div><div class="line">* <span class="variable">@Service</span>           :业务层</div><div class="line">* <span class="variable">@Repository</span>        :持久层</div></pre></td></tr></table></figure>
+<p>这三个注解是为了让标注类本身的用途清晰，Spring 在后续版本会对其增强        </p>
+<p>​                </p>
+<h2 id="属性注入的注解"><a href="#属性注入的注解" class="headerlink" title="属性注入的注解"></a>属性注入的注解</h2><p> (使用注解注入的方式,可以不用提供 set 方法.)</p>
+<h3 id="Autowired"><a href="#Autowired" class="headerlink" title="@Autowired"></a>@Autowired</h3><p>spring可以自动帮你把bean里面引用的对象的 setter/getter 方法省略，它会自动帮你 set/get .</p>
+<p>也可以用在<code>方法</code>上或者<code>构造函数</code>上。构造函数上如果有Bean，并调用方法自动注入这些Bean。</p>
+<h4 id="Qualifier"><a href="#Qualifier" class="headerlink" title="@Qualifier"></a>@Qualifier</h4><p>强制使用名称注入.</p>
+<p>​    </p>
+<h3 id="Resource"><a href="#Resource" class="headerlink" title="@Resource"></a>@Resource</h3><p>类似于<code>@Autowired</code>，只不过 <code>@Autowired</code> 按 byType 自动注入，面 <code>@Resource</code> 默认按 byName自动注入。</p>
+<blockquote>
+<p><strong>@Resource 相当于: @Autowired 和 @Qualifier 一起使用.</strong></p>
+</blockquote>
+<p>他有两个属性：</p>
+<ul>
+<li>name：name属性解析为 Bean的名字</li>
+<li>type：type属性则解析为 Bean的类型</li>
+</ul>
+<p>所以如果使用 name属性，则使用 byName的自动注入策略，而使用 type属性时则使用 byType</p>
+<blockquote>
+<p>自动注入策略。如果既不指定 name也不指定 type属性，这时将通过反射机制使用 byName自动注入策略。</p>
+<p>Resource 注释类位于 Spring发布包的 <code>common-annotations.jar</code> 类包中</p>
+</blockquote>
+<h3 id="Required"><a href="#Required" class="headerlink" title="@Required"></a>@Required</h3><p><code>@Required</code> 注解检查 但他只检查属性是否已经设置而不会测试属性是否非空，</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Required</span>  </div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setProduct</span><span class="params">(Product product)</span> </span>&#123;  </div><div class="line">       <span class="keyword">this</span>.product = product;  </div><div class="line">   &#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>注意 : @Required只能设置在setter方法上</p>
+<p>这样如果任何带有@Required的属性未设置的话 将会抛出BeanInitializationException异常</p>
+</blockquote>
+<h2 id="需要注意的地方"><a href="#需要注意的地方" class="headerlink" title="需要注意的地方"></a>需要注意的地方</h2><blockquote>
+<p>注意 1 ： 在组件类前加上 @Component(“ 标识符 “) 的作用与在配置文件中配置是一样的。</p>
+<p>注意 2 ： 如果不指定 @Qualifier(“ 标识符 “) 的话，那么在类中注入bean的时候字段的名称必须和配置文件中bean的id、或者组件类前 @Component(“ 标识符 “)  的标识符相同。</p>
+<p>不然会出错     </p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Injection of autowired dependencies failed</div><div class="line"></div><div class="line">Could not autowire field</div></pre></td></tr></table></figure>
+<blockquote>
+<p>注意 3 ： 如果@Component(“ 标识符 “)，重复定义了，那么会出现以下异常</p>
+</blockquote>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">java.lang.IllegalStateException: Failed to load ApplicationContext</div><div class="line"></div><div class="line">Caused by: org.springframework.context.annotation.ConflictingBeanDefinitionException: Annotation-specified bean name 'dao2' for bean class [me.nini.dao.UserDaoImpl3] conflicts with existing, non-compatible bean definition of same name and class [me.nini.dao.UserDaoImpl2]</div></pre></td></tr></table></figure>
+<blockquote>
+<p>注意 4 ：即使组件类没有显式实现接口，但是注入的属性中可能实现的同一接口，这时如果只用 @AutoWired 的话也会报以下错误</p>
+</blockquote>
+<figure class="highlight ada"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">NoUniqueBeanDefinitionException</div><div class="line">No qualifying bean <span class="keyword">of</span> <span class="keyword">type</span> <span class="type">[me.nini.dao.BaseDao] </span><span class="keyword">is</span> defined</div><div class="line">expected single matching bean but found <span class="number">2</span></div></pre></td></tr></table></figure>
+<h2 id="使用spring提供的方便"><a href="#使用spring提供的方便" class="headerlink" title="使用spring提供的方便"></a>使用spring提供的方便</h2><p>使用@Autowired注解，必须事先在Spring容器中声明 <code>AutowiredAnnotationBeanPostProcessor的Bean</code> ：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">class</span>=<span class="string">"org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor "</span>/&gt;</span></div></pre></td></tr></table></figure>
+<blockquote>
+<p>当 Spring 容器启动时，<code>AutowiredAnnotationBeanPostProcessor</code>将扫描 Spring 容器中所有 Bean,当发现 Bean 中拥有 @Autowired 注释时就找到和其匹配（默认按类型匹配）的 Bean,并注入到对应的地方中去。用到的技术是JAVA中的反射。</p>
+</blockquote>
+<p>使用 @Required注解，就必须声明 <code>RequiredAnnotationBeanPostProcessor</code> 的Bean：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">class</span>=<span class="string">"org.springframework.beans.factory.annotation.RequiredAnnotationBeanPostProcessor"</span>/&gt;</span></div></pre></td></tr></table></figure>
+<p>类似地，使用<code>@Resource</code> 、<code>@PostConstruct</code> 、<code>@PreDestroy</code> 等注解就必须声明 <code>CommonAnnotationBeanPostProcessor</code> ；使用 <code>@PersistenceContext</code> 注解，就必须声明  <code>PersistenceAnnotationBeanPostProcessor</code> 的Bean。</p>
+<p>这样的声明未免太不优雅，而Spring为我们提供了一种极为方便注册这些BeanPostProcessor的方式，即使用 <strong><code>&lt;context:annotation- config/&gt;</code></strong> 隐式地向 Spring容器注册<code>AutowiredAnnotationBeanPostProcessor</code> 、<code>RequiredAnnotationBeanPostProcessor</code> 、<code>CommonAnnotationBeanPostProcessor</code> 以及    <code>PersistenceAnnotationBeanPostProcessor</code> 这4个BeanPostProcessor。如下：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">context:annotation-config</span>/&gt;</span></div></pre></td></tr></table></figure>
+<p>但是，在我们使用注解时一般都会配置扫描包路径选项：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">context:component-scan</span> <span class="attr">base-package</span>=<span class="string">"pack.pack"</span>/&gt;</span></div></pre></td></tr></table></figure>
+<blockquote>
+<p> 该配置项其实也包含了自动注入上述processor的功能，因此当使用 <code>&lt;context:component-scan/&gt;</code> 后，即可将 <code>&lt;context:annotation-config/&gt;</code>省去。</p>
+</blockquote>
+<h2 id="Bean-的作用范围的注解"><a href="#Bean-的作用范围的注解" class="headerlink" title="Bean 的作用范围的注解"></a>Bean 的作用范围的注解</h2><blockquote>
+<p>@Scope:</p>
+<p>​    singleton:单例</p>
+<pre><code>prototype:多例
+</code></pre></blockquote>
+<h2 id="Bean-的生命周期的配置"><a href="#Bean-的生命周期的配置" class="headerlink" title="Bean 的生命周期的配置"></a>Bean 的生命周期的配置</h2><p>​        </p>
+<blockquote>
+<p>@PostConstruct :相当于 init-method</p>
+<p>@PreDestroy :相当于 destroy-method</p>
+</blockquote>
+<p>​            </p>
+<h2 id="Spring-的-Bean-管理的方式的比较"><a href="#Spring-的-Bean-管理的方式的比较" class="headerlink" title="Spring 的 Bean 管理的方式的比较"></a>Spring 的 Bean 管理的方式的比较</h2><p>​            </p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th style="text-align:center">基于XML配置</th>
+<th style="text-align:center">基于注解配置</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Bean定义</td>
+<td style="text-align:center"><bean id="…" class="…"></bean></td>
+<td style="text-align:center">@Component 其衍生类 @Repository @Service @Controller</td>
+</tr>
+<tr>
+<td>Bean名称</td>
+<td style="text-align:center">通过id或name指定</td>
+<td style="text-align:center">@Component(“person”)</td>
+</tr>
+<tr>
+<td>Bean注入</td>
+<td style="text-align:center"><property>或者通过p命名空间</property></td>
+<td style="text-align:center">@AutoWired 按类型注入 @Qualifier按名称注入 @Resource 相当于@Autowired和@Qualifier同时使用</td>
+</tr>
+<tr>
+<td>生命过程、Bean作用范围</td>
+<td style="text-align:center">init-method destory-method 范围scope属性</td>
+<td style="text-align:center">@PostConstruct 初始化 @PreDestory 销毁 @Scope 设置作用范围</td>
+</tr>
+<tr>
+<td>适合场景</td>
+<td style="text-align:center">Bean来自第三方</td>
+<td style="text-align:center">Bean由用户自己实现开发</td>
+</tr>
+</tbody>
+</table>
+<p>xml和注解：</p>
+<ul>
+<li><p>XML ： 结构清晰</p>
+</li>
+<li><p>注解 ： 开发方便（属性注入）</p>
+<p>​</p>
+</li>
+</ul>
+<blockquote>
+<p>实际开发中还有一种 XML 和注解整合开发:</p>
+<p>Bean有XML配置.但是使用的属性使用注解注入.</p>
+</blockquote>
+<p>​    </p>
+]]></content>
     
     <summary type="html">
     
       &lt;h2 id=&quot;Spring介绍&quot;&gt;&lt;a href=&quot;#Spring介绍&quot; class=&quot;headerlink&quot; title=&quot;Spring介绍&quot;&gt;&lt;/a&gt;Spring介绍&lt;/h2&gt;&lt;p&gt;Spring 框架是一个分层架构，由 7 个定义良好的模块组成。Spring 模块构建在核心容器之上，核心容器定义了创建、配置和管理 bean 的方式。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;/2017/05/05/spring学习总结/anisur.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/2017/05/05/010001-2017-05-05-spring学习总结/anisur.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
     
     </summary>
     
     
-      <category term="spring" scheme="http://nijun.me/tags/spring/"/>
+      <category term="Spring" scheme="http://nijun.me/tags/Spring/"/>
     
   </entry>
   
   <entry>
     <title>一些mac端好用端插件分享</title>
-    <link href="http://nijun.me/2017/05/05/%E4%B8%80%E4%BA%9Bmac%E7%AB%AF%E5%A5%BD%E7%94%A8%E7%AB%AF%E6%8F%92%E4%BB%B6%E5%88%86%E4%BA%AB/"/>
-    <id>http://nijun.me/2017/05/05/一些mac端好用端插件分享/</id>
+    <link href="http://nijun.me/2017/05/05/010001-2017-05-05-%E4%B8%80%E4%BA%9Bmac%E7%AB%AF%E5%A5%BD%E7%94%A8%E7%AB%AF%E6%8F%92%E4%BB%B6%E5%88%86%E4%BA%AB/"/>
+    <id>http://nijun.me/2017/05/05/010001-2017-05-05-一些mac端好用端插件分享/</id>
     <published>2017-05-05T05:28:27.000Z</published>
     <updated>2017-05-06T01:34:42.000Z</updated>
     
-    <content type="html"><![CDATA[<p><div align="center"><br>想要生活变得更好？来看看这些插件吧！<br></div><br><img src="/2017/05/05/一些mac端好用端插件分享/muhammad.jpg" alt=""><br><a id="more"></a></p>
+    <content type="html"><![CDATA[<p><div align="center"><br>想要生活变得更好？来看看这些插件吧！<br></div><br><img src="/2017/05/05/010001-2017-05-05-一些mac端好用端插件分享/muhammad.jpg" alt=""><br><a id="more"></a></p>
 <hr>
 <h1 id="百度云限速？试试Mac神器Aria2"><a href="#百度云限速？试试Mac神器Aria2" class="headerlink" title="百度云限速？试试Mac神器Aria2"></a>百度云限速？试试Mac神器Aria2</h1><p><br><br>使用Tampermonkey插件 + “百度网盘直接下载助手”脚本（2017-03-20更新）</p>
 <p>在Chrome上安装Tampermonkey插件。</p>
@@ -402,7 +1234,7 @@
     
     <summary type="html">
     
-      &lt;p&gt;&lt;div align=&quot;center&quot;&gt;&lt;br&gt;想要生活变得更好？来看看这些插件吧！&lt;br&gt;&lt;/div&gt;&lt;br&gt;&lt;img src=&quot;/2017/05/05/一些mac端好用端插件分享/muhammad.jpg&quot; alt=&quot;&quot;&gt;&lt;br&gt;&lt;/p&gt;
+      &lt;p&gt;&lt;div align=&quot;center&quot;&gt;&lt;br&gt;想要生活变得更好？来看看这些插件吧！&lt;br&gt;&lt;/div&gt;&lt;br&gt;&lt;img src=&quot;/2017/05/05/010001-2017-05-05-一些mac端好用端插件分享/muhammad.jpg&quot; alt=&quot;&quot;&gt;&lt;br&gt;&lt;/p&gt;
     
     </summary>
     
@@ -411,10 +1243,10 @@
   
   <entry>
     <title>老司机的踩坑提醒</title>
-    <link href="http://nijun.me/2017/05/04/%E8%80%81%E5%8F%B8%E6%9C%BA%E7%9A%84%E8%B8%A9%E5%9D%91%E6%8F%90%E9%86%92/"/>
-    <id>http://nijun.me/2017/05/04/老司机的踩坑提醒/</id>
+    <link href="http://nijun.me/2017/05/04/010001-%E8%80%81%E5%8F%B8%E6%9C%BA%E7%9A%84%E8%B8%A9%E5%9D%91%E6%8F%90%E9%86%92/"/>
+    <id>http://nijun.me/2017/05/04/010001-老司机的踩坑提醒/</id>
     <published>2017-05-04T12:46:25.000Z</published>
-    <updated>2017-05-06T02:58:30.000Z</updated>
+    <updated>2017-05-08T22:38:43.000Z</updated>
     
     <content type="html"><![CDATA[<div align="center"><br> 错误和问题？在所难免，来和我一起看看吧！<br></div>
 
@@ -449,6 +1281,34 @@ The file will have its original line endings in your working directory.
 <h4 id="6"><a href="#6" class="headerlink" title="6."></a>6.</h4><figure class="highlight subunit"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">ERROR </span>Deployer not found: git</div></pre></td></tr></table></figure>
 <p>试试</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> npm install hexo-deployer-git --save</span></div><div class="line"><span class="meta">$</span><span class="bash"> npm install hexo --save</span></div></pre></td></tr></table></figure>
+<h4 id="7-Spring"><a href="#7-Spring" class="headerlink" title="7. Spring"></a>7. Spring</h4><blockquote>
+<p>BeanFactory not initialized or already closed - call ‘refresh’ before accessing beans via the ApplicationContext</p>
+</blockquote>
+<p>原因是</p>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">ApplicationContext context</span> = new ClassPathXmlApplicationContext();</div></pre></td></tr></table></figure>
+<p>没有指定路径。</p>
+<h4 id="8-spring"><a href="#8-spring" class="headerlink" title="8. spring"></a>8. spring</h4> <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Write operations are not allowed in read-<span class="function">only <span class="title">mode</span> <span class="params">(FlushMode.MANUAL)</span>: Turn your Session into FlushMode.COMMIT/AUTO or remove 'readOnly' marker from transaction definition.</span></div></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">tx:advice</span> <span class="attr">id</span>=<span class="string">"txAdvice"</span> <span class="attr">transaction-manager</span>=<span class="string">"transactionManager"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">tx:attributes</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">tx:method</span> <span class="attr">name</span>=<span class="string">"save*"</span> <span class="attr">read-only</span>=<span class="string">"false"</span> <span class="attr">propagation</span>=<span class="string">"REQUIRED"</span></span></div><div class="line">                       <span class="attr">rollback-for</span>=<span class="string">"Exception"</span>/&gt;</div><div class="line">        <span class="tag">&lt;/<span class="name">tx:attributes</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">tx:advice</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">aop:config</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">aop:pointcut</span> <span class="attr">id</span>=<span class="string">"pointcut1"</span> <span class="attr">expression</span>=<span class="string">"execution(* me.nini.*.*.*(..))"</span>/&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">aop:advisor</span> <span class="attr">advice-ref</span>=<span class="string">"txAdvice"</span> <span class="attr">pointcut-ref</span>=<span class="string">"pointcut1"</span>/&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">aop:config</span>&gt;</span></div></pre></td></tr></table></figure>
+<h4 id="9-如果出现sequence这个表，原因是没有指定数据库主键的生成策略"><a href="#9-如果出现sequence这个表，原因是没有指定数据库主键的生成策略" class="headerlink" title="9. 如果出现sequence这个表，原因是没有指定数据库主键的生成策略"></a>9. 如果出现sequence这个表，原因是没有指定数据库主键的生成策略</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Id</span></div><div class="line"><span class="meta">@GeneratedValue</span>(strategy= GenerationType.IDENTITY)</div></pre></td></tr></table></figure>
+<h4 id="10-在定义bean的时候，如果定义了多个bean继承或者实现同一个类或者接口，那么会报以下错误"><a href="#10-在定义bean的时候，如果定义了多个bean继承或者实现同一个类或者接口，那么会报以下错误" class="headerlink" title="10. 在定义bean的时候，如果定义了多个bean继承或者实现同一个类或者接口，那么会报以下错误"></a>10. 在定义bean的时候，如果定义了多个bean继承或者实现同一个类或者接口，那么会报以下错误</h4><p>在注入bean的时候，类中的bean的字段名可以和xml文件中配置的bean的id不一致。不然就会报</p>
+<figure class="highlight ada"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">NoUniqueBeanDefinitionException</div><div class="line">No qualifying bean <span class="keyword">of</span> <span class="keyword">type</span> <span class="type">[me.nini.dao.BaseDao] </span><span class="keyword">is</span> defined</div><div class="line">expected single matching bean but found <span class="number">2</span></div></pre></td></tr></table></figure>
+<p>​<br>那么如何解决呢？</p>
+<p>只要在具有相同父类型的组件前加上 @Component(“标识符”)</p>
+<p>​            </p>
+<blockquote>
+<p>注意 1 ： 在组件类前加上 @Component(“ 标识符 “) 的作用与在配置文件中配置是一样的。</p>
+<p>注意 2 ： 如果不指定 @Qualifier(“ 标识符 “) 的话，那么在类中注入bean的时候字段的名称必须和配置文件中bean的id、或者组件类前 @Component(“ 标识符 “)  的标识符相同。</p>
+<p>不然会出错     </p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Injection of autowired dependencies failed</div><div class="line"></div><div class="line">Could not autowire field</div></pre></td></tr></table></figure>
+<blockquote>
+<p>注意 3 ： 如果@Component(“ 标识符 “)，重复定义了，那么会出现以下异常</p>
+</blockquote>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">java.lang.IllegalStateException: Failed to load ApplicationContext</div><div class="line"></div><div class="line">Caused by: org.springframework.context.annotation.ConflictingBeanDefinitionException: Annotation-specified bean name 'dao2' for bean class [me.nini.dao.UserDaoImpl3] conflicts with existing, non-compatible bean definition of same name and class [me.nini.dao.UserDaoImpl2]</div></pre></td></tr></table></figure>
+<blockquote>
+<p>注意 4 ：即使组件类没有显式实现接口，但是注入的属性中可能实现的同一接口，这时如果只用 @AutoWired 的话也会报以下错误</p>
+</blockquote>
+<figure class="highlight ada"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">NoUniqueBeanDefinitionException</div><div class="line">No qualifying bean <span class="keyword">of</span> <span class="keyword">type</span> <span class="type">[me.nini.dao.BaseDao] </span><span class="keyword">is</span> defined</div><div class="line">expected single matching bean but found <span class="number">2</span></div></pre></td></tr></table></figure>
 ]]></content>
     
     <summary type="html">

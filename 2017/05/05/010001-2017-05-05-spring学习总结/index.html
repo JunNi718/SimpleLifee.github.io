@@ -1,0 +1,1828 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Spring," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="SimpleLifee" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="Spring介绍Spring 框架是一个分层架构，由 7 个定义良好的模块组成。Spring 模块构建在核心容器之上，核心容器定义了创建、配置和管理 bean 的方式。">
+<meta name="keywords" content="Spring">
+<meta property="og:type" content="article">
+<meta property="og:title" content="spring学习总结——事务管理">
+<meta property="og:url" content="http://nijun.me/2017/05/05/010001-2017-05-05-spring学习总结/index.html">
+<meta property="og:site_name" content="SimpleLifee">
+<meta property="og:description" content="Spring介绍Spring 框架是一个分层架构，由 7 个定义良好的模块组成。Spring 模块构建在核心容器之上，核心容器定义了创建、配置和管理 bean 的方式。">
+<meta property="og:image" content="http://nijun.me/2017/05/05/010001-2017-05-05-spring学习总结/anisur.jpg">
+<meta property="og:updated_time" content="2017-05-08T22:29:26.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="spring学习总结——事务管理">
+<meta name="twitter:description" content="Spring介绍Spring 框架是一个分层架构，由 7 个定义良好的模块组成。Spring 模块构建在核心容器之上，核心容器定义了创建、配置和管理 bean 的方式。">
+<meta name="twitter:image" content="http://nijun.me/2017/05/05/010001-2017-05-05-spring学习总结/anisur.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":50,"offset_float":0,"b2t":true,"scrollpercent":true},
+    fancybox: false,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://nijun.me/2017/05/05/010001-2017-05-05-spring学习总结/"/>
+
+
+
+
+
+     <title>spring学习总结——事务管理 | SimpleLifee</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <a href="https://github.com/sunshine940326"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://camo.githubusercontent.com/567c3a48d796e2fc06ea80409cc9dd82bf714434/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_left_darkblue_121621.png"></a>
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">SimpleLifee</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">code, mylife</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            Commonweal 404
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="st-search-show-outputs">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <form class="site-search-form">
+  <input type="text" id="st-search-input" class="st-search-input st-default-search-input" />
+</form>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', 'P8S6WLbknYBhrxFopzjW','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://nijun.me/2017/05/05/010001-2017-05-05-spring学习总结/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Nimon">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SimpleLifee">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                spring学习总结——事务管理
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-05-05T19:13:51+08:00">
+                2017-05-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/05/05/010001-2017-05-05-spring学习总结/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/05/05/010001-2017-05-05-spring学习总结/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2017/05/05/010001-2017-05-05-spring学习总结/" class="leancloud_visitors" data-flag-title="spring学习总结——事务管理">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article</span>
+                
+                <span title="Words count in article">
+                  3,631
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time</span>
+                
+                <span title="Reading time">
+                  15
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="Spring介绍"><a href="#Spring介绍" class="headerlink" title="Spring介绍"></a>Spring介绍</h2><p>Spring 框架是一个分层架构，由 7 个定义良好的模块组成。Spring 模块构建在核心容器之上，核心容器定义了创建、配置和管理 bean 的方式。</p>
+<p><img src="/2017/05/05/010001-2017-05-05-spring学习总结/anisur.jpg" alt=""></p>
+<a id="more"></a>
+<h1 id="Spring中的事务管理"><a href="#Spring中的事务管理" class="headerlink" title="Spring中的事务管理"></a>Spring中的事务管理</h1><p> Spring 是 SSH 中的指挥员和管理者，它负责管理其他框架，控制着整个网站。Spring 中的事务分为：</p>
+<ul>
+<li>声明式事务  <ul>
+<li>开发中<strong>推荐使用</strong>（代码侵入性最小）</li>
+<li>Spring的声明式事务是通过<strong>AOP</strong>实现的</li>
+</ul>
+</li>
+<li><p>编程式事务</p>
+<ul>
+<li>在实际中很少使用</li>
+<li>通过<strong>TransactionTemplate</strong>手动管理事务</li>
+</ul>
+<p>其中声明式事务是在配置文件中进行相关的配置，而编程式事务就是用注解的方式写到代码里。配置文件中定义的bean要比注解里定义的加载早，所以有时会出现在启动阶段（listen 和filter ），是找不到bean 的。</p>
+<p>那么到底是选择声明式还是编程式，我们需要有如下的考虑：</p>
+<ol>
+<li>如果是类级别并且不会发生变动的配置可以优先考虑注解配置，而对于那些第三方以及容易发生调整的配置就优先考虑XML配置文件方式。</li>
+<li>相比于 @Transaction 事务注解，使用 aop / tx命名空间的事务配置更加灵活和简单。</li>
+<li>注解可以有效减少配置的工作量，提高程序的内聚性。</li>
+<li>在第三方Bean 的配置，以及诸如数据源、缓存池、持久层操作模板类、事务管理等内容的配置上，XML 配置依然拥有不可替代的地位。</li>
+</ol>
+</li>
+</ul>
+<p> Spring配置文件中关于事务配置总是由三个组成部分，分别是DataSource、TransactionManager 和代理机制这三部分，无论哪种配置方式，一般变化的只是代理机制这部分。DataSource、 TransactionManager 这两部分只是会根据数据访问方式有所变化，比如使用 Hibernate 进行数据访问时，DataSource 实际为 SessionFactory，TransactionManager 的实现为 HibernateTransactionManager。 下面一起看看三种声明式事务的具体配置：</p>
+<h2 id="事务管理高层抽象主要包括3个接口"><a href="#事务管理高层抽象主要包括3个接口" class="headerlink" title="事务管理高层抽象主要包括3个接口"></a>事务管理高层抽象主要包括3个接口</h2><h3 id="PlatformTransactionManager"><a href="#PlatformTransactionManager" class="headerlink" title="PlatformTransactionManager"></a>PlatformTransactionManager</h3><p>事务管理器，真正管理事务的类，Spring为不同的持久化框架提供了不同的PlatformTransactionManager接口实现。</p>
+<table>
+<thead>
+<tr>
+<th>事务</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>org.springframework.jdbc.datasource.DataSourceTransactionManager</td>
+<td>使用Spring JDBC或iBatis进行持久化数据使用</td>
+</tr>
+<tr>
+<td>org.springframework.orm.hibernate5.HibernateTransactionManager</td>
+<td>使用Hibernate5.0版本进行持久化数据时使用</td>
+</tr>
+</tbody>
+</table>
+<h3 id="TransactionDefinition"><a href="#TransactionDefinition" class="headerlink" title="TransactionDefinition"></a>TransactionDefinition</h3><p>事务定义信息（隔离、传播、超时、只读）</p>
+<p>事务的特性：原子性、一致性、隔离性、持久性。</p>
+<p>如果不考虑隔离性，会引发</p>
+<blockquote>
+<p>脏读：一个事务读取了另一个事务改写的但未提交的数据，如果这些数据被回滚，则读到的数据是无效的。</p>
+<p>不可重复读：在同一事务中，多次读取同一数据返回的结果有所不同.</p>
+<p>幻读：一个事务读取了几行记录后，另一个事务插入了一些记录。在后来的查询中，第一个事务就有些原来没有的记录。</p>
+</blockquote>
+<h4 id="隔离级别"><a href="#隔离级别" class="headerlink" title="隔离级别"></a>隔离级别</h4><table>
+<thead>
+<tr>
+<th>隔离级别</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DEFAULT</td>
+<td>使用后端数据库默认的隔离级别（spring中的选择项）</td>
+</tr>
+<tr>
+<td>READ_UNCOMMITED</td>
+<td>允许你读取还未提交的改变了的数据，是可能导致脏读、幻读、不可重复读的。</td>
+</tr>
+<tr>
+<td>READ_COMMITED</td>
+<td>允许在并发事务已经提交后读取。可防止脏读，但幻读、不可重复读仍可能发发生</td>
+</tr>
+<tr>
+<td>REPEATABLE_READ</td>
+<td>对相同字段对此读取时一致的，除非数据本身被事务改变，可防脏读和不可重复读，幻读仍可能发生。</td>
+</tr>
+<tr>
+<td>SERIALIZABLE</td>
+<td>完全服从ACID的隔离级别，确保不发生任意的读问题，事务排队，不会出现并发。</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>如果选择了Spring默认的隔离级别，那么使用Mysql对应的默认级别是REPEATABLE_READ， Oracle对应的默认级别是READ_COMMITED。</p>
+</blockquote>
+<h4 id="传播行为"><a href="#传播行为" class="headerlink" title="传播行为"></a>传播行为</h4><p><strong>解决业务层方法之间的相互调用问题。</strong></p>
+<p>假设业务层有两个方法aaa和bbb，当有复杂的事务情况发生时，比如某个事务需要同时调用aaa和bbb。</p>
+<table>
+<thead>
+<tr>
+<th>事务的传播行为</th>
+<th>说明</th>
+<th>举例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PROPAGATION_REQUIRED</td>
+<td>支持当前事务，如果不存在就新建一个</td>
+<td>如果aaa有事务，则使用之。如果没有就新建一个</td>
+</tr>
+<tr>
+<td>PROPAGATION_SUPPORTS</td>
+<td>支持当前事务，如果不存在，就不使用事务</td>
+<td>如果aaa有事务，则使用之。如果没有就不使用事务</td>
+</tr>
+<tr>
+<td>PROPAGATION_MANDATORY</td>
+<td>支持当前事务，如果不存在，就抛出异常</td>
+<td>如果aaa有事务，则使用之。如果没有就抛出异常</td>
+</tr>
+<tr>
+<td>PROPAGATION_REQUIRES_NEW</td>
+<td>如果有事务，挂起当前事务，创建一个新的事务</td>
+<td>aaa和bbb没有在一个事务中</td>
+</tr>
+<tr>
+<td>PROPAGATION_NOT_SUPPORTED</td>
+<td>以非事务方式允许，如果有事务运行，则挂起当前事务</td>
+<td>aaa有事务，在执行bbb的时候，把aaa的事务挂起</td>
+</tr>
+<tr>
+<td>PROPAGATION_NEVER</td>
+<td>以非事务方式允许，如果有事务运行，则抛出异常</td>
+<td>aaa有事务，在执行bbb的时候，会抛出异常</td>
+</tr>
+<tr>
+<td>PROPAGATION_NESTED</td>
+<td>如果当前事务存在，则使用嵌套事务</td>
+<td>aaa一执行完后会使用事务设置一个保存点。在执行bbb的时候，如果bbb没有报异常，那么他们就一起提交了。如果bbb中发生了异常，你可以控制回滚到保存点还是初始位置。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="TransactionStatus"><a href="#TransactionStatus" class="headerlink" title="TransactionStatus"></a>TransactionStatus</h3><p><strong>事务具体运行状态</strong></p>
+<p>提供了一组可以获得事务当前状态的方法。</p>
+<h2 id="编程式的事务控制"><a href="#编程式的事务控制" class="headerlink" title="编程式的事务控制"></a>编程式的事务控制</h2><ul>
+<li>在你需要使用<strong>TransactionTemplate</strong>模板的的bean中进行注入。</li>
+<li><strong>TransactionTemplate </strong>以来 <strong>DataSourceTransactionManager</strong> </li>
+<li><strong>DataSourceTransactionManager</strong> 以来 <strong>DataSource</strong> 构造</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">    <span class="comment">&lt;!--  配置hibernate事务管理器 --&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"transactionManager"</span> <span class="attr">class</span>=<span class="string">"org.springframework.orm.hibernate5.HibernateTransactionManager"</span>&gt;</span></div><div class="line">        <span class="comment">&lt;!--注入sessionFactory--&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"sessionFactory"</span> <span class="attr">ref</span>=<span class="string">"sessionFactory"</span>/&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></div><div class="line">    <span class="comment">&lt;!--或者配置JDBC事务管理器--&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"transactionManager"</span> <span class="attr">class</span>=<span class="string">"org.springframework.jdbc.datasource.DataSourceTransactionManager"</span>&gt;</span></div><div class="line">       <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"dataSource"</span> <span class="attr">ref</span>=<span class="string">"dataSource"</span>/&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">&lt;!--配置事务管理的模板,spring为了简化事务管理的代码而提供的类--&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"transactionTemplate"</span> <span class="attr">class</span>=<span class="string">"org.springframework.transaction.support.TransactionTemplate"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"transactionManager"</span> <span class="attr">ref</span>=<span class="string">"transactionManager"</span>/&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></div></pre></td></tr></table></figure>
+<h3 id="如果是使用JDBCTemplate"><a href="#如果是使用JDBCTemplate" class="headerlink" title="如果是使用JDBCTemplate"></a>如果是使用JDBCTemplate</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserDaoImpl</span>  <span class="keyword">extends</span> <span class="title">JdbcDaoSupport</span> <span class="keyword">implements</span> <span class="title">UserDao</span></span>&#123;</div><div class="line">      <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">()</span> </span>&#123;</div><div class="line">        String sql = <span class="string">"insert t_user values(null,?)"</span>;</div><div class="line">        <span class="keyword">this</span>.getJdbcTemplate().execute(sql,<span class="string">" nimon"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="如果是使用HibernateTemplate"><a href="#如果是使用HibernateTemplate" class="headerlink" title="如果是使用HibernateTemplate"></a>如果是使用HibernateTemplate</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">   <span class="comment">//注入模板</span></div><div class="line"><span class="keyword">private</span> HibernateTemplate hibernateTemplate;</div><div class="line"></div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setHibernateTemplate</span><span class="params">(HibernateTemplate hibernateTemplate)</span> </span>&#123;</div><div class="line">       <span class="keyword">this</span>.hibernateTemplate = hibernateTemplate;</div><div class="line">   &#125;</div><div class="line"></div><div class="line">   <span class="meta">@Override</span></div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">()</span> </span>&#123;</div><div class="line">       User user = <span class="keyword">new</span> User();</div><div class="line">       user.setName(<span class="string">"nimon"</span>);</div><div class="line">       <span class="comment">//调用save方法实现添加</span></div><div class="line">       hibernateTemplate.save(user);</div><div class="line">   &#125;</div></pre></td></tr></table></figure>
+<p>​        </p>
+<p>UserService</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">()</span> </span>&#123;</div><div class="line">    System.out.println(<span class="string">"userService........"</span>);</div><div class="line">    mTransactionTemplate.execute(<span class="keyword">new</span> TransactionCallbackWithoutResult() &#123;</div><div class="line">        <span class="meta">@Override</span></div><div class="line">        <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">doInTransactionWithoutResult</span><span class="params">(TransactionStatus status)</span> </span>&#123;  <span class="comment">//这里需要一个TransactionCallback参数</span></div><div class="line">            userDao.add();</div><div class="line">        &#125;</div><div class="line">    &#125;);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>需要手动改service的代码，所以是不建议的。</p>
+<h2 id="声明式的事务管理"><a href="#声明式的事务管理" class="headerlink" title="声明式的事务管理"></a>声明式的事务管理</h2><h3 id="公共配置"><a href="#公共配置" class="headerlink" title="公共配置"></a>公共配置</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">&lt;!-- 配置SessionFactory,交给spring管理 --&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"sessionFactory"</span> <span class="attr">class</span>=<span class="string">"org.springframework.orm.hibernate4.LocalSessionFactoryBean"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"dataSource"</span> <span class="attr">ref</span>=<span class="string">"dataSource"</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line"><span class="comment">&lt;!-- 引入hibernate配置文件 --&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"configLocation"</span> <span class="attr">value</span>=<span class="string">"classpath:/hibernate.cfg.xml"</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></div></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">&lt;!-- 事务管理器 --&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"transactionManager"</span> <span class="attr">class</span>=<span class="string">"org.springframework.orm.hibernate4.HibernateTransactionManager"</span>&gt;</span></div><div class="line">   <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"sessionFactory"</span> <span class="attr">ref</span>=<span class="string">"sessionFactory"</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></div></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">&lt;!-- 配置DAO --&gt;</span> </div><div class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"userDao"</span> <span class="attr">class</span>=<span class="string">"com.dao.UserDaoImpl"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"sessionFactory"</span> <span class="attr">ref</span>=<span class="string">"sessionFactory"</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></div></pre></td></tr></table></figure>
+<h3 id="注入bean"><a href="#注入bean" class="headerlink" title="注入bean"></a>注入bean</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"userDaoImpl"</span> <span class="attr">class</span>=<span class="string">"cn.nini.dao.UserDaoImpl"</span>&gt;</span></div><div class="line">       <span class="comment">&lt;!--需要继承JDBCDaoSupport --&gt;</span></div><div class="line">       <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"dataSource"</span> <span class="attr">ref</span>=<span class="string">"dataSource"</span>/&gt;</span></div><div class="line">   <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></div><div class="line"></div><div class="line">   <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"transactionTemplate"</span> <span class="attr">class</span>=<span class="string">"org.springframework.transaction.support.TransactionTemplate"</span>&gt;</span></div><div class="line">       <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"transactionManager"</span> <span class="attr">ref</span>=<span class="string">"transactionManager"</span>/&gt;</span></div><div class="line">   <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></div><div class="line">   </div><div class="line">   <span class="comment">&lt;!--没有增强过的对象--&gt;</span></div><div class="line">   <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"userService"</span> <span class="attr">class</span>=<span class="string">"cn.nini.service.UserService"</span>&gt;</span></div><div class="line">       <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"userDao"</span> <span class="attr">ref</span>=<span class="string">"userDaoImpl"</span>/&gt;</span></div><div class="line">       <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"transactionTemplate"</span> <span class="attr">ref</span>=<span class="string">"transactionTemplate"</span>/&gt;</span></div><div class="line">   <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></div></pre></td></tr></table></figure>
+<h3 id="第一种传统方式"><a href="#第一种传统方式" class="headerlink" title="第一种传统方式"></a>第一种传统方式</h3><p><strong>使用原始的TransactionProxyFactoryBean配置声明式事务</strong>，需要为每一个事务管理的类，配置 TransactionProxyFactoryBean 进行增强。</p>
+<ol>
+<li>要增强的bean</li>
+<li>transactionManager</li>
+<li>目标增强代理对象。</li>
+</ol>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"transactionManager"</span></span></div><div class="line">      <span class="attr">class</span>=<span class="string">"org.springframework.jdbc.datasource.DataSourceTransactionManager"</span>&gt;</div><div class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"dataSource"</span> <span class="attr">ref</span>=<span class="string">"dataSource"</span>/&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></div><div class="line"></div><div class="line"><span class="comment">&lt;!--增强过的对象--&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"userServiceProxy"</span> <span class="attr">class</span>=<span class="string">"org.springframework.transaction.interceptor.TransactionProxyFactoryBean"</span>&gt;</span></div><div class="line">    <span class="comment">&lt;!--配置目标对象--&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"target"</span> <span class="attr">ref</span>=<span class="string">"userService"</span>/&gt;</span></div><div class="line">    <span class="comment">&lt;!--注入事务管理器--&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"transactionManager"</span> <span class="attr">ref</span>=<span class="string">"transactionManager"</span>/&gt;</span></div><div class="line">    <span class="comment">&lt;!--注入事务的属性--&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"transactionAttributes"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">props</span>&gt;</span></div><div class="line">            <span class="comment">&lt;!--</span></div><div class="line">                prop的格式</div><div class="line">                    PROPAGATION : 事务的传播行为</div><div class="line">                    ISOLATION : 事务的隔离级别</div><div class="line">                    readOnly : 只读</div><div class="line">                    -Exception : 发生哪些异常回滚事务</div><div class="line">                    +Exception :发生哪些异常不回滚事务</div><div class="line">            --&gt;</div><div class="line">        <span class="tag">&lt;<span class="name">prop</span> <span class="attr">key</span>=<span class="string">"add*"</span>&gt;</span>PROPAGATION_REQUIRED,readOnly<span class="tag">&lt;/<span class="name">prop</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">props</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></div></pre></td></tr></table></figure>
+<blockquote>
+<p>如果设置了readOnly,那么只要进行了写操作就会出现， Connection is read-only.错误。</p>
+</blockquote>
+<ul>
+<li>prop的格式<ul>
+<li>PROPAGATION : 事务的传播行为</li>
+<li>ISOLATION : 事务的隔离级别</li>
+<li>readOnly : 只读</li>
+<li>-Exception : 发生哪些异常回滚事务</li>
+<li>+Exception :发生哪些异常不回滚事务</li>
+</ul>
+</li>
+</ul>
+<h3 id="第二种方式：tx-aop"><a href="#第二种方式：tx-aop" class="headerlink" title="第二种方式：tx/aop"></a>第二种方式：tx/aop</h3><p>tx / aop 方式，一旦配置好，类就不需要添加任何东西。    </p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="comment">&lt;!--配置事务的通知  (事务的增强)--&gt;</span></div><div class="line">   <span class="tag">&lt;<span class="name">tx:advice</span> <span class="attr">id</span>=<span class="string">"txAdvice"</span> <span class="attr">transaction-manager</span>=<span class="string">"transactionManager"</span>&gt;</span></div><div class="line">       <span class="tag">&lt;<span class="name">tx:attributes</span>&gt;</span></div><div class="line">           <span class="comment">&lt;!-- </span></div><div class="line">			propagation	:事务传播行为</div><div class="line">			isolation	:事务的隔离级别</div><div class="line">			read-only	:只读</div><div class="line">			rollback-for:发生哪些异常回滚</div><div class="line">			no-rollback-for	:发生哪些异常不回滚</div><div class="line">			timeout		:过期信息</div><div class="line">		 --&gt;</div><div class="line">           <span class="tag">&lt;<span class="name">tx:method</span> <span class="attr">name</span>=<span class="string">"add*"</span> <span class="attr">propagation</span>=<span class="string">"REQUIRED"</span> <span class="attr">isolation</span>=<span class="string">"DEFAULT"</span>  <span class="attr">read-only</span>=<span class="string">"false"</span> <span class="attr">timeout</span>=<span class="string">"-1"</span>/&gt;</span></div><div class="line">       <span class="tag">&lt;/<span class="name">tx:attributes</span>&gt;</span></div><div class="line">   <span class="tag">&lt;/<span class="name">tx:advice</span>&gt;</span></div><div class="line">   <span class="tag">&lt;<span class="name">aop:config</span>&gt;</span></div><div class="line">       <span class="comment">&lt;!--切入点--&gt;</span></div><div class="line">       <span class="tag">&lt;<span class="name">aop:pointcut</span> <span class="attr">id</span>=<span class="string">"pointcut1"</span> <span class="attr">expression</span>=<span class="string">"execution(* cn.nini.service.UserService+.*(..))"</span>/&gt;</span></div><div class="line">       <span class="comment">&lt;!--切面--&gt;</span></div><div class="line">       <span class="tag">&lt;<span class="name">aop:advisor</span> <span class="attr">advice-ref</span>=<span class="string">"txAdvice"</span> <span class="attr">pointcut-ref</span>=<span class="string">"pointcut1"</span>/&gt;</span></div><div class="line">   <span class="tag">&lt;/<span class="name">aop:config</span>&gt;</span></div></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="comment">&lt;!-- 事务属性 --&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">tx:advice</span> <span class="attr">id</span>=<span class="string">"txAdvice"</span> <span class="attr">transaction-manager</span>=<span class="string">"transactionManager"</span>&gt;</span></div><div class="line">   <span class="tag">&lt;<span class="name">tx:attributes</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">tx:method</span> <span class="attr">name</span>=<span class="string">"get*"</span> <span class="attr">propagation</span>=<span class="string">"REQUIRED"</span> <span class="attr">rollback-for</span>=<span class="string">"Exception"</span> <span class="attr">read-only</span>=<span class="string">"true"</span>/&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">tx:method</span> <span class="attr">name</span>=<span class="string">"modify*"</span> <span class="attr">propagation</span>=<span class="string">"REQUIRED"</span> <span class="attr">rollback-for</span>=<span class="string">"Exception"</span> /&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">tx:method</span> <span class="attr">name</span>=<span class="string">"del*"</span> <span class="attr">propagation</span>=<span class="string">"REQUIRED"</span> <span class="attr">rollback-for</span>=<span class="string">"Exception"</span>/&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">tx:method</span> <span class="attr">name</span>=<span class="string">"*"</span> <span class="attr">propagation</span>=<span class="string">"REQUIRED"</span> <span class="attr">read-only</span>=<span class="string">"true"</span>/&gt;</span></div><div class="line">   <span class="tag">&lt;/<span class="name">tx:attributes</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">tx:advice</span>&gt;</span></div><div class="line"> </div><div class="line"><span class="tag">&lt;<span class="name">aop:config</span>&gt;</span></div><div class="line">   <span class="comment">&lt;!--第一个*代表返回值,第二个代表service下子包,第三个达标方法名,(..)代表参数    --&gt;</span></div><div class="line">   <span class="tag">&lt;<span class="name">aop:pointcut</span>  <span class="attr">id</span>=<span class="string">"txPointCut"</span> <span class="attr">expression</span>=<span class="string">"execution(* org.nan.service.*.*(..))"</span>/&gt;</span></div><div class="line">   <span class="tag">&lt;<span class="name">aop:advisor</span> <span class="attr">advice-ref</span>=<span class="string">"txAdvice"</span> <span class="attr">pointcut-ref</span>=<span class="string">"txPointCut"</span>/&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">aop:config</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>execution(<em> org.nan.service.\</em>.*(..)) </p>
+<p>第一个*代表返回值,第二个代表service下子包,第三个达标方法名,(..)代表参数 </p>
+<p>execution(<em> org.nan.service.UserService+.</em>(..))</p>
+<p>这里的 “+” 是代表 UserService 的子类。</p>
+<h3 id="第三种方式：注解"><a href="#第三种方式：注解" class="headerlink" title="第三种方式：注解"></a>第三种方式：注解</h3><p>使用注解方式，配置简单，需要在业务类上添加 <code>@Transactional</code> 注解</p>
+<p>在xml中开启注解事务</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"transactionManager"</span> <span class="attr">class</span>=<span class="string">"org.springframework.jdbc.datasource.DataSourceTransactionManager"</span>&gt;</span></div><div class="line">       <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"dataSource"</span> <span class="attr">ref</span>=<span class="string">"dataSource"</span>/&gt;</span></div><div class="line">   <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></div><div class="line"> <span class="comment">&lt;!--开启注解事务--&gt;</span></div><div class="line"> <span class="tag">&lt;<span class="name">tx:annotation-driven</span> <span class="attr">transaction-manager</span>=<span class="string">"transactionManager"</span>/&gt;</span></div></pre></td></tr></table></figure>
+<p>在需要开启事务的类前面加上</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"> <span class="comment">/*@Transactional中的的属性</span></div><div class="line"> *propagation	:事务的传播行为</div><div class="line"> *isolation		:事务的隔离级别</div><div class="line"> *readOnly		:只读</div><div class="line"> *rollbackFor	:发生哪些异常回滚</div><div class="line"> *noRollbackFor	:发生哪些异常不回滚</div><div class="line"> *rollbackForClassName 根据异常类名回滚</div><div class="line"> */</div><div class="line"><span class="meta">@Transactional</span>(propagation = Propagation.REQUIRED,isolation = Isolation.DEFAULT,readOnly = <span class="keyword">false</span>,timeout = -<span class="number">1</span>)</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserService</span> </span>&#123;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="Spring-的-Bean-管理的中常用的注解"><a href="#Spring-的-Bean-管理的中常用的注解" class="headerlink" title="Spring 的 Bean 管理的中常用的注解"></a>Spring 的 Bean 管理的中常用的注解</h2><p>Spring 中提供@Component 的三个衍生注解:(功能目前来讲是一致的)</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">* <span class="variable">@Component         :</span>组件.(作用在类上)</div><div class="line">* <span class="variable">@Controller</span>        :WEB 层</div><div class="line">* <span class="variable">@Service</span>           :业务层</div><div class="line">* <span class="variable">@Repository</span>        :持久层</div></pre></td></tr></table></figure>
+<p>这三个注解是为了让标注类本身的用途清晰，Spring 在后续版本会对其增强        </p>
+<p>​                </p>
+<h2 id="属性注入的注解"><a href="#属性注入的注解" class="headerlink" title="属性注入的注解"></a>属性注入的注解</h2><p> (使用注解注入的方式,可以不用提供 set 方法.)</p>
+<h3 id="Autowired"><a href="#Autowired" class="headerlink" title="@Autowired"></a>@Autowired</h3><p>spring可以自动帮你把bean里面引用的对象的 setter/getter 方法省略，它会自动帮你 set/get .</p>
+<p>也可以用在<code>方法</code>上或者<code>构造函数</code>上。构造函数上如果有Bean，并调用方法自动注入这些Bean。</p>
+<h4 id="Qualifier"><a href="#Qualifier" class="headerlink" title="@Qualifier"></a>@Qualifier</h4><p>强制使用名称注入.</p>
+<p>​    </p>
+<h3 id="Resource"><a href="#Resource" class="headerlink" title="@Resource"></a>@Resource</h3><p>类似于<code>@Autowired</code>，只不过 <code>@Autowired</code> 按 byType 自动注入，面 <code>@Resource</code> 默认按 byName自动注入。</p>
+<blockquote>
+<p><strong>@Resource 相当于: @Autowired 和 @Qualifier 一起使用.</strong></p>
+</blockquote>
+<p>他有两个属性：</p>
+<ul>
+<li>name：name属性解析为 Bean的名字</li>
+<li>type：type属性则解析为 Bean的类型</li>
+</ul>
+<p>所以如果使用 name属性，则使用 byName的自动注入策略，而使用 type属性时则使用 byType</p>
+<blockquote>
+<p>自动注入策略。如果既不指定 name也不指定 type属性，这时将通过反射机制使用 byName自动注入策略。</p>
+<p>Resource 注释类位于 Spring发布包的 <code>common-annotations.jar</code> 类包中</p>
+</blockquote>
+<h3 id="Required"><a href="#Required" class="headerlink" title="@Required"></a>@Required</h3><p><code>@Required</code> 注解检查 但他只检查属性是否已经设置而不会测试属性是否非空，</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Required</span>  </div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setProduct</span><span class="params">(Product product)</span> </span>&#123;  </div><div class="line">       <span class="keyword">this</span>.product = product;  </div><div class="line">   &#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>注意 : @Required只能设置在setter方法上</p>
+<p>这样如果任何带有@Required的属性未设置的话 将会抛出BeanInitializationException异常</p>
+</blockquote>
+<h2 id="需要注意的地方"><a href="#需要注意的地方" class="headerlink" title="需要注意的地方"></a>需要注意的地方</h2><blockquote>
+<p>注意 1 ： 在组件类前加上 @Component(“ 标识符 “) 的作用与在配置文件中配置是一样的。</p>
+<p>注意 2 ： 如果不指定 @Qualifier(“ 标识符 “) 的话，那么在类中注入bean的时候字段的名称必须和配置文件中bean的id、或者组件类前 @Component(“ 标识符 “)  的标识符相同。</p>
+<p>不然会出错     </p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Injection of autowired dependencies failed</div><div class="line"></div><div class="line">Could not autowire field</div></pre></td></tr></table></figure>
+<blockquote>
+<p>注意 3 ： 如果@Component(“ 标识符 “)，重复定义了，那么会出现以下异常</p>
+</blockquote>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">java.lang.IllegalStateException: Failed to load ApplicationContext</div><div class="line"></div><div class="line">Caused by: org.springframework.context.annotation.ConflictingBeanDefinitionException: Annotation-specified bean name 'dao2' for bean class [me.nini.dao.UserDaoImpl3] conflicts with existing, non-compatible bean definition of same name and class [me.nini.dao.UserDaoImpl2]</div></pre></td></tr></table></figure>
+<blockquote>
+<p>注意 4 ：即使组件类没有显式实现接口，但是注入的属性中可能实现的同一接口，这时如果只用 @AutoWired 的话也会报以下错误</p>
+</blockquote>
+<figure class="highlight ada"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">NoUniqueBeanDefinitionException</div><div class="line">No qualifying bean <span class="keyword">of</span> <span class="keyword">type</span> <span class="type">[me.nini.dao.BaseDao] </span><span class="keyword">is</span> defined</div><div class="line">expected single matching bean but found <span class="number">2</span></div></pre></td></tr></table></figure>
+<h2 id="使用spring提供的方便"><a href="#使用spring提供的方便" class="headerlink" title="使用spring提供的方便"></a>使用spring提供的方便</h2><p>使用@Autowired注解，必须事先在Spring容器中声明 <code>AutowiredAnnotationBeanPostProcessor的Bean</code> ：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">class</span>=<span class="string">"org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor "</span>/&gt;</span></div></pre></td></tr></table></figure>
+<blockquote>
+<p>当 Spring 容器启动时，<code>AutowiredAnnotationBeanPostProcessor</code>将扫描 Spring 容器中所有 Bean,当发现 Bean 中拥有 @Autowired 注释时就找到和其匹配（默认按类型匹配）的 Bean,并注入到对应的地方中去。用到的技术是JAVA中的反射。</p>
+</blockquote>
+<p>使用 @Required注解，就必须声明 <code>RequiredAnnotationBeanPostProcessor</code> 的Bean：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">class</span>=<span class="string">"org.springframework.beans.factory.annotation.RequiredAnnotationBeanPostProcessor"</span>/&gt;</span></div></pre></td></tr></table></figure>
+<p>类似地，使用<code>@Resource</code> 、<code>@PostConstruct</code> 、<code>@PreDestroy</code> 等注解就必须声明 <code>CommonAnnotationBeanPostProcessor</code> ；使用 <code>@PersistenceContext</code> 注解，就必须声明  <code>PersistenceAnnotationBeanPostProcessor</code> 的Bean。</p>
+<p>这样的声明未免太不优雅，而Spring为我们提供了一种极为方便注册这些BeanPostProcessor的方式，即使用 <strong><code>&lt;context:annotation- config/&gt;</code></strong> 隐式地向 Spring容器注册<code>AutowiredAnnotationBeanPostProcessor</code> 、<code>RequiredAnnotationBeanPostProcessor</code> 、<code>CommonAnnotationBeanPostProcessor</code> 以及    <code>PersistenceAnnotationBeanPostProcessor</code> 这4个BeanPostProcessor。如下：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">context:annotation-config</span>/&gt;</span></div></pre></td></tr></table></figure>
+<p>但是，在我们使用注解时一般都会配置扫描包路径选项：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">context:component-scan</span> <span class="attr">base-package</span>=<span class="string">"pack.pack"</span>/&gt;</span></div></pre></td></tr></table></figure>
+<blockquote>
+<p> 该配置项其实也包含了自动注入上述processor的功能，因此当使用 <code>&lt;context:component-scan/&gt;</code> 后，即可将 <code>&lt;context:annotation-config/&gt;</code>省去。</p>
+</blockquote>
+<h2 id="Bean-的作用范围的注解"><a href="#Bean-的作用范围的注解" class="headerlink" title="Bean 的作用范围的注解"></a>Bean 的作用范围的注解</h2><blockquote>
+<p>@Scope:</p>
+<p>​    singleton:单例</p>
+<pre><code>prototype:多例
+</code></pre></blockquote>
+<h2 id="Bean-的生命周期的配置"><a href="#Bean-的生命周期的配置" class="headerlink" title="Bean 的生命周期的配置"></a>Bean 的生命周期的配置</h2><p>​        </p>
+<blockquote>
+<p>@PostConstruct :相当于 init-method</p>
+<p>@PreDestroy :相当于 destroy-method</p>
+</blockquote>
+<p>​            </p>
+<h2 id="Spring-的-Bean-管理的方式的比较"><a href="#Spring-的-Bean-管理的方式的比较" class="headerlink" title="Spring 的 Bean 管理的方式的比较"></a>Spring 的 Bean 管理的方式的比较</h2><p>​            </p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th style="text-align:center">基于XML配置</th>
+<th style="text-align:center">基于注解配置</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Bean定义</td>
+<td style="text-align:center"><bean id="…" class="…"></bean></td>
+<td style="text-align:center">@Component 其衍生类 @Repository @Service @Controller</td>
+</tr>
+<tr>
+<td>Bean名称</td>
+<td style="text-align:center">通过id或name指定</td>
+<td style="text-align:center">@Component(“person”)</td>
+</tr>
+<tr>
+<td>Bean注入</td>
+<td style="text-align:center"><property>或者通过p命名空间</property></td>
+<td style="text-align:center">@AutoWired 按类型注入 @Qualifier按名称注入 @Resource 相当于@Autowired和@Qualifier同时使用</td>
+</tr>
+<tr>
+<td>生命过程、Bean作用范围</td>
+<td style="text-align:center">init-method destory-method 范围scope属性</td>
+<td style="text-align:center">@PostConstruct 初始化 @PreDestory 销毁 @Scope 设置作用范围</td>
+</tr>
+<tr>
+<td>适合场景</td>
+<td style="text-align:center">Bean来自第三方</td>
+<td style="text-align:center">Bean由用户自己实现开发</td>
+</tr>
+</tbody>
+</table>
+<p>xml和注解：</p>
+<ul>
+<li><p>XML ： 结构清晰</p>
+</li>
+<li><p>注解 ： 开发方便（属性注入）</p>
+<p>​</p>
+</li>
+</ul>
+<blockquote>
+<p>实际开发中还有一种 XML 和注解整合开发:</p>
+<p>Bean有XML配置.但是使用的属性使用注解注入.</p>
+</blockquote>
+<p>​    </p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/uploads/wechatpay.png" alt="Nimon WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/uploads/alipay.png" alt="Nimon Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Spring/" rel="tag"># Spring</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/05/05/010001-2017-05-05-一些mac端好用端插件分享/" rel="next" title="一些mac端好用端插件分享">
+                <i class="fa fa-chevron-left"></i> 一些mac端好用端插件分享
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/05/05/010001-2017-05-05-GitHub/" rel="prev" title="GitHub">
+                GitHub <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        
+  <script>
+    window._bd_share_config = {
+      "common": {
+        "bdText": "",
+        "bdMini": "1",
+        "bdMiniList": false,
+        "bdPic": ""
+      },
+      "image": {
+        "viewList": ["tsina", "douban", "sqq", "qzone", "weixin", "twi", "fbook"],
+        "viewText": "分享到：",
+        "viewSize": "16"
+      },
+      "slide": {
+        "bdImg": "5",
+        "bdPos": "left",
+        "bdTop": "100"
+      }
+    }
+  </script>
+
+<script>
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='//bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.jpg"
+               alt="Nimon" />
+          <p class="site-author-name" itemprop="name">Nimon</p>
+           
+              <p class="site-description motion-element" itemprop="description">start from zero</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">categories</span>
+              
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/SimpleLifee" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              github
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://www.github.com" title="Github" target="_blank">Github</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.weibo.com" title="Weibo" target="_blank">Weibo</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.google.com" title="Google" target="_blank">Google</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.google.com" title="QQ" target="_blank">QQ</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+
+
+
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=16426514&auto=0&height=66"></iframe>
+
+ 
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Spring介绍"><span class="nav-number">1.</span> <span class="nav-text">Spring介绍</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Spring中的事务管理"><span class="nav-number"></span> <span class="nav-text">Spring中的事务管理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#事务管理高层抽象主要包括3个接口"><span class="nav-number">1.</span> <span class="nav-text">事务管理高层抽象主要包括3个接口</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#PlatformTransactionManager"><span class="nav-number">1.1.</span> <span class="nav-text">PlatformTransactionManager</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TransactionDefinition"><span class="nav-number">1.2.</span> <span class="nav-text">TransactionDefinition</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#隔离级别"><span class="nav-number">1.2.1.</span> <span class="nav-text">隔离级别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#传播行为"><span class="nav-number">1.2.2.</span> <span class="nav-text">传播行为</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TransactionStatus"><span class="nav-number">1.3.</span> <span class="nav-text">TransactionStatus</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编程式的事务控制"><span class="nav-number">2.</span> <span class="nav-text">编程式的事务控制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#如果是使用JDBCTemplate"><span class="nav-number">2.1.</span> <span class="nav-text">如果是使用JDBCTemplate</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如果是使用HibernateTemplate"><span class="nav-number">2.2.</span> <span class="nav-text">如果是使用HibernateTemplate</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#声明式的事务管理"><span class="nav-number">3.</span> <span class="nav-text">声明式的事务管理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#公共配置"><span class="nav-number">3.1.</span> <span class="nav-text">公共配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#注入bean"><span class="nav-number">3.2.</span> <span class="nav-text">注入bean</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第一种传统方式"><span class="nav-number">3.3.</span> <span class="nav-text">第一种传统方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第二种方式：tx-aop"><span class="nav-number">3.4.</span> <span class="nav-text">第二种方式：tx/aop</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第三种方式：注解"><span class="nav-number">3.5.</span> <span class="nav-text">第三种方式：注解</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Spring-的-Bean-管理的中常用的注解"><span class="nav-number">4.</span> <span class="nav-text">Spring 的 Bean 管理的中常用的注解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#属性注入的注解"><span class="nav-number">5.</span> <span class="nav-text">属性注入的注解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Autowired"><span class="nav-number">5.1.</span> <span class="nav-text">@Autowired</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Qualifier"><span class="nav-number">5.1.1.</span> <span class="nav-text">@Qualifier</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Resource"><span class="nav-number">5.2.</span> <span class="nav-text">@Resource</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Required"><span class="nav-number">5.3.</span> <span class="nav-text">@Required</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#需要注意的地方"><span class="nav-number">6.</span> <span class="nav-text">需要注意的地方</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用spring提供的方便"><span class="nav-number">7.</span> <span class="nav-text">使用spring提供的方便</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Bean-的作用范围的注解"><span class="nav-number">8.</span> <span class="nav-text">Bean 的作用范围的注解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Bean-的生命周期的配置"><span class="nav-number">9.</span> <span class="nav-text">Bean 的生命周期的配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Spring-的-Bean-管理的方式的比较"><span class="nav-number">10.</span> <span class="nav-text">Spring 的 Bean 管理的方式的比较</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+<div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Nimon</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+<!--2017��5��1��09:51:55  ���� ��������pv -->
+
+|  &nbsp;
+<span id="busuanzi_container_site_pv">
+    Total visited    &nbsp; <span id="busuanzi_value_site_pv"></span>  &nbsp; times 
+</span>
+
+
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://nimon.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://nijun.me/2017/05/05/010001-2017-05-05-spring学习总结/';
+          this.page.identifier = '2017/05/05/010001-2017-05-05-spring学习总结/';
+          this.page.title = 'spring学习总结——事务管理';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://nimon.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (search_path.endsWith("json")) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      $('#local-search-input').focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("haHiLE8p91HQLngydPRLvIrS-gzGzoHsz", "Tao4bU3N3bCmGi1yzOJRsaJD");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+  
+
+
+  <div class="bg_content">
+       <canvas id="canvas"></canvas>
+  </div>
+  <script>
+  //百度站长
+    (function(){
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https'){
+       bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+      }
+      else{
+      bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+    'use strict';
+
+    var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+    function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+    function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+    function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+    var Circle = function () {
+       function Circle(x, y) {
+            _classCallCheck(this, Circle);
+
+            this.x = x;
+            this.y = y;
+            this.r = Math.random() * 10;
+            this._mx = Math.random();
+            this._my = Math.random();
+        }
+
+       _createClass(Circle, [{
+            key: 'drawCircle',
+            value: function drawCircle(ctx) {
+                ctx.beginPath();
+                //arc() 方法使用一个中心点和半径，为一个画布的当前子路径添加一条弧。
+                ctx.arc(this.x, this.y, this.r, 0, 360);
+                ctx.closePath();
+                ctx.fillStyle = 'rgba(204, 204, 204, 0.3)';
+                ctx.fill();
+            }
+        }, {
+            key: 'drawLine',
+            value: function drawLine(ctx, _circle) {
+                var dx = this.x - _circle.x;
+                var dy = this.y - _circle.y;
+                var d = Math.sqrt(dx * dx + dy * dy);
+                if (d < 150) {
+                    ctx.beginPath();
+
+                    ctx.moveTo(this.x, this.y); //起始点
+                    ctx.lineTo(_circle.x, _circle.y); //终点
+                    ctx.closePath();
+                    ctx.strokeStyle = 'rgba(204, 204, 204, 0.3)';
+                    ctx.stroke();
+                }
+            }
+
+
+        }, {
+            key: 'move',
+            value: function move(w, h) {
+                this._mx = this.x < w && this.x > 0 ? this._mx : -this._mx;
+                this._my = this.y < h && this.y > 0 ? this._my : -this._my;
+                this.x += this._mx / 2;
+                this.y += this._my / 2;
+            }
+        }]);
+
+        return Circle;
+    }();
+
+
+
+    var currentCirle = function (_Circle) {
+        _inherits(currentCirle, _Circle);
+
+        function currentCirle(x, y) {
+            _classCallCheck(this, currentCirle);
+
+            return _possibleConstructorReturn(this, (currentCirle.__proto__ || Object.getPrototypeOf(currentCirle)).call(this, x, y));
+        }
+
+        _createClass(currentCirle, [{
+            key: 'drawCircle',
+            value: function drawCircle(ctx) {
+                ctx.beginPath();
+
+                //this.r = (this.r < 14 && this.r > 1) ? this.r + (Math.random() * 2 - 1) : 2;
+                this.r = 8;
+                ctx.arc(this.x, this.y, this.r, 0, 360);
+                ctx.closePath();
+                //ctx.fillStyle = 'rgba(0,0,0,' + (parseInt(Math.random() * 100) / 100) + ')'
+                ctx.fillStyle = 'rgba(255, 77, 54, 0.6)';
+                ctx.fill();
+            }
+        }]);
+
+        return currentCirle;
+    }(Circle);
+
+
+    window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
+
+    var canvas = document.getElementById('canvas');
+    var ctx = canvas.getContext('2d');
+    var w = canvas.width = canvas.offsetWidth;
+    var h = canvas.height = canvas.offsetHeight;
+    var circles = [];
+    var current_circle = new currentCirle(0, 0);
+
+    var draw = function draw() {
+        ctx.clearRect(0, 0, w, h);
+        for (var i = 0; i < circles.length; i++) {
+            circles[i].move(w, h);
+            circles[i].drawCircle(ctx);
+            for (j = i + 1; j < circles.length; j++) {
+                circles[i].drawLine(ctx, circles[j]);
+            }
+        }
+        if (current_circle.x) {
+            current_circle.drawCircle(ctx);
+            for (var k = 1; k < circles.length; k++) {
+                current_circle.drawLine(ctx, circles[k]);
+            }
+        }
+        requestAnimationFrame(draw);
+    };
+
+    var init = function init(num) {
+        for (var i = 0; i < num; i++) {
+            circles.push(new Circle(Math.random() * w, Math.random() * h));
+        }
+        draw();
+    };
+    window.addEventListener('load', init(60));
+    window.onmousemove = function (e) {
+        e = e || window.event;
+        current_circle.x = e.clientX;
+        current_circle.y = e.clientY;
+    };
+    window.onmouseout = function () {
+        current_circle.x = null;
+        current_circle.y = null;
+    };
+    </script>
+</body>
+</html>
