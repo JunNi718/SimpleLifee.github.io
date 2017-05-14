@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://nijun.me/"/>
-  <updated>2017-05-11T01:17:55.000Z</updated>
+  <updated>2017-05-14T01:46:01.000Z</updated>
   <id>http://nijun.me/</id>
   
   <author>
@@ -14,6 +14,25 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title></title>
+    <link href="http://nijun.me/2017/05/14/User-agent-Allow-Allow-computer-Allow-categories-Allow-tags-Disallow-vendors-Disallow-js-Disallow-css-Disallow-fonts-Disa/"/>
+    <id>http://nijun.me/2017/05/14/User-agent-Allow-Allow-computer-Allow-categories-Allow-tags-Disallow-vendors-Disallow-js-Disallow-css-Disallow-fonts-Disa/</id>
+    <published>2017-05-14T01:45:54.000Z</published>
+    <updated>2017-05-14T01:46:01.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>User-agent: *<br>Allow: /<br>Allow: /computer/<br>Allow: /categories/<br>Allow: /tags/<br>Disallow: /vendors/<br>Disallow: /js/<br>Disallow: /css/<br>Disallow: /fonts/<br>Disallow: /vendors/<br>Disallow: /fancybox/</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;User-agent: *&lt;br&gt;Allow: /&lt;br&gt;Allow: /computer/&lt;br&gt;Allow: /categories/&lt;br&gt;Allow: /tags/&lt;br&gt;Disallow: /vendors/&lt;br&gt;Disallow: /js/&lt;br&gt;Disall
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>maven</title>
@@ -572,7 +591,7 @@
     <link href="http://nijun.me/2017/05/05/00001-2017-05-05-%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E5%88%B0%E4%BC%98%E5%8C%96/"/>
     <id>http://nijun.me/2017/05/05/00001-2017-05-05-自己动手搭建个人博客到优化/</id>
     <published>2017-05-05T14:07:56.000Z</published>
-    <updated>2017-05-06T02:58:20.000Z</updated>
+    <updated>2017-05-13T23:51:38.000Z</updated>
     
     <content type="html"><![CDATA[<p><img src="/2017/05/05/00001-2017-05-05-自己动手搭建个人博客到优化/avatar.jpg" alt=""></p>
  <div align="center"><br>  今天，是你未来所有剩余的日子中，最早的一天<br><br></div>
@@ -581,11 +600,7 @@
 
 
 
-
-
-
-
-
+<p>[TOC]</p>
 <h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p><br></p>
 <p>我为什么要写这篇文章？是因为大学三年了，感觉学了这么多知识，但是并没有真正地去消化和总结过，最近又看到了<a href="http://www.baidu.com" title="stormzhang" target="_blank" rel="external">stormzhang</a>大神写的这篇<a href="http://stormzhang.com/android/2016/03/04/why-i-keep-writing-blog/" title="stormzhang" target="_blank" rel="external">我为什么坚持写博客？</a>。我真的感触很深，以前花了很多时间学的东西，不久之后便会印象模糊，想要回忆的时候，又不能快速找到。所以我决定从今天开始写博客，总结和梳理自己的知识。</p>
 <a id="more"></a>
@@ -833,11 +848,7 @@
 
 
 
-
-
-
-
-
+&lt;p&gt;[TOC]&lt;/p&gt;
 &lt;h1 id=&quot;背景&quot;&gt;&lt;a href=&quot;#背景&quot; class=&quot;headerlink&quot; title=&quot;背景&quot;&gt;&lt;/a&gt;背景&lt;/h1&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;
 &lt;p&gt;我为什么要写这篇文章？是因为大学三年了，感觉学了这么多知识，但是并没有真正地去消化和总结过，最近又看到了&lt;a href=&quot;http://www.baidu.com&quot; title=&quot;stormzhang&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;stormzhang&lt;/a&gt;大神写的这篇&lt;a href=&quot;http://stormzhang.com/android/2016/03/04/why-i-keep-writing-blog/&quot; title=&quot;stormzhang&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;我为什么坚持写博客？&lt;/a&gt;。我真的感触很深，以前花了很多时间学的东西，不久之后便会印象模糊，想要回忆的时候，又不能快速找到。所以我决定从今天开始写博客，总结和梳理自己的知识。&lt;/p&gt;
     
@@ -855,17 +866,102 @@
     <link href="http://nijun.me/2017/05/05/00001-2017-05-05-GitHub/"/>
     <id>http://nijun.me/2017/05/05/00001-2017-05-05-GitHub/</id>
     <published>2017-05-05T13:55:29.000Z</published>
-    <updated>2017-05-05T15:43:19.000Z</updated>
+    <updated>2017-05-14T01:36:40.000Z</updated>
     
     <content type="html"><![CDATA[<p><img src="/2017/05/05/00001-2017-05-05-GitHub/github.png" alt=""></p>
 <div align="center"><br><br>GitHub基本操作<br><br></div>
 
 <a id="more"></a>
-<h3 id="如何删除某个分支？"><a href="#如何删除某个分支？" class="headerlink" title="如何删除某个分支？"></a>如何删除某个分支？</h3><p>下载安装git管理工具<br>进入项目根目录（含.git文件夹）使用bash运行git命令</p>
-<blockquote>
-<p>git checkout the_local_branch // 切换到本地分支<br>git branch -d the_local_branch // 删除本地分支的所用记录<br>git branch -D the_local_branch // 上面执行有问题，需要-D强制删除<br>git push origin :the_remote_branch // 删除远程分支<br>至此该分支的所有记录都被完全删除了</p>
-</blockquote>
-]]></content>
+<h1 id="如何删除某个分支？"><a href="#如何删除某个分支？" class="headerlink" title="如何删除某个分支？"></a>如何删除某个分支？</h1><p>下载安装git管理工具<br>进入项目根目录（含.git文件夹）使用bash运行git命令</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> git checkout the_local_branch // 切换到本地分支</div><div class="line"><span class="meta"></span></div><div class="line">$ git branch -d the_local_branch // 删除本地分支的所用记录</div><div class="line"><span class="meta"></span></div><div class="line">$ git branch -D the_local_branch // 上面执行有问题，需要-D强制删除</div><div class="line"><span class="meta"></span></div><div class="line">$ git push origin :the_remote_branch // 删除远程分支</div><div class="line"></div><div class="line">至此该分支的所有记录都被完全删除了</div></pre></td></tr></table></figure>
+<h1 id="更新自己-Fork-的代码项目和原作者的项目进度一致的方法"><a href="#更新自己-Fork-的代码项目和原作者的项目进度一致的方法" class="headerlink" title="更新自己 Fork 的代码项目和原作者的项目进度一致的方法"></a>更新自己 Fork 的代码项目和原作者的项目进度一致的方法</h1><p>假设前提是， 你现在你的代码是克隆下来在本地的。 例如我 Fork 了 sri (Mojo 的作者) 的 Mojo 项目， 我的项目地址是 <a href="https://github.com/iakuf/mojo" target="_blank" rel="external">https://github.com/iakuf/mojo</a>. 我现在克隆这个在我的本地了。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> git clone https://github.com/iakuf/mojo</div><div class="line"><span class="meta">$</span> cd mojo</div></pre></td></tr></table></figure>
+<h2 id="起步"><a href="#起步" class="headerlink" title="起步"></a>起步</h2><p><strong>用户信息</strong><br>配置你个人的用户名称和电子邮件地址。这两条配置很重要，每次 Git 提交时都会引用这两条信息，说明是谁提交了更新，所以会随更新内容一起被永久纳入历史记录：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ git config --global user.name “youname”</div><div class="line">$ git config --global user.email “12345@example.com”</div></pre></td></tr></table></figure>
+<p>如果用了 —global 选项，那么更改的配置文件就是位于你用户主目录下的那个，以后你所有的项目都会默认使用这里配置的用户信息。如果要在某个特定的项目中使用其他名字或者电邮，只要去掉 —global 选项重新配置即可，新的设定保存在当前项目的 .git/config 文件里。</p>
+<h2 id="GIT基础"><a href="#GIT基础" class="headerlink" title="GIT基础"></a>GIT基础</h2><p><strong>查看配置信息</strong><br>查看已有的配置信息</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ git config --list</div><div class="line">$ git config -l</div></pre></td></tr></table></figure>
+<p><strong>获取帮助</strong><br>例如想获取config命令的帮助信息</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ git help config </div><div class="line">$ git config --help</div></pre></td></tr></table></figure>
+<p><strong>初始化新仓库</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ git init</div></pre></td></tr></table></figure>
+<p>初始化后，在当前目录下会出现一个名为 .git 的目录，所有 Git 需要的数据和资源都存放在这个目录中。不过目前，仅仅是按照既有的结构框架初始化好了里边所有的文件和目录，但我们还没有开始跟踪管理项目中的任何一个文件。</p>
+<p>如果当前目录下有几个文件想要纳入版本控制，需要先用 git add 命令告诉 Git 开始对这些文件进行跟踪，然后提交：<br><strong>跟踪文件：</strong>（将文件加到暂存区域）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ git add readme.txt</div></pre></td></tr></table></figure>
+<p><strong>跟踪全部文件</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ git add .</div></pre></td></tr></table></figure>
+<p><strong>提交更新</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ git commit -m “first version”</div></pre></td></tr></table></figure>
+<p><strong>上传（推送）到github</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ git push origin master</div></pre></td></tr></table></figure>
+<p><strong>从现有仓库克隆</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ git clone git://github.com/youname/project.git</div><div class="line">$ git clone git@github.com:youname/project.git</div><div class="line">$ git clone https://github.com/youname/project.git</div></pre></td></tr></table></figure>
+<p><strong>检查当前文件状态</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ git status</div></pre></td></tr></table></figure>
+<p><strong>创建.gitignore文件</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ touch .gitignore</div></pre></td></tr></table></figure>
+<p><strong>查看修改之后没有暂存起来的内容</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ git diff</div></pre></td></tr></table></figure>
+<p><strong>移除文件</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ git rm readme.txt</div></pre></td></tr></table></figure>
+<p><strong>重命名文件</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ git mv oldname.txt newname.txt</div></pre></td></tr></table></figure>
+<p><strong>查看提交历史</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ git log</div></pre></td></tr></table></figure>
+<p><strong>取消暂存</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ git reset HEAD readme.txt</div></pre></td></tr></table></figure>
+<p><strong>添加远程仓库</strong>（远程仓库必须先在github上建好）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ git remote add [shortname] [url]</div></pre></td></tr></table></figure>
+<p><strong>实例：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ git remote add origin git@github.com:youname/yourRepo.git</div></pre></td></tr></table></figure>
+<p><strong>推送数据到仓库</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ git push [remote-name] [branch-name]</div></pre></td></tr></table></figure>
+<p>如果要把本地的 master 分支推送到origin服务器上（再次说明下，克隆操作会自动使用默认的master 和origin 名字），可以运行下面的命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ git push origin master</div></pre></td></tr></table></figure>
+<p><strong>从远程仓库抓取数据</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ git fetch [remote-name]</div></pre></td></tr></table></figure>
+<p>碰到远端仓库服务器迁移，或者原来的克隆镜像不再使用，又或者某个参与者不再贡献代码，那么需要移除对应的远端仓库<br><strong>远程仓库的删除</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ git remote rm origin</div></pre></td></tr></table></figure>
+<p><strong>远程仓库重命名</strong>(此处命名的是上文添加远程仓库中的shortname)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ git remote rename origin origin2</div></pre></td></tr></table></figure>
+<p><strong>自动补全</strong><br>输入命令后按tab键，就会看到列出所有匹配的可用命令建议：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ git co&lt;tab&gt;</div></pre></td></tr></table></figure>
+<h2 id="GIT分支"><a href="#GIT分支" class="headerlink" title="GIT分支"></a>GIT分支</h2><p><strong>创建一个名为“testing”的分支</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ git branch testing</div></pre></td></tr></table></figure>
+<p><strong>切换到“testing”分支</strong>(默认为master分支)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ git checkout testing</div></pre></td></tr></table></figure>
+<p><strong>新建并切换到该分支</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ git checkout -b iss53</div></pre></td></tr></table></figure>
+<p>这条命令相当于执行下面这两条命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ git branch iss53</div><div class="line">$ git checkout iss53</div></pre></td></tr></table></figure>
+<p><strong>删除hotfix分支</strong>（如果该分支还未被合并则会提示错误，因为这样会丢失数据）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ git branch -d hotfix</div></pre></td></tr></table></figure>
+<p><strong>强制删除hotfix分支</strong>（强制删除，不会提示错误）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ git branch -D hotfix</div></pre></td></tr></table></figure>
+<p><strong>合并iss53分支</strong>（先切换到master分支）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ git checkout master</div><div class="line">$ git merge iss53</div></pre></td></tr></table></figure>
+<p><strong>查看当前所有分支</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ git branch</div></pre></td></tr></table></figure>
+<p><strong>查看各个分支最后一个提交对象的信息</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ git branch -v</div></pre></td></tr></table></figure>
+<p><strong>查看已经与当前分支合并的分支</strong>（已经合并的查出来后可以删掉）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ git branch --merge</div></pre></td></tr></table></figure>
+<p><strong>查看未与当前分支合并的分支</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ git branch --no-merged</div></pre></td></tr></table></figure>
+<p><strong>同步远程服务器数据到本地</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ git fetch origin</div></pre></td></tr></table></figure>
+<p><strong>从新添加的远程仓库下载数据</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ git remote add teamone git://git.team1.ourcompany.com</div><div class="line">$ git fetch teamone</div></pre></td></tr></table></figure>
+<p><strong>分化一个新的分支</strong>(使用这个命令会从服务器上下载master最新的版本，所以如果当前本地版本不是最新的，新的分支和本地分支会不同)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ git checkout -b test1 origin/master</div></pre></td></tr></table></figure>
+<p>假如你用这个新的分支进行git push，并且通过了合并，那么会在远程仓库建立一个新的同名分支<br>删除该分支的方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ git push origin :test1</div></pre></td></tr></table></figure>
+<p><strong>分支的衍合：</strong>将test1分支衍合到master主分支</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ git checkout test1</div><div class="line">$ git rebase master</div></pre></td></tr></table></figure>
+<p>另一种方法，直接衍合，不用再先切换到test1</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ git rebase master test1</div></pre></td></tr></table></figure>
+<p><strong>快进master分支</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ git checkout master</div><div class="line">$ git merge client</div></pre></td></tr></table></figure>]]></content>
     
     <summary type="html">
     
@@ -1208,15 +1304,15 @@
     <link href="http://nijun.me/2017/05/05/00001-2017-05-05-%E4%B8%80%E4%BA%9Bmac%E7%AB%AF%E5%A5%BD%E7%94%A8%E7%AB%AF%E6%8F%92%E4%BB%B6%E5%88%86%E4%BA%AB/"/>
     <id>http://nijun.me/2017/05/05/00001-2017-05-05-一些mac端好用端插件分享/</id>
     <published>2017-05-05T05:28:27.000Z</published>
-    <updated>2017-05-06T01:34:42.000Z</updated>
+    <updated>2017-05-13T23:56:13.000Z</updated>
     
     <content type="html"><![CDATA[<p><div align="center"><br>想要生活变得更好？来看看这些插件吧！<br></div><br><img src="/2017/05/05/00001-2017-05-05-一些mac端好用端插件分享/muhammad.jpg" alt=""><br><a id="more"></a></p>
+<p>[TOC]</p>
 <hr>
 <h1 id="百度云限速？试试Mac神器Aria2"><a href="#百度云限速？试试Mac神器Aria2" class="headerlink" title="百度云限速？试试Mac神器Aria2"></a>百度云限速？试试Mac神器Aria2</h1><p><br><br>使用Tampermonkey插件 + “百度网盘直接下载助手”脚本（2017-03-20更新）</p>
 <p>在Chrome上安装Tampermonkey插件。</p>
 <p>安装“百度网盘直接下载助手”脚本。</p>
-<p>会在百度云下载页面原来”下载”按钮旁边多出一个”下载助手”的按钮。</p>
-<p>点击“直接下载”会使用浏览器默认下载器进行下载。点击“显示链接”，可复制链接放入aria2进行下载。</p>
+<h1 id="会在百度云下载页面原来”下载”按钮旁边多出一个”下载助手”的按钮。"><a href="#会在百度云下载页面原来”下载”按钮旁边多出一个”下载助手”的按钮。" class="headerlink" title="会在百度云下载页面原来”下载”按钮旁边多出一个”下载助手”的按钮。"></a>会在百度云下载页面原来”下载”按钮旁边多出一个”下载助手”的按钮。</h1><p>点击“直接下载”会使用浏览器默认下载器进行下载。点击“显示链接”，可复制链接放入aria2进行下载。</p>
 <hr>
 <h1 id="添加sitemap和feed插件"><a href="#添加sitemap和feed插件" class="headerlink" title="添加sitemap和feed插件"></a>添加sitemap和feed插件</h1><p><br></p>
 <p>切换到你本地的hexo，</p>
@@ -1228,7 +1324,7 @@
 <hr>
 <h1 id="制作404页面"><a href="#制作404页面" class="headerlink" title="制作404页面"></a>制作404页面</h1><p><br></p>
 <figure class="highlight html"><figcaption><span>404.html</span><a href="http://www.runoob.com/java/java-tutorial.html" target="_blank" rel="external">html</a></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;!DOCTYPE HTML&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"content-type"</span> <span class="attr">content</span>=<span class="string">"text/html;charset=utf-8;"</span>/&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"X-UA-Compatible"</span> <span class="attr">content</span>=<span class="string">"IE=edge,chrome=1"</span> /&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"robots"</span> <span class="attr">content</span>=<span class="string">"all"</span> /&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"robots"</span> <span class="attr">content</span>=<span class="string">"index,follow"</span>/&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"http://www.qq.com/404/search_children.js"</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span> <span class="attr">homePageUrl</span>=<span class="string">"your site url "</span> <span class="attr">homePageName</span>=<span class="string">"回到我的主页"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></div></pre></td></tr></table></figure>
-<h3 id="其他一些好用的插件"><a href="#其他一些好用的插件" class="headerlink" title="其他一些好用的插件"></a>其他一些好用的插件</h3><blockquote><p>hexo可视化后台管理，很方便 - <a href="https://github.com/nihgwu/hexo-hey" target="_blank" rel="external">hexo-hey</a><br>在 hexo 中无痛使用本地图片 - <a href="https://github.com/CodeFalling/hexo-asset-image" target="_blank" rel="external">hexo-asset-image</a><br>备份整个博客包括主题 - <a href="https://github.com/coneycode/hexo-git-backup" target="_blank" rel="external">hexo-git-backup</a></p>
+<h1 id="其他一些好用的插件"><a href="#其他一些好用的插件" class="headerlink" title="其他一些好用的插件"></a>其他一些好用的插件</h1><blockquote><p>hexo可视化后台管理，很方便 - <a href="https://github.com/nihgwu/hexo-hey" target="_blank" rel="external">hexo-hey</a><br>在 hexo 中无痛使用本地图片 - <a href="https://github.com/CodeFalling/hexo-asset-image" target="_blank" rel="external">hexo-asset-image</a><br>备份整个博客包括主题 - <a href="https://github.com/coneycode/hexo-git-backup" target="_blank" rel="external">hexo-git-backup</a></p>
 </blockquote>
 ]]></content>
     
