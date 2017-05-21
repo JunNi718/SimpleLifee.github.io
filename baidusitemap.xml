@@ -4,13 +4,15 @@
 
     
   <url>
-    <loc>http://nijun.me/2017/05/14/User-agent-Allow-Allow-computer-Allow-categories-Allow-tags-Disallow-vendors-Disallow-js-Disallow-css-Disallow-fonts-Disa/</loc>
-    <lastmod>2017-05-14T01:46:01.000Z</lastmod>
+    <loc>http://nijun.me/2017/05/05/00001-2017-05-05-GitHub/</loc>
+    <lastmod>2017-05-21T23:41:05.000Z</lastmod>
     <data>
         <display>
-        <title></title>
-        <pubTime>2017-05-14T01:45:54.000Z</pubTime>
+        <title>GitHub</title>
+        <pubTime>2017-05-05T13:55:29.000Z</pubTime>
         
+        <tag>git</tag>
+         
          
            
         </display>
@@ -19,14 +21,14 @@
 
     
   <url>
-    <loc>http://nijun.me/2017/05/05/00001-2017-05-05-GitHub/</loc>
-    <lastmod>2017-05-14T01:36:40.000Z</lastmod>
+    <loc>http://nijun.me/2017/05/05/00001-2017-05-05-spring%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/</loc>
+    <lastmod>2017-05-15T02:45:10.000Z</lastmod>
     <data>
         <display>
-        <title>GitHub</title>
-        <pubTime>2017-05-05T13:55:29.000Z</pubTime>
+        <title>spring学习总结——事务管理</title>
+        <pubTime>2017-05-05T11:13:51.000Z</pubTime>
         
-        <tag>git</tag>
+        <tag>Spring</tag>
          
          
            
@@ -170,23 +172,6 @@
              
               <breadCrumb title="技术" url="http://nijun.me/categories/%E6%8A%80%E6%9C%AF/"/>
           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://nijun.me/2017/05/05/00001-2017-05-05-spring%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/</loc>
-    <lastmod>2017-05-08T22:29:26.000Z</lastmod>
-    <data>
-        <display>
-        <title>spring学习总结——事务管理</title>
-        <pubTime>2017-05-05T11:13:51.000Z</pubTime>
-        
-        <tag>Spring</tag>
-         
-         
-           
         </display>
     </data>
     </url>
