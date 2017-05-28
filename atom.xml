@@ -310,7 +310,7 @@
     <link href="http://nijun.me/2017/05/08/00001-Spring-2017-05-08-Spring%E4%BD%BF%E7%94%A8%E5%AE%B9%E5%99%A8%E7%AE%A1%E7%90%86beans/"/>
     <id>http://nijun.me/2017/05/08/00001-Spring-2017-05-08-Spring使用容器管理beans/</id>
     <published>2017-05-08T05:14:00.000Z</published>
-    <updated>2017-05-08T22:41:49.000Z</updated>
+    <updated>2017-05-24T06:19:51.000Z</updated>
     
     <content type="html"><![CDATA[<div align="center"><br><br>使用容器管理beans<br><br></div>
 
@@ -323,12 +323,12 @@
 <li><em>Bean factories</em>（由<em>org.springframework.beans.factory.BeanFactory</em>接口定义）是最简单的容器，只提供基本的依赖注入功能；</li>
 <li><em>Application context</em>（由<em>org.springframework.context.ApplicationContext</em>接口定义）在bean factory的基础上提供application-framework框架服务，例如可以从properties文件中解析配置信息、可以对外公布application events。</li>
 </ul>
-<h2 id="应用上下文（application-context）"><a href="#应用上下文（application-context）" class="headerlink" title="应用上下文（application context）"></a>应用上下文（application context）</h2><p>Spring提供了多种application context，可列举如下：</p>
+<h2 id="应用上下文（application-context）"><a href="#应用上下文（application-context）" class="headerlink" title="应用上下文（application context）"></a>应用上下文（application context）</h2><p>Spring提供了多种application context，<strong>他们之间的主要的区别仅仅在于如何加载配置。</strong>可列举如下：</p>
 <ul>
-<li><em>AnnotationConfigApplicationContext</em>——从Java配置文件中加载应用上下文；</li>
+<li><em>AnnotationConfigApplicationContext</em>——从 <strong>Java</strong> 配置文件中加载应用上下文；</li>
 <li><em>AnnotationConfigWebApplicationContext</em>——从Java配置文件中加载Spring web应用上下文；</li>
-<li><em>ClassPathXmlApplicationContext</em>——从classpath（resources目录）下加载XML格式的应用上下文定义文件；</li>
-<li><em>FileSystemXmlApplicationContext</em>——从指定文件系统目录下加载XML格式的应用上下文定义文件；</li>
+<li><em>ClassPathXmlApplicationContext</em>——从classpath（resources目录）下加载 <strong>XML</strong> 格式的应用上下文定义文件；</li>
+<li><em>FileSystemXmlApplicationContext</em>——从指定<strong>文件系统</strong>目录下加载XML格式的应用上下文定义文件；</li>
 <li><em>XmlWebApplicationContext</em>——从classpath（resources目录）下加载XML格式的Spring web应用上下文。</li>
 </ul>
 <p><strong>通过应用上下文实例，可以通过<em>getBean()</em>方法获得对应的bean。</strong></p>
@@ -519,6 +519,31 @@
     <summary type="html">
     
       &lt;div align=&quot;center&quot;&gt;&lt;br&gt;&lt;br&gt;Java元注解释义&lt;br&gt;&lt;br&gt;&lt;/div&gt;
+    
+    </summary>
+    
+    
+      <category term="Spring 注解" scheme="http://nijun.me/tags/Spring-%E6%B3%A8%E8%A7%A3/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Spring注解原理总结</title>
+    <link href="http://nijun.me/2017/05/08/00001-Spring-%E6%B5%85%E8%B0%88Spring-AOP/"/>
+    <id>http://nijun.me/2017/05/08/00001-Spring-浅谈Spring-AOP/</id>
+    <published>2017-05-08T00:35:40.000Z</published>
+    <updated>2017-05-24T07:58:34.000Z</updated>
+    
+    <content type="html"><![CDATA[<div align="center"><br><br>Spring AOP<br><br></div>
+
+<a id="more"></a>
+<p>DI 能让相互协作的软件组件保持松散耦合，而 AOP 允许你把遍布应用各处的功能分离出来形成可重用的组件。</p>
+<p>AOP 能够确保 POJO 的简单性。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;div align=&quot;center&quot;&gt;&lt;br&gt;&lt;br&gt;Spring AOP&lt;br&gt;&lt;br&gt;&lt;/div&gt;
     
     </summary>
     
@@ -847,7 +872,7 @@
     <link href="http://nijun.me/2017/05/05/00001-Git-2017-05-05-GitHub/"/>
     <id>http://nijun.me/2017/05/05/00001-Git-2017-05-05-GitHub/</id>
     <published>2017-05-05T13:55:29.000Z</published>
-    <updated>2017-05-21T23:41:05.000Z</updated>
+    <updated>2017-05-22T00:19:11.000Z</updated>
     
     <content type="html"><![CDATA[<p><img src="/2017/05/05/00001-Git-2017-05-05-GitHub/github.png" alt=""></p>
 <div align="center"><br><br>GitHub基本操作<br><br></div>
@@ -1227,7 +1252,16 @@
 <p>等同于</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> git remote add junoni git://github.com/junoni/nimon.git</div></pre></td></tr></table></figure>
 <h4 id="hub-fetch"><a href="#hub-fetch" class="headerlink" title="hub fetch"></a>hub fetch</h4><p>类似于 <code>hub remote add</code></p>
-]]></content>
+<h4 id="hub-cherry-pick"><a href="#hub-cherry-pick" class="headerlink" title="hub cherry-pick"></a>hub cherry-pick</h4><p><code>hub cherry-pick</code> 只需要输入 URL 就可以获取对应的修改并应用到当前分支。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> hub cherry-pick https://github.com/SimpleLifee/SimpleLifee.github.io/commit/647c558f5b3767c2995dda5ddd5663d0466ed4dd</div></pre></td></tr></table></figure>
+<p>这个命令可以将下面两个命令的效果一次性执行</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> git remote add -f SimpleLifee git@github.com:SimpleLifee/SimpleLifee.github.io.git</div><div class="line"><span class="meta">$</span> git cherry-pick 647c558f5b3767c2995dda5ddd5663d0466ed4dd</div></pre></td></tr></table></figure>
+<h4 id="hub-fork"><a href="#hub-fork" class="headerlink" title="hub fork"></a>hub fork</h4><p><code>hub fork</code> 命令的功能与 GitHub 页面的 Fork 按钮相同，比如我们 clone 了其他用户的仓库，现在想 Fork 成自己的仓库，只需要执行</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> hub fork</div></pre></td></tr></table></figure>
+<p>这一命令，就可获得与下面这一系列操作相同的效果</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">(在 GitHub 对仓库做 Fork 处理)</div><div class="line"><span class="meta">$</span> git remote add -f 用户名 git@github.com:当前操作仓库的名字.git</div></pre></td></tr></table></figure>
+<p>执行完毕后，Fork 出的仓库会被设置成当前本地仓库的远程仓库（以用户名为标识符）</p>
+<h4 id="hub-pull-request"><a href="#hub-pull-request" class="headerlink" title="hub pull-request"></a>hub pull-request</h4>]]></content>
     
     <summary type="html">
     
@@ -1243,13 +1277,13 @@
   
   <entry>
     <title>spring学习总结——事务管理</title>
-    <link href="http://nijun.me/2017/05/05/00001-Spring-2017-05-05-spring%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/"/>
-    <id>http://nijun.me/2017/05/05/00001-Spring-2017-05-05-spring学习总结/</id>
+    <link href="http://nijun.me/2017/05/05/00001-Spring-2017-05-05-spring-%E4%BA%8B%E5%8A%A1%E7%AE%A1%E7%90%86%EF%BC%88%E4%B8%89%EF%BC%89/"/>
+    <id>http://nijun.me/2017/05/05/00001-Spring-2017-05-05-spring-事务管理（三）/</id>
     <published>2017-05-05T11:13:51.000Z</published>
     <updated>2017-05-15T02:45:10.000Z</updated>
     
     <content type="html"><![CDATA[<h2 id="Spring介绍"><a href="#Spring介绍" class="headerlink" title="Spring介绍"></a>Spring介绍</h2><p>Spring 框架是一个分层架构，由 7 个定义良好的模块组成。Spring 模块构建在核心容器之上，核心容器定义了创建、配置和管理 bean 的方式。</p>
-<p><img src="/2017/05/05/00001-Spring-2017-05-05-spring学习总结/anisur.jpg" alt=""></p>
+<p><img src="/2017/05/05/00001-Spring-2017-05-05-spring-事务管理（三）/anisur.jpg" alt=""></p>
 <a id="more"></a>
 <h1 id="Spring中的事务管理介绍"><a href="#Spring中的事务管理介绍" class="headerlink" title="Spring中的事务管理介绍"></a>Spring中的事务管理介绍</h1><p> Spring 是 SSH 中的指挥员和管理者，它负责管理其他框架，控制着整个网站。Spring 中的事务分为：</p>
 <ul>
@@ -1581,7 +1615,7 @@
     <summary type="html">
     
       &lt;h2 id=&quot;Spring介绍&quot;&gt;&lt;a href=&quot;#Spring介绍&quot; class=&quot;headerlink&quot; title=&quot;Spring介绍&quot;&gt;&lt;/a&gt;Spring介绍&lt;/h2&gt;&lt;p&gt;Spring 框架是一个分层架构，由 7 个定义良好的模块组成。Spring 模块构建在核心容器之上，核心容器定义了创建、配置和管理 bean 的方式。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;/2017/05/05/00001-Spring-2017-05-05-spring学习总结/anisur.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/2017/05/05/00001-Spring-2017-05-05-spring-事务管理（三）/anisur.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
     
     </summary>
     
@@ -1632,6 +1666,89 @@
     <title>老司机的踩坑提醒</title>
     <link href="http://nijun.me/2017/05/04/00001-%E8%80%81%E5%8F%B8%E6%9C%BA%E7%9A%84%E8%B8%A9%E5%9D%91%E6%8F%90%E9%86%92/"/>
     <id>http://nijun.me/2017/05/04/00001-老司机的踩坑提醒/</id>
+    <published>2017-05-04T12:46:25.000Z</published>
+    <updated>2017-05-08T22:38:43.000Z</updated>
+    
+    <content type="html"><![CDATA[<div align="center"><br> 错误和问题？在所难免，来和我一起看看吧！<br></div>
+
+<a id="more"></a>
+<h2 id="第一篇"><a href="#第一篇" class="headerlink" title="第一篇"></a>第一篇</h2><h4 id="1"><a href="#1" class="headerlink" title="1."></a>1.</h4><p>tomcat报</p>
+<pre><code>Port already in use: xxxx
+</code></pre><p>问题原因：当前有程序占用xxxx端口，需要将它结束进程。<br>​<br>    lsof -i:8087<br>用以显示符合条件的进程情况</p>
+<pre><code>kill *pid*    
+</code></pre><h4 id="2"><a href="#2" class="headerlink" title="2."></a>2.</h4><p>在执行<code>hexo -s</code>时，如果</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ERROR Plugin load failed: hexo-renderer-sass</div></pre></td></tr></table></figure>
+<blockquote>
+<p> npm rebuild node-sass –force</p>
+</blockquote>
+<p>使用上面这句可以解决问题。</p>
+<p>如果</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Error: Cannot find module &apos;./build/Release/DTraceProviderBindings&apos;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>  npm install hexo –no-optional </p>
+</blockquote>
+<p>如果</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">FATAL Cannot read property 'replace' of null hexo</div></pre></td></tr></table></figure>
+<p>原因： 删除了站点配置文件中的 url后面的地址。</p>
+<h4 id="4"><a href="#4" class="headerlink" title="4."></a>4.</h4><p>如果出现</p>
+<pre><code>warning: LF will be replaced by CRLF in 2017/04/28/firstBlog/index.html.
+The file will have its original line endings in your working directory.
+</code></pre><p>原因分析：</p>
+<p>CRLF – Carriage-Return Line-Feed 回车换行，回车(CR, ASCII 13, \r) 换行(LF, ASCII 10, \n)</p>
+<pre><code>git config --gobal core.autocrlf false  
+</code></pre><p>就可以解决这个问题了</p>
+<h4 id="5"><a href="#5" class="headerlink" title="5."></a>5.</h4><p>如果更新了css文件，那么需要把public的css文件删除，然后</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy --generate</div></pre></td></tr></table></figure>
+<h4 id="6"><a href="#6" class="headerlink" title="6."></a>6.</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ERROR Deployer not found: git</div></pre></td></tr></table></figure>
+<p>试试</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> npm install hexo-deployer-git --save</div><div class="line"><span class="meta">$</span> npm install hexo --save</div></pre></td></tr></table></figure>
+<h4 id="7-Spring"><a href="#7-Spring" class="headerlink" title="7. Spring"></a>7. Spring</h4><blockquote>
+<p>BeanFactory not initialized or already closed - call ‘refresh’ before accessing beans via the ApplicationContext</p>
+</blockquote>
+<p>原因是</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ApplicationContext context = new ClassPathXmlApplicationContext();</div></pre></td></tr></table></figure>
+<p>没有指定路径。</p>
+<h4 id="8-spring"><a href="#8-spring" class="headerlink" title="8. spring"></a>8. spring</h4> <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Write operations are not allowed in read-<span class="function">only <span class="title">mode</span> <span class="params">(FlushMode.MANUAL)</span>: Turn your Session into FlushMode.COMMIT/AUTO or remove 'readOnly' marker from transaction definition.</span></div></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">tx:advice</span> <span class="attr">id</span>=<span class="string">"txAdvice"</span> <span class="attr">transaction-manager</span>=<span class="string">"transactionManager"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">tx:attributes</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">tx:method</span> <span class="attr">name</span>=<span class="string">"save*"</span> <span class="attr">read-only</span>=<span class="string">"false"</span> <span class="attr">propagation</span>=<span class="string">"REQUIRED"</span></span></div><div class="line">                       <span class="attr">rollback-for</span>=<span class="string">"Exception"</span>/&gt;</div><div class="line">        <span class="tag">&lt;/<span class="name">tx:attributes</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">tx:advice</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">aop:config</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">aop:pointcut</span> <span class="attr">id</span>=<span class="string">"pointcut1"</span> <span class="attr">expression</span>=<span class="string">"execution(* me.nini.*.*.*(..))"</span>/&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">aop:advisor</span> <span class="attr">advice-ref</span>=<span class="string">"txAdvice"</span> <span class="attr">pointcut-ref</span>=<span class="string">"pointcut1"</span>/&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">aop:config</span>&gt;</span></div></pre></td></tr></table></figure>
+<h4 id="9-如果出现sequence这个表，原因是没有指定数据库主键的生成策略"><a href="#9-如果出现sequence这个表，原因是没有指定数据库主键的生成策略" class="headerlink" title="9. 如果出现sequence这个表，原因是没有指定数据库主键的生成策略"></a>9. 如果出现sequence这个表，原因是没有指定数据库主键的生成策略</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Id</span></div><div class="line"><span class="meta">@GeneratedValue</span>(strategy= GenerationType.IDENTITY)</div></pre></td></tr></table></figure>
+<h4 id="10-在定义bean的时候，如果定义了多个bean继承或者实现同一个类或者接口，那么会报以下错误"><a href="#10-在定义bean的时候，如果定义了多个bean继承或者实现同一个类或者接口，那么会报以下错误" class="headerlink" title="10. 在定义bean的时候，如果定义了多个bean继承或者实现同一个类或者接口，那么会报以下错误"></a>10. 在定义bean的时候，如果定义了多个bean继承或者实现同一个类或者接口，那么会报以下错误</h4><p>在注入bean的时候，类中的bean的字段名可以和xml文件中配置的bean的id不一致。不然就会报</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">NoUniqueBeanDefinitionException</div><div class="line">No qualifying bean of type [me.nini.dao.BaseDao] is defined</div><div class="line">expected single matching bean but found 2</div></pre></td></tr></table></figure>
+<p>​<br>那么如何解决呢？</p>
+<p>只要在具有相同父类型的组件前加上 @Component(“标识符”)</p>
+<p>​            </p>
+<blockquote>
+<p>注意 1 ： 在组件类前加上 @Component(“ 标识符 “) 的作用与在配置文件中配置是一样的。</p>
+<p>注意 2 ： 如果不指定 @Qualifier(“ 标识符 “) 的话，那么在类中注入bean的时候字段的名称必须和配置文件中bean的id、或者组件类前 @Component(“ 标识符 “)  的标识符相同。</p>
+<p>不然会出错     </p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Injection of autowired dependencies failed</div><div class="line"></div><div class="line">Could not autowire field</div></pre></td></tr></table></figure>
+<blockquote>
+<p>注意 3 ： 如果@Component(“ 标识符 “)，重复定义了，那么会出现以下异常</p>
+</blockquote>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">java.lang.IllegalStateException: Failed to load ApplicationContext</div><div class="line"></div><div class="line">Caused by: org.springframework.context.annotation.ConflictingBeanDefinitionException: Annotation-specified bean name 'dao2' for bean class [me.nini.dao.UserDaoImpl3] conflicts with existing, non-compatible bean definition of same name and class [me.nini.dao.UserDaoImpl2]</div></pre></td></tr></table></figure>
+<blockquote>
+<p>注意 4 ：即使组件类没有显式实现接口，但是注入的属性中可能实现的同一接口，这时如果只用 @AutoWired 的话也会报以下错误</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">NoUniqueBeanDefinitionException</div><div class="line">No qualifying bean of type [me.nini.dao.BaseDao] is defined</div><div class="line">expected single matching bean but found 2</div></pre></td></tr></table></figure>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;div align=&quot;center&quot;&gt;&lt;br&gt; 错误和问题？在所难免，来和我一起看看吧！&lt;br&gt;&lt;/div&gt;
+    
+    </summary>
+    
+      <category term="技术" scheme="http://nijun.me/categories/%E6%8A%80%E6%9C%AF/"/>
+    
+    
+      <category term="技术" scheme="http://nijun.me/tags/%E6%8A%80%E6%9C%AF/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>老司机的踩坑提醒</title>
+    <link href="http://nijun.me/2017/05/04/00001-Spring-In-Action-%E8%80%81%E5%8F%B8%E6%9C%BA%E7%9A%84%E8%B8%A9%E5%9D%91%E6%8F%90%E9%86%92/"/>
+    <id>http://nijun.me/2017/05/04/00001-Spring-In-Action-老司机的踩坑提醒/</id>
     <published>2017-05-04T12:46:25.000Z</published>
     <updated>2017-05-08T22:38:43.000Z</updated>
     

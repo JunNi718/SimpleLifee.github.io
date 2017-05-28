@@ -4,8 +4,42 @@
 
     
   <url>
+    <loc>http://nijun.me/2017/05/08/00001-Spring-%E6%B5%85%E8%B0%88Spring-AOP/</loc>
+    <lastmod>2017-05-24T07:58:34.000Z</lastmod>
+    <data>
+        <display>
+        <title>Spring注解原理总结</title>
+        <pubTime>2017-05-08T00:35:40.000Z</pubTime>
+        
+        <tag>Spring 注解</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://nijun.me/2017/05/08/00001-Spring-2017-05-08-Spring%E4%BD%BF%E7%94%A8%E5%AE%B9%E5%99%A8%E7%AE%A1%E7%90%86beans/</loc>
+    <lastmod>2017-05-24T06:19:51.000Z</lastmod>
+    <data>
+        <display>
+        <title>Spring使用容器管理beans</title>
+        <pubTime>2017-05-08T05:14:00.000Z</pubTime>
+        
+        <tag>Spring</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://nijun.me/2017/05/05/00001-Git-2017-05-05-GitHub/</loc>
-    <lastmod>2017-05-21T23:41:05.000Z</lastmod>
+    <lastmod>2017-05-22T00:19:11.000Z</lastmod>
     <data>
         <display>
         <title>GitHub</title>
@@ -21,7 +55,7 @@
 
     
   <url>
-    <loc>http://nijun.me/2017/05/05/00001-Spring-2017-05-05-spring%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/</loc>
+    <loc>http://nijun.me/2017/05/05/00001-Spring-2017-05-05-spring-%E4%BA%8B%E5%8A%A1%E7%AE%A1%E7%90%86%EF%BC%88%E4%B8%89%EF%BC%89/</loc>
     <lastmod>2017-05-15T02:45:10.000Z</lastmod>
     <data>
         <display>
@@ -141,24 +175,27 @@
 
     
   <url>
-    <loc>http://nijun.me/2017/05/08/00001-Spring-2017-05-08-Spring%E4%BD%BF%E7%94%A8%E5%AE%B9%E5%99%A8%E7%AE%A1%E7%90%86beans/</loc>
-    <lastmod>2017-05-08T22:41:49.000Z</lastmod>
+    <loc>http://nijun.me/2017/05/04/00001-%E8%80%81%E5%8F%B8%E6%9C%BA%E7%9A%84%E8%B8%A9%E5%9D%91%E6%8F%90%E9%86%92/</loc>
+    <lastmod>2017-05-08T22:38:43.000Z</lastmod>
     <data>
         <display>
-        <title>Spring使用容器管理beans</title>
-        <pubTime>2017-05-08T05:14:00.000Z</pubTime>
+        <title>老司机的踩坑提醒</title>
+        <pubTime>2017-05-04T12:46:25.000Z</pubTime>
         
-        <tag>Spring</tag>
+        <tag>技术</tag>
          
          
            
+             
+              <breadCrumb title="技术" url="http://nijun.me/categories/%E6%8A%80%E6%9C%AF/"/>
+          
         </display>
     </data>
     </url>
 
     
   <url>
-    <loc>http://nijun.me/2017/05/04/00001-%E8%80%81%E5%8F%B8%E6%9C%BA%E7%9A%84%E8%B8%A9%E5%9D%91%E6%8F%90%E9%86%92/</loc>
+    <loc>http://nijun.me/2017/05/04/00001-Spring-In-Action-%E8%80%81%E5%8F%B8%E6%9C%BA%E7%9A%84%E8%B8%A9%E5%9D%91%E6%8F%90%E9%86%92/</loc>
     <lastmod>2017-05-08T22:38:43.000Z</lastmod>
     <data>
         <display>

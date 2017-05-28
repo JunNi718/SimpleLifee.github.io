@@ -99,7 +99,7 @@
 <meta property="og:image" content="http://nijun.me/2017/05/08/00001-Spring-2017-05-08-Spring使用容器管理beans/bean_life_circle.png">
 <meta property="og:image" content="http://nijun.me/2017/05/08/00001-Spring-2017-05-08-Spring使用容器管理beans/spring_jar.png">
 <meta property="og:image" content="http://nijun.me/2017/05/08/00001-Spring-2017-05-08-Spring使用容器管理beans/modules.png">
-<meta property="og:updated_time" content="2017-05-08T22:41:49.000Z">
+<meta property="og:updated_time" content="2017-05-24T06:19:51.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spring使用容器管理beans">
 <meta name="twitter:description" content="使用容器管理beans">
@@ -401,7 +401,7 @@
                   <span class="post-meta-item-text">字数统计</span>
                 
                 <span title="字数统计">
-                  2,578
+                  2,598
                 </span>
               
 
@@ -446,12 +446,12 @@
 <li><em>Bean factories</em>（由<em>org.springframework.beans.factory.BeanFactory</em>接口定义）是最简单的容器，只提供基本的依赖注入功能；</li>
 <li><em>Application context</em>（由<em>org.springframework.context.ApplicationContext</em>接口定义）在bean factory的基础上提供application-framework框架服务，例如可以从properties文件中解析配置信息、可以对外公布application events。</li>
 </ul>
-<h2 id="应用上下文（application-context）"><a href="#应用上下文（application-context）" class="headerlink" title="应用上下文（application context）"></a>应用上下文（application context）</h2><p>Spring提供了多种application context，可列举如下：</p>
+<h2 id="应用上下文（application-context）"><a href="#应用上下文（application-context）" class="headerlink" title="应用上下文（application context）"></a>应用上下文（application context）</h2><p>Spring提供了多种application context，<strong>他们之间的主要的区别仅仅在于如何加载配置。</strong>可列举如下：</p>
 <ul>
-<li><em>AnnotationConfigApplicationContext</em>——从Java配置文件中加载应用上下文；</li>
+<li><em>AnnotationConfigApplicationContext</em>——从 <strong>Java</strong> 配置文件中加载应用上下文；</li>
 <li><em>AnnotationConfigWebApplicationContext</em>——从Java配置文件中加载Spring web应用上下文；</li>
-<li><em>ClassPathXmlApplicationContext</em>——从classpath（resources目录）下加载XML格式的应用上下文定义文件；</li>
-<li><em>FileSystemXmlApplicationContext</em>——从指定文件系统目录下加载XML格式的应用上下文定义文件；</li>
+<li><em>ClassPathXmlApplicationContext</em>——从classpath（resources目录）下加载 <strong>XML</strong> 格式的应用上下文定义文件；</li>
+<li><em>FileSystemXmlApplicationContext</em>——从指定<strong>文件系统</strong>目录下加载XML格式的应用上下文定义文件；</li>
 <li><em>XmlWebApplicationContext</em>——从classpath（resources目录）下加载XML格式的Spring web应用上下文。</li>
 </ul>
 <p><strong>通过应用上下文实例，可以通过<em>getBean()</em>方法获得对应的bean。</strong></p>
@@ -689,7 +689,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-count">14</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -711,7 +711,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-count">12</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
