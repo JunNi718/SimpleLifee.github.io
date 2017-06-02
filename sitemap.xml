@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://nijun.me/2017/05/05/00001-Git-2017-05-05-GitHub/</loc>
+    
+    <lastmod>2017-06-02T04:43:26.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://nijun.me/2017/05/08/00001-Spring-%E6%B5%85%E8%B0%88Spring-AOP/</loc>
     
     <lastmod>2017-05-24T07:58:34.000Z</lastmod>
@@ -12,13 +19,6 @@
     <loc>http://nijun.me/2017/05/08/00001-Spring-2017-05-08-Spring%E4%BD%BF%E7%94%A8%E5%AE%B9%E5%99%A8%E7%AE%A1%E7%90%86beans/</loc>
     
     <lastmod>2017-05-24T06:19:51.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://nijun.me/2017/05/05/00001-Git-2017-05-05-GitHub/</loc>
-    
-    <lastmod>2017-05-22T00:19:11.000Z</lastmod>
     
   </url>
   

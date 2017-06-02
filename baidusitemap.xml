@@ -4,6 +4,23 @@
 
     
   <url>
+    <loc>http://nijun.me/2017/05/05/00001-Git-2017-05-05-GitHub/</loc>
+    <lastmod>2017-06-02T04:43:26.000Z</lastmod>
+    <data>
+        <display>
+        <title>GitHub</title>
+        <pubTime>2017-05-05T13:55:29.000Z</pubTime>
+        
+        <tag>git</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://nijun.me/2017/05/08/00001-Spring-%E6%B5%85%E8%B0%88Spring-AOP/</loc>
     <lastmod>2017-05-24T07:58:34.000Z</lastmod>
     <data>
@@ -29,23 +46,6 @@
         <pubTime>2017-05-08T05:14:00.000Z</pubTime>
         
         <tag>Spring</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://nijun.me/2017/05/05/00001-Git-2017-05-05-GitHub/</loc>
-    <lastmod>2017-05-22T00:19:11.000Z</lastmod>
-    <data>
-        <display>
-        <title>GitHub</title>
-        <pubTime>2017-05-05T13:55:29.000Z</pubTime>
-        
-        <tag>git</tag>
          
          
            
