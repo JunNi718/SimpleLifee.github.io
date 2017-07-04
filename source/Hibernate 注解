@@ -1,0 +1,131 @@
+Hibernate 注解方式
+
+
+
+
+
+# @oneToMany
+
+
+
+一的一方
+
+```Java
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "user")
+    public Set<Label> getLabels() {
+        return labels;
+    }
+```
+
+
+
+# @manyToOne
+
+多的一方
+
+```Java
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id")
+    public User getUser() {
+        return user;
+    }
+```
+
+# @JoinColumn
+
+当前实体类，多的一方外键的名字
+
+# @Temporal
+
+```
+@Temporal(TemporalType.TIMESTAMP)
+@Column(name = "start_time")
+public Date getStartTimt() {
+return startTimt;
+}
+```
+
+
+
+
+
+# mappedBy
+
+> 只有在OneToOne、OneToMany、ManyToMany中能使用mappedBy，ManyToOne中是没有的。
+
+> 如果不设置的话，会创建第三张表，名字默认为两个表的名字中间加上 下划线。
+
+mappedBy定义在的类，表明不控制关联关系，把控制权交给了另一方。
+
+
+
+
+
+# FetchType
+
+**FetchType在ManyToOne是EAGER的,在OneToMany上默认的是LAZY.**
+
+非延迟加载在读取一个对象的时候会将与这个对象所有相关的其他对象一起读取出来。这有时会导致成百的（如果不是成千的话）select语句在读取对象的时候执行。
+
+
+
+一个明显的解决方法是使用Hibernate提供的延迟加载机制。但是有一个缺陷是延迟加载技术要求一个Hibernate会话要在对象使用的时候一直开着。
+
+
+
+在Web层进行延迟加载 ，Spring框架为Hibernate延迟加载与DAO模式的整合提供了一种方便的解决方法。
+
+> Hibernate与Spring集成的数据访问。
+
+以一个Web应用为例，Spring提供了OpenSessionInViewFilter和OpenSessionInViewInterceptor。在他们中，我们可以随便选一个类来实现相同的功能。
+
+
+
+两种方法唯一的不同就在于interceptor在Spring容器中运行并被配置在web应用的上下文中，而Filter在Spring之前运行并被配置在web.xml中。不管用哪个，他们都在请求将当前会话与当前（数据库）线程绑定时打开Hibernate会话。一旦已绑定到线程，这个打开了的Hibernate会话可以在DAO实现类中透明地使用。这个会话会为延迟加载数据库中值对象的视图保持打开状态。一旦这个逻辑视图完成了，Hibernate会话会在Filter的doFilter方法或者Interceptor的postHandle方法中被关闭。下面是每个组件的配置示例：
+
+
+
+Interceptor的配置: 
+
+```Xml
+<beans> 
+  <bean id="urlMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping"> 
+  <property name="interceptors"> 
+      <list> 
+            <ref bean="openSessionInViewInterceptor"/> 
+      </list> 
+  </property> 
+  		<property name="mappings"> 
+  </bean> 
+
+  <bean name="openSessionInViewInterceptor"   class="org.springframework.orm.hibernate.support.OpenSessionInViewInterceptor"> 
+		<property name="sessionFactory"><ref bean="sessionFactory"/></property> 
+  </bean> 
+</beans>  
+```
+
+
+
+Filter的配置 
+
+```Xml
+<web-app> 
+    <!--Hibernate的session丢失解决方法 -->
+    <filter>
+        <filter-name>openSessionInView</filter-name>
+        <filter-class>org.springframework.orm.hibernate4.support.OpenSessionInViewFilter
+        </filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>openSessionInView</filter-name>
+        <url-pattern>*.do,*.spring</url-pattern>
+    </filter-mapping>
+</web-app> 
+
+```
+
+
+
+# lazy
+
+当给 User 类的加上 @Lazy 注解，默认是true。当执行

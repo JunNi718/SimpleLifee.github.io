@@ -4,6 +4,20 @@ tags: Struts2
 
 ---
 
+详情参考官方介绍](http://struts.apache.org/docs/convention-plugin.html)
+
+# 安装
+
+```Xml
+<dependency>
+    <groupId>org.apache.struts</groupId>
+    <artifactId>struts2-convention-plugin</artifactId>
+    <version>2.3.14</version>
+</dependency>
+```
+
+
+
 ## 生成规则
 
 在此说明一下convention插件对Action的查找规则和URL的生成规则
