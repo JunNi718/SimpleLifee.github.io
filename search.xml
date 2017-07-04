@@ -5,20 +5,23 @@
     <entry>
       <title><![CDATA[Android异步消息处理机制（一）]]></title>
       <url>/2017/06/14/00001-Android-2017-06-14-Android%E5%BC%82%E6%AD%A5%E6%B6%88%E6%81%AF%E5%A4%84%E7%90%86%E6%9C%BA%E5%88%B6%EF%BC%88%E4%B8%80%EF%BC%89/</url>
-      <content type="html"><![CDATA[<p>网络请求必须在子线程中执行，不然会出 <code>NetworkOnMainThreadException</code> 异常。</p>
-<p>参考自<a href="http://blog.csdn.net/guolin_blog" target="_blank" rel="external">郭霖</a>的 <a href="http://blog.csdn.net/guolin_blog/article/details/9991569" target="_blank" rel="external">android 异步消息处理机制</a></p>
-<p>1、首先我们想在子线程中创建一个Handler。（注意是在子线程中）</p>
-<p>在Handler的构造函数中会调用Looper.myLooper() 得到当前的线程的Looper对象，如果没有的话就会报 ” Can’t create handler inside thread that has not called Looper.prepare().“ 这个错误。</p>
+      <content type="html"><![CDATA[<p>两个问题：</p>
+<p>​    1、在子线程中如何创建的Handler？需要先做什么？如何发送消息？</p>
+<p>​    2、Handler中发送的消息去哪啦？为什么handleMessage中又能得到这个Message？</p>
 <a id="more"></a>
+<p><strong>首先明确</strong>：网络请求必须在子线程中执行，不然会出 <code>NetworkOnMainThreadException</code> 异常。</p>
+<p>参考自<a href="http://blog.csdn.net/guolin_blog" target="_blank" rel="external">郭霖</a>的 <a href="http://blog.csdn.net/guolin_blog/article/details/9991569" target="_blank" rel="external">android 异步消息处理机制</a></p>
+<h1 id="一、如何在子线程创建Headler"><a href="#一、如何在子线程创建Headler" class="headerlink" title="一、如何在子线程创建Headler"></a>一、如何在子线程创建Headler</h1><p>首先我们想在子线程中创建一个Handler。（注意是在子线程中）</p>
+<p>在Handler的构造函数中会调用Looper.myLooper() 得到当前的线程的Looper对象，如果没有的话就会报 ” Can’t create handler inside thread that has not called Looper.prepare().“ 这个错误。</p>
 <p>prepare() 会先判断sThreadLocal.get() 这个方法从当前线程得到Looper的对象是否为空，如果为空就创建一个，不为空会报“Only one Looper may be created per thread”错误。</p>
 <p>ActivityThread的main()方法中，会调用 Looper.prapareMainLooper方法，这其中又会调用  Looper.prepare() 方法，因此主线程中始终有一个Looper对象。</p>
 <p>总结一下，普通线程必须先调用Looper.prepare()，然后才能创建Handler对象，</p>
-<p>2、创建完Handler之后，只要用把 bundle 放到 Message 中，并且再把 message放到 handler 发送即可。但是这里 Handler 把消息发送到哪里，为什么在 handleMessage 又能得到这个 Message 呢。</p>
+<h1 id="二、Headler发送消息源码解析"><a href="#二、Headler发送消息源码解析" class="headerlink" title="二、Headler发送消息源码解析"></a>二、Headler发送消息源码解析</h1><p>创建完Handler之后，只要用把 bundle 放到 Message 中，并且再把 message放到 handler 发送即可。但是这里 Handler 把消息发送到哪里，为什么在 handleMessage 又能得到这个 Message 呢。</p>
 <p>除了sendMessageAtFrontOfQueue之外，其他发送消息的方法都会辗转到sendMessageAtTime()中。而入队操作就是在这个sendMessageAtTime() 方法中。</p>
 <p>Looper.loop()中包含出队操作，这个方法会一直等待新的消息入队，不然就会进入阻塞状态。每当又一个消息出队 queue.next() ，那就会调用当前handler的dispatchMessage()方法。在dispatchMessage() 方法里就会调用 handleMessage(msg)，这样我们在handleMessage就可以得到这个Message了。</p>
 <p>MessageQueue 在 Looper 的构造函数中创建，那么一个 Looper 对应了一个 MessageQueue。</p>
 <p>一个最标准的异步消息处理线程的写法应该是这样：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">class LooperThread extends Thread &#123;  </div><div class="line">      public Handler mHandler;  </div><div class="line">  </div><div class="line">      public void run() &#123;  </div><div class="line">          Looper.prepare();  </div><div class="line">  </div><div class="line">          mHandler = new Handler() &#123;  </div><div class="line">              public void handleMessage(Message msg) &#123;  </div><div class="line">                  // process incoming messages here  </div><div class="line">              &#125;  </div><div class="line">          &#125;;  </div><div class="line">  </div><div class="line">          Looper.loop();  </div><div class="line">      &#125;  </div><div class="line">  &#125;</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">LooperThread</span> <span class="keyword">extends</span> <span class="title">Thread</span> </span>&#123;  </div><div class="line">      <span class="keyword">public</span> Handler mHandler;  </div><div class="line">  </div><div class="line">      <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;  </div><div class="line">		  <span class="comment">//先调用Looper.prepare()方法，也就是说必须要有一个 looper 对象。</span></div><div class="line">          Looper.prepare();  </div><div class="line">  </div><div class="line">          mHandler = <span class="keyword">new</span> Handler() &#123;  </div><div class="line">              <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">handleMessage</span><span class="params">(Message msg)</span> </span>&#123;  </div><div class="line">                  <span class="comment">// process incoming messages here  </span></div><div class="line">              &#125;  </div><div class="line">          &#125;;  </div><div class="line">  		  <span class="comment">//调用之后就会一直在MessageQueue中循环遍历Message，如果没有新的消息，就会挂起。</span></div><div class="line">          Looper.loop();  </div><div class="line">      &#125;  </div><div class="line">  &#125;</div></pre></td></tr></table></figure>
 ]]></content>
       
         
@@ -33,7 +36,9 @@
     <entry>
       <title><![CDATA[Android消息处理机制之三：Handler中sendMessage源代码剖析]]></title>
       <url>/2017/06/14/00001-Android-2017-06-14-Android%E6%B6%88%E6%81%AF%E5%A4%84%E7%90%86%E6%9C%BA%E5%88%B6%E4%B9%8B%E4%B8%89%EF%BC%9AHandler%E4%B8%ADsendMessage%E6%BA%90%E4%BB%A3%E7%A0%81%E5%89%96%E6%9E%90/</url>
-      <content type="html"><![CDATA[<p>参考自 AHuier的 <a href="http://blog.csdn.net/xukunhui2/article/details/17013647" target="_blank" rel="external">Handler 中 sendMessage() 源代码剖析</a></p>
+      <content type="html"><![CDATA[<p>Handler中sendMessage源代码剖析。</p>
+<a id="more"></a>
+<p>参考自 AHuier的 <a href="http://blog.csdn.net/xukunhui2/article/details/17013647" target="_blank" rel="external">Handler 中 sendMessage() 源代码剖析</a></p>
 <ol>
 <li><p>使用Handler中的sendEmptyMessage(int what)方式来发送消息.</p>
 <p>sendEmptyMessage (int what)</p>
@@ -77,7 +82,9 @@
     <entry>
       <title><![CDATA[Android消息处理机制之二：消息中obtain源代码剖析]]></title>
       <url>/2017/06/14/00001-Android-2017-06-14-Android%E6%B6%88%E6%81%AF%E5%A4%84%E7%90%86%E6%9C%BA%E5%88%B6%E4%B9%8B%E4%BA%8C%EF%BC%9A%E6%B6%88%E6%81%AF%E4%B8%ADobtain%E6%BA%90%E4%BB%A3%E7%A0%81%E5%89%96%E6%9E%90/</url>
-      <content type="html"><![CDATA[<p>参考自 AHuier的<a href="http://blog.csdn.net/xukunhui2/article/details/17012923" target="_blank" rel="external">Android消息处理机制之二：消息中obtain()源代码剖析</a> </p>
+      <content type="html"><![CDATA[<p>Message中obtain()源码分析</p>
+<a id="more"></a>
+<p>参考自 AHuier的<a href="http://blog.csdn.net/xukunhui2/article/details/17012923" target="_blank" rel="external">Android消息处理机制之二：消息中obtain()源代码剖析</a> </p>
 <p>obtain的源码，可见是从消息池中取出对象。这里为了防止多个任务访问消息池获取对象，使用 synchronized(sPoolSync) 将 obtain() 方法上锁了。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Object sPoolSync = <span class="keyword">new</span> Object();  </div><div class="line"><span class="keyword">private</span> <span class="keyword">static</span> Message sPool;  </div><div class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> sPoolSize = <span class="number">0</span>;  </div><div class="line">  </div><div class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> MAX_POOL_SIZE = <span class="number">10</span>;  </div><div class="line">  </div><div class="line"><span class="comment">/** </span></div><div class="line"> * Return a new Message instance from the global pool. Allows us to </div><div class="line"> * avoid allocating new objects in many cases. </div><div class="line"> */  </div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Message <span class="title">obtain</span><span class="params">()</span> </span>&#123;  </div><div class="line">    <span class="keyword">synchronized</span> (sPoolSync) &#123;  </div><div class="line">        <span class="keyword">if</span> (sPool != <span class="keyword">null</span>) &#123;  </div><div class="line">            Message m = sPool;  </div><div class="line">            sPool = m.next;  </div><div class="line">            m.next = <span class="keyword">null</span>;  </div><div class="line">            sPoolSize--;  </div><div class="line">            <span class="keyword">return</span> m;  </div><div class="line">        &#125;  </div><div class="line">    &#125;  </div><div class="line">    <span class="keyword">return</span> <span class="keyword">new</span> Message();  </div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>1) 通过 Message.obtain()方式获取Message对象</p>
@@ -110,7 +117,9 @@
     <entry>
       <title><![CDATA[Activity的生命周期和启动模式]]></title>
       <url>/2017/06/08/00001-Android-2017-06-08-Activity%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E5%92%8C%E5%90%AF%E5%8A%A8%E6%A8%A1%E5%BC%8F/</url>
-      <content type="html"><![CDATA[<h1 id="Activity-的生命周期"><a href="#Activity-的生命周期" class="headerlink" title="Activity 的生命周期"></a>Activity 的生命周期</h1><p><img src="/2017/06/08/00001-Android-2017-06-08-Activity的生命周期和启动模式/Activity的生命周期.png" alt=""></p>
+      <content type="html"><![CDATA[<p>Android中我们最先接触到的就是Activity，如果掌握了 Activity，那么对学习其他四大组件无疑是很有帮助的。</p>
+<a id="more"></a>
+<h1 id="Activity-的生命周期"><a href="#Activity-的生命周期" class="headerlink" title="Activity 的生命周期"></a>Activity 的生命周期</h1><p><img src="/2017/06/08/00001-Android-2017-06-08-Activity的生命周期和启动模式/Activity的生命周期.png" alt=""></p>
 <h2 id="情形一"><a href="#情形一" class="headerlink" title="情形一"></a>情形一</h2><p>例如：运行一个 Activity ，不进行任何的页面跳转，然后按下返回键结束。</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">05-30 12:00:44.864 3561-3561/me.nijun.launchmode I/AActivity: onCreate: A</div><div class="line">05-30 12:00:44.864 3561-3561/me.nijun.launchmode I/AActivity: onStart: A</div><div class="line">05-30 12:00:44.864 3561-3561/me.nijun.launchmode I/AActivity: onResume: A</div><div class="line">05-30 12:00:44.864 3561-3561/me.nijun.launchmode I/AActivity: onPause: A</div><div class="line">05-30 12:00:44.864 3561-3561/me.nijun.launchmode I/AActivity: onStop: A</div><div class="line">05-30 12:00:44.864 3561-3561/me.nijun.launchmode I/AActivity: onDestory: A</div></pre></td></tr></table></figure>
 <h2 id="情形二"><a href="#情形二" class="headerlink" title="情形二"></a>情形二</h2><p>（1）当第一次启动 A Activity 的时候，会按照下面的顺序执行。</p>
