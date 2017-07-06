@@ -209,4 +209,7 @@ ul{
 /*添加行号 2017年07月06日14:16:27*/
 
 
-
+a[rel="external"]:after {
+    font-family: 'nova' !important;
+  /*  content: "\e907";*/
+}
