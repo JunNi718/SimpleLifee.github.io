@@ -68,13 +68,14 @@ pagination_dir: page
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
+theme: fexo
 #theme: next
 #theme: pacman
 #theme: Vateral
 #theme: mdui
 #theme: one
 #theme: material
-theme: fexo
+
 
 
 # Extensions 
