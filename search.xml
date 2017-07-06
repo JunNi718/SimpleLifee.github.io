@@ -16,6 +16,11 @@
 <li><a href="https://github.com/SmartNJ/SimpleLifee.github.io/commit/044b788feb67b30170278375d1356de9e6c6d95d" target="_blank" rel="external">【G】</a>主题从 <a href="http://theme-next.iissnan.com/" target="_blank" rel="external">Next</a> 换成 <a href="https://github.com/forsigner/fexo" target="_blank" rel="external">fexo</a> 。</li>
 <li><a href="https://github.com/SmartNJ/SimpleLifee.github.io/commit/f3bcddef8d6d09f320ed1f16712cd13499f2b4cf" target="_blank" rel="external">【G】</a>解决无序列表不显示前面小黑圈的问题</li>
 </ul>
+<h3 id="05-01-卸载"><a href="#05-01-卸载" class="headerlink" title="05-01 卸载"></a>05-01 卸载</h3><ul>
+<li>卸载 Hexo </li>
+</ul>
+<pre><code class="shell">$ npm uninstall hexo hexo-cli hexo-server hexo-generator-index hexo-generator-archive hexo-generator-category hexo-generator-tag hexo-deployer-git hexo-generator-feed hexo-generator-sitemap hexo-renderer-marked hexo-renderer-stylus
+</code></pre>
 <h3 id="05-01-添加CNAME"><a href="#05-01-添加CNAME" class="headerlink" title="05-01 添加CNAME"></a>05-01 添加CNAME</h3><ul>
 <li>在博客的根目录中添加 <a href="http://baike.baidu.com/item/CNAME%E8%AE%B0%E5%BD%95" target="_blank" rel="external">CNAME</a> 别名记录。</li>
 <li>理解 <a href="http://baike.baidu.com/item/TTL/130248" target="_blank" rel="external">TLL</a> 值 ，<a href="http://baike.baidu.com/item/%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90" target="_blank" rel="external">域名解析</a>，<a href="http://baike.baidu.com/item/A%E8%AE%B0%E5%BD%95" target="_blank" rel="external">A记录</a>。</li>
