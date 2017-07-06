@@ -2,9 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://nijun.me/404.html</loc>
+    
+    <lastmod>2017-07-06T22:10:21.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://nijun.me/2017/07/06/%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E7%AB%99%E7%82%B9%E5%BB%BA%E8%AE%BE%E5%8E%86%E7%A8%8B/</loc>
     
-    <lastmod>2017-07-06T13:55:29.000Z</lastmod>
+    <lastmod>2017-07-06T21:46:56.000Z</lastmod>
     
   </url>
   
@@ -82,13 +89,6 @@
     <loc>http://nijun.me/2017/05/05/00001-Blog-2017-05-05-%E4%B8%80%E4%BA%9Bmac%E7%AB%AF%E5%A5%BD%E7%94%A8%E7%AB%AF%E6%8F%92%E4%BB%B6%E5%88%86%E4%BA%AB/</loc>
     
     <lastmod>2017-05-13T23:56:13.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://nijun.me/404.html</loc>
-    
-    <lastmod>2017-05-06T00:35:27.000Z</lastmod>
     
   </url>
   

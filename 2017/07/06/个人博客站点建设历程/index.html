@@ -88,16 +88,16 @@
 
 
 
-<meta name="description" content="这里是对我建立博客以来，所做的研究与尝试的总结。为方便编辑和查看最新进展，更新以倒序方式呈现。 07-06 炫酷背景、动态css文件 【G】自定义的css文件创建在博客根目录的source/css下，然后只要在主题配置文件中设置personal_style为指定的css文件即可。（针对 fexo 主题）  07-05 高亮代码块 取消了 hexo 默认的代码高亮，使用 highlightjs ，参">
+<meta name="description" content="这里是对我建立博客以来，所做的研究与尝试的总结。为方便编辑和查看最新进展，更新以倒序方式呈现。 07-07 Next主题没有添加到git的问题 【G】 解决了NexT主题文件夹没有添加到git工作区的问题  07-06 炫酷背景、自定义swig文件 【G】 自定义的 swig 文件创建在当前目录下新建 xxx 文件夹内新建 xxx-custom.swig ，然后只要在 xxx.swig 文件末尾添">
 <meta property="og:type" content="article">
 <meta property="og:title" content="个人博客站点建设历程">
 <meta property="og:url" content="http://nijun.me/2017/07/06/个人博客站点建设历程/index.html">
 <meta property="og:site_name" content="SmartNi">
-<meta property="og:description" content="这里是对我建立博客以来，所做的研究与尝试的总结。为方便编辑和查看最新进展，更新以倒序方式呈现。 07-06 炫酷背景、动态css文件 【G】自定义的css文件创建在博客根目录的source/css下，然后只要在主题配置文件中设置personal_style为指定的css文件即可。（针对 fexo 主题）  07-05 高亮代码块 取消了 hexo 默认的代码高亮，使用 highlightjs ，参">
-<meta property="og:updated_time" content="2017-07-06T13:55:29.000Z">
+<meta property="og:description" content="这里是对我建立博客以来，所做的研究与尝试的总结。为方便编辑和查看最新进展，更新以倒序方式呈现。 07-07 Next主题没有添加到git的问题 【G】 解决了NexT主题文件夹没有添加到git工作区的问题  07-06 炫酷背景、自定义swig文件 【G】 自定义的 swig 文件创建在当前目录下新建 xxx 文件夹内新建 xxx-custom.swig ，然后只要在 xxx.swig 文件末尾添">
+<meta property="og:updated_time" content="2017-07-06T21:46:56.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="个人博客站点建设历程">
-<meta name="twitter:description" content="这里是对我建立博客以来，所做的研究与尝试的总结。为方便编辑和查看最新进展，更新以倒序方式呈现。 07-06 炫酷背景、动态css文件 【G】自定义的css文件创建在博客根目录的source/css下，然后只要在主题配置文件中设置personal_style为指定的css文件即可。（针对 fexo 主题）  07-05 高亮代码块 取消了 hexo 默认的代码高亮，使用 highlightjs ，参">
+<meta name="twitter:description" content="这里是对我建立博客以来，所做的研究与尝试的总结。为方便编辑和查看最新进展，更新以倒序方式呈现。 07-07 Next主题没有添加到git的问题 【G】 解决了NexT主题文件夹没有添加到git工作区的问题  07-06 炫酷背景、自定义swig文件 【G】 自定义的 swig 文件创建在当前目录下新建 xxx 文件夹内新建 xxx-custom.swig ，然后只要在 xxx.swig 文件末尾添">
 
 
 
@@ -294,156 +294,6 @@
   
 </nav>
 
-<script>
-  //百度站长
-    (function(){
-        var bp = document.createElement('script');
-        var curProtocol = window.location.protocol.split(':')[0];
-        if (curProtocol === 'https'){
-       bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
-      }
-      else{
-      bp.src = 'http://push.zhanzhang.baidu.com/push.js';
-      }
-        var s = document.getElementsByTagName("script")[0];
-        s.parentNode.insertBefore(bp, s);
-    })();
-    'use strict';
-
-    var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-    function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-    function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-    function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-    var Circle = function () {
-       function Circle(x, y) {
-            _classCallCheck(this, Circle);
-
-            this.x = x;
-            this.y = y;
-            this.r = Math.random() * 10;
-            this._mx = Math.random();
-            this._my = Math.random();
-        }
-
-       _createClass(Circle, [{
-            key: 'drawCircle',
-            value: function drawCircle(ctx) {
-                ctx.beginPath();
-                //arc() 方法使用一个中心点和半径，为一个画布的当前子路径添加一条弧。
-                ctx.arc(this.x, this.y, this.r, 0, 360);
-                ctx.closePath();
-                ctx.fillStyle = 'rgba(204, 204, 204, 0.3)';
-                ctx.fill();
-            }
-        }, {
-            key: 'drawLine',
-            value: function drawLine(ctx, _circle) {
-                var dx = this.x - _circle.x;
-                var dy = this.y - _circle.y;
-                var d = Math.sqrt(dx * dx + dy * dy);
-                if (d < 150) {
-                    ctx.beginPath();
-
-                    ctx.moveTo(this.x, this.y); //起始点
-                    ctx.lineTo(_circle.x, _circle.y); //终点
-                    ctx.closePath();
-                    ctx.strokeStyle = 'rgba(204, 204, 204, 0.3)';
-                    ctx.stroke();
-                }
-            }
-
-
-        }, {
-            key: 'move',
-            value: function move(w, h) {
-                this._mx = this.x < w && this.x > 0 ? this._mx : -this._mx;
-                this._my = this.y < h && this.y > 0 ? this._my : -this._my;
-                this.x += this._mx / 2;
-                this.y += this._my / 2;
-            }
-        }]);
-
-        return Circle;
-    }();
-
-
-
-    var currentCirle = function (_Circle) {
-        _inherits(currentCirle, _Circle);
-
-        function currentCirle(x, y) {
-            _classCallCheck(this, currentCirle);
-
-            return _possibleConstructorReturn(this, (currentCirle.__proto__ || Object.getPrototypeOf(currentCirle)).call(this, x, y));
-        }
-
-        _createClass(currentCirle, [{
-            key: 'drawCircle',
-            value: function drawCircle(ctx) {
-                ctx.beginPath();
-
-                //this.r = (this.r < 14 && this.r > 1) ? this.r + (Math.random() * 2 - 1) : 2;
-                this.r = 8;
-                ctx.arc(this.x, this.y, this.r, 0, 360);
-                ctx.closePath();
-                //ctx.fillStyle = 'rgba(0,0,0,' + (parseInt(Math.random() * 100) / 100) + ')'
-                ctx.fillStyle = 'rgba(255, 77, 54, 0.6)';
-                ctx.fill();
-            }
-        }]);
-
-        return currentCirle;
-    }(Circle);
-
-
-    window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
-
-    var canvas = document.getElementById('canvas');
-    var ctx = canvas.getContext('2d');
-    var w = canvas.width = canvas.offsetWidth;
-    var h = canvas.height = canvas.offsetHeight;
-    var circles = [];
-    var current_circle = new currentCirle(0, 0);
-
-    var draw = function draw() {
-        ctx.clearRect(0, 0, w, h);
-        for (var i = 0; i < circles.length; i++) {
-            circles[i].move(w, h);
-            circles[i].drawCircle(ctx);
-            for (j = i + 1; j < circles.length; j++) {
-                circles[i].drawLine(ctx, circles[j]);
-            }
-        }
-        if (current_circle.x) {
-            current_circle.drawCircle(ctx);
-            for (var k = 1; k < circles.length; k++) {
-                current_circle.drawLine(ctx, circles[k]);
-            }
-        }
-        requestAnimationFrame(draw);
-    };
-
-    var init = function init(num) {
-        for (var i = 0; i < num; i++) {
-            circles.push(new Circle(Math.random() * w, Math.random() * h));
-        }
-        draw();
-    };
-    window.addEventListener('load', init(60));
-    window.onmousemove = function (e) {
-        e = e || window.event;
-        current_circle.x = e.clientX;
-        current_circle.y = e.clientY;
-    };
-    window.onmouseout = function () {
-        current_circle.x = null;
-        current_circle.y = null;
-    };
-   </script>
 
  </div>
     </header>
@@ -554,7 +404,7 @@
                   <span class="post-meta-item-text">字数统计</span>
                 
                 <span title="字数统计">
-                  323
+                  409
                 </span>
               
 
@@ -570,7 +420,7 @@
                   <span class="post-meta-item-text">阅读时长</span>
                 
                 <span title="阅读时长">
-                  1
+                  2
                 </span>
               
             </div>
@@ -589,15 +439,30 @@
 
       
         <p>这里是对我建立博客以来，所做的研究与尝试的总结。<br>为方便编辑和查看最新进展，更新以倒序方式呈现。</p>
-<h3 id="07-06-炫酷背景、动态css文件"><a href="#07-06-炫酷背景、动态css文件" class="headerlink" title="07-06 炫酷背景、动态css文件"></a>07-06 炫酷背景、动态css文件</h3><ul>
-<li><a href="">【G】</a>自定义的css文件创建在博客根目录的source/css下，然后只要在主题配置文件中设置personal_style为指定的css文件即可。（针对 <a href="https://github.com/forsigner/fexo" target="_blank" rel="external">fexo</a> 主题）</li>
+<h3 id="07-07-Next主题没有添加到git的问题"><a href="#07-07-Next主题没有添加到git的问题" class="headerlink" title="07-07 Next主题没有添加到git的问题"></a>07-07 Next主题没有添加到git的问题</h3><ul>
+<li><a href="https://github.com/SmartNJ/SimpleLifee.github.io/commit/b423e50868ab5dbdee9c8b94b2907d35ab7d1183" target="_blank" rel="external">【G】 </a>解决了NexT主题文件夹没有添加到git工作区的问题</li>
+</ul>
+<h3 id="07-06-炫酷背景、自定义swig文件"><a href="#07-06-炫酷背景、自定义swig文件" class="headerlink" title="07-06 炫酷背景、自定义swig文件"></a>07-06 炫酷背景、自定义swig文件</h3><ul>
+<li><p><a href="">【G】 </a>自定义的 <code>swig</code> 文件创建在当前目录下新建 <code>xxx</code> 文件夹内新建 <code>xxx-custom.swig</code> ，然后只要在 <code>xxx.swig</code> 文件末尾添加（注意针对 <code>NexT</code>）：</p>
+<pre><code class="groovy">{% include 'head/custom-head.swig' %}
+</code></pre>
+</li>
+<li><p><a href="https://github.com/SmartNJ/SimpleLifee.github.io/commit/c446fce62056207a8d24f2c23576dcd408cc0e7f" target="_blank" rel="external">【G】</a> 添加仿知乎动态背景图片的样式。</p>
+</li>
 </ul>
 <h3 id="07-05-高亮代码块"><a href="#07-05-高亮代码块" class="headerlink" title="07-05 高亮代码块"></a>07-05 高亮代码块</h3><ul>
 <li>取消了 hexo 默认的代码高亮，使用 <a href="https://highlightjs.org/" target="_blank" rel="external">highlightjs </a>，<a href="http://www.ieclipse.cn/2016/07/18/Web/Hexo-dev-highlight/" target="_blank" rel="external">参考</a></li>
 </ul>
 <h3 id="07-04-fexo主题"><a href="#07-04-fexo主题" class="headerlink" title="07-04 fexo主题"></a>07-04 fexo主题</h3><ul>
-<li><a href="https://github.com/SmartNJ/SimpleLifee.github.io/commit/044b788feb67b30170278375d1356de9e6c6d95d" target="_blank" rel="external">【G】</a>主题从 <a href="http://theme-next.iissnan.com/" target="_blank" rel="external">Next</a> 换成 <a href="https://github.com/forsigner/fexo" target="_blank" rel="external">fexo</a> 。</li>
-<li><a href="https://github.com/SmartNJ/SimpleLifee.github.io/commit/f3bcddef8d6d09f320ed1f16712cd13499f2b4cf" target="_blank" rel="external">【G】</a>解决无序列表不显示前面小黑圈的问题</li>
+<li><a href="https://github.com/SmartNJ/SimpleLifee.github.io/commit/044b788feb67b30170278375d1356de9e6c6d95d" target="_blank" rel="external">【G】 </a>主题从 <a href="http://theme-next.iissnan.com/" target="_blank" rel="external">Next</a> 换成 <a href="https://github.com/forsigner/fexo" target="_blank" rel="external">fexo</a> 。</li>
+<li><a href="https://github.com/SmartNJ/SimpleLifee.github.io/commit/f3bcddef8d6d09f320ed1f16712cd13499f2b4cf" target="_blank" rel="external">【G】 </a>解决无序列表不显示前面小黑圈的问题</li>
+</ul>
+<h3 id="07-03-七牛图床"><a href="#07-03-七牛图床" class="headerlink" title="07-03 七牛图床"></a>07-03 七牛图床</h3><ul>
+<li><p>注册使用<a href="https://portal.qiniu.com" target="_blank" rel="external">七牛</a>图床</p>
+</li>
+<li><p>使用 <a href="https://github.com/tiann/markdown-img-upload" target="_blank" rel="external">markdown图片实用工具</a>，其中需要使用到 <a href="http://www.python-requests.org/en/master/user/install/#install" target="_blank" rel="external">requests</a> 库</p>
+<p>​</p>
+</li>
 </ul>
 <h3 id="05-01-卸载"><a href="#05-01-卸载" class="headerlink" title="05-01 卸载"></a>05-01 卸载</h3><ul>
 <li>卸载 Hexo </li>
@@ -869,7 +734,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#07-06-炫酷背景、动态css文件"><span class="nav-number">1.</span> <span class="nav-text">07-06 炫酷背景、动态css文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#07-05-高亮代码块"><span class="nav-number">2.</span> <span class="nav-text">07-05 高亮代码块</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#07-04-fexo主题"><span class="nav-number">3.</span> <span class="nav-text">07-04 fexo主题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#05-01-卸载"><span class="nav-number">4.</span> <span class="nav-text">05-01 卸载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#05-01-添加CNAME"><span class="nav-number">5.</span> <span class="nav-text">05-01 添加CNAME</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#04-30-GitHub-Pages-配置"><span class="nav-number">6.</span> <span class="nav-text">04-30 GitHub Pages 配置</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#07-07-Next主题没有添加到git的问题"><span class="nav-number">1.</span> <span class="nav-text">07-07 Next主题没有添加到git的问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#07-06-炫酷背景、自定义swig文件"><span class="nav-number">2.</span> <span class="nav-text">07-06 炫酷背景、自定义swig文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#07-05-高亮代码块"><span class="nav-number">3.</span> <span class="nav-text">07-05 高亮代码块</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#07-04-fexo主题"><span class="nav-number">4.</span> <span class="nav-text">07-04 fexo主题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#07-03-七牛图床"><span class="nav-number">5.</span> <span class="nav-text">07-03 七牛图床</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#05-01-卸载"><span class="nav-number">6.</span> <span class="nav-text">05-01 卸载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#05-01-添加CNAME"><span class="nav-number">7.</span> <span class="nav-text">05-01 添加CNAME</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#04-30-GitHub-Pages-配置"><span class="nav-number">8.</span> <span class="nav-text">04-30 GitHub Pages 配置</span></a></li></ol></div>
             
 
           </div>
@@ -1518,13 +1383,14 @@
 
 
 
-<!-- 炫酷的动态背景图片 -->
+<!-- 炫酷的动态背景图片 第一步 -->
   <div class="bg_content">
        <canvas id="canvas"></canvas>
   </div>
 
-<script>
 
+<!-- 炫酷的动态背景图片 第二步 -->
+<script>
   //百度站长
     (function(){
         var bp = document.createElement('script');
@@ -1673,7 +1539,7 @@
         current_circle.x = null;
         current_circle.y = null;
     };
-</script>
-  
+    </script>
+
 </body>
 </html>
