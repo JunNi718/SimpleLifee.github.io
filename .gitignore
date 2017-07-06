@@ -5,3 +5,16 @@ db.json
 node_modules/
 public/
 .deploy*/
+2017/
+about/
+archives/
+categories/
+css/
+images/
+js/
+lib/
+page/
+photo/
+search/
+tags/
+uploads/
