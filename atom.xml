@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://nijun.me/"/>
-  <updated>2017-07-04T06:13:34.000Z</updated>
+  <updated>2017-07-06T13:43:01.000Z</updated>
   <id>http://nijun.me/</id>
   
   <author>
@@ -14,6 +14,47 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>个人博客站点建设历程</title>
+    <link href="http://nijun.me/2017/07/06/%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E7%AB%99%E7%82%B9%E5%BB%BA%E8%AE%BE%E5%8E%86%E7%A8%8B/"/>
+    <id>http://nijun.me/2017/07/06/个人博客站点建设历程/</id>
+    <published>2017-07-06T10:04:59.000Z</published>
+    <updated>2017-07-06T13:43:01.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>这里是对我建立博客以来，所做的研究与尝试的总结。<br>为方便编辑和查看最新进展，更新以倒序方式呈现。</p>
+<h3 id="07-06-炫酷背景、动态css文件"><a href="#07-06-炫酷背景、动态css文件" class="headerlink" title="07-06 炫酷背景、动态css文件"></a>07-06 炫酷背景、动态css文件</h3><ul>
+<li><a href="">【G】</a>自定义的css文件创建在博客根目录的source/css下，然后只要在主题配置文件中设置personal_style为指定的css文件即可。（针对 <a href="https://github.com/forsigner/fexo" target="_blank" rel="external">fexo</a> 主题）</li>
+</ul>
+<h3 id="07-05-高亮代码块"><a href="#07-05-高亮代码块" class="headerlink" title="07-05 高亮代码块"></a>07-05 高亮代码块</h3><ul>
+<li>取消了 hexo 默认的代码高亮，使用 <a href="https://highlightjs.org/" target="_blank" rel="external">highlightjs </a>，<a href="http://www.ieclipse.cn/2016/07/18/Web/Hexo-dev-highlight/" target="_blank" rel="external">参考</a></li>
+</ul>
+<h3 id="07-04-fexo主题"><a href="#07-04-fexo主题" class="headerlink" title="07-04 fexo主题"></a>07-04 fexo主题</h3><ul>
+<li><a href="https://github.com/SmartNJ/SimpleLifee.github.io/commit/044b788feb67b30170278375d1356de9e6c6d95d" target="_blank" rel="external">【G】</a>主题从 <a href="http://theme-next.iissnan.com/" target="_blank" rel="external">Next</a> 换成 <a href="https://github.com/forsigner/fexo" target="_blank" rel="external">fexo</a> 。</li>
+<li><a href="https://github.com/SmartNJ/SimpleLifee.github.io/commit/f3bcddef8d6d09f320ed1f16712cd13499f2b4cf" target="_blank" rel="external">【G】</a>解决无序列表不显示前面小黑圈的问题</li>
+</ul>
+<h3 id="05-01-添加CNAME"><a href="#05-01-添加CNAME" class="headerlink" title="05-01 添加CNAME"></a>05-01 添加CNAME</h3><ul>
+<li>在博客的根目录中添加 <a href="http://baike.baidu.com/item/CNAME%E8%AE%B0%E5%BD%95" target="_blank" rel="external">CNAME</a> 别名记录。</li>
+<li>理解 <a href="http://baike.baidu.com/item/TTL/130248" target="_blank" rel="external">TLL</a> 值 ，<a href="http://baike.baidu.com/item/%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90" target="_blank" rel="external">域名解析</a>，<a href="http://baike.baidu.com/item/A%E8%AE%B0%E5%BD%95" target="_blank" rel="external">A记录</a>。</li>
+</ul>
+<h3 id="04-30-GitHub-Pages-配置"><a href="#04-30-GitHub-Pages-配置" class="headerlink" title="04-30 GitHub Pages 配置"></a>04-30 GitHub Pages 配置</h3><p>花了一天的时间，开始搭建自己的博客。</p>
+<p>完成了：</p>
+<ul>
+<li>域名注册 <a href="https://sg.godaddy.com/" target="_blank" rel="external">GoDaddy</a>，域名服务商，支持支付宝结算。</li>
+<li>域名解析 <a href="https://www.dnspod.cn/" target="_blank" rel="external">DNSPod</a>，是国内域名解析服务提供商，现被腾讯收购了，免费，拥戴代替GoDaddy的域名解析不稳定的问题。</li>
+<li><a href="https://pages.github.com/" target="_blank" rel="external">Github Page</a> &amp; <a href="https://hexo.io/zh-cn/index.html" target="_blank" rel="external">Hexo</a> 完成博客的初步搭建。</li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;这里是对我建立博客以来，所做的研究与尝试的总结。&lt;br&gt;为方便编辑和查看最新进展，更新以倒序方式呈现。&lt;/p&gt;
+&lt;h3 id=&quot;07-06-炫酷背景、动态css文件&quot;&gt;&lt;a href=&quot;#07-06-炫酷背景、动态css文件&quot; class=&quot;headerlink&quot; titl
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>代码块测试</title>

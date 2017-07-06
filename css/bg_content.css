@@ -187,7 +187,9 @@ code.has-numbering {
     content: ' ';
     border-radius: 50%;
     background: #bbb;
+    content:'☁︎';
 }
+
 
 .article-content ol, .article-content ul{
     font-size: 12.8px;
@@ -196,6 +198,8 @@ code.has-numbering {
 
 .article-content ul li{
     padding-left: 0px;
+    list-style: inside; //解决ul li下没有前面的小圆点的
+/*    content:'☁︎';*/
 }
 
 ul{
@@ -205,4 +209,7 @@ ul{
 /*添加行号 2017年07月06日14:16:27*/
 
 
-
+a[rel="external"]:after {
+    font-family: 'nova' !important;
+  /*  content: "\e907";*/
+}

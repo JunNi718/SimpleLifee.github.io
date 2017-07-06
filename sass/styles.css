@@ -704,9 +704,9 @@ a {
 ul {
   line-height: 1.8em;
   padding: 0;
-  list-style: none; }
+  list-style: inside; }
   ul li {
-    list-style: none; }
+    list-style: inside; }
 
 .text-center {
   text-align: center; }
