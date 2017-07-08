@@ -45,16 +45,16 @@ index_with_subtitle: false
 # When running the site in a subdirectory (e.g. domain.tld/blog), remove the leading slash (/archives -> archives)
 menu:      #菜单路径设置 如果hexo在二级目录放置要去掉/
   home: /
-  computer: /conputer
+  computer: /computer
   thinking: /thinking
   daily: /daily
-  world: /world
-  #categories: /categories
-  #about: /about
   archives: /archives
   tags: /tags
+  categories: /categories
+  blog: /blog
   #sitemap: /sitemap.xml
   #commonweal: /404.html
+  #about: /about
 
 # Enable/Disable menu icons.
 # Icon Mapping:
