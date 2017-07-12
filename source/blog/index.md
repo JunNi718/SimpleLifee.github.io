@@ -1,8 +1,6 @@
 ---
 title: 个人博客站点建设历程
-date: 2017-07-06 18:04:59
-tags:
-
+date: 2017-05-01 18:51:25
 ---
 
 
@@ -13,6 +11,11 @@ tags:
 
 
 
+
+### 07-08 修改导航栏顺序和文字描述
+
+- [【G】](https://github.com/SmartNJ/SimpleLifee.github.io/commit/b1e5bf26917fa295cd3059a3fca9722f046fabc8)  修改了导航栏中的文字描述和顺序。
+- 修复了原来 404 页面点击回到主页不正确的问题。
 
 ### 07-07 Next主题没有添加到git的问题
 
@@ -32,20 +35,14 @@ tags:
 
 
 
-
-
 ### 07-05 高亮代码块
 
 - 取消了 hexo 默认的代码高亮，使用 [highlightjs ](https://highlightjs.org/)，[参考](http://www.ieclipse.cn/2016/07/18/Web/Hexo-dev-highlight/)
-
-
 
 ### 07-04 fexo主题
 
 - [【G】 ](https://github.com/SmartNJ/SimpleLifee.github.io/commit/044b788feb67b30170278375d1356de9e6c6d95d)主题从 [Next](http://theme-next.iissnan.com/) 换成 [fexo](https://github.com/forsigner/fexo) 。
 - [【G】 ](https://github.com/SmartNJ/SimpleLifee.github.io/commit/f3bcddef8d6d09f320ed1f16712cd13499f2b4cf)解决无序列表不显示前面小黑圈的问题
-
-
 
 ### 07-03 七牛图床
 
@@ -65,14 +62,10 @@ $ npm uninstall hexo hexo-cli hexo-server hexo-generator-index hexo-generator-ar
 
 
 
-
-
 ### 05-01 添加CNAME
 
 - 在博客的根目录中添加 [CNAME](http://baike.baidu.com/item/CNAME%E8%AE%B0%E5%BD%95) 别名记录。
 - 理解 [TLL](http://baike.baidu.com/item/TTL/130248) 值 ，[域名解析](http://baike.baidu.com/item/%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90)，[A记录](http://baike.baidu.com/item/A%E8%AE%B0%E5%BD%95)。
-
-
 
 
 
@@ -85,8 +78,6 @@ $ npm uninstall hexo hexo-cli hexo-server hexo-generator-index hexo-generator-ar
 - 域名注册 [GoDaddy](https://sg.godaddy.com/)，域名服务商，支持支付宝结算。
 - 域名解析 [DNSPod](https://www.dnspod.cn/)，是国内域名解析服务提供商，现被腾讯收购了，免费，拥戴代替GoDaddy的域名解析不稳定的问题。
 - [Github Page](https://pages.github.com/) & [Hexo](https://hexo.io/zh-cn/index.html) 完成博客的初步搭建。
-
-
 
 
 
