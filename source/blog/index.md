@@ -10,6 +10,11 @@ date: 2017-05-01 18:51:25
 
 
 
+### 07-12 修复了.gitignore 中的错误
+
+- [【G】](https://github.com/SmartNJ/SimpleLifee.github.io/commit/1a3c1af3dcce543aa5781c33caa1dc5c06348bd9) 原本是为了将根目录中不需要上传到 github 上的文件夹过滤掉，`css/` 这样的写法会递归遍历所有名为 `css` 的文件夹，将其过滤。正确的写法应该是 `/css/`。
+- [【G】]() 新增 `h1`、`h2`、`h3` 的标题样式。
+
 
 
 ### 07-08 修改导航栏顺序和文字描述
