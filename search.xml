@@ -3,6 +3,150 @@
   
     
     <entry>
+      <title><![CDATA[各大数据库对应的jar、驱动类名和URL格式]]></title>
+      <url>/2017/07/13/%E5%90%84%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AF%B9%E5%BA%94%E7%9A%84jar%E3%80%81%E9%A9%B1%E5%8A%A8%E7%B1%BB%E5%90%8D%E5%92%8CURL%E6%A0%BC%E5%BC%8F/</url>
+      <content type="html"><![CDATA[<h2 id="各种数据库对应的jar包"><a href="#各种数据库对应的jar包" class="headerlink" title="各种数据库对应的jar包"></a><strong>各种数据库对应的jar包</strong></h2><table>
+<thead>
+<tr>
+<th><strong>数据库类型<em>**</em></strong></th>
+<th><strong>对应的**</strong>Jar<strong><strong>文件**</strong></strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Oracle 8i</td>
+<td>classes12.zip 或 ojdbc14.jar</td>
+</tr>
+<tr>
+<td>Sybase</td>
+<td>jconn2.jar 或 jconn3.jar</td>
+</tr>
+<tr>
+<td>Mysql</td>
+<td>mysql-connector-java-3.1.1-alpha-bin.jar 或mysql-connector-java-5.0.2-beta-bin.jar</td>
+</tr>
+<tr>
+<td>SQLServer 2000</td>
+<td>msbase.jar、msutil.jar、mssqlserver.jar</td>
+</tr>
+<tr>
+<td>SQLServer 2005</td>
+<td>sqljdbc.jar</td>
+</tr>
+<tr>
+<td>SQLServer 7.0</td>
+<td>jtds-1.2.2.jar</td>
+</tr>
+<tr>
+<td>Informix</td>
+<td>ifxjdbc.jar</td>
+</tr>
+<tr>
+<td>DB2</td>
+<td>db2jcc.jar、db2jcc_license_cu.jar</td>
+</tr>
+</tbody>
+</table>
+<h2 id="各种数据库对应的驱动类名和URL格式"><a href="#各种数据库对应的驱动类名和URL格式" class="headerlink" title="各种数据库对应的驱动类名和URL格式"></a><strong>各种数据库对应的驱动类名和URL格式</strong></h2><p>下面是对各种数据库的驱动类名和URL格式的汇总。如表3所示。其中hostip代表ip地址，dbname代表数据库名。</p>
+<table>
+<thead>
+<tr>
+<th><strong>数据库<em>**</em></strong></th>
+<th><strong>驱动类名<em>**</em></strong></th>
+<th><strong>URL**</strong>格式<strong>**</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Oracle</td>
+<td>oracle.jdbc.driver.OracleDriver</td>
+<td>jdbc:oracle:thin:@hostip:1521:dbname</td>
+</tr>
+<tr>
+<td>Sybase</td>
+<td>com.sybase.jdbc2.jdbc.SybDriver</td>
+<td>jdbc:sybase:Tds:hostip:4100/dbname</td>
+</tr>
+<tr>
+<td>Mysql</td>
+<td>com.mysql.jdbc.Driver</td>
+<td>jdbc:mysql://hostip:3306/dbname?useUnicode=true&amp;characterEncoding=GBK</td>
+</tr>
+<tr>
+<td>SQLServer 2000</td>
+<td>com.microsoft.jdbc.sqlserver.SQLServerDriver</td>
+<td>jdbc:microsoft:sqlserver://hostip:1433;DatabaseName=dbname</td>
+</tr>
+<tr>
+<td>SQLServer 2005</td>
+<td>com.microsoft.sqlserver.jdbc.SQLServerDriver</td>
+<td>jdbc:sqlserver://hostip:1433;DatabaseName=dbname</td>
+</tr>
+<tr>
+<td>SQLServer 7.0</td>
+<td>net.sourceforge.jtds.jdbc.Driver</td>
+<td>jdbc:jtds:sqlserver://hostip:1433/dbname</td>
+</tr>
+<tr>
+<td>DB2</td>
+<td>com.ibm.db2.jcc.DB2Driver</td>
+<td>jdbc:db2://hostip:50000/dbname</td>
+</tr>
+<tr>
+<td>Informix</td>
+<td>com.informix.jdbc.IfxDriver</td>
+<td>jdbc:informix-sqli://hostip:port/dbname:informixserver=<dbservername></dbservername></td>
+</tr>
+</tbody>
+</table>
+]]></content>
+      
+        
+        <tags>
+            
+            <tag> Database </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[JSP学习笔记（1）-JSP简介]]></title>
+      <url>/2017/07/12/JSP%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%881%EF%BC%89-JSP%E7%AE%80%E4%BB%8B/</url>
+      <content type="html"><![CDATA[<h2 id="1-什么是JSP？"><a href="#1-什么是JSP？" class="headerlink" title="1.什么是JSP？"></a>1.什么是JSP？</h2><p>JSP是Java server page的缩写，有sun公司倡导，许多公司参与，于1999年推出的一种web服务设计标准。<br>JSP基于Java Servlet以及整个java体系的Web开发技术。<br>Java servlet 就是编写在服务器端创建对象的java类，习惯上称为servlet类，servlet类的对象习惯上称为一个servlet。<br>那么二者的关系是什么呢？<br>Java Servlet是java语言的一部分，而jsp是基于java servlet的，jsp具备了几乎所有java servlet的好处，当客户请求一个jsp页面时，tomcat服务器自动生成java文件、编译java文件，并用编译得到的字节码文件在服务器端创建一个servlet。<br>Java servlet是java的一部分，jsp是java servlet一个成功的应用，但是jsp并不是java servlet的一个子集，jsp可以配合javabean有效分离页面视图和数据存储，也可以是jsp+javabean+servlet创建web应用。</p>
+<h2 id="2-JSP的运行原理？"><a href="#2-JSP的运行原理？" class="headerlink" title="2.JSP的运行原理？"></a>2.JSP的运行原理？</h2><p>当服务器上的一个JSP页面第一次被请求执行时，服务器上的JSP引擎首先将JSP页面文件转换成一个java文件，并编译这个Java文件生成字节码文件，然后执行字节码文件响应客户的请求。当这个页面再次被请求执行时，JSP引擎将直接执行字节码文件来响应客户。<br>字节码文件的主要工作：<br>（1）处理JSP标记，并将有关的处理结果发送到客户的浏览器<br>（2）把JSP页面中的HTML标记符号交给客户浏览器<br>（3）执行&lt;%%&gt;之间的java代码，并返回结果给客户浏览器<br>（4）多用户访问的时候，Tomcat给每个客户一个线程，通过执行常驻内存的字节码文件响应客户的请求</p>
+<h2 id="3-JSP运行环境"><a href="#3-JSP运行环境" class="headerlink" title="3.JSP运行环境"></a>3.JSP运行环境</h2><p>Tomcat环境配置</p>
+<p>JDK必备，注意设置Java环境变量<br>Tomcat 安装完成浏览器输入：localhost:8080或者127.0.0.1:8080测试是否安装成功<br>Tomact 配置文件 ../conf/server.xml<br>端口配置：</p>
+<p><connector port="8080" protocol="HTTP/1.1" connectiontimeout="20000" redirectport="8443"></connector></p>
+<h2 id="4-Tomcat的Web服务目录"><a href="#4-Tomcat的Web服务目录" class="headerlink" title="4.Tomcat的Web服务目录"></a>4.Tomcat的Web服务目录</h2><p>目录：../webapps/  Root目录为根目录，localhost:8080默认访问root目录下的index.jsp页面<br>新建Web服务目录</p>
+<p>…</p>
+<p><context path="pinnsvin" docbase="D:\workplace\Tomcat" debug="0" reloadable="true"><br><br>localhost:8080/pinnsvin 就可以访问到”D:\workplace\Tomcat”目录了</context></p>
+<p>项目目录：默认在tomcat目录下webapps目录下，可以在此目录下建立项目目录，访问：“localhost:8080/项目目录/文件.jsp”。如果，项目下存在index.jsp可以使用”localhost:8080/项目目录“访问。</p>
+<h2 id="5-设置Tomcat虚拟目录"><a href="#5-设置Tomcat虚拟目录" class="headerlink" title="5.设置Tomcat虚拟目录"></a>5.设置Tomcat虚拟目录</h2><p>就是这种效果</p>
+<p> 要如何实现呢？</p>
+<p>在tomcat目录下conf/server.xml中配置</p>
+<pre><code>  &lt;Context path=&quot;cm&quot; docBase=&quot;E:\CM&quot; debug=&quot;0&quot; reloadable=&quot;true&quot; crossContext=&quot;true&quot;/&gt;
+</code></pre><p>修改conf/web.xml</p>
+<pre><code>    &lt;param-value&gt;false&lt;/param-value&gt;中false改为true
+    &lt;servlet&gt;
+        &lt;servlet-name&gt;default&lt;/servlet-name&gt;
+        &lt;servlet-class&gt;org.apache.catalina.servlets.DefaultServlet&lt;/servlet-class&gt;
+        &lt;init-param&gt;
+            &lt;param-name&gt;debug&lt;/param-name&gt;
+            &lt;param-value&gt;0&lt;/param-value&gt;
+        &lt;/init-param&gt;
+        &lt;init-param&gt;
+            &lt;param-name&gt;listings&lt;/param-name&gt;
+            &lt;param-value&gt;true&lt;/param-value&gt;
+        &lt;/init-param&gt;
+        &lt;load-on-startup&gt;1&lt;/load-on-startup&gt;
+    &lt;/servlet&gt;
+</code></pre>]]></content>
+      
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[代码块测试]]></title>
       <url>/2017/07/04/%E4%BB%A3%E7%A0%81%E5%9D%97%E6%B5%8B%E8%AF%95/</url>
       <content type="html"><![CDATA[<pre><code class="java">public void postRunningActDate(String tag, int projectId, int studentId, int distance, long costTime, long targetTime,long startTime, int stepCount, ResponseCallback callback) {
