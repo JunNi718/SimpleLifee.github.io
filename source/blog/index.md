@@ -10,6 +10,12 @@ date: 2017-05-01 18:51:25
 
 
 
+### 07-13 修复了索引页超链接的错误样式
+
+- [【G】](https://github.com/SmartNJ/SimpleLifee.github.io/commit/283f89c6e3d019e4309369499a2b599fe598f485) 修复了之前超链接的 `css` 样式，没有排除索引页面的标题超链接的问题。
+
+
+
 ### 07-12 修复了.gitignore 中的错误
 
 - [【G】](https://github.com/SmartNJ/SimpleLifee.github.io/commit/1a3c1af3dcce543aa5781c33caa1dc5c06348bd9) 原本是为了将根目录中不需要上传到 github 上的文件夹过滤掉，`css/` 这样的写法会递归遍历所有名为 `css` 的文件夹，将其过滤。正确的写法应该是 `/css/`。

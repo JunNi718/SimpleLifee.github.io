@@ -2,7 +2,7 @@
 title: Android消息处理机制之三：Handler中sendMessage源代码剖析
 date: 2017-06-14 10:35:30
 tags: Android
-
+categories: Android
 ---
 
 

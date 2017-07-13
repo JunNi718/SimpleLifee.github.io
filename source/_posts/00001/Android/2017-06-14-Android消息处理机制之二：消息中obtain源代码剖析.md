@@ -2,6 +2,7 @@
 title: Android消息处理机制之二：消息中obtain源代码剖析
 date: 2017-06-14 10:36:40
 tags: Android
+categories: Android
 ---
 
 

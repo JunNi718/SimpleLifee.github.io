@@ -60,15 +60,16 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: normal;
 }
 
-/*hover时状态改变*/
-#posts a:hover:not(.post-title-link){
+/*文章内部的超链接*/
+.post-body a:hover:not(.post-title-link){
       background-color: #444;
       border: none;
       color: #fff;
       text-decoration: none;
+      z-index: 2;
 }
 
-#posts a:not(.post-title-link) {
+.post-body a:not(.post-title-link) {
   padding: 0 2px;
   border-bottom: 1px solid #333;
   -webkit-transition: all 0.2s linear;
@@ -76,5 +77,27 @@ h1, h2, h3, h4, h5, h6 {
   -ms-transition: all 0.2s linear;
   -o-transition: all 0.2s linear;
   transition: all 0.2s linear;
+}
+
+/*图片块*/
+.brick-item-active {
+    -webkit-box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+    -webkit-transform: translate3d(0, -2px, 0);
+    transform: translate3d(0, -5px, 0);
+}
+
+
+.brick-item {
+    margin-left: 14px;
+    margin-bottom: 14px;
+    background: #fff;
+    -webkit-transition: all .2s linear; 
+    transition: all .2s linear; 
+}
+
+//引用
+blockquote {
+    background: #f1f1f3;
 }
 
