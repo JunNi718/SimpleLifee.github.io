@@ -61,14 +61,14 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /*hoverʱ״̬�ı�*/
-#posts a:hover{
+#posts a:hover:not(.post-title-link){
       background-color: #444;
       border: none;
       color: #fff;
       text-decoration: none;
 }
 
-#posts a {
+#posts a:not(.post-title-link) {
   padding: 0 2px;
   border-bottom: 1px solid #333;
   -webkit-transition: all 0.2s linear;

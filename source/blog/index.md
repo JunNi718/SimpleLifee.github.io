@@ -14,6 +14,7 @@ date: 2017-05-01 18:51:25
 
 - [【G】](https://github.com/SmartNJ/SimpleLifee.github.io/commit/1a3c1af3dcce543aa5781c33caa1dc5c06348bd9) 原本是为了将根目录中不需要上传到 github 上的文件夹过滤掉，`css/` 这样的写法会递归遍历所有名为 `css` 的文件夹，将其过滤。正确的写法应该是 `/css/`。
 - [【G】](https://github.com/SmartNJ/SimpleLifee.github.io/commit/e55ec39cdbd2adb97fff3a5472c4ccdb03bea48e) 新增 `h1`、`h2`、`h3` 的标题样式。
+- [【G】](https://github.com/SmartNJ/SimpleLifee.github.io/commit/9feb9ecddcba53b71042ad37add08788007dc014) 新增超链接悬停时的渐变效果
 
 
 
