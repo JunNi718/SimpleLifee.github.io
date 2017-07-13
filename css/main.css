@@ -1809,7 +1809,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #75ffff;
+  background: #ff4e1b;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -3044,13 +3044,13 @@ h6 {
   font-size: 100%;
   font-weight: normal;
 }
-#posts a:hover {
+#posts a:hover:not(.post-title-link) {
   background-color: #444;
   border: none;
   color: #fff;
   text-decoration: none;
 }
-#posts a {
+#posts a:not(.post-title-link) {
   padding: 0 2px;
   border-bottom: 1px solid #333;
   -webkit-transition: all 0.2s linear;
