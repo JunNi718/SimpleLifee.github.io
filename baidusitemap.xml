@@ -4,8 +4,127 @@
 
     
   <url>
-    <loc>http://nijun.me/2017/07/13/Mysql%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/</loc>
-    <lastmod>2017-07-13T08:12:17.000Z</lastmod>
+    <loc>http://nijun.me/2017/07/14/%E4%BB%8E%E5%A4%B4%E5%BC%80%E5%A7%8B%E4%B9%8Bweb%E6%A1%86%E6%9E%B6%E5%9F%BA%E7%A1%80/</loc>
+    <lastmod>2017-07-14T07:10:15.000Z</lastmod>
+    <data>
+        <display>
+        <title>从头开始之web框架基础</title>
+        <pubTime>2017-07-14T06:56:18.000Z</pubTime>
+        
+        <tag>JSP</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://nijun.me/2017/06/08/00001-Android-2017-06-08-Activity%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E5%92%8C%E5%90%AF%E5%8A%A8%E6%A8%A1%E5%BC%8F/</loc>
+    <lastmod>2017-07-13T15:26:48.000Z</lastmod>
+    <data>
+        <display>
+        <title>Activity的生命周期和启动模式</title>
+        <pubTime>2017-06-07T16:05:40.000Z</pubTime>
+        
+        <tag>Android</tag>
+         
+         
+           
+             
+              <breadCrumb title="Android" url="http://nijun.me/categories/Android/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://nijun.me/2017/06/14/00001-Android-2017-06-14-Android%E6%B6%88%E6%81%AF%E5%A4%84%E7%90%86%E6%9C%BA%E5%88%B6%E4%B9%8B%E4%BA%8C%EF%BC%9A%E6%B6%88%E6%81%AF%E4%B8%ADobtain%E6%BA%90%E4%BB%A3%E7%A0%81%E5%89%96%E6%9E%90/</loc>
+    <lastmod>2017-07-13T15:24:53.000Z</lastmod>
+    <data>
+        <display>
+        <title>Android消息处理机制之二：消息中obtain源代码剖析</title>
+        <pubTime>2017-06-14T02:36:40.000Z</pubTime>
+        
+        <tag>Android</tag>
+         
+         
+           
+             
+              <breadCrumb title="Android" url="http://nijun.me/categories/Android/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://nijun.me/2017/06/14/00001-Android-2017-06-14-Android%E6%B6%88%E6%81%AF%E5%A4%84%E7%90%86%E6%9C%BA%E5%88%B6%E4%B9%8B%E4%B8%89%EF%BC%9AHandler%E4%B8%ADsendMessage%E6%BA%90%E4%BB%A3%E7%A0%81%E5%89%96%E6%9E%90/</loc>
+    <lastmod>2017-07-13T15:24:39.000Z</lastmod>
+    <data>
+        <display>
+        <title>Android消息处理机制之三：Handler中sendMessage源代码剖析</title>
+        <pubTime>2017-06-14T02:35:30.000Z</pubTime>
+        
+        <tag>Android</tag>
+         
+         
+           
+             
+              <breadCrumb title="Android" url="http://nijun.me/categories/Android/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://nijun.me/2017/06/14/00001-Android-2017-06-14-Android%E5%BC%82%E6%AD%A5%E6%B6%88%E6%81%AF%E5%A4%84%E7%90%86%E6%9C%BA%E5%88%B6%EF%BC%88%E4%B8%80%EF%BC%89/</loc>
+    <lastmod>2017-07-13T15:24:02.000Z</lastmod>
+    <data>
+        <display>
+        <title>Android异步消息处理机制（一）</title>
+        <pubTime>2017-06-14T02:37:55.000Z</pubTime>
+        
+        <tag>Android</tag>
+         
+         
+           
+             
+              <breadCrumb title="Android" url="http://nijun.me/categories/Android/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://nijun.me/2017/05/06/00001-Blog-2017-05-05-%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E5%88%B0%E4%BC%98%E5%8C%96/</loc>
+    <lastmod>2017-07-13T15:23:30.000Z</lastmod>
+    <data>
+        <display>
+        <title>自己动手搭建个人博客到优化</title>
+        <pubTime>2017-05-06T14:07:56.000Z</pubTime>
+        
+        <tag>技术</tag>
+         
+         
+           
+             
+              <breadCrumb title="技术" url="http://nijun.me/categories/%E6%8A%80%E6%9C%AF/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+    
+    
+  <url>
+    <loc>http://nijun.me/2017/07/13/00001-Database-2017-07-13-Mysql%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/</loc>
+    <lastmod>2017-07-13T15:07:51.000Z</lastmod>
     <data>
         <display>
         <title>Mysql数据类型</title>
@@ -21,7 +140,108 @@
 
     
   <url>
-    <loc>http://nijun.me/2017/07/13/%E5%90%84%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AF%B9%E5%BA%94%E7%9A%84jar%E3%80%81%E9%A9%B1%E5%8A%A8%E7%B1%BB%E5%90%8D%E5%92%8CURL%E6%A0%BC%E5%BC%8F/</loc>
+    <loc>http://nijun.me/2017/07/13/00001-Database-2017-07-13-%E7%AE%80%E5%8D%95%E5%8D%81%E6%AD%A5%E8%AE%A9%E4%BD%A0%E5%85%A8%E9%9D%A2%E7%90%86%E8%A7%A3SQL/</loc>
+    <lastmod>2017-07-13T15:06:28.000Z</lastmod>
+    <data>
+        <display>
+        <title>简单十步让你全面理解SQL</title>
+        <pubTime>2017-07-13T11:59:05.000Z</pubTime>
+        
+        <tag>Database</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://nijun.me/2017/07/13/1000%E8%A1%8CMysql%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</loc>
+    <lastmod>2017-07-13T15:05:07.000Z</lastmod>
+    <data>
+        <display>
+        <title>1000行Mysql学习笔记</title>
+        <pubTime>2017-07-13T14:57:33.000Z</pubTime>
+        
+        <tag>Database</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://nijun.me/2017/07/13/00001-Database-2017-07-13-20%E4%B8%AA%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1%E7%9A%84%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/</loc>
+    <lastmod>2017-07-13T15:04:24.000Z</lastmod>
+    <data>
+        <display>
+        <title>20个数据库设计的最佳实践</title>
+        <pubTime>2017-07-13T12:18:59.000Z</pubTime>
+        
+        <tag>Database</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://nijun.me/2017/05/20/00001-maven-2017-05-20-maven/</loc>
+    <lastmod>2017-07-13T13:06:01.000Z</lastmod>
+    <data>
+        <display>
+        <title>maven学习总结</title>
+        <pubTime>2017-05-20T05:32:40.000Z</pubTime>
+        
+        <tag>maven</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://nijun.me/2017/05/14/00001-Git-2017-05-14-GitHub-%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF/</loc>
+    <lastmod>2017-07-13T12:39:56.000Z</lastmod>
+    <data>
+        <display>
+        <title>GitHub 学习之路</title>
+        <pubTime>2017-05-14T13:55:29.000Z</pubTime>
+        
+        <tag>git</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://nijun.me/2017/05/05/00001-Blog-2017-05-05-%E4%B8%80%E4%BA%9Bmac%E7%AB%AF%E5%A5%BD%E7%94%A8%E7%AB%AF%E6%8F%92%E4%BB%B6%E5%88%86%E4%BA%AB/</loc>
+    <lastmod>2017-07-13T12:38:19.000Z</lastmod>
+    <data>
+        <display>
+        <title>一些mac端好用端插件分享</title>
+        <pubTime>2017-05-05T05:28:27.000Z</pubTime>
+        
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+    
+  <url>
+    <loc>http://nijun.me/2017/07/13/00001-Database-2017-07-13-%E5%90%84%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AF%B9%E5%BA%94%E7%9A%84jar%E3%80%81%E9%A9%B1%E5%8A%A8%E7%B1%BB%E5%90%8D%E5%92%8CURL%E6%A0%BC%E5%BC%8F/</loc>
     <lastmod>2017-07-13T06:50:45.000Z</lastmod>
     <data>
         <display>
@@ -36,7 +256,6 @@
     </data>
     </url>
 
-    
     
   <url>
     <loc>http://nijun.me/2017/07/12/JSP%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%881%EF%BC%89-JSP%E7%AE%80%E4%BB%8B/</loc>
@@ -53,44 +272,7 @@
     </url>
 
     
-  <url>
-    <loc>http://nijun.me/2017/05/14/00001-Git-2017-05-14-GitHub-%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF/</loc>
-    <lastmod>2017-07-12T10:37:19.000Z</lastmod>
-    <data>
-        <display>
-        <title>GitHub 学习之路</title>
-        <pubTime>2017-05-14T13:55:29.000Z</pubTime>
-        
-        <tag>git</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
     
-    
-    
-  <url>
-    <loc>http://nijun.me/2017/05/05/00001-Blog-2017-05-05-%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E5%88%B0%E4%BC%98%E5%8C%96/</loc>
-    <lastmod>2017-07-04T08:05:56.000Z</lastmod>
-    <data>
-        <display>
-        <title>自己动手搭建个人博客到优化</title>
-        <pubTime>2017-05-05T14:07:56.000Z</pubTime>
-        
-        <tag>技术</tag>
-         
-         
-           
-             
-              <breadCrumb title="技术" url="http://nijun.me/categories/%E6%8A%80%E6%9C%AF/"/>
-          
-        </display>
-    </data>
-    </url>
-
     
   <url>
     <loc>http://nijun.me/2017/07/04/%E4%BB%A3%E7%A0%81%E5%9D%97%E6%B5%8B%E8%AF%95/</loc>
@@ -99,107 +281,6 @@
         <display>
         <title>代码块测试</title>
         <pubTime>2017-07-04T06:12:44.000Z</pubTime>
-        
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://nijun.me/2017/06/14/00001-Android-2017-06-14-Android%E6%B6%88%E6%81%AF%E5%A4%84%E7%90%86%E6%9C%BA%E5%88%B6%E4%B9%8B%E4%BA%8C%EF%BC%9A%E6%B6%88%E6%81%AF%E4%B8%ADobtain%E6%BA%90%E4%BB%A3%E7%A0%81%E5%89%96%E6%9E%90/</loc>
-    <lastmod>2017-07-04T05:27:03.000Z</lastmod>
-    <data>
-        <display>
-        <title>Android消息处理机制之二：消息中obtain源代码剖析</title>
-        <pubTime>2017-06-14T02:36:40.000Z</pubTime>
-        
-        <tag>Android</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://nijun.me/2017/06/14/00001-Android-2017-06-14-Android%E5%BC%82%E6%AD%A5%E6%B6%88%E6%81%AF%E5%A4%84%E7%90%86%E6%9C%BA%E5%88%B6%EF%BC%88%E4%B8%80%EF%BC%89/</loc>
-    <lastmod>2017-07-03T02:53:18.000Z</lastmod>
-    <data>
-        <display>
-        <title>Android异步消息处理机制（一）</title>
-        <pubTime>2017-06-14T02:37:55.000Z</pubTime>
-        
-        <tag>Android</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://nijun.me/2017/06/08/00001-Android-2017-06-08-Activity%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E5%92%8C%E5%90%AF%E5%8A%A8%E6%A8%A1%E5%BC%8F/</loc>
-    <lastmod>2017-07-03T02:23:21.000Z</lastmod>
-    <data>
-        <display>
-        <title>Activity的生命周期和启动模式</title>
-        <pubTime>2017-06-07T16:05:40.000Z</pubTime>
-        
-        <tag>Android</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://nijun.me/2017/06/14/00001-Android-2017-06-14-Android%E6%B6%88%E6%81%AF%E5%A4%84%E7%90%86%E6%9C%BA%E5%88%B6%E4%B9%8B%E4%B8%89%EF%BC%9AHandler%E4%B8%ADsendMessage%E6%BA%90%E4%BB%A3%E7%A0%81%E5%89%96%E6%9E%90/</loc>
-    <lastmod>2017-07-03T02:17:31.000Z</lastmod>
-    <data>
-        <display>
-        <title>Android消息处理机制之三：Handler中sendMessage源代码剖析</title>
-        <pubTime>2017-06-14T02:35:30.000Z</pubTime>
-        
-        <tag>Android</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://nijun.me/2017/05/20/00001-maven-2017-05-20-maven/</loc>
-    <lastmod>2017-06-16T01:15:12.000Z</lastmod>
-    <data>
-        <display>
-        <title>maven学习总结</title>
-        <pubTime>2017-05-20T05:32:40.000Z</pubTime>
-        
-        <tag>maven</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-    
-  <url>
-    <loc>http://nijun.me/2017/05/05/00001-Blog-2017-05-05-%E4%B8%80%E4%BA%9Bmac%E7%AB%AF%E5%A5%BD%E7%94%A8%E7%AB%AF%E6%8F%92%E4%BB%B6%E5%88%86%E4%BA%AB/</loc>
-    <lastmod>2017-05-13T23:56:13.000Z</lastmod>
-    <data>
-        <display>
-        <title>一些mac端好用端插件分享</title>
-        <pubTime>2017-05-05T05:28:27.000Z</pubTime>
         
          
            
