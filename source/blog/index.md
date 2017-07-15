@@ -10,9 +10,22 @@ date: 2017-05-01 18:51:25
 
 
 
+### 07-15 添加新文章
+
+- 新增 [[2017-07-15-Mac下配置环境变量不生效问题]](http://nijun.me/2017/07/15/Mac%E4%B8%8B%E9%85%8D%E7%BD%AE%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E4%B8%8D%E7%94%9F%E6%95%88%E9%97%AE%E9%A2%98/)
+
+### 07-14 新增新文章
+
+- 新增 [[从头开始之web框架基础](http://nijun.me/2017/07/14/%E4%BB%8E%E5%A4%B4%E5%BC%80%E5%A7%8B%E4%B9%8Bweb%E6%A1%86%E6%9E%B6%E5%9F%BA%E7%A1%80/)]
+- 新增 [[1000行Mysql学习笔记](http://nijun.me/2017/07/13/1000%E8%A1%8CMysql%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/)]（转）
+- 新增 [[20个数据库设计的最佳实践](http://nijun.me/2017/07/13/00001-Database-2017-07-13-20%E4%B8%AA%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1%E7%9A%84%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/)]（转）
+- 新增 [[简单十步让你全面理解SQL](http://nijun.me/2017/07/13/00001-Database-2017-07-13-%E7%AE%80%E5%8D%95%E5%8D%81%E6%AD%A5%E8%AE%A9%E4%BD%A0%E5%85%A8%E9%9D%A2%E7%90%86%E8%A7%A3SQL/)]（转）
+
 ### 07-13 修复了索引页超链接的错误样式
 
 - [【G】](https://github.com/SmartNJ/SimpleLifee.github.io/commit/283f89c6e3d019e4309369499a2b599fe598f485) 修复了之前超链接的 `css` 样式，没有排除索引页面的标题超链接的问题。
+- 新增 [[Mysql数据类型](http://nijun.me/2017/07/13/00001-Database-2017-07-13-Mysql%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/)]
+- 新增 [[各大数据库对应的jar、驱动类名和URL格式](http://nijun.me/2017/07/13/00001-Database-2017-07-13-%E5%90%84%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AF%B9%E5%BA%94%E7%9A%84jar%E3%80%81%E9%A9%B1%E5%8A%A8%E7%B1%BB%E5%90%8D%E5%92%8CURL%E6%A0%BC%E5%BC%8F/)] （转）
 
 
 
