@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://nijun.me/"/>
-  <updated>2017-07-15T15:06:33.000Z</updated>
+  <updated>2017-07-15T15:26:05.000Z</updated>
   <id>http://nijun.me/</id>
   
   <author>
@@ -20,12 +20,11 @@
     <link href="http://nijun.me/2017/07/15/Mac%E4%B8%8B%E9%85%8D%E7%BD%AE%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E4%B8%8D%E7%94%9F%E6%95%88%E9%97%AE%E9%A2%98/"/>
     <id>http://nijun.me/2017/07/15/Mac下配置环境变量不生效问题/</id>
     <published>2017-07-15T15:00:46.000Z</published>
-    <updated>2017-07-15T15:06:33.000Z</updated>
+    <updated>2017-07-15T15:26:05.000Z</updated>
     
     <content type="html"><![CDATA[<p>注意：Mac 下一般使用 bash 作为默认的 shell。</p>
 <hr>
-<h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>今天在捣鼓 MySQL 的时候，安装删除了好几个循环之后，发现打开 iTerm 之后输入 <code>mysql</code> 不起作用了，刚开始还以为是 MySQL 安装失败了，但是再一次安装成功后还是提示 <code>command not found: mysql</code> 。看到这句话第一时间我就想到了是不是环境变量没有配呢？但是一想不对啊，我之前也是用的好好的也没出现过这个问题啊。</p>
-<a id="more"></a>
+<h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>今天在捣鼓 MySQL 的时候，安装删除了好几个循环之后，发现打开 iTerm 之后输入 <code>mysql</code> 不起作用了，刚开始还以为是 MySQL 安装失败了，但是再一次安装成功后还是提示 <code>command not found: mysql</code> 。看到这句话第一时间我就想到了是不是环境变量没有配呢？但是一想不对啊，我之前也是用的好好的也没出现过这个问题啊。<a id="more"></a></p>
 <p>思路：我们知道 <strong><code>.bash_profile</code></strong> 中是可以设置环境变量的，所以就先从它入手，于是我就往其中添加了下面这句：</p>
 <pre><code>export PATH=$PATH:/usr/local/mysql/bin
 </code></pre><p>然后保存，输入命令 <strong><code>source ~/.bash_profile</code></strong> ，确实有效！</p>
@@ -116,7 +115,7 @@ export PATH=$PATH:&lt;PATH 1&gt;:&lt;PATH 2&gt;:&lt;PATH 3&gt;:......:&lt;PATH N
     
       &lt;p&gt;注意：Mac 下一般使用 bash 作为默认的 shell。&lt;/p&gt;
 &lt;hr&gt;
-&lt;h2 id=&quot;问题描述&quot;&gt;&lt;a href=&quot;#问题描述&quot; class=&quot;headerlink&quot; title=&quot;问题描述&quot;&gt;&lt;/a&gt;问题描述&lt;/h2&gt;&lt;p&gt;今天在捣鼓 MySQL 的时候，安装删除了好几个循环之后，发现打开 iTerm 之后输入 &lt;code&gt;mysql&lt;/code&gt; 不起作用了，刚开始还以为是 MySQL 安装失败了，但是再一次安装成功后还是提示 &lt;code&gt;command not found: mysql&lt;/code&gt; 。看到这句话第一时间我就想到了是不是环境变量没有配呢？但是一想不对啊，我之前也是用的好好的也没出现过这个问题啊。&lt;/p&gt;
+&lt;h2 id=&quot;问题描述&quot;&gt;&lt;a href=&quot;#问题描述&quot; class=&quot;headerlink&quot; title=&quot;问题描述&quot;&gt;&lt;/a&gt;问题描述&lt;/h2&gt;&lt;p&gt;今天在捣鼓 MySQL 的时候，安装删除了好几个循环之后，发现打开 iTerm 之后输入 &lt;code&gt;mysql&lt;/code&gt; 不起作用了，刚开始还以为是 MySQL 安装失败了，但是再一次安装成功后还是提示 &lt;code&gt;command not found: mysql&lt;/code&gt; 。看到这句话第一时间我就想到了是不是环境变量没有配呢？但是一想不对啊，我之前也是用的好好的也没出现过这个问题啊。
     
     </summary>
     
