@@ -3,6 +3,22 @@
   
     
     <entry>
+      <title><![CDATA[MySQL数据类型所对应的Java数据类型速查表]]></title>
+      <url>/2017/07/17/MySQL%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E6%89%80%E5%AF%B9%E5%BA%94%E7%9A%84Java%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E9%80%9F%E6%9F%A5%E8%A1%A8/</url>
+      <content type="html"><![CDATA[<p>✓ 摘自 <a href="https://dev.mysql.com/doc/connector-j/5.1/en/connector-j-reference-type-conversions.html" target="_blank" rel="external">官方文档</a>，方便日后查阅。</p>
+<p><img src="http://osoa5juml.bkt.clouddn.com//image/site/1500293797001.png" width="1163"></p>
+]]></content>
+      
+        
+        <tags>
+            
+            <tag> Database </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[Mac下配置环境变量不生效问题]]></title>
       <url>/2017/07/15/Mac%E4%B8%8B%E9%85%8D%E7%BD%AE%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E4%B8%8D%E7%94%9F%E6%95%88%E9%97%AE%E9%A2%98/</url>
       <content type="html"><![CDATA[<p>注意：Mac 下一般使用 bash 作为默认的 shell。</p>

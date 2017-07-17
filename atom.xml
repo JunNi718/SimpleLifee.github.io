@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://nijun.me/"/>
-  <updated>2017-07-15T15:26:05.000Z</updated>
+  <updated>2017-07-17T12:23:06.000Z</updated>
   <id>http://nijun.me/</id>
   
   <author>
@@ -14,6 +14,28 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>MySQL数据类型所对应的Java数据类型速查表</title>
+    <link href="http://nijun.me/2017/07/17/MySQL%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E6%89%80%E5%AF%B9%E5%BA%94%E7%9A%84Java%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E9%80%9F%E6%9F%A5%E8%A1%A8/"/>
+    <id>http://nijun.me/2017/07/17/MySQL数据类型所对应的Java数据类型速查表/</id>
+    <published>2017-07-17T12:17:50.000Z</published>
+    <updated>2017-07-17T12:23:06.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>✓ 摘自 <a href="https://dev.mysql.com/doc/connector-j/5.1/en/connector-j-reference-type-conversions.html" target="_blank" rel="external">官方文档</a>，方便日后查阅。</p>
+<p><img src="http://osoa5juml.bkt.clouddn.com//image/site/1500293797001.png" width="1163"></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;✓ 摘自 &lt;a href=&quot;https://dev.mysql.com/doc/connector-j/5.1/en/connector-j-reference-type-conversions.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;官方
+    
+    </summary>
+    
+    
+      <category term="Database" scheme="http://nijun.me/tags/Database/"/>
+    
+  </entry>
   
   <entry>
     <title>Mac下配置环境变量不生效问题</title>
