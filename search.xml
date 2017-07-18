@@ -20,7 +20,7 @@
     
     <entry>
       <title><![CDATA[Mac下配置环境变量不生效问题]]></title>
-      <url>/2017/07/15/Mac%E4%B8%8B%E9%85%8D%E7%BD%AE%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E4%B8%8D%E7%94%9F%E6%95%88%E9%97%AE%E9%A2%98/</url>
+      <url>/2017/07/15/MacEnvironmentVariable/</url>
       <content type="html"><![CDATA[<p>注意：Mac 下一般使用 bash 作为默认的 shell。</p>
 <hr>
 <h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>今天在捣鼓 MySQL 的时候，安装删除了好几个循环之后，发现打开 iTerm 之后输入 <code>mysql</code> 不起作用了，刚开始还以为是 MySQL 安装失败了，但是再一次安装成功后还是提示 <code>command not found: mysql</code> 。看到这句话第一时间我就想到了是不是环境变量没有配呢？但是一想不对啊，我之前也是用的好好的也没出现过这个问题啊。<a id="more"></a></p>
@@ -754,7 +754,7 @@ public class BaseAction extends HttpServlet {
     
     <entry>
       <title><![CDATA[1000行Mysql学习笔记]]></title>
-      <url>/2017/07/13/1000%E8%A1%8CMysql%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
+      <url>/2017/07/13/1000Rows_Notes/</url>
       <content type="html"><![CDATA[<h2 id="声明"><a href="#声明" class="headerlink" title="声明"></a>声明</h2><p>这篇是从 <a href="http://www.cnblogs.com/shockerli/" target="_blank" rel="external">shockerli</a> 博客园中转载而来 <a href="http://www.cnblogs.com/shockerli/p/1000-plus-line-mysql-notes.html" target="_blank" rel="external">1000行Mysql学习笔记</a>。</p>
 <p>满满的都是干货。感觉不错，先保存下，跟着自己敲一遍，再整理一篇自己的学习笔记。</p>
 <p>还有一篇自己写的 <a href="">《Mac下Mysql 5.7安装与配置》</a></p>
