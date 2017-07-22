@@ -4,11 +4,8 @@ date: 2017-07-12 18:55:24
 tags:
 ---
 
-
-
-<a href="#%E8%AE%BE%E7%BD%AETomcat%E8%99%9A%E6%8B%9F%E7%9B%AE%E5%BD%95">设置Tomcat虚拟目录</a>
-
-[1什么是JSP？](#什么是JSP)
+[jsp你好.](#jsp你好.)
+[jsp你好.](#jsp你好)
 [2什么是JSP？](#什么是jsp)
 
 <a href="#什么是jsp"> 什么是JSP</a>
@@ -27,6 +24,8 @@ Java servlet 就是编写在服务器端创建对象的java类，习惯上称为
 那么二者的关系是什么呢？
 Java Servlet是java语言的一部分，而jsp是基于java servlet的，jsp具备了几乎所有java servlet的好处，当客户请求一个jsp页面时，tomcat服务器自动生成java文件、编译java文件，并用编译得到的字节码文件在服务器端创建一个servlet。
 Java servlet是java的一部分，jsp是java servlet一个成功的应用，但是jsp并不是java servlet的一个子集，jsp可以配合javabean有效分离页面视图和数据存储，也可以是jsp+javabean+servlet创建web应用。
+
+## jsp你好.
 
 ## JSP的运行原理？
 
