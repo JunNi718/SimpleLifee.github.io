@@ -6,6 +6,7 @@ tags:
 [jsp你好.](#jsp你好。哈哈abc)
 [jsp你好.](#jsp你好.哈哈abc)
 [jsp你好.](#jsp你好哈哈abc)
+[jsp你好.](#jsp你好哈哈)
 [2什么是JSP？](#什么是jsp)
 
 <a href="#什么是jsp"> 什么是JSP</a>
@@ -26,7 +27,7 @@ Java Servlet是java语言的一部分，而jsp是基于java servlet的，jsp具�
 Java servlet是java的一部分，jsp是java servlet一个成功的应用，但是jsp并不是java servlet的一个子集，jsp可以配合javabean有效分离页面视图和数据存储，也可以是jsp+javabean+servlet创建web应用。
 
 ## jsp你好.哈哈abc
-## jsp你好。哈哈abc
+## jsp你好。哈哈
 ## JSP的运行原理？
 
 当服务器上的一个JSP页面第一次被请求执行时，服务器上的JSP引擎首先将JSP页面文件转换成一个java文件，并编译这个Java文件生成字节码文件，然后执行字节码文件响应客户的请求。当这个页面再次被请求执行时，JSP引擎将直接执行字节码文件来响应客户。
