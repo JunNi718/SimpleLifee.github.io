@@ -7,7 +7,7 @@ tags:
 
 https://github.com/stormzhang/android-interview-questions-cn#%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95
 
-<a href="#设置Tomcat虚拟目录">
+<a href="#设置Tomcat虚拟目录">设置Tomcat虚拟目录</a>
 
 [1.什么是JSP？](#1.什么是JSP？)
 
