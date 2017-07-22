@@ -8,8 +8,8 @@ tags:
 
 <a href="#%E8%AE%BE%E7%BD%AETomcat%E8%99%9A%E6%8B%9F%E7%9B%AE%E5%BD%95">设置Tomcat虚拟目录</a>
 
-[1什么是JSP？](#什么是JSP？)
-[2什么是JSP？](#什么是JSP)
+[1什么是JSP？](#什么是JSP)
+[2什么是JSP？](#什么是jsp)
 
 <a href="#什么是jsp"> 什么是JSP</a>
 
