@@ -180,6 +180,7 @@ export PATH=$PATH:&lt;PATH 1&gt;:&lt;PATH 2&gt;:&lt;PATH 3&gt;:......:&lt;PATH N
       <content type="html"><![CDATA[<p> <a href="">『前往』</a><a href="">「前往」</a></p>
 <pre><code class="java">public void postRunningActDate(String tag, int projectId, int studentId, int distance, long costTime, long targetTime,long startTime, int stepCount, ResponseCallback callback) {
         String url = API_SCHEME + INIT_PUSH;
+        this.map = 1;
         HashMap params = new HashMap();
         params.put(&quot;projectId&quot;, projectId);
         params.put(&quot;studentId&quot;, studentId);
@@ -192,6 +193,20 @@ export PATH=$PATH:&lt;PATH 1&gt;:&lt;PATH 2&gt;:&lt;PATH 3&gt;:......:&lt;PATH N
         NetworkInterface.instance().connected(HttpMethod.POST, url, tag, params, CacheMode.DEFAULT, false, callback);
 }
 </code></pre>
+<pre><code>public void postRunningActDate(String tag, int projectId, int studentId, int distance, long costTime, long targetTime,long startTime, int stepCount, ResponseCallback callback) {
+        String url = API_SCHEME + INIT_PUSH;
+        this.map = 1;
+        HashMap params = new HashMap();
+        params.put(&quot;projectId&quot;, projectId);
+        params.put(&quot;studentId&quot;, studentId);
+        params.put(&quot;distance&quot;, distance);
+        params.put(&quot;costTime&quot;, costTime);
+        params.put(&quot;targetTime&quot;, targetTime);
+        params.put(&quot;startTime&quot;, startTime);
+        params.put(&quot;stepCount&quot;, stepCount);
+        Log.d(TAG, &quot;params: &quot; + params);
+        NetworkInterface.instance().connected(HttpMethod.POST, url, tag, params, CacheMode.DEFAULT, false, callback);
+}</code></pre>
 ]]></content>
       
         

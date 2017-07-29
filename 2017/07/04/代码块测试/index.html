@@ -81,7 +81,9 @@
 
 
 
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+  
+
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
 
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
@@ -110,7 +112,7 @@
 <meta property="og:url" content="http://nijun.me/2017/07/04/代码块测试/index.html">
 <meta property="og:site_name" content="SmartNi">
 <meta property="og:description" content="『前往』「前往」 public void postRunningActDate(String tag, int projectId, int studentId, int distance, long costTime, long targetTime,long startTime, int stepCount, ResponseCallback callback) {         Stri">
-<meta property="og:updated_time" content="2017-07-15T06:59:35.000Z">
+<meta property="og:updated_time" content="2017-07-29T14:04:26.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="代码块测试">
 <meta name="twitter:description" content="『前往』「前往」 public void postRunningActDate(String tag, int projectId, int studentId, int distance, long costTime, long targetTime,long startTime, int stepCount, ResponseCallback callback) {         Stri">
@@ -149,15 +151,46 @@
 
 <!-- 自定义代码块样式  2017年07月05日08:36:14-->
 
-<link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/monokai.min.css">
+<link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.6.0/styles/monokai.min.css">
+<script src="//cdn.bootcss.com/highlight.js/9.6.0/highlight.min.js"></script>
 
-<!-- <link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/monokai-sublime.min.css"> -->
-<script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
-
+<!-- <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/monokai.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>  -->
+<!-- railscasts   mono-blue  tomorrow  androidstudio  monokai-->
 <script>hljs.initHighlightingOnLoad();</script>
 
+<!-- <script>
+  var trim_indent = true;
+  var line_number = true;
+  // enable highlight
+  $('pre code').each(function(i, block) {
+    var texts = $(this).text().split('\n');
+     // trim indent
+     if (trim_indent){
+      var tab = texts[0].match(/^\s{0,}/);
+      if (tab) {
+        var arr = [];
+        texts.forEach(function(temp) {
+          arr.push(temp.replace(tab, ''));
+        });
+        $(this).text(arr.join('\n'));
+      }
+    }
+    // add line number
+    if (line_number) {
+      console.log("show line number in front-end");
+      var lines = texts.length - 1;
+      var $numbering = $('<ul/>').addClass('pre-numbering');
+      $(this).addClass('has-numbering').parent().append($numbering);
+      for (i = 1; i <= lines; i++) {
+        $numbering.append($('<li/>').text(i));
+      }
+    }
+    // hightlight
+    hljs.highlightBlock(block);
 
-<!-- railscasts   mono-blue  tomorrow  androidstudio  monokai-->
+</script> -->
+
 <!-- 自定义代码块样式 2017年07月05日08:36:17-->
 
      <title>代码块测试 | SmartNi</title>
@@ -447,7 +480,7 @@
                   <span class="post-meta-item-text">字数统计</span>
                 
                 <span title="字数统计">
-                  78
+                  158
                 </span>
               
 
@@ -484,6 +517,7 @@
         <p> <a href="">『前往』</a><a href="">「前往」</a></p>
 <pre><code class="java">public void postRunningActDate(String tag, int projectId, int studentId, int distance, long costTime, long targetTime,long startTime, int stepCount, ResponseCallback callback) {
         String url = API_SCHEME + INIT_PUSH;
+        this.map = 1;
         HashMap params = new HashMap();
         params.put(&quot;projectId&quot;, projectId);
         params.put(&quot;studentId&quot;, studentId);
@@ -496,6 +530,20 @@
         NetworkInterface.instance().connected(HttpMethod.POST, url, tag, params, CacheMode.DEFAULT, false, callback);
 }
 </code></pre>
+<pre><code>public void postRunningActDate(String tag, int projectId, int studentId, int distance, long costTime, long targetTime,long startTime, int stepCount, ResponseCallback callback) {
+        String url = API_SCHEME + INIT_PUSH;
+        this.map = 1;
+        HashMap params = new HashMap();
+        params.put(&quot;projectId&quot;, projectId);
+        params.put(&quot;studentId&quot;, studentId);
+        params.put(&quot;distance&quot;, distance);
+        params.put(&quot;costTime&quot;, costTime);
+        params.put(&quot;targetTime&quot;, targetTime);
+        params.put(&quot;startTime&quot;, startTime);
+        params.put(&quot;stepCount&quot;, stepCount);
+        Log.d(TAG, &quot;params: &quot; + params);
+        NetworkInterface.instance().connected(HttpMethod.POST, url, tag, params, CacheMode.DEFAULT, false, callback);
+}</code></pre>
 
       
     </div>

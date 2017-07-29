@@ -81,7 +81,9 @@
 
 
 
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+  
+
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
 
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
@@ -111,7 +113,7 @@
 <meta property="og:url" content="http://nijun.me/2017/06/14/Android-2017-06-14-Android异步消息处理机制（一）/index.html">
 <meta property="og:site_name" content="SmartNi">
 <meta property="og:description" content="两个问题： ​    1、在子线程中如何创建的Handler？需要先做什么？如何发送消息？ ​    2、Handler中发送的消息去哪啦？为什么handleMessage中又能得到这个Message？">
-<meta property="og:updated_time" content="2017-07-29T06:10:00.000Z">
+<meta property="og:updated_time" content="2017-07-29T11:19:14.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android 异步消息处理机制（一）">
 <meta name="twitter:description" content="两个问题： ​    1、在子线程中如何创建的Handler？需要先做什么？如何发送消息？ ​    2、Handler中发送的消息去哪啦？为什么handleMessage中又能得到这个Message？">
@@ -150,15 +152,46 @@
 
 <!-- 自定义代码块样式  2017年07月05日08:36:14-->
 
-<link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/monokai.min.css">
+<link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.6.0/styles/monokai.min.css">
+<script src="//cdn.bootcss.com/highlight.js/9.6.0/highlight.min.js"></script>
 
-<!-- <link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/monokai-sublime.min.css"> -->
-<script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
-
+<!-- <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/monokai.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>  -->
+<!-- railscasts   mono-blue  tomorrow  androidstudio  monokai-->
 <script>hljs.initHighlightingOnLoad();</script>
 
+<!-- <script>
+  var trim_indent = true;
+  var line_number = true;
+  // enable highlight
+  $('pre code').each(function(i, block) {
+    var texts = $(this).text().split('\n');
+     // trim indent
+     if (trim_indent){
+      var tab = texts[0].match(/^\s{0,}/);
+      if (tab) {
+        var arr = [];
+        texts.forEach(function(temp) {
+          arr.push(temp.replace(tab, ''));
+        });
+        $(this).text(arr.join('\n'));
+      }
+    }
+    // add line number
+    if (line_number) {
+      console.log("show line number in front-end");
+      var lines = texts.length - 1;
+      var $numbering = $('<ul/>').addClass('pre-numbering');
+      $(this).addClass('has-numbering').parent().append($numbering);
+      for (i = 1; i <= lines; i++) {
+        $numbering.append($('<li/>').text(i));
+      }
+    }
+    // hightlight
+    hljs.highlightBlock(block);
 
-<!-- railscasts   mono-blue  tomorrow  androidstudio  monokai-->
+</script> -->
+
 <!-- 自定义代码块样式 2017年07月05日08:36:17-->
 
      <title>Android 异步消息处理机制（一） | SmartNi</title>
