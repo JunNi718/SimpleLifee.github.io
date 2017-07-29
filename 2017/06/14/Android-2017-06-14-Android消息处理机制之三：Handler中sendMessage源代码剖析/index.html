@@ -2,10 +2,8 @@
 
 
 
-  
 
-
-<html class="theme-next mist use-motion" lang="zh-Hans">
+<html class="theme-next mist" lang="zh-Hans">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -75,7 +73,7 @@
   
     
     
-    <link href="//fonts.googleapis.com/css?family=Source Code Pro:300,300italic,400,400italic,700,700italic|Montserrat:300,300italic,400,400italic,700,700italic|Dancing Script:300,300italic,400,400italic,700,700italic|Droid Sans Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Arial:300,300italic,400,400italic,700,700italic|Montserrat:300,300italic,400,400italic,700,700italic|Dancing Script:300,300italic,400,400italic,700,700italic|monospace:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
   
 
 
@@ -109,13 +107,13 @@
 <meta name="description" content="Handler中sendMessage源代码剖析。">
 <meta name="keywords" content="Android">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Android消息处理机制之三：Handler中sendMessage源代码剖析">
-<meta property="og:url" content="http://nijun.me/2017/06/14/00001-Android-2017-06-14-Android消息处理机制之三：Handler中sendMessage源代码剖析/index.html">
+<meta property="og:title" content="Android 消息处理机制之三： Handler 中 sendMessage 源代码剖析">
+<meta property="og:url" content="http://nijun.me/2017/06/14/Android-2017-06-14-Android消息处理机制之三：Handler中sendMessage源代码剖析/index.html">
 <meta property="og:site_name" content="SmartNi">
 <meta property="og:description" content="Handler中sendMessage源代码剖析。">
-<meta property="og:updated_time" content="2017-07-13T15:24:39.000Z">
+<meta property="og:updated_time" content="2017-07-29T06:09:51.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Android消息处理机制之三：Handler中sendMessage源代码剖析">
+<meta name="twitter:title" content="Android 消息处理机制之三： Handler 中 sendMessage 源代码剖析">
 <meta name="twitter:description" content="Handler中sendMessage源代码剖析。">
 
 
@@ -127,7 +125,7 @@
     scheme: 'Mist',
     sidebar: {"position":"left","display":"post","offset":50,"offset_float":0,"b2t":true,"scrollpercent":true},
     fancybox: false,
-    motion: true,
+    motion: false,
     duoshuo: {
       userId: '0',
       author: '博主'
@@ -144,7 +142,7 @@
 
 
 
-  <link rel="canonical" href="http://nijun.me/2017/06/14/00001-Android-2017-06-14-Android消息处理机制之三：Handler中sendMessage源代码剖析/"/>
+  <link rel="canonical" href="http://nijun.me/2017/06/14/Android-2017-06-14-Android消息处理机制之三：Handler中sendMessage源代码剖析/"/>
 
 
 
@@ -152,14 +150,18 @@
 
 <!-- 自定义代码块样式  2017年07月05日08:36:14-->
 
-<link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/solarized-light.min.css">
+<link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/androidstudio.min.css">
+
+<!-- <link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/monokai-sublime.min.css"> -->
 <script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
 
 <script>hljs.initHighlightingOnLoad();</script>
 
+
+<!-- railscasts   mono-blue  tomorrow  androidstudio  monokai-->
 <!-- 自定义代码块样式 2017年07月05日08:36:17-->
 
-     <title>Android消息处理机制之三：Handler中sendMessage源代码剖析 | SmartNi</title>
+     <title>Android 消息处理机制之三： Handler 中 sendMessage 源代码剖析 | SmartNi</title>
      
   
 
@@ -356,7 +358,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://nijun.me/2017/06/14/00001-Android-2017-06-14-Android消息处理机制之三：Handler中sendMessage源代码剖析/">
+    <link itemprop="mainEntityOfPage" href="http://nijun.me/2017/06/14/Android-2017-06-14-Android消息处理机制之三：Handler中sendMessage源代码剖析/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="SmartNi">
@@ -377,7 +379,7 @@
             
             
               
-                Android消息处理机制之三：Handler中sendMessage源代码剖析
+                Android 消息处理机制之三： Handler 中 sendMessage 源代码剖析
               
             
           </h1>
@@ -433,9 +435,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/06/14/00001-Android-2017-06-14-Android消息处理机制之三：Handler中sendMessage源代码剖析/#comments" itemprop="discussionUrl">
+                <a href="/2017/06/14/Android-2017-06-14-Android消息处理机制之三：Handler中sendMessage源代码剖析/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/06/14/00001-Android-2017-06-14-Android消息处理机制之三：Handler中sendMessage源代码剖析/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2017/06/14/Android-2017-06-14-Android消息处理机制之三：Handler中sendMessage源代码剖析/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -443,7 +445,7 @@
 
           
           
-             <span id="/2017/06/14/00001-Android-2017-06-14-Android消息处理机制之三：Handler中sendMessage源代码剖析/" class="leancloud_visitors" data-flag-title="Android消息处理机制之三：Handler中sendMessage源代码剖析">
+             <span id="/2017/06/14/Android-2017-06-14-Android消息处理机制之三：Handler中sendMessage源代码剖析/" class="leancloud_visitors" data-flag-title="Android 消息处理机制之三： Handler 中 sendMessage 源代码剖析">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -605,8 +607,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/06/08/00001-Android-2017-06-08-Activity的生命周期和启动模式/" rel="next" title="Activity的生命周期和启动模式">
-                <i class="fa fa-chevron-left"></i> Activity的生命周期和启动模式
+              <a href="/2017/06/08/Android-2017-06-08-Activity的生命周期和启动模式/" rel="next" title="Activity 的生命周期和启动模式">
+                <i class="fa fa-chevron-left"></i> Activity 的生命周期和启动模式
               </a>
             
           </div>
@@ -615,8 +617,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/06/14/00001-Android-2017-06-14-Android消息处理机制之二：消息中obtain源代码剖析/" rel="prev" title="Android消息处理机制之二：消息中obtain源代码剖析">
-                Android消息处理机制之二：消息中obtain源代码剖析 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/06/14/Android-2017-06-14-Android消息处理机制之二：消息中obtain源代码剖析/" rel="prev" title="Android 消息处理机制之二：消息中 obtain 源代码剖析">
+                Android 消息处理机制之二：消息中 obtain 源代码剖析 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -714,7 +716,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-count">11</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -940,9 +942,9 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'http://nijun.me/2017/06/14/00001-Android-2017-06-14-Android消息处理机制之三：Handler中sendMessage源代码剖析/';
-          this.page.identifier = '2017/06/14/00001-Android-2017-06-14-Android消息处理机制之三：Handler中sendMessage源代码剖析/';
-          this.page.title = 'Android消息处理机制之三：Handler中sendMessage源代码剖析';
+          this.page.url = 'http://nijun.me/2017/06/14/Android-2017-06-14-Android消息处理机制之三：Handler中sendMessage源代码剖析/';
+          this.page.identifier = '2017/06/14/Android-2017-06-14-Android消息处理机制之三：Handler中sendMessage源代码剖析/';
+          this.page.title = 'Android 消息处理机制之三： Handler 中 sendMessage 源代码剖析';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://nimon.disqus.com/embed.js';

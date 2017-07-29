@@ -2,10 +2,8 @@
 
 
 
-  
 
-
-<html class="theme-next mist use-motion" lang="zh-Hans">
+<html class="theme-next mist" lang="zh-Hans">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -75,7 +73,7 @@
   
     
     
-    <link href="//fonts.googleapis.com/css?family=Source Code Pro:300,300italic,400,400italic,700,700italic|Montserrat:300,300italic,400,400italic,700,700italic|Dancing Script:300,300italic,400,400italic,700,700italic|Droid Sans Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Arial:300,300italic,400,400italic,700,700italic|Montserrat:300,300italic,400,400italic,700,700italic|Dancing Script:300,300italic,400,400italic,700,700italic|monospace:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
   
 
 
@@ -109,14 +107,14 @@
 <meta name="description" content="想学习Maven吗？">
 <meta name="keywords" content="maven">
 <meta property="og:type" content="article">
-<meta property="og:title" content="maven学习总结">
+<meta property="og:title" content="Maven 学习总结">
 <meta property="og:url" content="http://nijun.me/2017/05/20/00001-maven-2017-05-20-maven/index.html">
 <meta property="og:site_name" content="SmartNi">
 <meta property="og:description" content="想学习Maven吗？">
 <meta property="og:image" content="http://osoa5juml.bkt.clouddn.com//image/site/1499951126858.png">
-<meta property="og:updated_time" content="2017-07-13T13:06:01.000Z">
+<meta property="og:updated_time" content="2017-07-29T06:11:01.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="maven学习总结">
+<meta name="twitter:title" content="Maven 学习总结">
 <meta name="twitter:description" content="想学习Maven吗？">
 <meta name="twitter:image" content="http://osoa5juml.bkt.clouddn.com//image/site/1499951126858.png">
 
@@ -129,7 +127,7 @@
     scheme: 'Mist',
     sidebar: {"position":"left","display":"post","offset":50,"offset_float":0,"b2t":true,"scrollpercent":true},
     fancybox: false,
-    motion: true,
+    motion: false,
     duoshuo: {
       userId: '0',
       author: '博主'
@@ -154,14 +152,18 @@
 
 <!-- 自定义代码块样式  2017年07月05日08:36:14-->
 
-<link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/solarized-light.min.css">
+<link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/androidstudio.min.css">
+
+<!-- <link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/monokai-sublime.min.css"> -->
 <script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
 
 <script>hljs.initHighlightingOnLoad();</script>
 
+
+<!-- railscasts   mono-blue  tomorrow  androidstudio  monokai-->
 <!-- 自定义代码块样式 2017年07月05日08:36:17-->
 
-     <title>maven学习总结 | SmartNi</title>
+     <title>Maven 学习总结 | SmartNi</title>
      
   
 
@@ -379,7 +381,7 @@
             
             
               
-                maven学习总结
+                Maven 学习总结
               
             
           </h1>
@@ -423,7 +425,7 @@
 
           
           
-             <span id="/2017/05/20/00001-maven-2017-05-20-maven/" class="leancloud_visitors" data-flag-title="maven学习总结">
+             <span id="/2017/05/20/00001-maven-2017-05-20-maven/" class="leancloud_visitors" data-flag-title="Maven 学习总结">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -926,7 +928,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/05/14/00001-Git-2017-05-14-GitHub-学习之路/" rel="next" title="GitHub 学习之路">
+              <a href="/2017/05/14/00001-Git-2017-05-14-GitHub/" rel="next" title="GitHub 学习之路">
                 <i class="fa fa-chevron-left"></i> GitHub 学习之路
               </a>
             
@@ -936,8 +938,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/06/08/00001-Android-2017-06-08-Activity的生命周期和启动模式/" rel="prev" title="Activity的生命周期和启动模式">
-                Activity的生命周期和启动模式 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/06/08/Android-2017-06-08-Activity的生命周期和启动模式/" rel="prev" title="Activity 的生命周期和启动模式">
+                Activity 的生命周期和启动模式 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -1044,7 +1046,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-count">11</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -1288,7 +1290,7 @@
         var disqus_config = function () {
           this.page.url = 'http://nijun.me/2017/05/20/00001-maven-2017-05-20-maven/';
           this.page.identifier = '2017/05/20/00001-maven-2017-05-20-maven/';
-          this.page.title = 'maven学习总结';
+          this.page.title = 'Maven 学习总结';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://nimon.disqus.com/embed.js';

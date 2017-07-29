@@ -2,10 +2,8 @@
 
 
 
-  
 
-
-<html class="theme-next mist use-motion" lang="zh-Hans">
+<html class="theme-next mist" lang="zh-Hans">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -75,7 +73,7 @@
   
     
     
-    <link href="//fonts.googleapis.com/css?family=Source Code Pro:300,300italic,400,400italic,700,700italic|Montserrat:300,300italic,400,400italic,700,700italic|Dancing Script:300,300italic,400,400italic,700,700italic|Droid Sans Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Arial:300,300italic,400,400italic,700,700italic|Montserrat:300,300italic,400,400italic,700,700italic|Dancing Script:300,300italic,400,400italic,700,700italic|monospace:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
   
 
 
@@ -110,11 +108,11 @@
 <meta name="keywords" content="git">
 <meta property="og:type" content="article">
 <meta property="og:title" content="GitHub 学习之路">
-<meta property="og:url" content="http://nijun.me/2017/05/14/00001-Git-2017-05-14-GitHub-学习之路/index.html">
+<meta property="og:url" content="http://nijun.me/2017/05/14/00001-Git-2017-05-14-GitHub/index.html">
 <meta property="og:site_name" content="SmartNi">
 <meta property="og:description" content="自学 Git 的一些总结">
 <meta property="og:image" content="http://osoa5juml.bkt.clouddn.com/image/site/1499949527648.png">
-<meta property="og:updated_time" content="2017-07-13T12:39:56.000Z">
+<meta property="og:updated_time" content="2017-07-29T06:10:52.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="GitHub 学习之路">
 <meta name="twitter:description" content="自学 Git 的一些总结">
@@ -129,7 +127,7 @@
     scheme: 'Mist',
     sidebar: {"position":"left","display":"post","offset":50,"offset_float":0,"b2t":true,"scrollpercent":true},
     fancybox: false,
-    motion: true,
+    motion: false,
     duoshuo: {
       userId: '0',
       author: '博主'
@@ -146,7 +144,7 @@
 
 
 
-  <link rel="canonical" href="http://nijun.me/2017/05/14/00001-Git-2017-05-14-GitHub-学习之路/"/>
+  <link rel="canonical" href="http://nijun.me/2017/05/14/00001-Git-2017-05-14-GitHub/"/>
 
 
 
@@ -154,11 +152,15 @@
 
 <!-- 自定义代码块样式  2017年07月05日08:36:14-->
 
-<link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/solarized-light.min.css">
+<link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/androidstudio.min.css">
+
+<!-- <link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/monokai-sublime.min.css"> -->
 <script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
 
 <script>hljs.initHighlightingOnLoad();</script>
 
+
+<!-- railscasts   mono-blue  tomorrow  androidstudio  monokai-->
 <!-- 自定义代码块样式 2017年07月05日08:36:17-->
 
      <title>GitHub 学习之路 | SmartNi</title>
@@ -358,7 +360,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://nijun.me/2017/05/14/00001-Git-2017-05-14-GitHub-学习之路/">
+    <link itemprop="mainEntityOfPage" href="http://nijun.me/2017/05/14/00001-Git-2017-05-14-GitHub/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="SmartNi">
@@ -413,9 +415,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/05/14/00001-Git-2017-05-14-GitHub-学习之路/#comments" itemprop="discussionUrl">
+                <a href="/2017/05/14/00001-Git-2017-05-14-GitHub/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/05/14/00001-Git-2017-05-14-GitHub-学习之路/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2017/05/14/00001-Git-2017-05-14-GitHub/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -423,7 +425,7 @@
 
           
           
-             <span id="/2017/05/14/00001-Git-2017-05-14-GitHub-学习之路/" class="leancloud_visitors" data-flag-title="GitHub 学习之路">
+             <span id="/2017/05/14/00001-Git-2017-05-14-GitHub/" class="leancloud_visitors" data-flag-title="GitHub 学习之路">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -1262,8 +1264,8 @@ $ git remote add -f 用户名 git@github.com:当前操作仓库的名字.git
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/05/06/00001-Blog-2017-05-05-自己动手搭建个人博客到优化/" rel="next" title="自己动手搭建个人博客到优化">
-                <i class="fa fa-chevron-left"></i> 自己动手搭建个人博客到优化
+              <a href="/2017/05/06/00001-Blog-2017-05-05-hexo/" rel="next" title="搭建个人博客 - Hexo">
+                <i class="fa fa-chevron-left"></i> 搭建个人博客 - Hexo
               </a>
             
           </div>
@@ -1272,8 +1274,8 @@ $ git remote add -f 用户名 git@github.com:当前操作仓库的名字.git
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/05/20/00001-maven-2017-05-20-maven/" rel="prev" title="maven学习总结">
-                maven学习总结 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/05/20/00001-maven-2017-05-20-maven/" rel="prev" title="Maven 学习总结">
+                Maven 学习总结 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -1380,7 +1382,7 @@ $ git remote add -f 用户名 git@github.com:当前操作仓库的名字.git
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-count">11</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -1622,8 +1624,8 @@ $ git remote add -f 用户名 git@github.com:当前操作仓库的名字.git
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'http://nijun.me/2017/05/14/00001-Git-2017-05-14-GitHub-学习之路/';
-          this.page.identifier = '2017/05/14/00001-Git-2017-05-14-GitHub-学习之路/';
+          this.page.url = 'http://nijun.me/2017/05/14/00001-Git-2017-05-14-GitHub/';
+          this.page.identifier = '2017/05/14/00001-Git-2017-05-14-GitHub/';
           this.page.title = 'GitHub 学习之路';
         };
         var d = document, s = d.createElement('script');

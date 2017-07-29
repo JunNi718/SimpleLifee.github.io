@@ -2,10 +2,8 @@
 
 
 
-  
 
-
-<html class="theme-next mist use-motion" lang="zh-Hans">
+<html class="theme-next mist" lang="zh-Hans">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -75,7 +73,7 @@
   
     
     
-    <link href="//fonts.googleapis.com/css?family=Source Code Pro:300,300italic,400,400italic,700,700italic|Montserrat:300,300italic,400,400italic,700,700italic|Dancing Script:300,300italic,400,400italic,700,700italic|Droid Sans Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Arial:300,300italic,400,400italic,700,700italic|Montserrat:300,300italic,400,400italic,700,700italic|Dancing Script:300,300italic,400,400italic,700,700italic|monospace:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
   
 
 
@@ -88,7 +86,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Database," />
+  <meta name="keywords" content="Android," />
 
 
 
@@ -106,17 +104,21 @@
 
 
 
-<meta name="description" content="各种数据库对应的jar包   数据库类型** 对应的**Jar文件**     Oracle 8i classes12.zip 或 ojdbc14.jar   Sybase jconn2.jar 或 jconn3.jar   Mysql mysql-connector-java-3.1.1-alpha-bin.jar 或mysql-connector-java-5.0.2-beta-bin.jar">
-<meta name="keywords" content="Database">
+<meta name="description" content="最近做项目碰到 Android Studio 提示 Android Gradle Plugin Version 版本太低的问题。之前对 Plugin Version 和 Gradle Version 一直没有明确的认识，认为它俩是一个概念。索性刨根问底去 Google 一下。 Android Studio 报错如下： 其实，Android 中的 Plugin Version和Gradle Vers">
+<meta name="keywords" content="Android">
 <meta property="og:type" content="article">
-<meta property="og:title" content="各大数据库对应的jar、驱动类名和URL格式">
-<meta property="og:url" content="http://nijun.me/2017/07/13/00001-Database-2017-07-13-各大数据库对应的jar、驱动类名和URL格式/index.html">
+<meta property="og:title" content="Android 中 gradle 和 plugin 到底是什么关系？">
+<meta property="og:url" content="http://nijun.me/2017/07/19/gradle-plugin/index.html">
 <meta property="og:site_name" content="SmartNi">
-<meta property="og:description" content="各种数据库对应的jar包   数据库类型** 对应的**Jar文件**     Oracle 8i classes12.zip 或 ojdbc14.jar   Sybase jconn2.jar 或 jconn3.jar   Mysql mysql-connector-java-3.1.1-alpha-bin.jar 或mysql-connector-java-5.0.2-beta-bin.jar">
-<meta property="og:updated_time" content="2017-07-13T06:50:45.000Z">
+<meta property="og:description" content="最近做项目碰到 Android Studio 提示 Android Gradle Plugin Version 版本太低的问题。之前对 Plugin Version 和 Gradle Version 一直没有明确的认识，认为它俩是一个概念。索性刨根问底去 Google 一下。 Android Studio 报错如下： 其实，Android 中的 Plugin Version和Gradle Vers">
+<meta property="og:image" content="http://osoa5juml.bkt.clouddn.com//image/site/1500459320686.png">
+<meta property="og:image" content="http://osoa5juml.bkt.clouddn.com//image/site/1500460060716.png">
+<meta property="og:image" content="http://osoa5juml.bkt.clouddn.com//image/site/1500460312617.png">
+<meta property="og:updated_time" content="2017-07-29T06:09:15.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="各大数据库对应的jar、驱动类名和URL格式">
-<meta name="twitter:description" content="各种数据库对应的jar包   数据库类型** 对应的**Jar文件**     Oracle 8i classes12.zip 或 ojdbc14.jar   Sybase jconn2.jar 或 jconn3.jar   Mysql mysql-connector-java-3.1.1-alpha-bin.jar 或mysql-connector-java-5.0.2-beta-bin.jar">
+<meta name="twitter:title" content="Android 中 gradle 和 plugin 到底是什么关系？">
+<meta name="twitter:description" content="最近做项目碰到 Android Studio 提示 Android Gradle Plugin Version 版本太低的问题。之前对 Plugin Version 和 Gradle Version 一直没有明确的认识，认为它俩是一个概念。索性刨根问底去 Google 一下。 Android Studio 报错如下： 其实，Android 中的 Plugin Version和Gradle Vers">
+<meta name="twitter:image" content="http://osoa5juml.bkt.clouddn.com//image/site/1500459320686.png">
 
 
 
@@ -127,7 +129,7 @@
     scheme: 'Mist',
     sidebar: {"position":"left","display":"post","offset":50,"offset_float":0,"b2t":true,"scrollpercent":true},
     fancybox: false,
-    motion: true,
+    motion: false,
     duoshuo: {
       userId: '0',
       author: '博主'
@@ -144,7 +146,7 @@
 
 
 
-  <link rel="canonical" href="http://nijun.me/2017/07/13/00001-Database-2017-07-13-各大数据库对应的jar、驱动类名和URL格式/"/>
+  <link rel="canonical" href="http://nijun.me/2017/07/19/gradle-plugin/"/>
 
 
 
@@ -152,14 +154,18 @@
 
 <!-- 自定义代码块样式  2017年07月05日08:36:14-->
 
-<link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/solarized-light.min.css">
+<link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/androidstudio.min.css">
+
+<!-- <link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/monokai-sublime.min.css"> -->
 <script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
 
 <script>hljs.initHighlightingOnLoad();</script>
 
+
+<!-- railscasts   mono-blue  tomorrow  androidstudio  monokai-->
 <!-- 自定义代码块样式 2017年07月05日08:36:17-->
 
-     <title>各大数据库对应的jar、驱动类名和URL格式 | SmartNi</title>
+     <title>Android 中 gradle 和 plugin 到底是什么关系？ | SmartNi</title>
      
   
 
@@ -356,7 +362,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://nijun.me/2017/07/13/00001-Database-2017-07-13-各大数据库对应的jar、驱动类名和URL格式/">
+    <link itemprop="mainEntityOfPage" href="http://nijun.me/2017/07/19/gradle-plugin/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="SmartNi">
@@ -377,7 +383,7 @@
             
             
               
-                各大数据库对应的jar、驱动类名和URL格式
+                Android 中 gradle 和 plugin 到底是什么关系？
               
             
           </h1>
@@ -392,8 +398,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-13T14:47:29+08:00">
-                2017-07-13
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-19T18:34:04+08:00">
+                2017-07-19
               </time>
             
 
@@ -411,9 +417,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/07/13/00001-Database-2017-07-13-各大数据库对应的jar、驱动类名和URL格式/#comments" itemprop="discussionUrl">
+                <a href="/2017/07/19/gradle-plugin/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/07/13/00001-Database-2017-07-13-各大数据库对应的jar、驱动类名和URL格式/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2017/07/19/gradle-plugin/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -421,7 +427,7 @@
 
           
           
-             <span id="/2017/07/13/00001-Database-2017-07-13-各大数据库对应的jar、驱动类名和URL格式/" class="leancloud_visitors" data-flag-title="各大数据库对应的jar、驱动类名和URL格式">
+             <span id="/2017/07/19/gradle-plugin/" class="leancloud_visitors" data-flag-title="Android 中 gradle 和 plugin 到底是什么关系？">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -446,7 +452,7 @@
                   <span class="post-meta-item-text">字数统计</span>
                 
                 <span title="字数统计">
-                  210
+                  308
                 </span>
               
 
@@ -480,100 +486,23 @@
       
 
       
-        <h2 id="各种数据库对应的jar包"><a href="#各种数据库对应的jar包" class="headerlink" title="各种数据库对应的jar包"></a><strong>各种数据库对应的jar包</strong></h2><table>
-<thead>
-<tr>
-<th><strong>数据库类型<em>**</em></strong></th>
-<th><strong>对应的**</strong>Jar<strong><strong>文件**</strong></strong></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Oracle 8i</td>
-<td>classes12.zip 或 ojdbc14.jar</td>
-</tr>
-<tr>
-<td>Sybase</td>
-<td>jconn2.jar 或 jconn3.jar</td>
-</tr>
-<tr>
-<td>Mysql</td>
-<td>mysql-connector-java-3.1.1-alpha-bin.jar 或mysql-connector-java-5.0.2-beta-bin.jar</td>
-</tr>
-<tr>
-<td>SQLServer 2000</td>
-<td>msbase.jar、msutil.jar、mssqlserver.jar</td>
-</tr>
-<tr>
-<td>SQLServer 2005</td>
-<td>sqljdbc.jar</td>
-</tr>
-<tr>
-<td>SQLServer 7.0</td>
-<td>jtds-1.2.2.jar</td>
-</tr>
-<tr>
-<td>Informix</td>
-<td>ifxjdbc.jar</td>
-</tr>
-<tr>
-<td>DB2</td>
-<td>db2jcc.jar、db2jcc_license_cu.jar</td>
-</tr>
-</tbody>
-</table>
-<h2 id="各种数据库对应的驱动类名和URL格式"><a href="#各种数据库对应的驱动类名和URL格式" class="headerlink" title="各种数据库对应的驱动类名和URL格式"></a><strong>各种数据库对应的驱动类名和URL格式</strong></h2><p>下面是对各种数据库的驱动类名和URL格式的汇总。如表3所示。其中hostip代表ip地址，dbname代表数据库名。</p>
-<table>
-<thead>
-<tr>
-<th><strong>数据库<em>**</em></strong></th>
-<th><strong>驱动类名<em>**</em></strong></th>
-<th><strong>URL**</strong>格式<strong>**</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Oracle</td>
-<td>oracle.jdbc.driver.OracleDriver</td>
-<td>jdbc:oracle:thin:@hostip:1521:dbname</td>
-</tr>
-<tr>
-<td>Sybase</td>
-<td>com.sybase.jdbc2.jdbc.SybDriver</td>
-<td>jdbc:sybase:Tds:hostip:4100/dbname</td>
-</tr>
-<tr>
-<td>Mysql</td>
-<td>com.mysql.jdbc.Driver</td>
-<td>jdbc:mysql://hostip:3306/dbname?useUnicode=true&amp;characterEncoding=GBK</td>
-</tr>
-<tr>
-<td>SQLServer 2000</td>
-<td>com.microsoft.jdbc.sqlserver.SQLServerDriver</td>
-<td>jdbc:microsoft:sqlserver://hostip:1433;DatabaseName=dbname</td>
-</tr>
-<tr>
-<td>SQLServer 2005</td>
-<td>com.microsoft.sqlserver.jdbc.SQLServerDriver</td>
-<td>jdbc:sqlserver://hostip:1433;DatabaseName=dbname</td>
-</tr>
-<tr>
-<td>SQLServer 7.0</td>
-<td>net.sourceforge.jtds.jdbc.Driver</td>
-<td>jdbc:jtds:sqlserver://hostip:1433/dbname</td>
-</tr>
-<tr>
-<td>DB2</td>
-<td>com.ibm.db2.jcc.DB2Driver</td>
-<td>jdbc:db2://hostip:50000/dbname</td>
-</tr>
-<tr>
-<td>Informix</td>
-<td>com.informix.jdbc.IfxDriver</td>
-<td>jdbc:informix-sqli://hostip:port/dbname:informixserver=<dbservername></dbservername></td>
-</tr>
-</tbody>
-</table>
+        <p>最近做项目碰到 Android Studio 提示 Android Gradle Plugin Version 版本太低的问题。之前对 Plugin Version 和 Gradle Version 一直没有明确的认识，认为它俩是一个概念。索性刨根问底去 Google 一下。</p>
+<p>Android Studio 报错如下：<br><img src="http://osoa5juml.bkt.clouddn.com//image/site/1500459320686.png" width="1177"></p>
+<p>其实，Android 中的 Plugin Version和Gradle Version 是两个不同的概念，<strong><code>Plugin Version</code> 指的是 Android 中的 Gradle Plugin 插件的版本，后者是本地使用的 Gradle 版本</strong>。区分了这两个概念，后面说的就容易理解了。</p>
+<p>在项目中，Gradle插件的版本一般在 项目的 <strong><code>build.gradle</code></strong> 中</p>
+<pre><code class="groovy">    dependencies {
+         classpath &#39;com.android.tools.build:gradle:3.0.0-alpha1&#39;
+         ...
+    }
+</code></pre>
+<p>本地的 Gradle 版本在 <strong><code>gradle-wrapper.properties</code></strong> 中</p>
+<pre><code>distributionUrl=https\://services.gradle.org/distributions/gradle-4.0-milestone-1-all.zip
+</code></pre><p>然后根据官方提供的这张对照表</p>
+<p><img src="http://osoa5juml.bkt.clouddn.com//image/site/1500460060716.png" width="834"></p>
+<p>可以看出，只要 Plugin Version 在 <code>2.3.0</code> 以以上，本地的 Gradle 版本就必须在 <code>3.3+</code> 以上。至此我是符合规定的。那为什么会报错呢？</p>
+<p>原因是 <code>alpha/beta</code> 版本有40天的使用时间限制，到时间 AndroidStudio 就会强制提示你要求更新版本，如果根据上面那张表换成2.3.1这个稳定版就没有问题了。</p>
+<p>这是 Stack Overflow 中找到的答案：</p>
+<p><img src="http://osoa5juml.bkt.clouddn.com//image/site/1500460312617.png" width="746"></p>
 
       
     </div>
@@ -625,7 +554,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Database/" rel="tag"># Database</a>
+            <a href="/tags/Android/" rel="tag"># Android</a>
           
         </div>
       
@@ -638,8 +567,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/07/12/JSP学习笔记（1）-JSP简介/" rel="next" title="JSP学习笔记（1）-JSP简介">
-                <i class="fa fa-chevron-left"></i> JSP学习笔记（1）-JSP简介
+              <a href="/2017/07/15/Mac下配置环境变量不生效问题/" rel="next" title="Mac 下配置环境变量不生效问题">
+                <i class="fa fa-chevron-left"></i> Mac 下配置环境变量不生效问题
               </a>
             
           </div>
@@ -647,10 +576,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/07/13/00001-Database-2017-07-13-Mysql数据类型/" rel="prev" title="Mysql数据类型">
-                Mysql数据类型 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -731,17 +656,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview sidebar-panel">
+      <section class="site-overview sidebar-panel sidebar-panel-active">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/uploads/lovely.gif"
@@ -756,7 +672,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-count">11</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -828,22 +744,6 @@
 
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#各种数据库对应的jar包"><span class="nav-number">1.</span> <span class="nav-text">各种数据库对应的jar包</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#各种数据库对应的驱动类名和URL格式"><span class="nav-number">2.</span> <span class="nav-text">各种数据库对应的驱动类名和URL格式</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
@@ -998,9 +898,9 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'http://nijun.me/2017/07/13/00001-Database-2017-07-13-各大数据库对应的jar、驱动类名和URL格式/';
-          this.page.identifier = '2017/07/13/00001-Database-2017-07-13-各大数据库对应的jar、驱动类名和URL格式/';
-          this.page.title = '各大数据库对应的jar、驱动类名和URL格式';
+          this.page.url = 'http://nijun.me/2017/07/19/gradle-plugin/';
+          this.page.identifier = '2017/07/19/gradle-plugin/';
+          this.page.title = 'Android 中 gradle 和 plugin 到底是什么关系？';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://nimon.disqus.com/embed.js';

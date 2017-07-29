@@ -2,10 +2,8 @@
 
 
 
-  
 
-
-<html class="theme-next mist use-motion" lang="zh-Hans">
+<html class="theme-next mist" lang="zh-Hans">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -75,7 +73,7 @@
   
     
     
-    <link href="//fonts.googleapis.com/css?family=Source Code Pro:300,300italic,400,400italic,700,700italic|Montserrat:300,300italic,400,400italic,700,700italic|Dancing Script:300,300italic,400,400italic,700,700italic|Droid Sans Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Arial:300,300italic,400,400italic,700,700italic|Montserrat:300,300italic,400,400italic,700,700italic|Dancing Script:300,300italic,400,400italic,700,700italic|monospace:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
   
 
 
@@ -88,7 +86,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Database," />
+  <meta name="keywords" content="Android," />
 
 
 
@@ -106,19 +104,19 @@
 
 
 
-<meta name="description" content="数据库设计是整个程序的重点之一，为了支持相关程序运行，最佳的数据库设计往往不可能一蹴而就，只能反复探寻并逐步求精，这是一个复杂的过程，也是规划和结构化数据库中的数据对象以及这些数据对象之间关系的过程。下面给出了20个数据库设计最佳实践，当然，所谓最佳，还是要看它是否适合你的程序。一起来了解了解吧。">
-<meta name="keywords" content="Database">
+<meta name="description" content="Android中我们最先接触到的就是Activity，如果掌握了 Activity，那么对学习其他四大组件无疑是很有帮助的。">
+<meta name="keywords" content="Android">
 <meta property="og:type" content="article">
-<meta property="og:title" content="20个数据库设计的最佳实践">
-<meta property="og:url" content="http://nijun.me/2017/07/13/00001-Database-2017-07-13-20个数据库设计的最佳实践/index.html">
+<meta property="og:title" content="Activity 的生命周期和启动模式">
+<meta property="og:url" content="http://nijun.me/2017/06/08/Android-2017-06-08-Activity的生命周期和启动模式/index.html">
 <meta property="og:site_name" content="SmartNi">
-<meta property="og:description" content="数据库设计是整个程序的重点之一，为了支持相关程序运行，最佳的数据库设计往往不可能一蹴而就，只能反复探寻并逐步求精，这是一个复杂的过程，也是规划和结构化数据库中的数据对象以及这些数据对象之间关系的过程。下面给出了20个数据库设计最佳实践，当然，所谓最佳，还是要看它是否适合你的程序。一起来了解了解吧。">
-<meta property="og:image" content="http://osoa5juml.bkt.clouddn.com//image/site/1499949068975.gif">
-<meta property="og:updated_time" content="2017-07-13T15:04:24.000Z">
+<meta property="og:description" content="Android中我们最先接触到的就是Activity，如果掌握了 Activity，那么对学习其他四大组件无疑是很有帮助的。">
+<meta property="og:image" content="http://osoa5juml.bkt.clouddn.com/image/site/1499949623365.png">
+<meta property="og:updated_time" content="2017-07-29T06:10:04.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="20个数据库设计的最佳实践">
-<meta name="twitter:description" content="数据库设计是整个程序的重点之一，为了支持相关程序运行，最佳的数据库设计往往不可能一蹴而就，只能反复探寻并逐步求精，这是一个复杂的过程，也是规划和结构化数据库中的数据对象以及这些数据对象之间关系的过程。下面给出了20个数据库设计最佳实践，当然，所谓最佳，还是要看它是否适合你的程序。一起来了解了解吧。">
-<meta name="twitter:image" content="http://osoa5juml.bkt.clouddn.com//image/site/1499949068975.gif">
+<meta name="twitter:title" content="Activity 的生命周期和启动模式">
+<meta name="twitter:description" content="Android中我们最先接触到的就是Activity，如果掌握了 Activity，那么对学习其他四大组件无疑是很有帮助的。">
+<meta name="twitter:image" content="http://osoa5juml.bkt.clouddn.com/image/site/1499949623365.png">
 
 
 
@@ -129,7 +127,7 @@
     scheme: 'Mist',
     sidebar: {"position":"left","display":"post","offset":50,"offset_float":0,"b2t":true,"scrollpercent":true},
     fancybox: false,
-    motion: true,
+    motion: false,
     duoshuo: {
       userId: '0',
       author: '博主'
@@ -146,7 +144,7 @@
 
 
 
-  <link rel="canonical" href="http://nijun.me/2017/07/13/00001-Database-2017-07-13-20个数据库设计的最佳实践/"/>
+  <link rel="canonical" href="http://nijun.me/2017/06/08/Android-2017-06-08-Activity的生命周期和启动模式/"/>
 
 
 
@@ -154,14 +152,18 @@
 
 <!-- 自定义代码块样式  2017年07月05日08:36:14-->
 
-<link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/solarized-light.min.css">
+<link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/androidstudio.min.css">
+
+<!-- <link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/monokai-sublime.min.css"> -->
 <script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
 
 <script>hljs.initHighlightingOnLoad();</script>
 
+
+<!-- railscasts   mono-blue  tomorrow  androidstudio  monokai-->
 <!-- 自定义代码块样式 2017年07月05日08:36:17-->
 
-     <title>20个数据库设计的最佳实践 | SmartNi</title>
+     <title>Activity 的生命周期和启动模式 | SmartNi</title>
      
   
 
@@ -358,7 +360,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://nijun.me/2017/07/13/00001-Database-2017-07-13-20个数据库设计的最佳实践/">
+    <link itemprop="mainEntityOfPage" href="http://nijun.me/2017/06/08/Android-2017-06-08-Activity的生命周期和启动模式/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="SmartNi">
@@ -379,7 +381,7 @@
             
             
               
-                20个数据库设计的最佳实践
+                Activity 的生命周期和启动模式
               
             
           </h1>
@@ -394,8 +396,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-13T20:18:59+08:00">
-                2017-07-13
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-08T00:05:40+08:00">
+                2017-06-08
               </time>
             
 
@@ -405,6 +407,28 @@
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -413,9 +437,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/07/13/00001-Database-2017-07-13-20个数据库设计的最佳实践/#comments" itemprop="discussionUrl">
+                <a href="/2017/06/08/Android-2017-06-08-Activity的生命周期和启动模式/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/07/13/00001-Database-2017-07-13-20个数据库设计的最佳实践/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2017/06/08/Android-2017-06-08-Activity的生命周期和启动模式/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -423,7 +447,7 @@
 
           
           
-             <span id="/2017/07/13/00001-Database-2017-07-13-20个数据库设计的最佳实践/" class="leancloud_visitors" data-flag-title="20个数据库设计的最佳实践">
+             <span id="/2017/06/08/Android-2017-06-08-Activity的生命周期和启动模式/" class="leancloud_visitors" data-flag-title="Activity 的生命周期和启动模式">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -448,7 +472,7 @@
                   <span class="post-meta-item-text">字数统计</span>
                 
                 <span title="字数统计">
-                  740
+                  3,031
                 </span>
               
 
@@ -464,7 +488,7 @@
                   <span class="post-meta-item-text">阅读时长</span>
                 
                 <span title="阅读时长">
-                  3
+                  12
                 </span>
               
             </div>
@@ -482,32 +506,131 @@
       
 
       
-        <p>数据库设计是整个程序的重点之一，为了支持相关程序运行，最佳的数据库设计往往不可能一蹴而就，只能反复探寻并逐步求精，这是一个复杂的过程，也是规划和结构化数据库中的数据对象以及这些数据对象之间关系的过程。下面给出了20个数据库设计最佳实践，当然，所谓最佳，还是要看它是否适合你的程序。一起来了解了解吧。</p>
-<p> <img src="http://osoa5juml.bkt.clouddn.com//image/site/1499949068975.gif" alt="img"></p>
+        <p>Android中我们最先接触到的就是Activity，如果掌握了 Activity，那么对学习其他四大组件无疑是很有帮助的。</p>
 <a id="more"></a>
+<h1 id="Activity-的生命周期"><a href="#Activity-的生命周期" class="headerlink" title="Activity 的生命周期"></a>Activity 的生命周期</h1><p><img src="http://osoa5juml.bkt.clouddn.com/image/site/1499949623365.png" alt=""></p>
+<h2 id="情形一"><a href="#情形一" class="headerlink" title="情形一"></a>情形一</h2><p>例如：运行一个 Activity ，不进行任何的页面跳转，然后按下返回键结束。</p>
+<pre><code class="shell">05-30 12:00:44.864 3561-3561/me.nijun.launchmode I/AActivity: onCreate: A
+05-30 12:00:44.864 3561-3561/me.nijun.launchmode I/AActivity: onStart: A
+05-30 12:00:44.864 3561-3561/me.nijun.launchmode I/AActivity: onResume: A
+05-30 12:00:44.864 3561-3561/me.nijun.launchmode I/AActivity: onPause: A
+05-30 12:00:44.864 3561-3561/me.nijun.launchmode I/AActivity: onStop: A
+05-30 12:00:44.864 3561-3561/me.nijun.launchmode I/AActivity: onDestory: A
+</code></pre>
+<h2 id="情形二"><a href="#情形二" class="headerlink" title="情形二"></a>情形二</h2><p>（1）当第一次启动 A Activity 的时候，会按照下面的顺序执行。</p>
+<pre><code class="shell">05-30 12:00:44.864 3561-3561/me.nijun.launchmode I/AActivity: onCreate: A
+05-30 12:00:44.864 3561-3561/me.nijun.launchmode I/AActivity: onStart: A
+05-30 12:00:44.864 3561-3561/me.nijun.launchmode I/AActivity: onResume: A
+</code></pre>
+<p><code>onStart</code> 的时候 Activity 还在后台，<code>onResume</code> 的时候才会显示到前台。</p>
+<p>（2）这时候点击按钮启动 B Acitivity 的时候</p>
+<pre><code class="Shell">05-30 12:00:56.869 3561-3561/me.nijun.launchmode I/AActivity: onPause: A
+05-30 12:21:03.756 4030-4030/me.nijun.launchmode I/BActivity: onCreate: B
+05-30 12:00:56.882 3561-3561/me.nijun.launchmode I/BActivity: onStart: B
+05-30 12:00:56.883 3561-3561/me.nijun.launchmode I/BActivity: onResume: B
+05-30 12:00:57.310 3561-3561/me.nijun.launchmode I/AActivity: onSaveInstanceState: A
+05-30 12:00:57.312 3561-3561/me.nijun.launchmode I/AActivity: onStop: A
+</code></pre>
+<p>可见，首先调用旧Activity的 <code>onpause</code> 方法，<code>onpause</code> 一定在要启动的新 Activity 之前执行，只有它执行完之后，新的 Activity 才会启动。正因为如此，我们在 onPause方法中不能重量级的操作，应当在 onStop 中处理操作，使新 Activity 尽快显示出来。</p>
+<p><code>onSaveInstanceState</code> 方法会在 <code>onStop</code> 方法之前执行，但具体是否在<code>onPause</code> 之前还是之后是不确定的。</p>
+<p><code>onStop</code> 方法是否执行是看 Activity 是否可见，如果用户回到桌面（不可见了），那么就会调用这个方法。但是如果如果调用新的 Activity 采用了新透明的主题，那么是<strong>不会调用<code>onStop</code></strong> 方法的。</p>
+<p>（3）当用户按下返回键的时候</p>
+<p> 这时候 BAcitivity 将被销毁。在 <code>onPause</code> 执行后，并不会直接执行 <code>onStop</code> 而是会先执行 AActivity 的 onRestart 、onStart、onResume 方法。</p>
+<pre><code class="shell">05-30 12:21:11.422 4030-4030/me.nijun.launchmode I/BActivity: onPause: B
+05-30 12:21:11.433 4030-4030/me.nijun.launchmode I/AActivity: onRestart: A
+05-30 12:21:11.433 4030-4030/me.nijun.launchmode I/AActivity: onStart: A
+05-30 12:21:11.433 4030-4030/me.nijun.launchmode I/AActivity: onResume: A
+05-30 12:21:11.764 4030-4030/me.nijun.launchmode I/BActivity: onStop: B
+05-30 12:21:11.765 4030-4030/me.nijun.launchmode I/BActivity: onDestroy: B
+</code></pre>
+<p>（4）当Activity被系统回收后再次打开，生命周期回调方法和 （1）一样，但是不是所有过程都一样。</p>
+<p>小结：</p>
 <ol>
-<li>使用明确、统一的标明和列名，例如 School, SchoolCourse, CourceID。</li>
-<li>数据表名使用单数而不是复数，例如 StudentCourse，而不是 StudentCourses。</li>
-<li>数据表名不要使用空格。</li>
-<li>数据表名不要使用不必要的前缀或者后缀，例如使用 School，而不是 TblSchool，或者 SchoolTable 等等。</li>
-<li>数据库中的密码要加密，到应用中再解密。 （其实就是散列存储、单向加密）</li>
-<li>使用整数作为 ID 字段，也许现在没有这个必要，但是将来需要，例如关联表，索引等等。</li>
-<li>使用整数字段做索引，否则会带来很大的性能问题 。</li>
-<li>使用 bit 作为布尔字段，使用整数或者 varchar 是浪费。同时，这类字段应该以 “Is” 开头。</li>
-<li>要经过认证才能访问数据库，不要给每一个用户管理员权限。</li>
-<li>尽量避免使用 “select *”，而使用 “select [required_column_list]” 以获得更好的性能。</li>
-<li>假如程序代码比较复杂，使用 ORM 框架，例如 hibernate，iBatis。ORM 框架的性能问题可以通过详细的配置去解决。</li>
-<li>分割不常使用的数据表到不同的物理存储以获得更好的性能。</li>
-<li>对于关键数据库，使用安全备份系统，例如集群，同步等等。</li>
-<li>使用外键，非空等限制来保证数据的完整性，不要把所有的东西都扔给程序。</li>
-<li>缺乏数据库文档是致命的。你应该为你的数据库设计写文档，包括触发器、存储过程和其他脚本。</li>
-<li>对于经常使用的查询和大型数据表，要使用索引。数据分析工具可以帮助你决定如何建立索引。</li>
-<li>数据库服务器和网页服务器应该放在不同的机器上。这回提高安全性，并减轻 CPU 压力。</li>
-<li>Image 和 blob 字段不应该定义在常用的数据表中，否则会影响性能。</li>
-<li>范式（Normalization）要按照要求使用以提高性能。Normalization 做的不够会导致数据冗余，而过度Normalization 会导致太多的 join 和数据表，这两种情况都会影响性能。</li>
-<li>多花点时间在数据库设计上，否则你将来会付出加倍的时间来偿还。</li>
+<li>onCreate 和 onDestory 是配对的，代表这创建和销毁。</li>
+<li>onStart 和 onStop 是配对的，代表着 Activity 是否可见。</li>
+<li>onResume 和 onPause 是配对的，代表的 Activity 是否在前台。</li>
+<li>A Activity 的生命周期：<ol>
+<li>A 被 B 完全遮挡住了：onCreate-&gt;onStart-&gt;onResume-&gt;onPause-&gt;onStop-&gt;onRestart-&gt;onStart-&gt;onResume。</li>
+<li>A 被 B 部分遮挡住了：onCreate-&gt;onStart-&gt;onResume-&gt;onPause-&gt;onResume。</li>
 </ol>
-<p>　　英文原址：<a href="http://www.javacodegeeks.com/2012/02/20-database-design-best-practices.html" target="_blank" rel="external">javacodegeeks.com</a></p>
+</li>
+</ol>
+<h2 id="情形三"><a href="#情形三" class="headerlink" title="情形三"></a>情形三</h2><p>我们启动 Activity 之后，然后点击按钮弹出 AlertDialog 。</p>
+<p>Activity 的启动过程：onCreate-&gt;onStart-&gt;onResume</p>
+<p>因为当启动和退出 Dialog 的时候 ，Activity 的状态始终没有改变。这样看来，Dialog 是 Activity 内部的界面，不会影响到 Activity 的生命周期。</p>
+<h2 id="异常情况"><a href="#异常情况" class="headerlink" title="异常情况"></a>异常情况</h2><p>（1）相关资源的配置发生改变导致 Activity 被杀死并重新创建。</p>
+<p>例子：比如用户转换屏幕，从竖屏切换到横屏。</p>
+<p>这时候Activity被销毁，其 onPause、onStop、onDestroy都会被调用。这个过程中也会调用 onSaveInstanceState 方法来保存当前Activity的状态，这个方法会在onStop之前执行，顺序与onPause无关。注意：在正常情况下是不会调用这个方法的。</p>
+<p>当Activity重新创建后，系统会调用 onRestoreInstanceState 方法，并把 onSaveInstanceState 保存的 Bundle 对象传递给onRestoreInstanceState和onCreate方法。</p>
+<p>从时序上看，onRestoreInstanceState 会在 onStart 方法之后调用。</p>
+<pre><code class="java">05-30 12:34:27.247 4030-4030/me.nijun.launchmode I/AActivity: onPause: A
+05-30 12:34:27.247 4030-4030/me.nijun.launchmode I/AActivity: onSaveInstanceState: A
+05-30 12:34:27.249 4030-4030/me.nijun.launchmode I/AActivity: onStop: A
+05-30 12:34:27.249 4030-4030/me.nijun.launchmode I/AActivity: onDestroy: A
+05-30 12:34:27.262 4030-4030/me.nijun.launchmode I/AActivity: onCreate:  A
+05-30 12:34:27.262 4030-4030/me.nijun.launchmode I/AActivity: onStart: A
+05-30 12:34:27.262 4030-4030/me.nijun.launchmode I/AActivity: onRestoreInstanceState: restore extra_test test
+05-30 12:34:27.263 4030-4030/me.nijun.launchmode I/AActivity: onResume: A
+
+  public void main(){
+
+  }
+</code></pre>
+<h3 id="扩展"><a href="#扩展" class="headerlink" title="扩展"></a>扩展</h3><p>View 与 Activity 一样，也有 onSaveInstanceState 和 onRestoreInstanceState 两个方法。</p>
+<p>关于保存和恢复View层次结构，系统的工作流程是这样的：首先Activity 在异常中止的情况下，会调用 onSaveInstanceState 去保存数据。 Activity 会委托 Window 去保存数据，Window再委托他上面的顶层容器去保存。顶层容器是一个ViewGroup，一般来说是 DecorView。顶层容器再去一一通知它的子元素去保存数据。</p>
+<p>这是一种典型的委托思想，上层委托下层，父容器委托子元素去处理意见事情。这在Android中有很多实现，比如<strong>View的绘制过程、事件分发</strong>。</p>
+<p>onSaveInstanceState 只会在 Activity 即将销毁并且有机会重新显示的情况下才会去调用。</p>
+<h3 id="还有一点"><a href="#还有一点" class="headerlink" title="还有一点"></a>还有一点</h3><p>onRestoreInstanceState 和 onCreate 的区别：</p>
+<p>onRestoreInstanceState 一旦被调用，其参数 Bundle 一定有值，而onCreate在正常启动的时候其参数Bundle为null。</p>
+<p>官方推荐：使用 <strong>onRestoreInstanceState</strong> 去恢复保存的数据。</p>
+<h3 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h3><p>如果不想要系统重新创建 Activity的话，可以指定在 AndroidManifest.xml 中指定 android:configChanges 的属性。</p>
+<p>最好是加上 orientation|screenSize|keyboardHidden 这三个值，因为 Android 13 （ API13 ）之后，screen size 也会跟着屏幕横竖屏切换而改变。可以设置下列语句</p>
+<pre><code>android:configChanges=&quot;orientation|screenSize|keyboardHidden&quot;
+</code></pre><h1 id="Activity-的LaunchMode"><a href="#Activity-的LaunchMode" class="headerlink" title="Activity 的LaunchMode"></a>Activity 的LaunchMode</h1><p>路漫漫其修远兮，吾将上下而求索。—屈原《离骚》</p>
+<p>今天，花了一个晚上的时间整理了一下 Activity 的 LaunchMode 启动模式。既然下定决心要走这一行，那么就从最基础的开始学起。</p>
+<p>在 Android 中，一共由四种启动模式，分别是</p>
+<ol>
+<li>standard</li>
+<li>singleTop</li>
+<li>singleTask</li>
+<li>singleInstance</li>
+</ol>
+<p>这里，我把这四个分成两组。</p>
+<p>其中，<code>standard</code>  和 <code>singleTop</code> Activity 为一类，使用 <code>standard</code> 或 <code>singleTop</code> 启动模式的 Activity 可多次实例化。可以属于任何任务栈，并且可以位于活动堆栈的任何位置。但是通常，它们被启动到所调用的任务中栈中。</p>
+<p>其中，standard 模式很简单，调用几次就创建几次。singleTop 与之类似，不同在于如果要启动的 Activity 已经在栈顶了，那么就不创建直接复用，并且调用 onNewIntent 方法。如果一个现有实例虽在目标任务内，但未处于堆栈顶部，或者虽然位于堆栈顶部，但不在目标任务中 — 则系统会创建一个新实例并将其推送到堆栈上。</p>
+<p><code>singleTask</code> 和 <code>singleInstance</code> 为另一类。<code>singleTask</code> 和 <code>singleInstance</code> Activity 只能启动任务。 它们始终位于 Activity 堆栈的<strong>栈顶</strong>，并且每个栈中只能有一个相同的 Activity 。</p>
+<p>singleTask 和 singleInstance 同样只在一个方面有差异。 singleTask 允许其他 Activity 成为其任务（必然是 standard 和 singleTask 的 Activity ）的组成部分，它始终位于其任务的根位置。singleInstance 不允许其他 Activity 成为其任务的组成部分。它是任务中唯一的 Activity。 如果它启动另一个 Activity，系统会将该 Activity 分配给其他任务 — 就好像 Intent 中包含 <code>FLAG_ACTIVITY_NEW_TASK</code> 一样。</p>
+<p>我自己做了一个实验。分别创建两个程序，一个叫做 LaunchMode，有 Activity A 和 Activity B，另一个叫做 LaunchModeB，有 Activity C 和 Activity D。在 Android 6.0 上运行。</p>
+<ul>
+<li>情形一</li>
+</ul>
+<p>前置条件：LaunchMode中从 A 启动 B（这时任务栈是 B-&gt;A），LaunchModeB 从 C 启动 D（这时任务栈是 D-&gt;C），这时我想从 B 中 启动 C 和 Ｄ，其中 C 和 D 都是standard 模式。</p>
+<p>结果：在 B 中启动 C 后（这时任务栈是 C-&gt;B-&gt;A），C 从当前 Activity 右侧出现，按下 back 键直接向右侧消失。D 也是这个情况。</p>
+<p>首先，从右侧出现代表没有切换到其他的应用程序，而我们知道 C 和 D Activity 是 LaunchModeB 中的 Activity。那为什么不是打开 LaunchModeB 之后再启动 C Activity 呢？这时因为设置了 standard 这个启动模式，在这个例子中当前程序并没有创建新得任务栈，而是在 B Activity 所在的任务栈中将 C Activity 启动并加入其中。也就是说被启动的 Activity 会被加入到启动它的 Activity 中。</p>
+<ul>
+<li>情形二</li>
+</ul>
+<p>前置条件：LaunchMode中从 A 启动 B（这时任务栈是 B-&gt;A），LaunchModeB 从 C 启动 D（这时任务栈是 D-&gt;C ，我想从 B 中 启动 C 和 Ｄ，其中 C 是 standard 模式 ，D 都是 singleTask 模式。</p>
+<p>结果：我在 B Activity 中点击启动 C ，这时和情形一是一样的，这里不讨论了。而如果点击启动 D 之后，系统发现在现有任务栈中已经有了 D Activity，这时候会并不会去创建新的，而是直接切换到 D Activity 所在的任务栈，这时候按下 back 键，将回退到 C Activity 中，再次按下 back 键，就销毁了LaunchModeB 中的任务栈。这时候再次在 B 中启动 D，这时候系统发现在任务栈中没有已有的 D，就会创建 D，并加入到新的任务栈中（这时任务栈是 D），按下 back 键就会直接销毁 Ｄ返回到 B Activity。</p>
+<ul>
+<li>情形三</li>
+</ul>
+<p>前置条件：LaunchMode中从 A 启动 B（这时任务栈是 B-&gt;A），LaunchModeB 从 C 启动 D（这时任务栈是 D-&gt;C ，我想从 B 中 启动 C 和 Ｄ，其中 C 是 singleTask 模式 ，D 都是 standard 模式。</p>
+<p>结果：从 B 点击按钮打开 C （这时任务栈是 C ），singleTask 因为有 clearTop 的效果而被推出任务栈。在 C Activity 中再次打开 D Activity，不要按 back 键，选择任务返回到 B Activity，点击按钮打开 D Activity（这时任务栈是 D-&gt;B-&gt;A），发现动画效果是从右侧进入，断定此时这个 D Activity 所在的任务栈是 B Activity 所在的任务栈，因此这时按下 back 键，就不会返回到 C Activity，而是返回到 B Activity。</p>
+<p>还有一点需要注意，当我从 C 中启动 D 之后，按下 Home 键返回桌面，在从桌面图标点击进入程序，发现进入的是 C Activity，而不是 D Activity。原因还是 C Activity 是 singleTask 模式。</p>
+<ul>
+<li>情形四</li>
+</ul>
+<p>还是上面的前置条件，但是 C 和 D 都是 singleTask 模式。情况与情形三类似，只是在打开 D Activity 的时候（这时任务栈是 D-&gt;C），当前任务栈转移到了 LaunchModeB 程序中，相当于打开了 LaunchMode 这个程序，而这时栈顶是 D ，所以出现的是 D Activity，按下返回键跳转到 C Activity。</p>
+<p>另一种情况是在 Intent 中设置标志位来为 Activity 指定启动模式。这种方式优先于 AndroidManifest 中配置的方式，当两种同时存在时，以第二种方式为准。然后它们在限定范围上有所不同，第一种方式无法设置  FLAG_ACTIVITY_CLEAR_TOP 标志，而第二种方式无法指定 singleInstance 模式。</p>
+<p><strong>FLAG_ACTIVITY_NEW_TASK</strong> </p>
+<p>等同于 “singleTask” 。在这种情况下，被启动的 Activity 的实例如果已经存在，那么系统会调用他的 onNewIntent ，而不会去调用 onCreate 。但是不要忘记，系统可能会杀掉后台运行的 Activity，如果这一切发生，那么系统就会调用 onCreate 方法，而不调用 onNewIntent 方法，一个好的解决方法就是在 onCreate 和 onNewIntent 方法中调用同一个处理数据的方法。</p>
+<p><strong>FLAG_ACTIVITY_SINGLE_TOP</strong></p>
+<p>等同于 “singleTop” 。</p>
+<p><strong>FLAG_ACTIVITY_CLEAR_TOP</strong></p>
+<p>等同于 “singleTop” 。</p>
+<p>在 Android Studio 中可以使用 <code>adb shell dumpsys activity</code> 来查看任务栈和 <code>taskAffinity</code> 的值。</p>
+<p> <a href="http://android.xsoftlab.net/guide/topics/manifest/activity-element.html#aff" target="_blank" rel="external">taskAffinity</a></p>
 
       
     </div>
@@ -559,7 +682,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Database/" rel="tag"># Database</a>
+            <a href="/tags/Android/" rel="tag"># Android</a>
           
         </div>
       
@@ -572,8 +695,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/07/13/00001-Database-2017-07-13-简单十步让你全面理解SQL/" rel="next" title="简单十步让你全面理解SQL">
-                <i class="fa fa-chevron-left"></i> 简单十步让你全面理解SQL
+              <a href="/2017/05/20/00001-maven-2017-05-20-maven/" rel="next" title="Maven 学习总结">
+                <i class="fa fa-chevron-left"></i> Maven 学习总结
               </a>
             
           </div>
@@ -582,8 +705,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/07/13/1000Rows_Notes/" rel="prev" title="1000行Mysql学习笔记">
-                1000行Mysql学习笔记 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/06/14/Android-2017-06-14-Android消息处理机制之三：Handler中sendMessage源代码剖析/" rel="prev" title="Android 消息处理机制之三： Handler 中 sendMessage 源代码剖析">
+                Android 消息处理机制之三： Handler 中 sendMessage 源代码剖析 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -665,8 +788,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/uploads/lovely.gif"
@@ -681,7 +813,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-count">11</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -753,6 +885,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Activity-的生命周期"><span class="nav-number">1.</span> <span class="nav-text">Activity 的生命周期</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#情形一"><span class="nav-number">1.1.</span> <span class="nav-text">情形一</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#情形二"><span class="nav-number">1.2.</span> <span class="nav-text">情形二</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#情形三"><span class="nav-number">1.3.</span> <span class="nav-text">情形三</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#异常情况"><span class="nav-number">1.4.</span> <span class="nav-text">异常情况</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#扩展"><span class="nav-number">1.4.1.</span> <span class="nav-text">扩展</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#还有一点"><span class="nav-number">1.4.2.</span> <span class="nav-text">还有一点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解决办法"><span class="nav-number">1.4.3.</span> <span class="nav-text">解决办法</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Activity-的LaunchMode"><span class="nav-number">2.</span> <span class="nav-text">Activity 的LaunchMode</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -907,9 +1055,9 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'http://nijun.me/2017/07/13/00001-Database-2017-07-13-20个数据库设计的最佳实践/';
-          this.page.identifier = '2017/07/13/00001-Database-2017-07-13-20个数据库设计的最佳实践/';
-          this.page.title = '20个数据库设计的最佳实践';
+          this.page.url = 'http://nijun.me/2017/06/08/Android-2017-06-08-Activity的生命周期和启动模式/';
+          this.page.identifier = '2017/06/08/Android-2017-06-08-Activity的生命周期和启动模式/';
+          this.page.title = 'Activity 的生命周期和启动模式';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://nimon.disqus.com/embed.js';

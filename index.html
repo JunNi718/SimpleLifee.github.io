@@ -2,10 +2,8 @@
 
 
 
-  
 
-
-<html class="theme-next mist use-motion" lang="zh-Hans">
+<html class="theme-next mist" lang="zh-Hans">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -75,7 +73,7 @@
   
     
     
-    <link href="//fonts.googleapis.com/css?family=Source Code Pro:300,300italic,400,400italic,700,700italic|Montserrat:300,300italic,400,400italic,700,700italic|Dancing Script:300,300italic,400,400italic,700,700italic|Droid Sans Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Arial:300,300italic,400,400italic,700,700italic|Montserrat:300,300italic,400,400italic,700,700italic|Dancing Script:300,300italic,400,400italic,700,700italic|monospace:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
   
 
 
@@ -125,7 +123,7 @@
     scheme: 'Mist',
     sidebar: {"position":"left","display":"post","offset":50,"offset_float":0,"b2t":true,"scrollpercent":true},
     fancybox: false,
-    motion: true,
+    motion: false,
     duoshuo: {
       userId: '0',
       author: '博主'
@@ -150,11 +148,15 @@
 
 <!-- 自定义代码块样式  2017年07月05日08:36:14-->
 
-<link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/solarized-light.min.css">
+<link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/androidstudio.min.css">
+
+<!-- <link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/monokai-sublime.min.css"> -->
 <script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
 
 <script>hljs.initHighlightingOnLoad();</script>
 
+
+<!-- railscasts   mono-blue  tomorrow  androidstudio  monokai-->
 <!-- 自定义代码块样式 2017年07月05日08:36:17-->
 
      <title>SmartNi</title>
@@ -356,7 +358,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://nijun.me/2017/07/17/MySQL数据类型所对应的Java数据类型速查表/">
+    <link itemprop="mainEntityOfPage" href="http://nijun.me/2017/07/19/gradle-plugin/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="SmartNi">
@@ -378,8 +380,8 @@
             
               
                 
-                <a class="post-title-link" href="/2017/07/17/MySQL数据类型所对应的Java数据类型速查表/" itemprop="url">
-                  MySQL数据类型所对应的Java数据类型速查表
+                <a class="post-title-link" href="/2017/07/19/gradle-plugin/" itemprop="url">
+                  Android 中 gradle 和 plugin 到底是什么关系？
                 </a>
               
             
@@ -395,8 +397,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-17T20:17:50+08:00">
-                2017-07-17
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-19T18:34:04+08:00">
+                2017-07-19
               </time>
             
 
@@ -414,9 +416,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/07/17/MySQL数据类型所对应的Java数据类型速查表/#comments" itemprop="discussionUrl">
+                <a href="/2017/07/19/gradle-plugin/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/07/17/MySQL数据类型所对应的Java数据类型速查表/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2017/07/19/gradle-plugin/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -424,7 +426,7 @@
 
           
           
-             <span id="/2017/07/17/MySQL数据类型所对应的Java数据类型速查表/" class="leancloud_visitors" data-flag-title="MySQL数据类型所对应的Java数据类型速查表">
+             <span id="/2017/07/19/gradle-plugin/" class="leancloud_visitors" data-flag-title="Android 中 gradle 和 plugin 到底是什么关系？">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -449,7 +451,7 @@
                   <span class="post-meta-item-text">字数统计</span>
                 
                 <span title="字数统计">
-                  12
+                  308
                 </span>
               
 
@@ -485,8 +487,23 @@
       
         
           
-            <p>✓ 摘自 <a href="https://dev.mysql.com/doc/connector-j/5.1/en/connector-j-reference-type-conversions.html" target="_blank" rel="external">官方文档</a>，方便日后查阅。</p>
-<p><img src="http://osoa5juml.bkt.clouddn.com//image/site/1500293797001.png" width="1163"></p>
+            <p>最近做项目碰到 Android Studio 提示 Android Gradle Plugin Version 版本太低的问题。之前对 Plugin Version 和 Gradle Version 一直没有明确的认识，认为它俩是一个概念。索性刨根问底去 Google 一下。</p>
+<p>Android Studio 报错如下：<br><img src="http://osoa5juml.bkt.clouddn.com//image/site/1500459320686.png" width="1177"></p>
+<p>其实，Android 中的 Plugin Version和Gradle Version 是两个不同的概念，<strong><code>Plugin Version</code> 指的是 Android 中的 Gradle Plugin 插件的版本，后者是本地使用的 Gradle 版本</strong>。区分了这两个概念，后面说的就容易理解了。</p>
+<p>在项目中，Gradle插件的版本一般在 项目的 <strong><code>build.gradle</code></strong> 中</p>
+<pre><code class="groovy">    dependencies {
+         classpath &#39;com.android.tools.build:gradle:3.0.0-alpha1&#39;
+         ...
+    }
+</code></pre>
+<p>本地的 Gradle 版本在 <strong><code>gradle-wrapper.properties</code></strong> 中</p>
+<pre><code>distributionUrl=https\://services.gradle.org/distributions/gradle-4.0-milestone-1-all.zip
+</code></pre><p>然后根据官方提供的这张对照表</p>
+<p><img src="http://osoa5juml.bkt.clouddn.com//image/site/1500460060716.png" width="834"></p>
+<p>可以看出，只要 Plugin Version 在 <code>2.3.0</code> 以以上，本地的 Gradle 版本就必须在 <code>3.3+</code> 以上。至此我是符合规定的。那为什么会报错呢？</p>
+<p>原因是 <code>alpha/beta</code> 版本有40天的使用时间限制，到时间 AndroidStudio 就会强制提示你要求更新版本，如果根据上面那张表换成2.3.1这个稳定版就没有问题了。</p>
+<p>这是 Stack Overflow 中找到的答案：</p>
+<p><img src="http://osoa5juml.bkt.clouddn.com//image/site/1500460312617.png" width="746"></p>
 
           
         
@@ -530,7 +547,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://nijun.me/2017/07/15/MacEnvironmentVariable/">
+    <link itemprop="mainEntityOfPage" href="http://nijun.me/2017/07/15/Mac下配置环境变量不生效问题/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="SmartNi">
@@ -552,8 +569,8 @@
             
               
                 
-                <a class="post-title-link" href="/2017/07/15/MacEnvironmentVariable/" itemprop="url">
-                  Mac下配置环境变量不生效问题
+                <a class="post-title-link" href="/2017/07/15/Mac下配置环境变量不生效问题/" itemprop="url">
+                  Mac 下配置环境变量不生效问题
                 </a>
               
             
@@ -588,9 +605,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/07/15/MacEnvironmentVariable/#comments" itemprop="discussionUrl">
+                <a href="/2017/07/15/Mac下配置环境变量不生效问题/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/07/15/MacEnvironmentVariable/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2017/07/15/Mac下配置环境变量不生效问题/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -598,7 +615,7 @@
 
           
           
-             <span id="/2017/07/15/MacEnvironmentVariable/" class="leancloud_visitors" data-flag-title="Mac下配置环境变量不生效问题">
+             <span id="/2017/07/15/Mac下配置环境变量不生效问题/" class="leancloud_visitors" data-flag-title="Mac 下配置环境变量不生效问题">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -663,7 +680,7 @@
 <h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>今天在捣鼓 MySQL 的时候，安装删除了好几个循环之后，发现打开 iTerm 之后输入 <code>mysql</code> 不起作用了，刚开始还以为是 MySQL 安装失败了，但是再一次安装成功后还是提示 <code>command not found: mysql</code> 。看到这句话第一时间我就想到了是不是环境变量没有配呢？但是一想不对啊，我之前也是用的好好的也没出现过这个问题啊。
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/07/15/MacEnvironmentVariable/#more" rel="contents">
+            <a class="btn" href="/2017/07/15/Mac下配置环境变量不生效问题/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -709,7 +726,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://nijun.me/2017/07/14/从头开始之web框架基础/">
+    <link itemprop="mainEntityOfPage" href="http://nijun.me/2017/07/13/00001-Database-2017-07-13-20bastdatabase/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="SmartNi">
@@ -731,373 +748,8 @@
             
               
                 
-                <a class="post-title-link" href="/2017/07/14/从头开始之web框架基础/" itemprop="url">
-                  从头开始之JSP+Servlet
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-14T14:56:18+08:00">
-                2017-07-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/07/14/从头开始之web框架基础/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/07/14/从头开始之web框架基础/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/2017/07/14/从头开始之web框架基础/" class="leancloud_visitors" data-flag-title="从头开始之JSP+Servlet">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数 </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计</span>
-                
-                <span title="字数统计">
-                  3,423
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长</span>
-                
-                <span title="阅读时长">
-                  16
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>本篇包括 Mac 下的 Eclipse 环境搭建，配置 Tomcat 服务器，一个简单的登录页面Demo，包括后台到数据库的一系列逻辑，以及使用到了这几天刚学的 AngularJS 做的页面。</p>
-<p>因为 AngularJS4 版本太新了，中文官网没有足够的以 JavaScript 为开发语言的文档，所以先看了AngularJS 2.0之前的文档，先放下以后有时间再看。</p>
-<p>从 AngularJS 2 开始官方就推荐使用 TypeScript 。TypeScript是微软开发的开源编程语言，它是JavaScript的一个严格超集，所以任何现有的JavaScript程序都是合法的TypeScript程序。</p>
-<p>以下是我学习的资料：</p>
-<ol>
-<li><a href="https://angular.io/guide/quickstart" target="_blank" rel="external">官方文档</a></li>
-<li><a href="http://www.runoob.com/angularjs/angularjs-tutorial.html" target="_blank" rel="external">菜鸟 AngularJS</a> </li>
-<li><a href="http://www.runoob.com/angularjs2/angularjs2-tutorial.html" target="_blank" rel="external">菜鸟 AngularJS2</a></li>
-<li><a href="http://www.imooc.com/video/4285" target="_blank" rel="external">慕课 AngularJS 实战</a></li>
-</ol>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/07/14/从头开始之web框架基础/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://nijun.me/2017/07/13/1000Rows_Notes/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="SmartNi">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/lovely.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="SmartNi">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/07/13/1000Rows_Notes/" itemprop="url">
-                  1000行Mysql学习笔记
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-13T22:57:33+08:00">
-                2017-07-13
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/07/13/1000Rows_Notes/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/07/13/1000Rows_Notes/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/2017/07/13/1000Rows_Notes/" class="leancloud_visitors" data-flag-title="1000行Mysql学习笔记">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数 </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计</span>
-                
-                <span title="字数统计">
-                  10,157
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长</span>
-                
-                <span title="阅读时长">
-                  39
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="声明"><a href="#声明" class="headerlink" title="声明"></a>声明</h2><p>这篇是从 <a href="http://www.cnblogs.com/shockerli/" target="_blank" rel="external">shockerli</a> 博客园中转载而来 <a href="http://www.cnblogs.com/shockerli/p/1000-plus-line-mysql-notes.html" target="_blank" rel="external">1000行Mysql学习笔记</a>。</p>
-<p>满满的都是干货。感觉不错，先保存下，跟着自己敲一遍，再整理一篇自己的学习笔记。</p>
-<p>还有一篇自己写的 <a href="">《Mac下Mysql 5.7安装与配置》</a></p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/07/13/1000Rows_Notes/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://nijun.me/2017/07/13/00001-Database-2017-07-13-20个数据库设计的最佳实践/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="SmartNi">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/lovely.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="SmartNi">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/07/13/00001-Database-2017-07-13-20个数据库设计的最佳实践/" itemprop="url">
-                  20个数据库设计的最佳实践
+                <a class="post-title-link" href="/2017/07/13/00001-Database-2017-07-13-20bastdatabase/" itemprop="url">
+                  20 个数据库设计的最佳实践
                 </a>
               
             
@@ -1132,9 +784,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/07/13/00001-Database-2017-07-13-20个数据库设计的最佳实践/#comments" itemprop="discussionUrl">
+                <a href="/2017/07/13/00001-Database-2017-07-13-20bastdatabase/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/07/13/00001-Database-2017-07-13-20个数据库设计的最佳实践/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2017/07/13/00001-Database-2017-07-13-20bastdatabase/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1142,7 +794,7 @@
 
           
           
-             <span id="/2017/07/13/00001-Database-2017-07-13-20个数据库设计的最佳实践/" class="leancloud_visitors" data-flag-title="20个数据库设计的最佳实践">
+             <span id="/2017/07/13/00001-Database-2017-07-13-20bastdatabase/" class="leancloud_visitors" data-flag-title="20 个数据库设计的最佳实践">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -1206,7 +858,1559 @@
 <p> <img src="http://osoa5juml.bkt.clouddn.com//image/site/1499949068975.gif" alt="img"></p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/07/13/00001-Database-2017-07-13-20个数据库设计的最佳实践/#more" rel="contents">
+            <a class="btn" href="/2017/07/13/00001-Database-2017-07-13-20bastdatabase/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://nijun.me/2017/07/04/代码块测试/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="SmartNi">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/lovely.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SmartNi">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/07/04/代码块测试/" itemprop="url">
+                  代码块测试
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-04T14:12:44+08:00">
+                2017-07-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/07/04/代码块测试/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/07/04/代码块测试/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2017/07/04/代码块测试/" class="leancloud_visitors" data-flag-title="代码块测试">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  78
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长</span>
+                
+                <span title="阅读时长">
+                  1
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p> <a href="">『前往』</a><a href="">「前往」</a></p>
+<pre><code class="java">public void postRunningActDate(String tag, int projectId, int studentId, int distance, long costTime, long targetTime,long startTime, int stepCount, ResponseCallback callback) {
+        String url = API_SCHEME + INIT_PUSH;
+        HashMap params = new HashMap();
+        params.put(&quot;projectId&quot;, projectId);
+        params.put(&quot;studentId&quot;, studentId);
+        params.put(&quot;distance&quot;, distance);
+        params.put(&quot;costTime&quot;, costTime);
+        params.put(&quot;targetTime&quot;, targetTime);
+        params.put(&quot;startTime&quot;, startTime);
+        params.put(&quot;stepCount&quot;, stepCount);
+        Log.d(TAG, &quot;params: &quot; + params);
+        NetworkInterface.instance().connected(HttpMethod.POST, url, tag, params, CacheMode.DEFAULT, false, callback);
+}
+</code></pre>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://nijun.me/2017/06/14/Android-2017-06-14-Android异步消息处理机制（一）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="SmartNi">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/lovely.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SmartNi">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/06/14/Android-2017-06-14-Android异步消息处理机制（一）/" itemprop="url">
+                  Android 异步消息处理机制（一）
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-14T10:37:55+08:00">
+                2017-06-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/06/14/Android-2017-06-14-Android异步消息处理机制（一）/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/06/14/Android-2017-06-14-Android异步消息处理机制（一）/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2017/06/14/Android-2017-06-14-Android异步消息处理机制（一）/" class="leancloud_visitors" data-flag-title="Android 异步消息处理机制（一）">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  577
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长</span>
+                
+                <span title="阅读时长">
+                  2
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>两个问题：</p>
+<p>​    1、在子线程中如何创建的Handler？需要先做什么？如何发送消息？</p>
+<p>​    2、Handler中发送的消息去哪啦？为什么handleMessage中又能得到这个Message？</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/06/14/Android-2017-06-14-Android异步消息处理机制（一）/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://nijun.me/2017/06/14/Android-2017-06-14-Android消息处理机制之二：消息中obtain源代码剖析/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="SmartNi">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/lovely.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SmartNi">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/06/14/Android-2017-06-14-Android消息处理机制之二：消息中obtain源代码剖析/" itemprop="url">
+                  Android 消息处理机制之二：消息中 obtain 源代码剖析
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-14T10:36:40+08:00">
+                2017-06-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/06/14/Android-2017-06-14-Android消息处理机制之二：消息中obtain源代码剖析/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/06/14/Android-2017-06-14-Android消息处理机制之二：消息中obtain源代码剖析/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2017/06/14/Android-2017-06-14-Android消息处理机制之二：消息中obtain源代码剖析/" class="leancloud_visitors" data-flag-title="Android 消息处理机制之二：消息中 obtain 源代码剖析">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  928
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长</span>
+                
+                <span title="阅读时长">
+                  5
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>Message中obtain()源码分析</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/06/14/Android-2017-06-14-Android消息处理机制之二：消息中obtain源代码剖析/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://nijun.me/2017/06/14/Android-2017-06-14-Android消息处理机制之三：Handler中sendMessage源代码剖析/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="SmartNi">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/lovely.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SmartNi">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/06/14/Android-2017-06-14-Android消息处理机制之三：Handler中sendMessage源代码剖析/" itemprop="url">
+                  Android 消息处理机制之三： Handler 中 sendMessage 源代码剖析
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-14T10:35:30+08:00">
+                2017-06-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/06/14/Android-2017-06-14-Android消息处理机制之三：Handler中sendMessage源代码剖析/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/06/14/Android-2017-06-14-Android消息处理机制之三：Handler中sendMessage源代码剖析/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2017/06/14/Android-2017-06-14-Android消息处理机制之三：Handler中sendMessage源代码剖析/" class="leancloud_visitors" data-flag-title="Android 消息处理机制之三： Handler 中 sendMessage 源代码剖析">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  203
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长</span>
+                
+                <span title="阅读时长">
+                  1
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>Handler中sendMessage源代码剖析。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/06/14/Android-2017-06-14-Android消息处理机制之三：Handler中sendMessage源代码剖析/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://nijun.me/2017/06/08/Android-2017-06-08-Activity的生命周期和启动模式/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="SmartNi">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/lovely.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SmartNi">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/06/08/Android-2017-06-08-Activity的生命周期和启动模式/" itemprop="url">
+                  Activity 的生命周期和启动模式
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-08T00:05:40+08:00">
+                2017-06-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/06/08/Android-2017-06-08-Activity的生命周期和启动模式/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/06/08/Android-2017-06-08-Activity的生命周期和启动模式/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2017/06/08/Android-2017-06-08-Activity的生命周期和启动模式/" class="leancloud_visitors" data-flag-title="Activity 的生命周期和启动模式">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  3,031
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长</span>
+                
+                <span title="阅读时长">
+                  12
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>Android中我们最先接触到的就是Activity，如果掌握了 Activity，那么对学习其他四大组件无疑是很有帮助的。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/06/08/Android-2017-06-08-Activity的生命周期和启动模式/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://nijun.me/2017/05/20/00001-maven-2017-05-20-maven/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="SmartNi">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/lovely.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SmartNi">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/05/20/00001-maven-2017-05-20-maven/" itemprop="url">
+                  Maven 学习总结
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-20T13:32:40+08:00">
+                2017-05-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/05/20/00001-maven-2017-05-20-maven/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/05/20/00001-maven-2017-05-20-maven/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2017/05/20/00001-maven-2017-05-20-maven/" class="leancloud_visitors" data-flag-title="Maven 学习总结">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  2,314
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长</span>
+                
+                <span title="阅读时长">
+                  10
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <div align="center"><br>  想学习Maven吗？<br><br></div>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/05/20/00001-maven-2017-05-20-maven/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://nijun.me/2017/05/14/00001-Git-2017-05-14-GitHub/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="SmartNi">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/lovely.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SmartNi">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/05/14/00001-Git-2017-05-14-GitHub/" itemprop="url">
+                  GitHub 学习之路
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-14T21:55:29+08:00">
+                2017-05-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/05/14/00001-Git-2017-05-14-GitHub/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/05/14/00001-Git-2017-05-14-GitHub/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2017/05/14/00001-Git-2017-05-14-GitHub/" class="leancloud_visitors" data-flag-title="GitHub 学习之路">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  8,539
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长</span>
+                
+                <span title="阅读时长">
+                  35
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p><img src="http://osoa5juml.bkt.clouddn.com/image/site/1499949527648.png" alt=""></p>
+<div align="center"><br><br>自学 Git 的一些总结<br><br></div>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/05/14/00001-Git-2017-05-14-GitHub/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://nijun.me/2017/05/06/00001-Blog-2017-05-05-hexo/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="SmartNi">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/lovely.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SmartNi">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/05/06/00001-Blog-2017-05-05-hexo/" itemprop="url">
+                  搭建个人博客 - Hexo
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-06T22:07:56+08:00">
+                2017-05-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/技术/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/05/06/00001-Blog-2017-05-05-hexo/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/05/06/00001-Blog-2017-05-05-hexo/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2017/05/06/00001-Blog-2017-05-05-hexo/" class="leancloud_visitors" data-flag-title="搭建个人博客 - Hexo">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  2,764
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长</span>
+                
+                <span title="阅读时长">
+                  11
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p><img src="http://osoa5juml.bkt.clouddn.com/avatar.jpg" alt=""></p>
+ <div align="center"><br>  今天，是你未来所有剩余的日子中，最早的一天<br><br></div>
+
+<div align="right">——<strong>stormzhang</strong>      </div>
+
+
+
+
+
+
+
+<h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p><br></p>
+<p>个人博客地址：<a href="http://nijun.me">http://nijun.me</a></p>
+<p>我为什么要写这篇文章？是因为大学三年了，感觉学了这么多知识，但是并没有真正地去消化和总结过，最近又看到了<a href="http://www.baidu.com" title="stormzhang" target="_blank" rel="external">stormzhang</a>大神写的这篇<a href="http://stormzhang.com/android/2016/03/04/why-i-keep-writing-blog/" title="stormzhang" target="_blank" rel="external">我为什么坚持写博客？</a>。我真的感触很深，以前花了很多时间学的东西，不久之后便会印象模糊，想要回忆的时候，又不能快速找到。所以我决定从今天开始写博客，总结和梳理自己的知识。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/05/06/00001-Blog-2017-05-05-hexo/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1246,10 +2450,6 @@
   </section>
 
   
-  <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
-  </nav>
-
 
 
           </div>
@@ -1292,7 +2492,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-count">11</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

@@ -2,10 +2,8 @@
 
 
 
-  
 
-
-<html class="theme-next mist use-motion" lang="zh-Hans">
+<html class="theme-next mist" lang="zh-Hans">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -75,7 +73,7 @@
   
     
     
-    <link href="//fonts.googleapis.com/css?family=Source Code Pro:300,300italic,400,400italic,700,700italic|Montserrat:300,300italic,400,400italic,700,700italic|Dancing Script:300,300italic,400,400italic,700,700italic|Droid Sans Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Arial:300,300italic,400,400italic,700,700italic|Montserrat:300,300italic,400,400italic,700,700italic|Dancing Script:300,300italic,400,400italic,700,700italic|monospace:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
   
 
 
@@ -88,7 +86,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Android," />
+  <meta name="keywords" content="Database," />
 
 
 
@@ -106,17 +104,19 @@
 
 
 
-<meta name="description" content="Message中obtain()源码分析">
-<meta name="keywords" content="Android">
+<meta name="description" content="数据库设计是整个程序的重点之一，为了支持相关程序运行，最佳的数据库设计往往不可能一蹴而就，只能反复探寻并逐步求精，这是一个复杂的过程，也是规划和结构化数据库中的数据对象以及这些数据对象之间关系的过程。下面给出了20个数据库设计最佳实践，当然，所谓最佳，还是要看它是否适合你的程序。一起来了解了解吧。">
+<meta name="keywords" content="Database">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Android消息处理机制之二：消息中obtain源代码剖析">
-<meta property="og:url" content="http://nijun.me/2017/06/14/00001-Android-2017-06-14-Android消息处理机制之二：消息中obtain源代码剖析/index.html">
+<meta property="og:title" content="20 个数据库设计的最佳实践">
+<meta property="og:url" content="http://nijun.me/2017/07/13/00001-Database-2017-07-13-20bastdatabase/index.html">
 <meta property="og:site_name" content="SmartNi">
-<meta property="og:description" content="Message中obtain()源码分析">
-<meta property="og:updated_time" content="2017-07-13T15:24:53.000Z">
+<meta property="og:description" content="数据库设计是整个程序的重点之一，为了支持相关程序运行，最佳的数据库设计往往不可能一蹴而就，只能反复探寻并逐步求精，这是一个复杂的过程，也是规划和结构化数据库中的数据对象以及这些数据对象之间关系的过程。下面给出了20个数据库设计最佳实践，当然，所谓最佳，还是要看它是否适合你的程序。一起来了解了解吧。">
+<meta property="og:image" content="http://osoa5juml.bkt.clouddn.com//image/site/1499949068975.gif">
+<meta property="og:updated_time" content="2017-07-29T06:11:09.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Android消息处理机制之二：消息中obtain源代码剖析">
-<meta name="twitter:description" content="Message中obtain()源码分析">
+<meta name="twitter:title" content="20 个数据库设计的最佳实践">
+<meta name="twitter:description" content="数据库设计是整个程序的重点之一，为了支持相关程序运行，最佳的数据库设计往往不可能一蹴而就，只能反复探寻并逐步求精，这是一个复杂的过程，也是规划和结构化数据库中的数据对象以及这些数据对象之间关系的过程。下面给出了20个数据库设计最佳实践，当然，所谓最佳，还是要看它是否适合你的程序。一起来了解了解吧。">
+<meta name="twitter:image" content="http://osoa5juml.bkt.clouddn.com//image/site/1499949068975.gif">
 
 
 
@@ -127,7 +127,7 @@
     scheme: 'Mist',
     sidebar: {"position":"left","display":"post","offset":50,"offset_float":0,"b2t":true,"scrollpercent":true},
     fancybox: false,
-    motion: true,
+    motion: false,
     duoshuo: {
       userId: '0',
       author: '博主'
@@ -144,7 +144,7 @@
 
 
 
-  <link rel="canonical" href="http://nijun.me/2017/06/14/00001-Android-2017-06-14-Android消息处理机制之二：消息中obtain源代码剖析/"/>
+  <link rel="canonical" href="http://nijun.me/2017/07/13/00001-Database-2017-07-13-20bastdatabase/"/>
 
 
 
@@ -152,14 +152,18 @@
 
 <!-- 自定义代码块样式  2017年07月05日08:36:14-->
 
-<link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/solarized-light.min.css">
+<link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/androidstudio.min.css">
+
+<!-- <link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/monokai-sublime.min.css"> -->
 <script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
 
 <script>hljs.initHighlightingOnLoad();</script>
 
+
+<!-- railscasts   mono-blue  tomorrow  androidstudio  monokai-->
 <!-- 自定义代码块样式 2017年07月05日08:36:17-->
 
-     <title>Android消息处理机制之二：消息中obtain源代码剖析 | SmartNi</title>
+     <title>20 个数据库设计的最佳实践 | SmartNi</title>
      
   
 
@@ -356,7 +360,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://nijun.me/2017/06/14/00001-Android-2017-06-14-Android消息处理机制之二：消息中obtain源代码剖析/">
+    <link itemprop="mainEntityOfPage" href="http://nijun.me/2017/07/13/00001-Database-2017-07-13-20bastdatabase/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="SmartNi">
@@ -377,7 +381,7 @@
             
             
               
-                Android消息处理机制之二：消息中obtain源代码剖析
+                20 个数据库设计的最佳实践
               
             
           </h1>
@@ -392,8 +396,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-14T10:36:40+08:00">
-                2017-06-14
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-13T20:18:59+08:00">
+                2017-07-13
               </time>
             
 
@@ -403,28 +407,6 @@
           </span>
 
           
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Android/" itemprop="url" rel="index">
-                    <span itemprop="name">Android</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
 
           
             
@@ -433,9 +415,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/06/14/00001-Android-2017-06-14-Android消息处理机制之二：消息中obtain源代码剖析/#comments" itemprop="discussionUrl">
+                <a href="/2017/07/13/00001-Database-2017-07-13-20bastdatabase/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/06/14/00001-Android-2017-06-14-Android消息处理机制之二：消息中obtain源代码剖析/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2017/07/13/00001-Database-2017-07-13-20bastdatabase/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -443,7 +425,7 @@
 
           
           
-             <span id="/2017/06/14/00001-Android-2017-06-14-Android消息处理机制之二：消息中obtain源代码剖析/" class="leancloud_visitors" data-flag-title="Android消息处理机制之二：消息中obtain源代码剖析">
+             <span id="/2017/07/13/00001-Database-2017-07-13-20bastdatabase/" class="leancloud_visitors" data-flag-title="20 个数据库设计的最佳实践">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -468,7 +450,7 @@
                   <span class="post-meta-item-text">字数统计</span>
                 
                 <span title="字数统计">
-                  928
+                  740
                 </span>
               
 
@@ -484,7 +466,7 @@
                   <span class="post-meta-item-text">阅读时长</span>
                 
                 <span title="阅读时长">
-                  5
+                  3
                 </span>
               
             </div>
@@ -502,156 +484,32 @@
       
 
       
-        <p>Message中obtain()源码分析</p>
+        <p>数据库设计是整个程序的重点之一，为了支持相关程序运行，最佳的数据库设计往往不可能一蹴而就，只能反复探寻并逐步求精，这是一个复杂的过程，也是规划和结构化数据库中的数据对象以及这些数据对象之间关系的过程。下面给出了20个数据库设计最佳实践，当然，所谓最佳，还是要看它是否适合你的程序。一起来了解了解吧。</p>
+<p> <img src="http://osoa5juml.bkt.clouddn.com//image/site/1499949068975.gif" alt="img"></p>
 <a id="more"></a>
-<p>参考自 AHuier的<a href="http://blog.csdn.net/xukunhui2/article/details/17012923" target="_blank" rel="external">Android消息处理机制之二：消息中obtain()源代码剖析</a> </p>
-<p>obtain的源码，可见是从消息池中取出对象。这里为了防止多个任务访问消息池获取对象，使用 synchronized(sPoolSync) 将 obtain() 方法上锁了。</p>
-<pre><code class="java">private static final Object sPoolSync = new Object();  
-private static Message sPool;  
-private static int sPoolSize = 0;  
-
-private static final int MAX_POOL_SIZE = 10;  
-
-/** 
- * Return a new Message instance from the global pool. Allows us to 
- * avoid allocating new objects in many cases. 
- */  
-public static Message obtain() {  
-    synchronized (sPoolSync) {  
-        if (sPool != null) {  
-            Message m = sPool;  
-            sPool = m.next;  
-            m.next = null;  
-            sPoolSize--;  
-            return m;  
-        }  
-    }  
-    return new Message();  
-}
-</code></pre>
-<p>1) 通过 Message.obtain()方式获取Message对象</p>
-<pre><code class="java">public class MyThread implements Runnable{  
-
-    @Override  
-    public void run() {  
-        // 使用第一种构造方法  
-        Message message = Message.obtain();  
-        message.what = 1;  
-        message.arg1 = 1;  
-        message.arg2 = 3;  
-        message.obj = &quot;SmartNi&quot;;  
-        handler.sendMessage(message);  
-    }          
-}
-</code></pre>
-<p>2) 通过 Message.obtain(Handler h)的方式获取Message对象</p>
-<p>首先查看一下obtain(Handler h)的源码，可见 message 的目标对象已经指向了 Handler ，那么在发送消息的时候就直接调用 sendToTarget() 方法即可。</p>
-<pre><code class="java">     /**
-     * Same as {@link #obtain()}, but sets the value for the &lt;em&gt;target&lt;/em&gt; member on the Message returned.
-     * @param h  Handler to assign to the returned Message object&#39;s &lt;em&gt;target&lt;/em&gt; member.
-     * @return A Message object from the global pool.
-     */
-    public static Message obtain(Handler h) {
-        Message m = obtain();
-        m.target = h;
-        return m;
-    }
-</code></pre>
-<pre><code class="java">/* 
- *  第二种获取Message对象的方法 
- *  public static Message obtain (Handler h) 
- *  传递一个关联到消息Handler. 
- */  
-Message message = Message.obtain(handler);  
-message.what = 1;  
-message.arg1 = 1;  
-message.arg2 = 3;  
-message.obj = &quot;SmartNi&quot;;  
-message.sendToTarget(); // 完成发送消息的动作
-</code></pre>
-<p>因为</p>
-<pre><code class="java">...  
-/*package*/ Handler target;    
-...   
-/** 
- * Sends this Message to the Handler specified by {@link #getTarget}. 
- * Throws a null pointer exception if this field has not been set. 
- */  
-public void sendToTarget() {  
-    target.sendMessage(this);  //这里
-}
-</code></pre>
-<p>3) 通过 Message.obtain(Handler h,int what)的方式获取Message对象</p>
-<pre><code class="java">/** 
- * Same as {@link #obtain()}, but sets the values for both &lt;em&gt;target&lt;/em&gt; and 
- * &lt;em&gt;what&lt;/em&gt; members on the Message. 
- * @param h  Value to assign to the &lt;em&gt;target&lt;/em&gt; member. 
- * @param what  Value to assign to the &lt;em&gt;what&lt;/em&gt; member. 
- * @return A Message object from the global pool. 
- */  
-public static Message obtain(Handler h, int what) {  
-    Message m = obtain();  
-    m.target = h;  
-    m.what = what;  
-
-    return m;  
-}
-</code></pre>
-<p>4) 通过 Message.obtain(Handler h, int what, int arg1, int arg2, Object obj)的方式获取Message对象</p>
-<pre><code class="java">/* 
- * public static Message obtain (Handler h, int what, int arg1, int arg2, Object obj) 
- * 关联Handler和传递Message的几种常用属性值 
- */  
-Message message = Message.obtain(handler, 1, 1, 3, &quot;SmartNi&quot;);  
-message.sendToTarget();
-</code></pre>
-<pre><code class="java">/** 
- * Same as {@link #obtain()}, but sets the values of the &lt;em&gt;target&lt;/em&gt;, &lt;em&gt;what&lt;/em&gt;,  
- * &lt;em&gt;arg1&lt;/em&gt;, &lt;em&gt;arg2&lt;/em&gt;, and &lt;em&gt;obj&lt;/em&gt; members. 
- *  
- * @param h  The &lt;em&gt;target&lt;/em&gt; value to set. 
- * @param what  The &lt;em&gt;what&lt;/em&gt; value to set. 
- * @param arg1  The &lt;em&gt;arg1&lt;/em&gt; value to set. 
- * @param arg2  The &lt;em&gt;arg2&lt;/em&gt; value to set. 
- * @param obj  The &lt;em&gt;obj&lt;/em&gt; value to set. 
- * @return  A Message object from the global pool. 
- */  
-public static Message obtain(Handler h, int what,   
-        int arg1, int arg2, Object obj) {  
-    Message m = obtain();  
-    m.target = h;  
-    m.what = what;  
-    m.arg1 = arg1;  
-    m.arg2 = arg2;  
-    m.obj = obj;  
-
-    return m;  
-}
-</code></pre>
-<p>5) 通过上述几个例子我们可以知道Message中的obtain()的几种重载方法在底层的实现都是大同小异的,他们都是底层都是首先调用obtain()方法来从消息池中获得一个消息的对象的。然后在通过参数传递来封装指定的Handler和需要携带的数据。如果使用这些重载的方法建议完成数据封装之后调用sendToTarget()方法。这就是几种obtain()重载方法的不同。</p>
-<p>6) 这里我们需要特别注意Message中的这个重载方法:<strong>Message obtain (Message orig)</strong> 它是将原有的消息体作为一个新的消息参数来发送的,我们看一下它的源代码。</p>
-<pre><code class="java">/** 
- * Same as {@link #obtain()}, but copies the values of an existing 
- * message (including its target) into the new one. 
- * @param orig Original message to copy. 
- * @return A Message object from the global pool. 
- */  
-public static Message obtain(Message orig) {  
-    Message m = obtain();  
-    m.what = orig.what;  
-    m.arg1 = orig.arg1;  
-    m.arg2 = orig.arg2;  
-    m.obj = orig.obj;  
-    m.replyTo = orig.replyTo;  
-    if (orig.data != null) {  
-        m.data = new Bundle(orig.data);  
-    }  
-    m.target = orig.target;  
-    m.callback = orig.callback;  
-
-    return m;  
-}
-</code></pre>
+<ol>
+<li>使用明确、统一的标明和列名，例如 School, SchoolCourse, CourceID。</li>
+<li>数据表名使用单数而不是复数，例如 StudentCourse，而不是 StudentCourses。</li>
+<li>数据表名不要使用空格。</li>
+<li>数据表名不要使用不必要的前缀或者后缀，例如使用 School，而不是 TblSchool，或者 SchoolTable 等等。</li>
+<li>数据库中的密码要加密，到应用中再解密。 （其实就是散列存储、单向加密）</li>
+<li>使用整数作为 ID 字段，也许现在没有这个必要，但是将来需要，例如关联表，索引等等。</li>
+<li>使用整数字段做索引，否则会带来很大的性能问题 。</li>
+<li>使用 bit 作为布尔字段，使用整数或者 varchar 是浪费。同时，这类字段应该以 “Is” 开头。</li>
+<li>要经过认证才能访问数据库，不要给每一个用户管理员权限。</li>
+<li>尽量避免使用 “select *”，而使用 “select [required_column_list]” 以获得更好的性能。</li>
+<li>假如程序代码比较复杂，使用 ORM 框架，例如 hibernate，iBatis。ORM 框架的性能问题可以通过详细的配置去解决。</li>
+<li>分割不常使用的数据表到不同的物理存储以获得更好的性能。</li>
+<li>对于关键数据库，使用安全备份系统，例如集群，同步等等。</li>
+<li>使用外键，非空等限制来保证数据的完整性，不要把所有的东西都扔给程序。</li>
+<li>缺乏数据库文档是致命的。你应该为你的数据库设计写文档，包括触发器、存储过程和其他脚本。</li>
+<li>对于经常使用的查询和大型数据表，要使用索引。数据分析工具可以帮助你决定如何建立索引。</li>
+<li>数据库服务器和网页服务器应该放在不同的机器上。这回提高安全性，并减轻 CPU 压力。</li>
+<li>Image 和 blob 字段不应该定义在常用的数据表中，否则会影响性能。</li>
+<li>范式（Normalization）要按照要求使用以提高性能。Normalization 做的不够会导致数据冗余，而过度Normalization 会导致太多的 join 和数据表，这两种情况都会影响性能。</li>
+<li>多花点时间在数据库设计上，否则你将来会付出加倍的时间来偿还。</li>
+</ol>
+<p>　　英文原址：<a href="http://www.javacodegeeks.com/2012/02/20-database-design-best-practices.html" target="_blank" rel="external">javacodegeeks.com</a></p>
 
       
     </div>
@@ -703,7 +561,7 @@ public static Message obtain(Message orig) {
       
         <div class="post-tags">
           
-            <a href="/tags/Android/" rel="tag"># Android</a>
+            <a href="/tags/Database/" rel="tag"># Database</a>
           
         </div>
       
@@ -716,8 +574,8 @@ public static Message obtain(Message orig) {
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/06/14/00001-Android-2017-06-14-Android消息处理机制之三：Handler中sendMessage源代码剖析/" rel="next" title="Android消息处理机制之三：Handler中sendMessage源代码剖析">
-                <i class="fa fa-chevron-left"></i> Android消息处理机制之三：Handler中sendMessage源代码剖析
+              <a href="/2017/07/04/代码块测试/" rel="next" title="代码块测试">
+                <i class="fa fa-chevron-left"></i> 代码块测试
               </a>
             
           </div>
@@ -726,8 +584,8 @@ public static Message obtain(Message orig) {
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/06/14/00001-Android-2017-06-14-Android异步消息处理机制（一）/" rel="prev" title="Android异步消息处理机制（一）">
-                Android异步消息处理机制（一） <i class="fa fa-chevron-right"></i>
+              <a href="/2017/07/15/Mac下配置环境变量不生效问题/" rel="prev" title="Mac 下配置环境变量不生效问题">
+                Mac 下配置环境变量不生效问题 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -825,7 +683,7 @@ public static Message obtain(Message orig) {
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-count">11</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -1051,9 +909,9 @@ public static Message obtain(Message orig) {
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'http://nijun.me/2017/06/14/00001-Android-2017-06-14-Android消息处理机制之二：消息中obtain源代码剖析/';
-          this.page.identifier = '2017/06/14/00001-Android-2017-06-14-Android消息处理机制之二：消息中obtain源代码剖析/';
-          this.page.title = 'Android消息处理机制之二：消息中obtain源代码剖析';
+          this.page.url = 'http://nijun.me/2017/07/13/00001-Database-2017-07-13-20bastdatabase/';
+          this.page.identifier = '2017/07/13/00001-Database-2017-07-13-20bastdatabase/';
+          this.page.title = '20 个数据库设计的最佳实践';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://nimon.disqus.com/embed.js';
