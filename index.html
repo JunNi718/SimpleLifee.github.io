@@ -150,11 +150,11 @@
 
 <!-- 自定义代码块样式  2017年07月05日08:36:14-->
 
-<link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.6.0/styles/monokai.min.css">
-<script src="//cdn.bootcss.com/highlight.js/9.6.0/highlight.min.js"></script>
+<!-- <link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.6.0/styles/androidstudio.min.css">
+<script src="//cdn.bootcss.com/highlight.js/9.6.0/highlight.min.js"></script> -->
 
-<!-- <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/monokai.min.css">
-<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>  -->
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/androidstudio.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script> 
 <!-- railscasts   mono-blue  tomorrow  androidstudio  monokai-->
 <script>hljs.initHighlightingOnLoad();</script>
 
@@ -673,7 +673,7 @@
                   <span class="post-meta-item-text">字数统计</span>
                 
                 <span title="字数统计">
-                  1,368
+                  1,362
                 </span>
               
 
@@ -1030,7 +1030,7 @@
                   <span class="post-meta-item-text">字数统计</span>
                 
                 <span title="字数统计">
-                  158
+                  81
                 </span>
               
 
@@ -1067,22 +1067,7 @@
         
           
             <p> <a href="">『前往』</a><a href="">「前往」</a></p>
-<pre><code class="java">public void postRunningActDate(String tag, int projectId, int studentId, int distance, long costTime, long targetTime,long startTime, int stepCount, ResponseCallback callback) {
-        String url = API_SCHEME + INIT_PUSH;
-        this.map = 1;
-        HashMap params = new HashMap();
-        params.put(&quot;projectId&quot;, projectId);
-        params.put(&quot;studentId&quot;, studentId);
-        params.put(&quot;distance&quot;, distance);
-        params.put(&quot;costTime&quot;, costTime);
-        params.put(&quot;targetTime&quot;, targetTime);
-        params.put(&quot;startTime&quot;, startTime);
-        params.put(&quot;stepCount&quot;, stepCount);
-        Log.d(TAG, &quot;params: &quot; + params);
-        NetworkInterface.instance().connected(HttpMethod.POST, url, tag, params, CacheMode.DEFAULT, false, callback);
-}
-</code></pre>
-<pre><code>public void postRunningActDate(String tag, int projectId, int studentId, int distance, long costTime, long targetTime,long startTime, int stepCount, ResponseCallback callback) {
+<pre><code>public void postRunningActDate( String tag, int projectId, int studentId, int distance, long costTime, long targetTime,long startTime, int stepCount, ResponseCallback callback) {
         String url = API_SCHEME + INIT_PUSH;
         this.map = 1;
         HashMap params = new HashMap();

@@ -57,7 +57,7 @@
     <link href="http://nijun.me/2017/07/15/Mac%E4%B8%8B%E9%85%8D%E7%BD%AE%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E4%B8%8D%E7%94%9F%E6%95%88%E9%97%AE%E9%A2%98/"/>
     <id>http://nijun.me/2017/07/15/Mac下配置环境变量不生效问题/</id>
     <published>2017-07-15T15:00:46.000Z</published>
-    <updated>2017-07-29T06:09:21.000Z</updated>
+    <updated>2017-07-29T14:22:42.000Z</updated>
     
     <content type="html"><![CDATA[<p>注意：Mac 下一般使用 bash 作为默认的 shell。</p>
 <hr>
@@ -68,9 +68,7 @@
 <p>但是呢，别高兴的太早，作用是有的，但是仅限于当前这个会话。一旦重新开启新的会话，又被打回老样子。</p>
 <p>于是我就想，既然 <strong><code>source ~/.bash_profile</code></strong> 这句话能起作用，就不是 <strong><code>.bash_profile</code></strong> 的问题了，那么问题到底出在哪了呢？会不会是系统压根没执行 <strong><code>.bash_profile</code></strong> ？所以我根据系统环境变量的加载顺序，去寻找 <strong><code>/etc</code></strong> 下的两个文件。</p>
 <p><strong>profile</strong></p>
-<pre><code># System-wide .profile for sh(1)
-
-if [ -x /usr/libexec/path_helper ]; then
+<pre><code>if [ -x /usr/libexec/path_helper ]; then
     eval `/usr/libexec/path_helper -s`
 fi
 
@@ -213,25 +211,10 @@ export PATH=$PATH:&lt;PATH 1&gt;:&lt;PATH 2&gt;:&lt;PATH 3&gt;:......:&lt;PATH N
     <link href="http://nijun.me/2017/07/04/%E4%BB%A3%E7%A0%81%E5%9D%97%E6%B5%8B%E8%AF%95/"/>
     <id>http://nijun.me/2017/07/04/代码块测试/</id>
     <published>2017-07-04T06:12:44.000Z</published>
-    <updated>2017-07-29T14:04:26.000Z</updated>
+    <updated>2017-07-29T14:29:32.000Z</updated>
     
     <content type="html"><![CDATA[<p> <a href="">『前往』</a><a href="">「前往」</a></p>
-<pre><code class="java">public void postRunningActDate(String tag, int projectId, int studentId, int distance, long costTime, long targetTime,long startTime, int stepCount, ResponseCallback callback) {
-        String url = API_SCHEME + INIT_PUSH;
-        this.map = 1;
-        HashMap params = new HashMap();
-        params.put(&quot;projectId&quot;, projectId);
-        params.put(&quot;studentId&quot;, studentId);
-        params.put(&quot;distance&quot;, distance);
-        params.put(&quot;costTime&quot;, costTime);
-        params.put(&quot;targetTime&quot;, targetTime);
-        params.put(&quot;startTime&quot;, startTime);
-        params.put(&quot;stepCount&quot;, stepCount);
-        Log.d(TAG, &quot;params: &quot; + params);
-        NetworkInterface.instance().connected(HttpMethod.POST, url, tag, params, CacheMode.DEFAULT, false, callback);
-}
-</code></pre>
-<pre><code>public void postRunningActDate(String tag, int projectId, int studentId, int distance, long costTime, long targetTime,long startTime, int stepCount, ResponseCallback callback) {
+<pre><code>public void postRunningActDate( String tag, int projectId, int studentId, int distance, long costTime, long targetTime,long startTime, int stepCount, ResponseCallback callback) {
         String url = API_SCHEME + INIT_PUSH;
         this.map = 1;
         HashMap params = new HashMap();
@@ -250,7 +233,7 @@ export PATH=$PATH:&lt;PATH 1&gt;:&lt;PATH 2&gt;:&lt;PATH 3&gt;:......:&lt;PATH N
     <summary type="html">
     
       &lt;p&gt; &lt;a href=&quot;&quot;&gt;『前往』&lt;/a&gt;&lt;a href=&quot;&quot;&gt;「前往」&lt;/a&gt;&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;java&quot;&gt;public void postRunningActDate(String tag, int projectId, int student
+&lt;pre&gt;&lt;code&gt;public void postRunningActDate( String tag, int projectId, int studentId, int dist
     
     </summary>
     
@@ -262,7 +245,7 @@ export PATH=$PATH:&lt;PATH 1&gt;:&lt;PATH 2&gt;:&lt;PATH 3&gt;:......:&lt;PATH N
     <link href="http://nijun.me/2017/06/14/Android-2017-06-14-Android%E5%BC%82%E6%AD%A5%E6%B6%88%E6%81%AF%E5%A4%84%E7%90%86%E6%9C%BA%E5%88%B6%EF%BC%88%E4%B8%80%EF%BC%89/"/>
     <id>http://nijun.me/2017/06/14/Android-2017-06-14-Android异步消息处理机制（一）/</id>
     <published>2017-06-14T02:37:55.000Z</published>
-    <updated>2017-07-29T11:19:14.000Z</updated>
+    <updated>2017-07-29T14:26:08.000Z</updated>
     
     <content type="html"><![CDATA[<p>两个问题：</p>
 <p>​    1、在子线程中如何创建的Handler？需要先做什么？如何发送消息？</p>

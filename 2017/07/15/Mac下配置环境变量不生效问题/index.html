@@ -113,7 +113,7 @@
 <meta property="og:url" content="http://nijun.me/2017/07/15/Mac下配置环境变量不生效问题/index.html">
 <meta property="og:site_name" content="SmartNi">
 <meta property="og:description" content="注意：Mac 下一般使用 bash 作为默认的 shell。  问题描述今天在捣鼓 MySQL 的时候，安装删除了好几个循环之后，发现打开 iTerm 之后输入 mysql 不起作用了，刚开始还以为是 MySQL 安装失败了，但是再一次安装成功后还是提示 command not found: mysql 。看到这句话第一时间我就想到了是不是环境变量没有配呢？但是一想不对啊，我之前也是用的好好的也没">
-<meta property="og:updated_time" content="2017-07-29T06:09:21.000Z">
+<meta property="og:updated_time" content="2017-07-29T14:22:42.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Mac 下配置环境变量不生效问题">
 <meta name="twitter:description" content="注意：Mac 下一般使用 bash 作为默认的 shell。  问题描述今天在捣鼓 MySQL 的时候，安装删除了好几个循环之后，发现打开 iTerm 之后输入 mysql 不起作用了，刚开始还以为是 MySQL 安装失败了，但是再一次安装成功后还是提示 command not found: mysql 。看到这句话第一时间我就想到了是不是环境变量没有配呢？但是一想不对啊，我之前也是用的好好的也没">
@@ -152,11 +152,11 @@
 
 <!-- 自定义代码块样式  2017年07月05日08:36:14-->
 
-<link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.6.0/styles/monokai.min.css">
-<script src="//cdn.bootcss.com/highlight.js/9.6.0/highlight.min.js"></script>
+<!-- <link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.6.0/styles/androidstudio.min.css">
+<script src="//cdn.bootcss.com/highlight.js/9.6.0/highlight.min.js"></script> -->
 
-<!-- <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/monokai.min.css">
-<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>  -->
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/androidstudio.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script> 
 <!-- railscasts   mono-blue  tomorrow  androidstudio  monokai-->
 <script>hljs.initHighlightingOnLoad();</script>
 
@@ -481,7 +481,7 @@
                   <span class="post-meta-item-text">字数统计</span>
                 
                 <span title="字数统计">
-                  1,368
+                  1,362
                 </span>
               
 
@@ -524,9 +524,7 @@
 <p>但是呢，别高兴的太早，作用是有的，但是仅限于当前这个会话。一旦重新开启新的会话，又被打回老样子。</p>
 <p>于是我就想，既然 <strong><code>source ~/.bash_profile</code></strong> 这句话能起作用，就不是 <strong><code>.bash_profile</code></strong> 的问题了，那么问题到底出在哪了呢？会不会是系统压根没执行 <strong><code>.bash_profile</code></strong> ？所以我根据系统环境变量的加载顺序，去寻找 <strong><code>/etc</code></strong> 下的两个文件。</p>
 <p><strong>profile</strong></p>
-<pre><code># System-wide .profile for sh(1)
-
-if [ -x /usr/libexec/path_helper ]; then
+<pre><code>if [ -x /usr/libexec/path_helper ]; then
     eval `/usr/libexec/path_helper -s`
 fi
 

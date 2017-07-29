@@ -45,9 +45,7 @@
 <p>但是呢，别高兴的太早，作用是有的，但是仅限于当前这个会话。一旦重新开启新的会话，又被打回老样子。</p>
 <p>于是我就想，既然 <strong><code>source ~/.bash_profile</code></strong> 这句话能起作用，就不是 <strong><code>.bash_profile</code></strong> 的问题了，那么问题到底出在哪了呢？会不会是系统压根没执行 <strong><code>.bash_profile</code></strong> ？所以我根据系统环境变量的加载顺序，去寻找 <strong><code>/etc</code></strong> 下的两个文件。</p>
 <p><strong>profile</strong></p>
-<pre><code># System-wide .profile for sh(1)
-
-if [ -x /usr/libexec/path_helper ]; then
+<pre><code>if [ -x /usr/libexec/path_helper ]; then
     eval `/usr/libexec/path_helper -s`
 fi
 
@@ -178,22 +176,7 @@ export PATH=$PATH:&lt;PATH 1&gt;:&lt;PATH 2&gt;:&lt;PATH 3&gt;:......:&lt;PATH N
       <title><![CDATA[代码块测试]]></title>
       <url>/2017/07/04/%E4%BB%A3%E7%A0%81%E5%9D%97%E6%B5%8B%E8%AF%95/</url>
       <content type="html"><![CDATA[<p> <a href="">『前往』</a><a href="">「前往」</a></p>
-<pre><code class="java">public void postRunningActDate(String tag, int projectId, int studentId, int distance, long costTime, long targetTime,long startTime, int stepCount, ResponseCallback callback) {
-        String url = API_SCHEME + INIT_PUSH;
-        this.map = 1;
-        HashMap params = new HashMap();
-        params.put(&quot;projectId&quot;, projectId);
-        params.put(&quot;studentId&quot;, studentId);
-        params.put(&quot;distance&quot;, distance);
-        params.put(&quot;costTime&quot;, costTime);
-        params.put(&quot;targetTime&quot;, targetTime);
-        params.put(&quot;startTime&quot;, startTime);
-        params.put(&quot;stepCount&quot;, stepCount);
-        Log.d(TAG, &quot;params: &quot; + params);
-        NetworkInterface.instance().connected(HttpMethod.POST, url, tag, params, CacheMode.DEFAULT, false, callback);
-}
-</code></pre>
-<pre><code>public void postRunningActDate(String tag, int projectId, int studentId, int distance, long costTime, long targetTime,long startTime, int stepCount, ResponseCallback callback) {
+<pre><code>public void postRunningActDate( String tag, int projectId, int studentId, int distance, long costTime, long targetTime,long startTime, int stepCount, ResponseCallback callback) {
         String url = API_SCHEME + INIT_PUSH;
         this.map = 1;
         HashMap params = new HashMap();
