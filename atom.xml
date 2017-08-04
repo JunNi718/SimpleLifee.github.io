@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://nijun.me/"/>
-  <updated>2017-08-04T06:13:17.000Z</updated>
+  <updated>2017-08-04T13:22:36.000Z</updated>
   <id>http://nijun.me/</id>
   
   <author>
@@ -16,11 +16,224 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>可以知道滑动方向的 ViewPager</title>
+    <link href="http://nijun.me/2017/08/04/smartviewpager/"/>
+    <id>http://nijun.me/2017/08/04/smartviewpager/</id>
+    <published>2017-08-04T12:24:37.000Z</published>
+    <updated>2017-08-04T13:22:36.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>做项目的时候使用到 ViewPager，那么顺便总结一下它的 OnPageChangeListener 监听器。随便撸了个可以判断滑动方向的 ViewPager。欢迎来提Issue。</p>
+<p>OnPageChangeListener的有三个回调接口，按照执行顺序分别是：</p>
+<p>1、</p>
+<pre><code>/**
+* 响应触摸事件，页面的滑动状态
+* @param state SCROLL_STATE_IDLE -&gt; SCROLL_STATE_DRAGGING -&gt; 
+* SCROLL_STATE_SETTLING -&gt; SCROLL_STATE_IDLE
+*/
+@Override
+public void onPageScrollStateChanged(int state) {
+    ...
+}
+</code></pre><p>state 有三个状态值，0、1、2 分别代表初始空闲状态、正在滑动、滑动完成。</p>
+<p>2、</p>
+<pre><code>/**
+* 当正在滑动的时候，会连续调用。
+* @param position  当前你滑动的页面，第一个页面的值为 0
+* @param positionOffset 当前页面偏移的百分比
+* @param positionOffsetPixels 当前页面的偏移像素
+*/
+@Override
+public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+    ...     
+}
+</code></pre><p>这个回调会在滑动的时候多次调用。</p>
+<p>3、</p>
+<pre><code> /**
+ * 页面移动完毕后调用
+ * @param position 当前移动完毕后的页面，第一个页面的值为 0
+ */
+    @Override
+ public void onPageSelected(int position) {
+        System.out.println(&quot;onPageSelected 当前 position:&quot;+position);
+ }
+</code></pre><hr>
+<p>所以，当发生滑动操作的时候，执行顺序如下：</p>
+<p>① 你把手接触屏幕刚进行滑动</p>
+<p>② onPageScrollStateChanged#state = 1</p>
+<p>③ onPageScrolled (int position, float positionOffset, int positionOffsetPixels)</p>
+<p>这个方法会执行多次，以当前页面为基准。下面具体解释一下：</p>
+<p>▼向右滑动 ( 向前一个页面 ) </p>
+<p>​        ▶ position ： position = curPosition - 1;  //当前位置减 1</p>
+<p>​        ▶ positionOffset ：从 1 到 0；//偏移的百分比</p>
+<p>​        ▶ positionOffsetPixels：从屏幕像素最大值到 0；//偏移的像素值</p>
+<p>▼向左滑动 ( 向后一个页面 ) position = curPosition + 1;</p>
+<p>​        ▶position ： position = curPosition + 1;</p>
+<p>​        ▶positionOffset ：从 0 到 1；</p>
+<p>​        ▶positionOffsetPixels：从屏幕像素最小值到 1；</p>
+<p>④ 你松手了</p>
+<p>⑤ onPageScrollStateChanged#state = 2</p>
+<p>⑥ onPageSelected</p>
+<p>⑦ onPageScrolled 参照第 3 点，不过这时候方向已经确定了，只是不断向这个方向的最值改变。</p>
+<p>⑧ onPageScrollStateChanged#state = 0</p>
+<h3 id="position-的总结："><a href="#position-的总结：" class="headerlink" title="position 的总结："></a>position 的总结：</h3><p>onPageScrolled中的position的变化规律是，假设有3个page，当前正在第二个页面，如果这时你往右（向第一个页面）滑动，那么position的值就是 0 ，position + 1就是1。position + 1 指的是下一个即将滑动到的页面索引。所以这时手不松开向左滑动超过原来第二个页面的位置，这时 position 的值就会变成 1 ，而 position + 1 就变成了 2。</p>
+<p>一般情况下，我们在 onPageScrolled 中可以根据手势对 UI 的进行相应变化。</p>
+<p>我写了个ViewPager类，可以获取到当前是向左滑动还是向右滑动，只要在回调函数中进行相应的判断和操作即可。</p>
+<pre><code class="java">/**
+ * @创建者 倪军
+ * @创建时间 2017/8/4
+ * @描述 可以判断 ViewPager 滑动的方向。
+ */
+
+public class SmartViewPager extends ViewPager {
+
+    private boolean directionLeft = false;
+    private boolean directionRight = false;
+    private boolean isCompleted = true;
+    private int currentPosition = -1;
+
+    onPageChangeListener onPageChangeListener ;
+
+    public SmartViewPager(Context context) {
+        super(context);
+        init();
+    }
+
+    public SmartViewPager(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        init();
+    }
+
+    public void init() {
+        addOnPageChangeListener(listener);
+    }
+
+    OnPageChangeListener listener = new OnPageChangeListener() {
+        @Override
+        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            //说明是第一次
+            if (!isCompleted) {
+                if (currentPosition == -1) {
+                    if (position == 0 || positionOffset == 0.0f || positionOffsetPixels == 0) {
+                        directionLeft = true;
+                    } else {
+                        directionRight = true;
+                    }
+                    currentPosition = position;
+                } else {
+                    clearState();
+                    if (positionOffset &gt; 0 &amp;&amp; currentPosition == position) {
+                        directionRight = true;
+                        if (position &lt; currentPosition) {
+                            directionLeft = true;
+                        }
+                    } else if (positionOffset &gt; 0) {
+                        directionLeft = true;
+                        if (position == currentPosition) {
+                            directionRight = true;
+                        }
+                    }
+                }
+            }
+
+            if (isCompleted) {
+                //滑动完成了
+                if (getAdapter() != null) {
+                    //adapter不为null
+                    if (currentPosition == 0) {
+                        //说明是第一页
+                        if (currentPosition == position) {
+                        }
+                        if(position &gt;currentPosition){
+                            directionRight = true;
+                        }
+                    } else if (currentPosition &lt; getAdapter().getCount()-1) {
+                        //中间部分
+                        if(position == currentPosition){
+                        }
+                        if(position &lt; currentPosition){
+                            directionLeft =true;
+                        }
+                        if(position &gt;currentPosition){
+                            directionRight = true;
+                        }
+                    }else{
+                        //最后一页
+                        if(position==currentPosition){
+                        }
+                        if(position&lt;currentPosition){
+                            directionLeft =true;
+                        }
+                    }
+                }
+                currentPosition = position;
+            }
+        }
+
+        @Override
+        public void onPageSelected(int position) {
+
+        }
+
+        @Override
+        public void onPageScrollStateChanged(int state) {
+            System.out.println(&quot;onPageScrollStateChanged current state:&quot; + state);
+            if (state == 1) {
+                isCompleted = false;
+            } else if (state == 2) {
+                isCompleted = true;
+
+            } else {
+                onPageChangeListener.onPagechanged(directionLeft,directionRight);
+                Log.d(&quot;SmartViewPager&quot;, &quot;custom onPageChangeListener is called.&quot;);
+            }
+        }
+    };
+
+    public boolean isDirectionLeft() {
+        return directionLeft;
+    }
+
+    public boolean isDirectionRight() {
+        return directionRight;
+    }
+
+    public void clearState() {
+        directionLeft = false;
+        directionRight = false;
+    }
+
+
+    public interface onPageChangeListener{
+         void onPagechanged(boolean directionLeft,boolean directionRight);
+    }
+
+    public void setOnPageChangeListener(onPageChangeListener onPageChangeListener){
+        this.onPageChangeListener = onPageChangeListener;
+    }
+}
+</code></pre>
+<p>附上 GitHub 地址：<br><a href="https://gist.github.com/SmartNJ/00234d5f7ca3bb203788b4644887763f" target="_blank" rel="external">https://gist.github.com/SmartNJ/00234d5f7ca3bb203788b4644887763f</a></p>
+<hr>
+<center><br>欢迎关注我的公众号 ： SmartNi<br><br><img src="https://mmbiz.qlogo.cn/mmbiz_jpg/cOpSHfR7OBp9wokabGvc5BEdicoQ2hI8nQ2VylH1opRxHc5XAkvrTf4nS4KoZC14SRgh0vkHLIM7icicHlDwD8gQA/0.jpeg" width="258" height="258" alt="SmartNi"><br>长按二维码关注<br>个人博客：<a href="http://nijun.github.io" target="_blank" rel="external">http://nijun.github.io</a><br>GitHub：<a href="https://github.com/SmartNJ" target="_blank" rel="external">https://github.com/SmartNJ</a><br></center>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;做项目的时候使用到 ViewPager，那么顺便总结一下它的 OnPageChangeListener 监听器。随便撸了个可以判断滑动方向的 ViewPager。欢迎来提Issue。&lt;/p&gt;
+&lt;p&gt;OnPageChangeListener的有三个回调接口，按照执行顺序分别是
+    
+    </summary>
+    
+    
+      <category term="Android" scheme="http://nijun.me/tags/Android/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Viewholder中为什么要使用SparseArray对View进行存储？</title>
     <link href="http://nijun.me/2017/08/04/SparseArray-ArrayMap/"/>
     <id>http://nijun.me/2017/08/04/SparseArray-ArrayMap/</id>
     <published>2017-08-04T05:59:21.000Z</published>
-    <updated>2017-08-04T06:13:17.000Z</updated>
+    <updated>2017-08-04T12:45:13.000Z</updated>
     
     <content type="html"><![CDATA[<p>最近项目时，设计 ViewHolder 时用到了 SparseArray，为什么一定要用这个呢？ SparseArray 有什么优点吗？</p>
 <p>private SparseArray<view> mViews; </view></p>
@@ -103,9 +316,9 @@ public E valueAt(int index)
 <p>总结：</p>
 <p>SparseArray 和 ArrayMap 如何选择？</p>
 <p>假设数据量都在千级以内的情况下：</p>
-<p>1、如果key的数据类型确定为int类型，那么使用SparseArray，因为它避免了自动装箱，如果key为long，它还提供了一个LongSparseArray来确保key为long类型时的使用</p>
-<p>2、如果key类型为其它的类型，则使用ArrayMap</p>
-]]></content>
+<p>1、如果key的数据类型确定为int类型，那么使用SparseArray，因为它避免了自动装箱，如果key为long，它还提供了一个LongSparseArray来确保key为long类型时的使用。</p>
+<p>2、如果key类型为其它的类型，则使用ArrayMap。</p>
+<center><br>​                                END<br><img src="https://mmbiz.qlogo.cn/mmbiz_jpg/cOpSHfR7OBp9wokabGvc5BEdicoQ2hI8nQ2VylH1opRxHc5XAkvrTf4nS4KoZC14SRgh0vkHLIM7icicHlDwD8gQA/0.jpeg" alt="img"><br>长按二维码关注<br>个人博客：<a href="http://nijun.github.io" target="_blank" rel="external">http://nijun.github.io</a><br>GitHub：<a href="https://github.com/SmartNJ" target="_blank" rel="external">https://github.com/SmartNJ</a><br></center>]]></content>
     
     <summary type="html">
     
@@ -118,6 +331,38 @@ public E valueAt(int index)
     </summary>
     
     
+      <category term="Android" scheme="http://nijun.me/tags/Android/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>说说 OverLoading（ 重载 ）和 Overriding（ 重写 ）的区别 ？</title>
+    <link href="http://nijun.me/2017/08/02/overriding-overloading/"/>
+    <id>http://nijun.me/2017/08/02/overriding-overloading/</id>
+    <published>2017-08-02T06:45:18.000Z</published>
+    <updated>2017-08-04T06:47:27.000Z</updated>
+    
+    <content type="html"><![CDATA[<a id="more"></a>
+<p>1、方法重载发生在编译期，方法重写发生在运行期：也就是说方法重载的方法调用绑定发生在编译期，方法重写的方法调用绑定发生在运行期。</p>
+<p>2、静态方法可以被重载，意味着一个类可以有多个同名的静态方法。静态方法不能被重写，即使你在子类定义了相同的静态方法，那么对于父类的静态方法来说没有任何影响。</p>
+<p>3、最基本的不同在于方法重载是在同一个类中完成的，而方法重写是需要由子类完成，方法重写最常用于为父类继承过来的方法提供一个特定的实现。</p>
+<p>4、静态绑定被用于方法重载，动态绑定被用于方法重写。性能：因为方法重载在编译器就完成了操作，而方法重写在运行期完成，所以方法重载比方法重写的性能更好。</p>
+<p>5、private 和 final 方法可以被重载但不能被重写。这意味着一个类可以有多于一个的 private/final 方法，但是子类不能重写这些方法。</p>
+<p>6、方法重载不关心返回值的类型，可以相同也可以不同。然而方法重写的重写方法可以有多个具体的返回值。</p>
+<p>7、方法重载的参数列表是不同的，方法重写的参数列表是相同的。</p>
+<p>8、方法重载其实不属于 “ 面向对象编程 ”，重载的实现是：编译器根据函数不同的参数列表，对同名函数的名称做修饰，然后这些同名函数就成了不同的函数（ 至少对于编译器来说是这样的 ）。也就是说，重载的方法的地址在编译器就绑定了（ 前期绑定 ），因此，重载与多态无关。</p>
+<p>真正和多态相关的是 “ 覆盖 ” ，也就是方法重写。当子类重新定义父类的函数后，子类将自己的类型传递给父类后，父类动态调用属于子类的该函数，这样的函数调用再编译器是无法确定的（ 调用子类的的函数地址无法给出 ）。因此，这样的函数地址是在运行期绑定的。</p>
+<center><br>END<br><img src="https://mmbiz.qlogo.cn/mmbiz_jpg/cOpSHfR7OBp9wokabGvc5BEdicoQ2hI8nQ2VylH1opRxHc5XAkvrTf4nS4KoZC14SRgh0vkHLIM7icicHlDwD8gQA/0.jpeg" alt="img"><br>长按二维码关注<br>个人博客：<a href="http://nijun.github.io" target="_blank" rel="external">http://nijun.github.io</a><br>GitHub：<a href="https://github.com/SmartNJ" target="_blank" rel="external">https://github.com/SmartNJ</a><br></center>]]></content>
+    
+    <summary type="html">
+    
+      &lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;p&gt;1、方法重载发生在编译期，方法重写发生在运行期：也就是说方法重载的方法调用绑定发生在编译期，方法重写的方法调用绑定发生在运行期。&lt;/p&gt;
+&lt;p&gt;2、静态方法可以被重载，意味着一个类可以有多个同名的静态方法。静态方法不能被重写，即使你在子类
+    
+    </summary>
+    
+    
   </entry>
   
   <entry>
@@ -125,7 +370,7 @@ public E valueAt(int index)
     <link href="http://nijun.me/2017/07/30/encapsulation-inheritance-polymorphism/"/>
     <id>http://nijun.me/2017/07/30/encapsulation-inheritance-polymorphism/</id>
     <published>2017-07-30T06:34:25.000Z</published>
-    <updated>2017-08-04T06:40:48.000Z</updated>
+    <updated>2017-08-04T12:44:37.000Z</updated>
     
     <content type="html"><![CDATA[<p><img src="https://mmbiz.qlogo.cn/mmbiz_jpg/cOpSHfR7OBp9wokabGvc5BEdicoQ2hI8nZibyaTyYPReLg9fwmO5ce4ibR1fBTFgVaoOGiar3eSIa8VXMSoibRYzpcw/0.jpeg" alt="img"></p>
 <blockquote>

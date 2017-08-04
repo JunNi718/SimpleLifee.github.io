@@ -1,0 +1,344 @@
+<html>
+  <head>
+    <title>可以知道滑动方向的 ViewPager - SmartNi</title>
+    <link href='/images/fav.png' rel='shortcut icon'>
+<link href='/atom.xml' rel='alternate' type='application/rss+xml'>
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/highlight.css">
+<link rel="stylesheet" href="/css/responsive.css">
+<link rel="stylesheet" href="/css/syntax.css">
+<script src="/js/jquery.js"></script>
+<script src="/js/basics.js"></script>
+<script src="/js/pd.js"></script>
+<meta content='width=device-width, initial-scale=1.0, user-scalable=no' name='viewport'>
+<meta content='text/html; charset=utf-8' http-equiv='content-type'>
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-102765380-1');
+  ga('send', 'pageview');
+</script>
+
+
+
+  </head>
+  <body>
+    <header>
+    <a id='go-back-home' href='/'><img src='/images/scribble.png' alt='Home' width='66' height='66'></a>
+    <p>
+        SmartNi
+    </p>
+    <p>
+        做好每一件小事！
+    </p>
+    
+	<link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/androidstudio.min.css">
+	<script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
+    <!-- gruvbox-dark  ,monokai-sublime,zenburn -->
+<!-- railscasts   mono-blue  tomorrow  androidstudio  monokai-->
+	<script>hljs.initHighlightingOnLoad();</script>
+  
+   
+    <style type="text/css">
+    object,
+    embed {
+        -webkit-animation-duration: .001s;
+        -webkit-animation-name: playerInserted;
+        -ms-animation-duration: .001s;
+        -ms-animation-name: playerInserted;
+        -o-animation-duration: .001s;
+        -o-animation-name: playerInserted;
+        animation-duration: .001s;
+        animation-name: playerInserted;
+    }
+
+    @-webkit-keyframes playerInserted {
+        from {
+            opacity: 0.99;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+
+    @-ms-keyframes playerInserted {
+        from {
+            opacity: 0.99;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+
+    @-o-keyframes playerInserted {
+        from {
+            opacity: 0.99;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+
+    @keyframes playerInserted {
+        from {
+            opacity: 0.99;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+    </style>
+</header>
+    <div id='container'>
+      <div class='block'>
+  
+    <a class='main' href='/'>Home</a>
+  
+    <a class='main' href='/about'>About</a>
+  
+    <a class='main' href='mailto:nijun717@gmail.com'>Email</a>
+  
+    <a class='main' href='https://github.com/SmartNJ'>Github</a>
+  
+</div>
+
+      <!-- <section class='paging'>
+  
+  
+    <div class='right'>
+      <a href='/2017/08/04/SparseArray-ArrayMap/'>
+        ›
+      </a>
+    </div>
+  
+</section>
+  左右箭头 -->
+      <div class='content'>
+        <section class='post'>
+          <h1>
+            <!-- <div class='date'>2017-08-04</div>  日期 -->
+            可以知道滑动方向的 ViewPager
+          </h1>
+          <p>做项目的时候使用到 ViewPager，那么顺便总结一下它的 OnPageChangeListener 监听器。随便撸了个可以判断滑动方向的 ViewPager。欢迎来提Issue。</p>
+<p>OnPageChangeListener的有三个回调接口，按照执行顺序分别是：</p>
+<p>1、</p>
+<pre><code>/**
+* 响应触摸事件，页面的滑动状态
+* @param state SCROLL_STATE_IDLE -&gt; SCROLL_STATE_DRAGGING -&gt; 
+* SCROLL_STATE_SETTLING -&gt; SCROLL_STATE_IDLE
+*/
+@Override
+public void onPageScrollStateChanged(int state) {
+    ...
+}
+</code></pre><p>state 有三个状态值，0、1、2 分别代表初始空闲状态、正在滑动、滑动完成。</p>
+<p>2、</p>
+<pre><code>/**
+* 当正在滑动的时候，会连续调用。
+* @param position  当前你滑动的页面，第一个页面的值为 0
+* @param positionOffset 当前页面偏移的百分比
+* @param positionOffsetPixels 当前页面的偏移像素
+*/
+@Override
+public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+    ...     
+}
+</code></pre><p>这个回调会在滑动的时候多次调用。</p>
+<p>3、</p>
+<pre><code> /**
+ * 页面移动完毕后调用
+ * @param position 当前移动完毕后的页面，第一个页面的值为 0
+ */
+    @Override
+ public void onPageSelected(int position) {
+        System.out.println(&quot;onPageSelected 当前 position:&quot;+position);
+ }
+</code></pre><hr>
+<p>所以，当发生滑动操作的时候，执行顺序如下：</p>
+<p>① 你把手接触屏幕刚进行滑动</p>
+<p>② onPageScrollStateChanged#state = 1</p>
+<p>③ onPageScrolled (int position, float positionOffset, int positionOffsetPixels)</p>
+<p>这个方法会执行多次，以当前页面为基准。下面具体解释一下：</p>
+<p>▼向右滑动 ( 向前一个页面 ) </p>
+<p>​        ▶ position ： position = curPosition - 1;  //当前位置减 1</p>
+<p>​        ▶ positionOffset ：从 1 到 0；//偏移的百分比</p>
+<p>​        ▶ positionOffsetPixels：从屏幕像素最大值到 0；//偏移的像素值</p>
+<p>▼向左滑动 ( 向后一个页面 ) position = curPosition + 1;</p>
+<p>​        ▶position ： position = curPosition + 1;</p>
+<p>​        ▶positionOffset ：从 0 到 1；</p>
+<p>​        ▶positionOffsetPixels：从屏幕像素最小值到 1；</p>
+<p>④ 你松手了</p>
+<p>⑤ onPageScrollStateChanged#state = 2</p>
+<p>⑥ onPageSelected</p>
+<p>⑦ onPageScrolled 参照第 3 点，不过这时候方向已经确定了，只是不断向这个方向的最值改变。</p>
+<p>⑧ onPageScrollStateChanged#state = 0</p>
+<h3 id="position-的总结："><a href="#position-的总结：" class="headerlink" title="position 的总结："></a>position 的总结：</h3><p>onPageScrolled中的position的变化规律是，假设有3个page，当前正在第二个页面，如果这时你往右（向第一个页面）滑动，那么position的值就是 0 ，position + 1就是1。position + 1 指的是下一个即将滑动到的页面索引。所以这时手不松开向左滑动超过原来第二个页面的位置，这时 position 的值就会变成 1 ，而 position + 1 就变成了 2。</p>
+<p>一般情况下，我们在 onPageScrolled 中可以根据手势对 UI 的进行相应变化。</p>
+<p>我写了个ViewPager类，可以获取到当前是向左滑动还是向右滑动，只要在回调函数中进行相应的判断和操作即可。</p>
+<pre><code class="java">/**
+ * @创建者 倪军
+ * @创建时间 2017/8/4
+ * @描述 可以判断 ViewPager 滑动的方向。
+ */
+
+public class SmartViewPager extends ViewPager {
+
+    private boolean directionLeft = false;
+    private boolean directionRight = false;
+    private boolean isCompleted = true;
+    private int currentPosition = -1;
+
+    onPageChangeListener onPageChangeListener ;
+
+    public SmartViewPager(Context context) {
+        super(context);
+        init();
+    }
+
+    public SmartViewPager(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        init();
+    }
+
+    public void init() {
+        addOnPageChangeListener(listener);
+    }
+
+    OnPageChangeListener listener = new OnPageChangeListener() {
+        @Override
+        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            //说明是第一次
+            if (!isCompleted) {
+                if (currentPosition == -1) {
+                    if (position == 0 || positionOffset == 0.0f || positionOffsetPixels == 0) {
+                        directionLeft = true;
+                    } else {
+                        directionRight = true;
+                    }
+                    currentPosition = position;
+                } else {
+                    clearState();
+                    if (positionOffset &gt; 0 &amp;&amp; currentPosition == position) {
+                        directionRight = true;
+                        if (position &lt; currentPosition) {
+                            directionLeft = true;
+                        }
+                    } else if (positionOffset &gt; 0) {
+                        directionLeft = true;
+                        if (position == currentPosition) {
+                            directionRight = true;
+                        }
+                    }
+                }
+            }
+
+            if (isCompleted) {
+                //滑动完成了
+                if (getAdapter() != null) {
+                    //adapter不为null
+                    if (currentPosition == 0) {
+                        //说明是第一页
+                        if (currentPosition == position) {
+                        }
+                        if(position &gt;currentPosition){
+                            directionRight = true;
+                        }
+                    } else if (currentPosition &lt; getAdapter().getCount()-1) {
+                        //中间部分
+                        if(position == currentPosition){
+                        }
+                        if(position &lt; currentPosition){
+                            directionLeft =true;
+                        }
+                        if(position &gt;currentPosition){
+                            directionRight = true;
+                        }
+                    }else{
+                        //最后一页
+                        if(position==currentPosition){
+                        }
+                        if(position&lt;currentPosition){
+                            directionLeft =true;
+                        }
+                    }
+                }
+                currentPosition = position;
+            }
+        }
+
+        @Override
+        public void onPageSelected(int position) {
+
+        }
+
+        @Override
+        public void onPageScrollStateChanged(int state) {
+            System.out.println(&quot;onPageScrollStateChanged current state:&quot; + state);
+            if (state == 1) {
+                isCompleted = false;
+            } else if (state == 2) {
+                isCompleted = true;
+
+            } else {
+                onPageChangeListener.onPagechanged(directionLeft,directionRight);
+                Log.d(&quot;SmartViewPager&quot;, &quot;custom onPageChangeListener is called.&quot;);
+            }
+        }
+    };
+
+    public boolean isDirectionLeft() {
+        return directionLeft;
+    }
+
+    public boolean isDirectionRight() {
+        return directionRight;
+    }
+
+    public void clearState() {
+        directionLeft = false;
+        directionRight = false;
+    }
+
+
+    public interface onPageChangeListener{
+         void onPagechanged(boolean directionLeft,boolean directionRight);
+    }
+
+    public void setOnPageChangeListener(onPageChangeListener onPageChangeListener){
+        this.onPageChangeListener = onPageChangeListener;
+    }
+}
+</code></pre>
+<p>附上 GitHub 地址：<br><a href="https://gist.github.com/SmartNJ/00234d5f7ca3bb203788b4644887763f" target="_blank" rel="external">https://gist.github.com/SmartNJ/00234d5f7ca3bb203788b4644887763f</a></p>
+<hr>
+<center><br>欢迎关注我的公众号 ： SmartNi<br><br><img src="https://mmbiz.qlogo.cn/mmbiz_jpg/cOpSHfR7OBp9wokabGvc5BEdicoQ2hI8nQ2VylH1opRxHc5XAkvrTf4nS4KoZC14SRgh0vkHLIM7icicHlDwD8gQA/0.jpeg" width="258" height="258" alt="SmartNi"><br>长按二维码关注<br>个人博客：<a href="http://nijun.github.io" target="_blank" rel="external">http://nijun.github.io</a><br>GitHub：<a href="https://github.com/SmartNJ" target="_blank" rel="external">https://github.com/SmartNJ</a><br></center>
+          <!-- <br>
+<p>SmartNi</p>
+<p><img src='/images/scribble3.png' alt='scribble'></p>
+ -->
+        </section>
+      </div>
+      
+      <!-- <div class='block'>
+  
+    <a class='main' href='/'>Home</a>
+  
+    <a class='main' href='/about'>About</a>
+  
+    <a class='main' href='mailto:nijun717@gmail.com'>Email</a>
+  
+    <a class='main' href='https://github.com/SmartNJ'>Github</a>
+  
+</div>
+ -->
+    </div>
+    <footer>
+  <span class='muted' style="font-size:17px">Powered by SmartNi</span><br>
+</footer>
+
+  </body>
+</html>

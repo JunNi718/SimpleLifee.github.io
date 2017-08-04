@@ -4,8 +4,42 @@
 
     
   <url>
+    <loc>http://nijun.me/2017/08/04/smartviewpager/</loc>
+    <lastmod>2017-08-04T13:22:36.000Z</lastmod>
+    <data>
+        <display>
+        <title>可以知道滑动方向的 ViewPager</title>
+        <pubTime>2017-08-04T12:24:37.000Z</pubTime>
+        
+        <tag>Android</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://nijun.me/2017/08/04/SparseArray-ArrayMap/</loc>
+    <lastmod>2017-08-04T12:45:13.000Z</lastmod>
+    <data>
+        <display>
+        <title>Viewholder中为什么要使用SparseArray对View进行存储？</title>
+        <pubTime>2017-08-04T05:59:21.000Z</pubTime>
+        
+        <tag>Android</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://nijun.me/2017/07/30/encapsulation-inheritance-polymorphism/</loc>
-    <lastmod>2017-08-04T06:40:48.000Z</lastmod>
+    <lastmod>2017-08-04T12:44:37.000Z</lastmod>
     <data>
         <display>
         <title>温故而知新——封装继承多态</title>
@@ -19,12 +53,12 @@
 
     
   <url>
-    <loc>http://nijun.me/2017/08/04/SparseArray-ArrayMap/</loc>
-    <lastmod>2017-08-04T06:13:17.000Z</lastmod>
+    <loc>http://nijun.me/2017/08/02/overriding-overloading/</loc>
+    <lastmod>2017-08-04T06:47:27.000Z</lastmod>
     <data>
         <display>
-        <title>Viewholder中为什么要使用SparseArray对View进行存储？</title>
-        <pubTime>2017-08-04T05:59:21.000Z</pubTime>
+        <title>说说 OverLoading（ 重载 ）和 Overriding（ 重写 ）的区别 ？</title>
+        <pubTime>2017-08-02T06:45:18.000Z</pubTime>
         
          
            
