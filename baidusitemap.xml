@@ -4,6 +4,55 @@
 
     
   <url>
+    <loc>http://nijun.me/2017/08/04/SparseArray-ArrayMap/</loc>
+    <lastmod>2017-08-04T06:13:17.000Z</lastmod>
+    <data>
+        <display>
+        <title>Viewholder中为什么要使用SparseArray对View进行存储？</title>
+        <pubTime>2017-08-04T05:59:21.000Z</pubTime>
+        
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://nijun.me/2017/05/14/00001-Git-2017-05-14-GitHub/</loc>
+    <lastmod>2017-07-30T01:48:50.000Z</lastmod>
+    <data>
+        <display>
+        <title>GitHub 学习之路</title>
+        <pubTime>2017-05-14T13:55:29.000Z</pubTime>
+        
+        <tag>git</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://nijun.me/2017/07/19/gradle-plugin/</loc>
+    <lastmod>2017-07-29T14:32:40.000Z</lastmod>
+    <data>
+        <display>
+        <title>Android 中 gradle 和 plugin 到底是什么关系？</title>
+        <pubTime>2017-07-19T10:34:04.000Z</pubTime>
+        
+        <tag>Android</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://nijun.me/2017/07/04/%E4%BB%A3%E7%A0%81%E5%9D%97%E6%B5%8B%E8%AF%95/</loc>
     <lastmod>2017-07-29T14:29:32.000Z</lastmod>
     <data>
@@ -91,23 +140,6 @@
 
     
   <url>
-    <loc>http://nijun.me/2017/05/14/00001-Git-2017-05-14-GitHub/</loc>
-    <lastmod>2017-07-29T06:10:52.000Z</lastmod>
-    <data>
-        <display>
-        <title>GitHub 学习之路</title>
-        <pubTime>2017-05-14T13:55:29.000Z</pubTime>
-        
-        <tag>git</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>http://nijun.me/2017/05/06/00001-Blog-2017-05-05-hexo/</loc>
     <lastmod>2017-07-29T06:10:44.000Z</lastmod>
     <data>
@@ -182,23 +214,6 @@
              
               <breadCrumb title="Android" url="http://nijun.me/categories/Android/"/>
           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://nijun.me/2017/07/19/gradle-plugin/</loc>
-    <lastmod>2017-07-29T06:09:15.000Z</lastmod>
-    <data>
-        <display>
-        <title>Android 中 gradle 和 plugin 到底是什么关系？</title>
-        <pubTime>2017-07-19T10:34:04.000Z</pubTime>
-        
-        <tag>Android</tag>
-         
-         
-           
         </display>
     </data>
     </url>

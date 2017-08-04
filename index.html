@@ -391,6 +391,187 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://nijun.me/2017/08/04/SparseArray-ArrayMap/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="SmartNi">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/lovely.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SmartNi">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/08/04/SparseArray-ArrayMap/" itemprop="url">
+                  Viewholder中为什么要使用SparseArray对View进行存储？
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-04T13:59:21+08:00">
+                2017-08-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/08/04/SparseArray-ArrayMap/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/08/04/SparseArray-ArrayMap/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2017/08/04/SparseArray-ArrayMap/" class="leancloud_visitors" data-flag-title="Viewholder中为什么要使用SparseArray对View进行存储？">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  1,009
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长</span>
+                
+                <span title="阅读时长">
+                  4
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>最近项目时，设计 ViewHolder 时用到了 SparseArray，为什么一定要用这个呢？ SparseArray 有什么优点吗？</p>
+<p>private SparseArray<view> mViews; </view></p>
+<p>使用SparseArray保存View。</p>
+<p> SparseArray 比 HashMap更省内存。为什么？</p>
+<p>参考：<a href="http://blog.csdn.net/u010687392/article/details/47809295" target="_blank" rel="external">http://blog.csdn.net/u010687392/article/details/47809295</a></p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/08/04/SparseArray-ArrayMap/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://nijun.me/2017/07/19/gradle-plugin/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -519,26 +700,14 @@
 
       
         
-          
-            <p>最近做项目碰到 Android Studio 提示 Android Gradle Plugin Version 版本太低的问题。之前对 Plugin Version 和 Gradle Version 一直没有明确的认识，认为它俩是一个概念。索性刨根问底去 Google 一下。</p>
-<p>Android Studio 报错如下：<br><img src="http://osoa5juml.bkt.clouddn.com//image/site/1500459320686.png" width="1177"></p>
-<p>其实，Android 中的 Plugin Version和Gradle Version 是两个不同的概念，<strong><code>Plugin Version</code> 指的是 Android 中的 Gradle Plugin 插件的版本，后者是本地使用的 Gradle 版本</strong>。区分了这两个概念，后面说的就容易理解了。</p>
-<p>在项目中，Gradle插件的版本一般在 项目的 <strong><code>build.gradle</code></strong> 中</p>
-<pre><code class="groovy">    dependencies {
-         classpath &#39;com.android.tools.build:gradle:3.0.0-alpha1&#39;
-         ...
-    }
-</code></pre>
-<p>本地的 Gradle 版本在 <strong><code>gradle-wrapper.properties</code></strong> 中</p>
-<pre><code>distributionUrl=https\://services.gradle.org/distributions/gradle-4.0-milestone-1-all.zip
-</code></pre><p>然后根据官方提供的这张对照表</p>
-<p><img src="http://osoa5juml.bkt.clouddn.com//image/site/1500460060716.png" width="834"></p>
-<p>可以看出，只要 Plugin Version 在 <code>2.3.0</code> 以以上，本地的 Gradle 版本就必须在 <code>3.3+</code> 以上。至此我是符合规定的。那为什么会报错呢？</p>
-<p>原因是 <code>alpha/beta</code> 版本有40天的使用时间限制，到时间 AndroidStudio 就会强制提示你要求更新版本，如果根据上面那张表换成2.3.1这个稳定版就没有问题了。</p>
-<p>这是 Stack Overflow 中找到的答案：</p>
-<p><img src="http://osoa5juml.bkt.clouddn.com//image/site/1500460312617.png" width="746"></p>
-
-          
+          <p>最近做项目碰到 Android Studio 提示 Android Gradle Plugin Version 版本太低的问题。之前对 Plugin Version 和 Gradle Version 一直没有明确的认识，认为它俩是一个概念。索性刨根问底去 Google 一下。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/07/19/gradle-plugin/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -2525,7 +2694,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-count">12</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

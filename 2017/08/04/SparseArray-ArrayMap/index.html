@@ -106,18 +106,18 @@
 
 
 
-<meta name="description" content="暂时先放一个照片。">
-<meta property="og:type" content="website">
-<meta property="og:title" content="photo">
-<meta property="og:url" content="http://nijun.me/photo/index.html">
+<meta name="description" content="最近项目时，设计 ViewHolder 时用到了 SparseArray，为什么一定要用这个呢？ SparseArray 有什么优点吗？ private SparseArray mViews;  使用SparseArray保存View。  SparseArray 比 HashMap更省内存。为什么？ 参考：http://blog.csdn.net/u010687392/article/detail">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Viewholder中为什么要使用SparseArray对View进行存储？">
+<meta property="og:url" content="http://nijun.me/2017/08/04/SparseArray-ArrayMap/index.html">
 <meta property="og:site_name" content="SmartNi">
-<meta property="og:description" content="暂时先放一个照片。">
-<meta property="og:image" content="http://nijun.me/photo/index/avatar.jpg">
-<meta property="og:updated_time" content="2017-06-04T18:59:48.000Z">
+<meta property="og:description" content="最近项目时，设计 ViewHolder 时用到了 SparseArray，为什么一定要用这个呢？ SparseArray 有什么优点吗？ private SparseArray mViews;  使用SparseArray保存View。  SparseArray 比 HashMap更省内存。为什么？ 参考：http://blog.csdn.net/u010687392/article/detail">
+<meta property="og:image" content="http://osoa5juml.bkt.clouddn.com/image/site/1501826801083.png">
+<meta property="og:updated_time" content="2017-08-04T06:13:17.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="photo">
-<meta name="twitter:description" content="暂时先放一个照片。">
-<meta name="twitter:image" content="http://nijun.me/photo/index/avatar.jpg">
+<meta name="twitter:title" content="Viewholder中为什么要使用SparseArray对View进行存储？">
+<meta name="twitter:description" content="最近项目时，设计 ViewHolder 时用到了 SparseArray，为什么一定要用这个呢？ SparseArray 有什么优点吗？ private SparseArray mViews;  使用SparseArray保存View。  SparseArray 比 HashMap更省内存。为什么？ 参考：http://blog.csdn.net/u010687392/article/detail">
+<meta name="twitter:image" content="http://osoa5juml.bkt.clouddn.com/image/site/1501826801083.png">
 
 
 
@@ -145,7 +145,7 @@
 
 
 
-  <link rel="canonical" href="http://nijun.me/photo/"/>
+  <link rel="canonical" href="http://nijun.me/2017/08/04/SparseArray-ArrayMap/"/>
 
 
 
@@ -195,7 +195,7 @@
 
 <!-- 自定义代码块样式 2017年07月05日08:36:17-->
 
-     <title>photo | SmartNi</title>
+     <title>Viewholder中为什么要使用SparseArray对View进行存储？ | SmartNi</title>
      
   
 
@@ -232,7 +232,7 @@
     
   
 
-  <div class="container sidebar-position-left  ">
+  <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -383,34 +383,331 @@
             
 
   <div id="posts" class="posts-expand">
-  <header class="post-header">
+    
 
-	<h1 class="post-title" itemprop="name headline">photo</h1>
+  
 
+  
+  
+  
 
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://nijun.me/2017/08/04/SparseArray-ArrayMap/">
 
-</header>
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="SmartNi">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/lovely.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SmartNi">
+    </span>
 
     
-    
-      <p>暂时先放一个照片。</p>
-<p><img src="index/avatar.jpg" alt=""></p>
+      <header class="post-header">
 
-    
-    
-    
-    
-	    
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Viewholder中为什么要使用SparseArray对View进行存储？
+              
+            
+          </h1>
+        
 
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-04T13:59:21+08:00">
+                2017-08-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/08/04/SparseArray-ArrayMap/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/08/04/SparseArray-ArrayMap/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2017/08/04/SparseArray-ArrayMap/" class="leancloud_visitors" data-flag-title="Viewholder中为什么要使用SparseArray对View进行存储？">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  1,009
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长</span>
+                
+                <span title="阅读时长">
+                  4
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
     
-  <div class="comments" id="comments">
-    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>最近项目时，设计 ViewHolder 时用到了 SparseArray，为什么一定要用这个呢？ SparseArray 有什么优点吗？</p>
+<p>private SparseArray<view> mViews; </view></p>
+<p>使用SparseArray保存View。</p>
+<p> SparseArray 比 HashMap更省内存。为什么？</p>
+<p>参考：<a href="http://blog.csdn.net/u010687392/article/details/47809295" target="_blank" rel="external">http://blog.csdn.net/u010687392/article/details/47809295</a></p>
+<a id="more"></a>
+<hr>
+<h1 id="Hashmap"><a href="#Hashmap" class="headerlink" title="Hashmap"></a>Hashmap</h1><p>Hashmap内部默认使用一个容量16的数组来存储数据，而数组中每个元素又是一个链表的头结点。也就是说，Hashmap内部是使用哈希表的拉链结构（数组+链表），也叫做拉链法：</p>
+<p><img src="http://osoa5juml.bkt.clouddn.com/image/site/1501826801083.png" width="528"></p>
+<p>每个结点是一个Entry，Entry的内部的属性：</p>
+<pre><code>final K key; 
+
+V value; 
+
+final int hash; 
+
+HashMapEntry&lt;K, V&gt; next;
+</code></pre><p>这些Entry数据是按什么规则进行存储的？</p>
+<p>通过key计算hash值，然后对HashMap中的数组长度取余得到该元素的存储位置，  hash(key) % len。</p>
+<p>拉链法解决了元素冲突的问题，后一个元素不会覆盖前一个元素。</p>
+<p>解决hash冲突的方法还有：</p>
+<p>1、开放地址法</p>
+<p>2、再哈希法</p>
+<p>3、链地址法</p>
+<p>4、建立公共溢出区</p>
+<p>HashMap的默认容量是16，我们创建一个新的HashMap，即使里面没有数据，也会占用16个数据的内存。如果不断往里面put东西，容量到达一个值时就会扩容，这个值怎么算？  答 ：当前容量 * 加载因子（HashMap默认是0.75）。 根据源码，它一定会扩大为原来的两倍。</p>
+<pre><code>int newCapacity = oldCapacity * 2;
+</code></pre><p>所以说，只要满足条件就会扩容，如果数据量很大，就需要不算扩容（而且是2倍），加上计算hash值的消耗，会对内存空间造成很大的消耗和浪费。</p>
+<p>HashMap是通过遍历entry[]数组来得到对应的元素，数据量一大就会比较慢。</p>
+<h1 id="SparseArray"><a href="#SparseArray" class="headerlink" title="SparseArray"></a>SparseArray</h1><p>SparseArray能避免对key的自动装箱（比如 int 转为 Integer），内部是通过两个数组来存储数据。注意这里key只能是int类型的。</p>
+<pre><code>private int[] mKeys; 
+
+private Object[] mValues;
+</code></pre><p>SparseArray在读取和存放数据的时候，是使用二分查找法</p>
+<pre><code>public void put(int key, E value) {
+      int i = ContainerHelpers.binarySearch(mKeys, mSize, key); 
+      … 
+} 
+public E get(int key, E valueIfKeyNotFound) {
+      int i = ContainerHelpers.binarySearch(mKeys, mSize, key); 
+      … 
+}
+</code></pre><p>Put的时候会使用二分查找法，对当前添加的元素和之前已添加的元素的key进行比较，然后从小到大排序。所以SparseArray存储的元素都是按元素的key值从小到大排序好的。</p>
+<p>获取的时候也使用二分查找法，比HashMap快得多，HashMap是通过遍历entry数组来获取元素的。</p>
+<p>添加数据</p>
+<pre><code>public void put(int key, E value)
+</code></pre><p>删除数据</p>
+<pre><code>public void remove(int key)
+</code></pre><p>或者</p>
+<pre><code>public void delete(int key)
+</code></pre><p>remove内部就是调用delete来删除的。</p>
+<p>获取数据</p>
+<pre><code>public E get(int key)
+</code></pre><p>或者</p>
+<pre><code>public E get(int key, E valueIfKeyNotFound)
+</code></pre><p>如果key不存在就会返回valueIfKeyNotFound。</p>
+<p>特有方法</p>
+<pre><code>public int keyAt(int index)
+
+和
+
+public E valueAt(int index)
+</code></pre><p>SparseArray      应用场景<br>虽说SparseArray的性能比较好，但是由于每次增加、修改、删除都需要进行一个二分查找，所以一旦数据量大了，性能提升的并不明显，降低至少50%。</p>
+<p>满足下面两个条件我们可以使用SparseArray代替HashMap：</p>
+<ul>
+<li>数据量不大，最好在千级以内</li>
+<li>key必须为int类型</li>
+</ul>
+<p>这样，把HashMap替换成SparseArray比较好。</p>
+<h1 id="ArrayMap"><a href="#ArrayMap" class="headerlink" title="ArrayMap"></a>ArrayMap</h1><p>ArrayMap是一个<key,value>映射的map数据结构，SparseArray是数组结构，基本和SparseArray一样。</key,value></p>
+<p>ArrayMap应用场景</p>
+<p>满足下面两个条件我们可以使用ArrayMap代替HashMap：</p>
+<ul>
+<li>数据量不大，最好在千级以内</li>
+<li>数据结构类型为Map类型</li>
+</ul>
+<p>注意这个类在API 19之后才能用，若要兼容之前版本，需要导包：</p>
+<p>import android.support.v4.util.ArrayMap;</p>
+<p>总结：</p>
+<p>SparseArray 和 ArrayMap 如何选择？</p>
+<p>假设数据量都在千级以内的情况下：</p>
+<p>1、如果key的数据类型确定为int类型，那么使用SparseArray，因为它避免了自动装箱，如果key为long，它还提供了一个LongSparseArray来确保key为long类型时的使用</p>
+<p>2、如果key类型为其它的类型，则使用ArrayMap</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+	<p>打赏会变帅变美哦</p>
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/uploads/wechat.png" alt="SmartNi WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/uploads/alipay.png" alt="SmartNi Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
   </div>
 
 
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/07/19/gradle-plugin/" rel="next" title="Android 中 gradle 和 plugin 到底是什么关系？">
+                <i class="fa fa-chevron-left"></i> Android 中 gradle 和 plugin 到底是什么关系？
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
 
 
 
+    <div class="post-spread">
+      
+        
+  <script>
+    window._bd_share_config = {
+      "common": {
+        "bdText": "",
+        "bdMini": "1",
+        "bdMiniList": false,
+        "bdPic": ""
+      },
+      "image": {
+        "viewList": ["tsina", "douban", "sqq", "qzone", "weixin", "twi", "fbook"],
+        "viewText": "分享到：",
+        "viewSize": "16"
+      },
+      "slide": {
+        "bdImg": "5",
+        "bdPos": "left",
+        "bdTop": "100"
+      }
+    }
+  </script>
+
+<script>
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='//bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+      
+    </div>
   </div>
 
 
@@ -449,8 +746,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/uploads/lovely.gif"
@@ -537,6 +843,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Hashmap"><span class="nav-number">1.</span> <span class="nav-text">Hashmap</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SparseArray"><span class="nav-number">2.</span> <span class="nav-text">SparseArray</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ArrayMap"><span class="nav-number">3.</span> <span class="nav-text">ArrayMap</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -667,6 +989,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/custom.js?v=5.1.1"></script>
+
 
   
 
@@ -687,9 +1013,9 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'http://nijun.me/photo/index.html';
-          this.page.identifier = 'photo/index.html';
-          this.page.title = 'photo';
+          this.page.url = 'http://nijun.me/2017/08/04/SparseArray-ArrayMap/';
+          this.page.identifier = '2017/08/04/SparseArray-ArrayMap/';
+          this.page.title = 'Viewholder中为什么要使用SparseArray对View进行存储？';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://nimon.disqus.com/embed.js';
