@@ -36,7 +36,7 @@
         做好每一件小事！
     </p>
     
-	<link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/androidstudio.min.css">
+	<link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/tomorrow.min.css">
 	<script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
     <!-- gruvbox-dark  ,monokai-sublime,zenburn -->
 <!-- railscasts   mono-blue  tomorrow  androidstudio  monokai-->
@@ -193,10 +193,7 @@ public E get(int key, E valueIfKeyNotFound) {
 public E valueAt(int index)
 </code></pre><p>SparseArray      应用场景<br>虽说SparseArray的性能比较好，但是由于每次增加、修改、删除都需要进行一个二分查找，所以一旦数据量大了，性能提升的并不明显，降低至少50%。</p>
 <p>满足下面两个条件我们可以使用SparseArray代替HashMap：</p>
-<ul>
-<li>数据量不大，最好在千级以内</li>
-<li>key必须为int类型</li>
-</ul>
+<p><img src="http://ouk6v4oh8.bkt.clouddn.com/image/emojis/star.png" width="20" height="20" class=" emoji nofancybox" title="star">  数据量不大，最好在千级以内<br><img src="http://ouk6v4oh8.bkt.clouddn.com/image/emojis/star.png" width="20" height="20" class=" emoji nofancybox" title="star">  key必须为int类型</p>
 <p>这样，把HashMap替换成SparseArray比较好。</p>
 <h1 id="ArrayMap"><a href="#ArrayMap" class="headerlink" title="ArrayMap"></a>ArrayMap</h1><p>ArrayMap是一个<key,value>映射的map数据结构，SparseArray是数组结构，基本和SparseArray一样。</key,value></p>
 <p>ArrayMap应用场景</p>

@@ -7,7 +7,6 @@
       <url>/2017/08/04/smartviewpager/</url>
       <content type="html"><![CDATA[<p>做项目的时候使用到 ViewPager，那么顺便总结一下它的 OnPageChangeListener 监听器。随便撸了个可以判断滑动方向的 ViewPager。欢迎来提Issue。</p>
 <p>OnPageChangeListener的有三个回调接口，按照执行顺序分别是：</p>
-<p>1、</p>
 <pre><code>/**
 * 响应触摸事件，页面的滑动状态
 * @param state SCROLL_STATE_IDLE -&gt; SCROLL_STATE_DRAGGING -&gt; 
@@ -18,7 +17,6 @@ public void onPageScrollStateChanged(int state) {
     ...
 }
 </code></pre><p>state 有三个状态值，0、1、2 分别代表初始空闲状态、正在滑动、滑动完成。</p>
-<p>2、</p>
 <pre><code>/**
 * 当正在滑动的时候，会连续调用。
 * @param position  当前你滑动的页面，第一个页面的值为 0
@@ -30,7 +28,6 @@ public void onPageScrolled(int position, float positionOffset, int positionOffse
     ...     
 }
 </code></pre><p>这个回调会在滑动的时候多次调用。</p>
-<p>3、</p>
 <pre><code> /**
  * 页面移动完毕后调用
  * @param position 当前移动完毕后的页面，第一个页面的值为 0
@@ -275,10 +272,7 @@ public E get(int key, E valueIfKeyNotFound) {
 public E valueAt(int index)
 </code></pre><p>SparseArray      应用场景<br>虽说SparseArray的性能比较好，但是由于每次增加、修改、删除都需要进行一个二分查找，所以一旦数据量大了，性能提升的并不明显，降低至少50%。</p>
 <p>满足下面两个条件我们可以使用SparseArray代替HashMap：</p>
-<ul>
-<li>数据量不大，最好在千级以内</li>
-<li>key必须为int类型</li>
-</ul>
+<p><img src="http://ouk6v4oh8.bkt.clouddn.com/image/emojis/star.png" width="20" height="20" class=" emoji nofancybox" title="star">  数据量不大，最好在千级以内<br><img src="http://ouk6v4oh8.bkt.clouddn.com/image/emojis/star.png" width="20" height="20" class=" emoji nofancybox" title="star">  key必须为int类型</p>
 <p>这样，把HashMap替换成SparseArray比较好。</p>
 <h1 id="ArrayMap"><a href="#ArrayMap" class="headerlink" title="ArrayMap"></a>ArrayMap</h1><p>ArrayMap是一个<key,value>映射的map数据结构，SparseArray是数组结构，基本和SparseArray一样。</key,value></p>
 <p>ArrayMap应用场景</p>
@@ -917,6 +911,7 @@ public static Message obtain(Message orig) {
 <li>onCreate 和 onDestory 是配对的，代表这创建和销毁。</li>
 <li>onStart 和 onStop 是配对的，代表着 Activity 是否可见。</li>
 <li>onResume 和 onPause 是配对的，代表的 Activity 是否在前台。</li>
+<li><strong>Activity的onResume在wm.addView之前！</strong></li>
 <li>A Activity 的生命周期：<ol>
 <li>A 被 B 完全遮挡住了：onCreate-&gt;onStart-&gt;onResume-&gt;onPause-&gt;onStop-&gt;onRestart-&gt;onStart-&gt;onResume。</li>
 <li>A 被 B 部分遮挡住了：onCreate-&gt;onStart-&gt;onResume-&gt;onPause-&gt;onResume。</li>

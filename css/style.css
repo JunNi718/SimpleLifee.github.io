@@ -335,6 +335,9 @@ code {
   background: #003541;
   padding: 16px 16px 16px 16px;
   border-radius: 2px;
+  border-width: 2px;
+  border-style: dotted;
+  border-color: #5CC9F5;
   line-height: 1.3em;
   display: inline-block;
   vertical-align: baseline;

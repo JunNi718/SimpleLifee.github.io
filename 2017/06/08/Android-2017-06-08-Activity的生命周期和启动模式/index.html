@@ -36,7 +36,7 @@
         做好每一件小事！
     </p>
     
-	<link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/androidstudio.min.css">
+	<link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/tomorrow.min.css">
 	<script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
     <!-- gruvbox-dark  ,monokai-sublime,zenburn -->
 <!-- railscasts   mono-blue  tomorrow  androidstudio  monokai-->
@@ -172,6 +172,7 @@
 <li>onCreate 和 onDestory 是配对的，代表这创建和销毁。</li>
 <li>onStart 和 onStop 是配对的，代表着 Activity 是否可见。</li>
 <li>onResume 和 onPause 是配对的，代表的 Activity 是否在前台。</li>
+<li><strong>Activity的onResume在wm.addView之前！</strong></li>
 <li>A Activity 的生命周期：<ol>
 <li>A 被 B 完全遮挡住了：onCreate-&gt;onStart-&gt;onResume-&gt;onPause-&gt;onStop-&gt;onRestart-&gt;onStart-&gt;onResume。</li>
 <li>A 被 B 部分遮挡住了：onCreate-&gt;onStart-&gt;onResume-&gt;onPause-&gt;onResume。</li>

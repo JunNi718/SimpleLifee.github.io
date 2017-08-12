@@ -36,7 +36,7 @@
         做好每一件小事！
     </p>
     
-	<link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/androidstudio.min.css">
+	<link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/tomorrow.min.css">
 	<script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
     <!-- gruvbox-dark  ,monokai-sublime,zenburn -->
 <!-- railscasts   mono-blue  tomorrow  androidstudio  monokai-->
@@ -125,7 +125,6 @@
           </h1>
           <p>做项目的时候使用到 ViewPager，那么顺便总结一下它的 OnPageChangeListener 监听器。随便撸了个可以判断滑动方向的 ViewPager。欢迎来提Issue。</p>
 <p>OnPageChangeListener的有三个回调接口，按照执行顺序分别是：</p>
-<p>1、</p>
 <pre><code>/**
 * 响应触摸事件，页面的滑动状态
 * @param state SCROLL_STATE_IDLE -&gt; SCROLL_STATE_DRAGGING -&gt; 
@@ -136,7 +135,6 @@ public void onPageScrollStateChanged(int state) {
     ...
 }
 </code></pre><p>state 有三个状态值，0、1、2 分别代表初始空闲状态、正在滑动、滑动完成。</p>
-<p>2、</p>
 <pre><code>/**
 * 当正在滑动的时候，会连续调用。
 * @param position  当前你滑动的页面，第一个页面的值为 0
@@ -148,7 +146,6 @@ public void onPageScrolled(int position, float positionOffset, int positionOffse
     ...     
 }
 </code></pre><p>这个回调会在滑动的时候多次调用。</p>
-<p>3、</p>
 <pre><code> /**
  * 页面移动完毕后调用
  * @param position 当前移动完毕后的页面，第一个页面的值为 0
