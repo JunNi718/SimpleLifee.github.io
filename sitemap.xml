@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://nijun.me/blog/index.html</loc>
+    
+    <lastmod>2017-08-12T06:35:03.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://nijun.me/2017/08/04/smartviewpager/</loc>
     
     <lastmod>2017-08-12T06:33:37.000Z</lastmod>
@@ -12,13 +19,6 @@
     <loc>http://nijun.me/2017/08/04/SparseArray-ArrayMap/</loc>
     
     <lastmod>2017-08-12T06:33:14.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://nijun.me/blog/index.html</loc>
-    
-    <lastmod>2017-08-12T06:33:05.000Z</lastmod>
     
   </url>
   
