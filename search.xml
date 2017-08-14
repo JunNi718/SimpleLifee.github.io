@@ -194,7 +194,10 @@ public class SmartViewPager extends ViewPager {
 </code></pre>
 <p>附上 GitHub 地址：<br><a href="https://gist.github.com/SmartNJ/00234d5f7ca3bb203788b4644887763f" target="_blank" rel="external">https://gist.github.com/SmartNJ/00234d5f7ca3bb203788b4644887763f</a></p>
 <hr>
-<center><br>欢迎关注我的公众号 ： SmartNi<br><br><img src="https://mmbiz.qlogo.cn/mmbiz_jpg/cOpSHfR7OBp9wokabGvc5BEdicoQ2hI8nQ2VylH1opRxHc5XAkvrTf4nS4KoZC14SRgh0vkHLIM7icicHlDwD8gQA/0.jpeg" width="258" height="258" alt="SmartNi"><br>长按二维码关注<br>个人博客：<a href="http://nijun.github.io" target="_blank" rel="external">http://nijun.github.io</a><br>GitHub：<a href="https://github.com/SmartNJ" target="_blank" rel="external">https://github.com/SmartNJ</a><br></center>]]></content>
+<pre><code>欢迎关注我的公众号 ： SmartNi
+个人博客：http://nijun.github.io
+GitHub：https://github.com/SmartNJ
+</code></pre>]]></content>
       
         
         <tags>
@@ -557,29 +560,6 @@ export PATH=$PATH:&lt;PATH 1&gt;:&lt;PATH 2&gt;:&lt;PATH 3&gt;:......:&lt;PATH N
             <tag> Database </tag>
             
         </tags>
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[代码块测试]]></title>
-      <url>/2017/07/04/%E4%BB%A3%E7%A0%81%E5%9D%97%E6%B5%8B%E8%AF%95/</url>
-      <content type="html"><![CDATA[<p> <a href="">『前往』</a><a href="">「前往」</a></p>
-<pre><code>public void postRunningActDate( String tag, int projectId, int studentId, int distance, long costTime, long targetTime,long startTime, int stepCount, ResponseCallback callback) {
-        String url = API_SCHEME + INIT_PUSH;
-        this.map = 1;
-        HashMap params = new HashMap();
-        params.put(&quot;projectId&quot;, projectId);
-        params.put(&quot;studentId&quot;, studentId);
-        params.put(&quot;distance&quot;, distance);
-        params.put(&quot;costTime&quot;, costTime);
-        params.put(&quot;targetTime&quot;, targetTime);
-        params.put(&quot;startTime&quot;, startTime);
-        params.put(&quot;stepCount&quot;, stepCount);
-        Log.d(TAG, &quot;params: &quot; + params);
-        NetworkInterface.instance().connected(HttpMethod.POST, url, tag, params, CacheMode.DEFAULT, false, callback);
-}</code></pre>
-]]></content>
-      
         
     </entry>
     

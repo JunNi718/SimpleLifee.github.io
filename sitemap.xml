@@ -2,16 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://nijun.me/blog/index.html</loc>
+    <loc>http://nijun.me/2017/08/04/smartviewpager/</loc>
     
-    <lastmod>2017-08-12T06:35:03.000Z</lastmod>
+    <lastmod>2017-08-14T16:56:44.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://nijun.me/2017/08/04/smartviewpager/</loc>
+    <loc>http://nijun.me/blog/index.html</loc>
     
-    <lastmod>2017-08-12T06:33:37.000Z</lastmod>
+    <lastmod>2017-08-12T06:35:03.000Z</lastmod>
     
   </url>
   
@@ -54,13 +54,6 @@
     <loc>http://nijun.me/2017/07/19/gradle-plugin/</loc>
     
     <lastmod>2017-07-29T14:32:40.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://nijun.me/2017/07/04/%E4%BB%A3%E7%A0%81%E5%9D%97%E6%B5%8B%E8%AF%95/</loc>
-    
-    <lastmod>2017-07-29T14:29:32.000Z</lastmod>
     
   </url>
   

@@ -3,10 +3,9 @@
 
 
     
-    
   <url>
     <loc>http://nijun.me/2017/08/04/smartviewpager/</loc>
-    <lastmod>2017-08-12T06:33:37.000Z</lastmod>
+    <lastmod>2017-08-14T16:56:44.000Z</lastmod>
     <data>
         <display>
         <title>可以知道滑动方向的 ViewPager</title>
@@ -20,6 +19,7 @@
     </data>
     </url>
 
+    
     
   <url>
     <loc>http://nijun.me/2017/08/04/SparseArray-ArrayMap/</loc>
@@ -115,21 +115,6 @@
         
         <tag>Android</tag>
          
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://nijun.me/2017/07/04/%E4%BB%A3%E7%A0%81%E5%9D%97%E6%B5%8B%E8%AF%95/</loc>
-    <lastmod>2017-07-29T14:29:32.000Z</lastmod>
-    <data>
-        <display>
-        <title>代码块测试</title>
-        <pubTime>2017-07-04T06:12:44.000Z</pubTime>
-        
          
            
         </display>
