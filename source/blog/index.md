@@ -10,9 +10,19 @@ date: 2017-05-01 18:51:25
 
 
 
+### 08-12 添加emoji表情
+
+- [**hexo-tag-emojis**](https://github.com/sergiolepore/hexo-tag-emojis)
+- [Emoji-Cheat-Sheet](https://github.com/WebpageFX/emoji-cheat-sheet.com)
+- 安装server服务 `npm install hexo-server --save` 
+
+
+
+
+
 ### 07-15 添加新文章
 
-- 新增 [[2017-07-15-Mac下配置环境变量不生效问题]](http://nijun.me/2017/07/15/Mac%E4%B8%8B%E9%85%8D%E7%BD%AE%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E4%B8%8D%E7%94%9F%E6%95%88%E9%97%AE%E9%A2%98/)
+- [【G】](https://github.com/SmartNJ/SimpleLifee.github.io/commit/344417d15d912ed365e2d4e6cc78281c6f90a8fd) 新增 [[2017-07-15-Mac下配置环境变量不生效问题]](http://nijun.me/2017/07/15/Mac%E4%B8%8B%E9%85%8D%E7%BD%AE%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E4%B8%8D%E7%94%9F%E6%95%88%E9%97%AE%E9%A2%98/)
 
 ### 07-14 新增新文章
 

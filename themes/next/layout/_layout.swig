@@ -9,12 +9,14 @@
 <head>
   {% include '_partials/head.swig' %}
      <title>{% block title %}{% endblock %}</title>
+     
+  {% include '_third-party/analytics/index.swig' %}
 
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="{{ page.lang || page.language || config.language }}">
 
-  {% include '_third-party/analytics/index.swig' %}
+
 
   {% set container_class = "container " %}
   {% if theme.sidebar.position %}
@@ -25,8 +27,12 @@
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <a href="https://github.com/SimpleLifee"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://camo.githubusercontent.com/567c3a48d796e2fc06ea80409cc9dd82bf714434/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_left_darkblue_121621.png"></a>
-      <div class="header-inner"> {%- include '_partials/header.swig' %} </div>
+
+
+<!--       <a href="https://github.com/SmartNJ"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://camo.githubusercontent.com/567c3a48d796e2fc06ea80409cc9dd82bf714434/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_left_darkblue_121621.png"></a>-->
+
+
+      <div class="header-inner"> {%- include '_partials/header.swig' %} </div> 
     </header>
 
     <main id="main" class="main">
@@ -82,9 +88,9 @@
 
 
 <!-- 炫酷的动态背景图片 第一步 -->
-  <div class="bg_content">
+<!--   <div class="bg_content">
        <canvas id="canvas"></canvas>
-  </div>
+  </div> -->
 
 
 <!-- 炫酷的动态背景图片 第二步 -->

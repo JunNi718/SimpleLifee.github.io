@@ -1,10 +1,14 @@
 ---
-title: gradle_plugin
+title: Android 中 gradle 和 plugin 到底是什么关系？
 date: 2017-07-19 18:34:04
 tags: Android
 ---
 
 最近做项目碰到 Android Studio 提示 Android Gradle Plugin Version 版本太低的问题。之前对 Plugin Version 和 Gradle Version 一直没有明确的认识，认为它俩是一个概念。索性刨根问底去 Google 一下。
+
+
+
+<!-- more -->
 
 Android Studio 报错如下：
 <img src="http://osoa5juml.bkt.clouddn.com//image/site/1500459320686.png" width="1177"/>

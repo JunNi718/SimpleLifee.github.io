@@ -1,0 +1,19 @@
+<header id="header" class="header">
+  <nav id="main-nav" class="main-nav">
+    <% for (var i in theme.menu){ %>
+      <a class="main-nav-link" href="<%- url_for(theme.menu[i]) %>">
+        <%= i %>
+      </a>
+      <% } %>
+  </nav>
+  <nav id="sub-nav">
+    <% if (theme.rss){ %>
+      <a id="nav-rss-link" class="nav-icon" href="<%- theme.rss %>" title="<%= __('rss_feed') %>"></a>
+      <% } %>
+      <br/>
+      <p id="text"> </p>
+      <div class="descriptionwrapper">
+      <p class="description"> </p>
+      </div>
+  </nav>
+</header>

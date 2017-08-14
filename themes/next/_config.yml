@@ -104,7 +104,7 @@ font:
   global:
     # external: true will load this font family from host.
     external: true
-    family: Source Code Pro
+    family: Arial
 
   # Font settings for Headlines (h1, h2, h3, h4, h5, h6)
   # Fallback to `global` font settings.
@@ -129,7 +129,7 @@ font:
   # Font settings for <code> and code blocks.
   codes:
     external: true
-    family: Droid Sans Mono
+    family: 'monospace'
     size: 16
 
 
@@ -354,7 +354,7 @@ baidushare:
 #google_site_verification:
 
 # Google Analytics
-#google_analytics:
+google_analytics: UA-102765380-1
 
 # Yandex Webmaster tools verification setting
 # See: https://webmaster.yandex.ru/
@@ -506,7 +506,7 @@ alipay: /uploads/alipay.png
 #! ---------------------------------------------------------------
 
 # Motion
-use_motion: true
+use_motion: false
 
 # Fancybox
 fancybox: false
@@ -567,7 +567,7 @@ vendors:
 
   # Internal version: 4.6.2
   # See: http://fontawesome.io/
-  fontawesome:
+  fontawesome: //maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css
 
   # Internal version: 1
   # https://www.algolia.com
