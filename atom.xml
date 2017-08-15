@@ -2,11 +2,11 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>SmartNi</title>
   <subtitle>code, mylife</subtitle>
-  <link href="/atom.xml" rel="self"/>
+  <link href="/blog/atom.xml" rel="self"/>
   
-  <link href="http://nijun.me/"/>
+  <link href="http://nijun.me/blog/"/>
   <updated>2017-08-14T16:56:44.000Z</updated>
-  <id>http://nijun.me/</id>
+  <id>http://nijun.me/blog/</id>
   
   <author>
     <name>SmartNi</name>
@@ -17,8 +17,8 @@
   
   <entry>
     <title>可以知道滑动方向的 ViewPager</title>
-    <link href="http://nijun.me/2017/08/04/smartviewpager/"/>
-    <id>http://nijun.me/2017/08/04/smartviewpager/</id>
+    <link href="http://nijun.me/blog/2017/08/04/smartviewpager/"/>
+    <id>http://nijun.me/blog/2017/08/04/smartviewpager/</id>
     <published>2017-08-04T12:24:37.000Z</published>
     <updated>2017-08-14T16:56:44.000Z</updated>
     
@@ -224,14 +224,14 @@ GitHub：https://github.com/SmartNJ
     </summary>
     
     
-      <category term="Android" scheme="http://nijun.me/tags/Android/"/>
+      <category term="Android" scheme="http://nijun.me/blog/tags/Android/"/>
     
   </entry>
   
   <entry>
     <title>Viewholder中为什么要使用SparseArray对View进行存储？</title>
-    <link href="http://nijun.me/2017/08/04/SparseArray-ArrayMap/"/>
-    <id>http://nijun.me/2017/08/04/SparseArray-ArrayMap/</id>
+    <link href="http://nijun.me/blog/2017/08/04/SparseArray-ArrayMap/"/>
+    <id>http://nijun.me/blog/2017/08/04/SparseArray-ArrayMap/</id>
     <published>2017-08-04T05:59:21.000Z</published>
     <updated>2017-08-12T06:33:14.000Z</updated>
     
@@ -328,14 +328,14 @@ public E valueAt(int index)
     </summary>
     
     
-      <category term="Android" scheme="http://nijun.me/tags/Android/"/>
+      <category term="Android" scheme="http://nijun.me/blog/tags/Android/"/>
     
   </entry>
   
   <entry>
     <title>说说 OverLoading（ 重载 ）和 Overriding（ 重写 ）的区别 ？</title>
-    <link href="http://nijun.me/2017/08/02/overriding-overloading/"/>
-    <id>http://nijun.me/2017/08/02/overriding-overloading/</id>
+    <link href="http://nijun.me/blog/2017/08/02/overriding-overloading/"/>
+    <id>http://nijun.me/blog/2017/08/02/overriding-overloading/</id>
     <published>2017-08-02T06:45:18.000Z</published>
     <updated>2017-08-04T06:47:27.000Z</updated>
     
@@ -364,8 +364,8 @@ public E valueAt(int index)
   
   <entry>
     <title>温故而知新——封装继承多态</title>
-    <link href="http://nijun.me/2017/07/30/encapsulation-inheritance-polymorphism/"/>
-    <id>http://nijun.me/2017/07/30/encapsulation-inheritance-polymorphism/</id>
+    <link href="http://nijun.me/blog/2017/07/30/encapsulation-inheritance-polymorphism/"/>
+    <id>http://nijun.me/blog/2017/07/30/encapsulation-inheritance-polymorphism/</id>
     <published>2017-07-30T06:34:25.000Z</published>
     <updated>2017-08-04T12:44:37.000Z</updated>
     
@@ -446,8 +446,8 @@ public E valueAt(int index)
   
   <entry>
     <title>Android 中 gradle 和 plugin 到底是什么关系？</title>
-    <link href="http://nijun.me/2017/07/19/gradle-plugin/"/>
-    <id>http://nijun.me/2017/07/19/gradle-plugin/</id>
+    <link href="http://nijun.me/blog/2017/07/19/gradle-plugin/"/>
+    <id>http://nijun.me/blog/2017/07/19/gradle-plugin/</id>
     <published>2017-07-19T10:34:04.000Z</published>
     <updated>2017-07-29T14:32:40.000Z</updated>
     
@@ -478,14 +478,14 @@ public E valueAt(int index)
     </summary>
     
     
-      <category term="Android" scheme="http://nijun.me/tags/Android/"/>
+      <category term="Android" scheme="http://nijun.me/blog/tags/Android/"/>
     
   </entry>
   
   <entry>
     <title>Mac 下配置环境变量不生效问题</title>
-    <link href="http://nijun.me/2017/07/15/Mac%E4%B8%8B%E9%85%8D%E7%BD%AE%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E4%B8%8D%E7%94%9F%E6%95%88%E9%97%AE%E9%A2%98/"/>
-    <id>http://nijun.me/2017/07/15/Mac下配置环境变量不生效问题/</id>
+    <link href="http://nijun.me/blog/2017/07/15/Mac%E4%B8%8B%E9%85%8D%E7%BD%AE%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E4%B8%8D%E7%94%9F%E6%95%88%E9%97%AE%E9%A2%98/"/>
+    <id>http://nijun.me/blog/2017/07/15/Mac下配置环境变量不生效问题/</id>
     <published>2017-07-15T15:00:46.000Z</published>
     <updated>2017-07-29T14:22:42.000Z</updated>
     
@@ -585,14 +585,14 @@ export PATH=$PATH:&lt;PATH 1&gt;:&lt;PATH 2&gt;:&lt;PATH 3&gt;:......:&lt;PATH N
     </summary>
     
     
-      <category term="Mac" scheme="http://nijun.me/tags/Mac/"/>
+      <category term="Mac" scheme="http://nijun.me/blog/tags/Mac/"/>
     
   </entry>
   
   <entry>
     <title>20 个数据库设计的最佳实践</title>
-    <link href="http://nijun.me/2017/07/13/00001-Database-2017-07-13-20bastdatabase/"/>
-    <id>http://nijun.me/2017/07/13/00001-Database-2017-07-13-20bastdatabase/</id>
+    <link href="http://nijun.me/blog/2017/07/13/00001-Database-2017-07-13-20bastdatabase/"/>
+    <id>http://nijun.me/blog/2017/07/13/00001-Database-2017-07-13-20bastdatabase/</id>
     <published>2017-07-13T12:18:59.000Z</published>
     <updated>2017-07-29T06:11:09.000Z</updated>
     
@@ -632,14 +632,14 @@ export PATH=$PATH:&lt;PATH 1&gt;:&lt;PATH 2&gt;:&lt;PATH 3&gt;:......:&lt;PATH N
     </summary>
     
     
-      <category term="Database" scheme="http://nijun.me/tags/Database/"/>
+      <category term="Database" scheme="http://nijun.me/blog/tags/Database/"/>
     
   </entry>
   
   <entry>
     <title>Android 异步消息处理机制（一）</title>
-    <link href="http://nijun.me/2017/06/14/Android-2017-06-14-Android%E5%BC%82%E6%AD%A5%E6%B6%88%E6%81%AF%E5%A4%84%E7%90%86%E6%9C%BA%E5%88%B6%EF%BC%88%E4%B8%80%EF%BC%89/"/>
-    <id>http://nijun.me/2017/06/14/Android-2017-06-14-Android异步消息处理机制（一）/</id>
+    <link href="http://nijun.me/blog/2017/06/14/Android-2017-06-14-Android%E5%BC%82%E6%AD%A5%E6%B6%88%E6%81%AF%E5%A4%84%E7%90%86%E6%9C%BA%E5%88%B6%EF%BC%88%E4%B8%80%EF%BC%89/"/>
+    <id>http://nijun.me/blog/2017/06/14/Android-2017-06-14-Android异步消息处理机制（一）/</id>
     <published>2017-06-14T02:37:55.000Z</published>
     <updated>2017-07-29T14:26:08.000Z</updated>
     
@@ -686,17 +686,17 @@ export PATH=$PATH:&lt;PATH 1&gt;:&lt;PATH 2&gt;:&lt;PATH 3&gt;:......:&lt;PATH N
     
     </summary>
     
-      <category term="Android" scheme="http://nijun.me/categories/Android/"/>
+      <category term="Android" scheme="http://nijun.me/blog/categories/Android/"/>
     
     
-      <category term="Android" scheme="http://nijun.me/tags/Android/"/>
+      <category term="Android" scheme="http://nijun.me/blog/tags/Android/"/>
     
   </entry>
   
   <entry>
     <title>Android 消息处理机制之二：消息中 obtain 源代码剖析</title>
-    <link href="http://nijun.me/2017/06/14/Android-2017-06-14-Android%E6%B6%88%E6%81%AF%E5%A4%84%E7%90%86%E6%9C%BA%E5%88%B6%E4%B9%8B%E4%BA%8C%EF%BC%9A%E6%B6%88%E6%81%AF%E4%B8%ADobtain%E6%BA%90%E4%BB%A3%E7%A0%81%E5%89%96%E6%9E%90/"/>
-    <id>http://nijun.me/2017/06/14/Android-2017-06-14-Android消息处理机制之二：消息中obtain源代码剖析/</id>
+    <link href="http://nijun.me/blog/2017/06/14/Android-2017-06-14-Android%E6%B6%88%E6%81%AF%E5%A4%84%E7%90%86%E6%9C%BA%E5%88%B6%E4%B9%8B%E4%BA%8C%EF%BC%9A%E6%B6%88%E6%81%AF%E4%B8%ADobtain%E6%BA%90%E4%BB%A3%E7%A0%81%E5%89%96%E6%9E%90/"/>
+    <id>http://nijun.me/blog/2017/06/14/Android-2017-06-14-Android消息处理机制之二：消息中obtain源代码剖析/</id>
     <published>2017-06-14T02:36:40.000Z</published>
     <updated>2017-07-29T06:09:42.000Z</updated>
     
@@ -858,17 +858,17 @@ public static Message obtain(Message orig) {
     
     </summary>
     
-      <category term="Android" scheme="http://nijun.me/categories/Android/"/>
+      <category term="Android" scheme="http://nijun.me/blog/categories/Android/"/>
     
     
-      <category term="Android" scheme="http://nijun.me/tags/Android/"/>
+      <category term="Android" scheme="http://nijun.me/blog/tags/Android/"/>
     
   </entry>
   
   <entry>
     <title>Android 消息处理机制之三： Handler 中 sendMessage 源代码剖析</title>
-    <link href="http://nijun.me/2017/06/14/Android-2017-06-14-Android%E6%B6%88%E6%81%AF%E5%A4%84%E7%90%86%E6%9C%BA%E5%88%B6%E4%B9%8B%E4%B8%89%EF%BC%9AHandler%E4%B8%ADsendMessage%E6%BA%90%E4%BB%A3%E7%A0%81%E5%89%96%E6%9E%90/"/>
-    <id>http://nijun.me/2017/06/14/Android-2017-06-14-Android消息处理机制之三：Handler中sendMessage源代码剖析/</id>
+    <link href="http://nijun.me/blog/2017/06/14/Android-2017-06-14-Android%E6%B6%88%E6%81%AF%E5%A4%84%E7%90%86%E6%9C%BA%E5%88%B6%E4%B9%8B%E4%B8%89%EF%BC%9AHandler%E4%B8%ADsendMessage%E6%BA%90%E4%BB%A3%E7%A0%81%E5%89%96%E6%9E%90/"/>
+    <id>http://nijun.me/blog/2017/06/14/Android-2017-06-14-Android消息处理机制之三：Handler中sendMessage源代码剖析/</id>
     <published>2017-06-14T02:35:30.000Z</published>
     <updated>2017-07-29T06:09:51.000Z</updated>
     
@@ -919,17 +919,17 @@ public static Message obtain(Message orig) {
     
     </summary>
     
-      <category term="Android" scheme="http://nijun.me/categories/Android/"/>
+      <category term="Android" scheme="http://nijun.me/blog/categories/Android/"/>
     
     
-      <category term="Android" scheme="http://nijun.me/tags/Android/"/>
+      <category term="Android" scheme="http://nijun.me/blog/tags/Android/"/>
     
   </entry>
   
   <entry>
     <title>Activity 的生命周期和启动模式</title>
-    <link href="http://nijun.me/2017/06/08/Android-2017-06-08-Activity%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E5%92%8C%E5%90%AF%E5%8A%A8%E6%A8%A1%E5%BC%8F/"/>
-    <id>http://nijun.me/2017/06/08/Android-2017-06-08-Activity的生命周期和启动模式/</id>
+    <link href="http://nijun.me/blog/2017/06/08/Android-2017-06-08-Activity%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E5%92%8C%E5%90%AF%E5%8A%A8%E6%A8%A1%E5%BC%8F/"/>
+    <id>http://nijun.me/blog/2017/06/08/Android-2017-06-08-Activity的生命周期和启动模式/</id>
     <published>2017-06-07T16:05:40.000Z</published>
     <updated>2017-08-12T06:24:34.000Z</updated>
     
@@ -1067,17 +1067,17 @@ public static Message obtain(Message orig) {
     
     </summary>
     
-      <category term="Android" scheme="http://nijun.me/categories/Android/"/>
+      <category term="Android" scheme="http://nijun.me/blog/categories/Android/"/>
     
     
-      <category term="Android" scheme="http://nijun.me/tags/Android/"/>
+      <category term="Android" scheme="http://nijun.me/blog/tags/Android/"/>
     
   </entry>
   
   <entry>
     <title>Maven 学习总结</title>
-    <link href="http://nijun.me/2017/05/20/00001-maven-2017-05-20-maven/"/>
-    <id>http://nijun.me/2017/05/20/00001-maven-2017-05-20-maven/</id>
+    <link href="http://nijun.me/blog/2017/05/20/00001-maven-2017-05-20-maven/"/>
+    <id>http://nijun.me/blog/2017/05/20/00001-maven-2017-05-20-maven/</id>
     <published>2017-05-20T05:32:40.000Z</published>
     <updated>2017-07-29T06:11:01.000Z</updated>
     
@@ -1470,14 +1470,14 @@ public static Message obtain(Message orig) {
     </summary>
     
     
-      <category term="maven" scheme="http://nijun.me/tags/maven/"/>
+      <category term="maven" scheme="http://nijun.me/blog/tags/maven/"/>
     
   </entry>
   
   <entry>
     <title>GitHub 学习之路</title>
-    <link href="http://nijun.me/2017/05/14/00001-Git-2017-05-14-GitHub/"/>
-    <id>http://nijun.me/2017/05/14/00001-Git-2017-05-14-GitHub/</id>
+    <link href="http://nijun.me/blog/2017/05/14/00001-Git-2017-05-14-GitHub/"/>
+    <id>http://nijun.me/blog/2017/05/14/00001-Git-2017-05-14-GitHub/</id>
     <published>2017-05-14T13:55:29.000Z</published>
     <updated>2017-07-30T01:48:50.000Z</updated>
     
@@ -2207,14 +2207,14 @@ $ git remote add -f 用户名 git@github.com:当前操作仓库的名字.git
     </summary>
     
     
-      <category term="git" scheme="http://nijun.me/tags/git/"/>
+      <category term="git" scheme="http://nijun.me/blog/tags/git/"/>
     
   </entry>
   
   <entry>
     <title>搭建个人博客 - Hexo</title>
-    <link href="http://nijun.me/2017/05/06/00001-Blog-2017-05-05-hexo/"/>
-    <id>http://nijun.me/2017/05/06/00001-Blog-2017-05-05-hexo/</id>
+    <link href="http://nijun.me/blog/2017/05/06/00001-Blog-2017-05-05-hexo/"/>
+    <id>http://nijun.me/blog/2017/05/06/00001-Blog-2017-05-05-hexo/</id>
     <published>2017-05-06T14:07:56.000Z</published>
     <updated>2017-07-29T06:10:44.000Z</updated>
     
@@ -2628,10 +2628,10 @@ hexo可视化后台管理，很方便 - [hexo-hey](https://github.com/nihgwu/hex
     
     </summary>
     
-      <category term="技术" scheme="http://nijun.me/categories/%E6%8A%80%E6%9C%AF/"/>
+      <category term="技术" scheme="http://nijun.me/blog/categories/%E6%8A%80%E6%9C%AF/"/>
     
     
-      <category term="技术" scheme="http://nijun.me/tags/%E6%8A%80%E6%9C%AF/"/>
+      <category term="技术" scheme="http://nijun.me/blog/tags/%E6%8A%80%E6%9C%AF/"/>
     
   </entry>
   

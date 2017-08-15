@@ -4,7 +4,7 @@
     
     <entry>
       <title><![CDATA[可以知道滑动方向的 ViewPager]]></title>
-      <url>/2017/08/04/smartviewpager/</url>
+      <url>/blog/2017/08/04/smartviewpager/</url>
       <content type="html"><![CDATA[<p>做项目的时候使用到 ViewPager，那么顺便总结一下它的 OnPageChangeListener 监听器。随便撸了个可以判断滑动方向的 ViewPager。欢迎来提Issue。</p>
 <p>OnPageChangeListener的有三个回调接口，按照执行顺序分别是：</p>
 <pre><code>/**
@@ -210,7 +210,7 @@ GitHub：https://github.com/SmartNJ
     
     <entry>
       <title><![CDATA[Viewholder中为什么要使用SparseArray对View进行存储？]]></title>
-      <url>/2017/08/04/SparseArray-ArrayMap/</url>
+      <url>/blog/2017/08/04/SparseArray-ArrayMap/</url>
       <content type="html"><![CDATA[<p>最近项目时，设计 ViewHolder 时用到了 SparseArray，为什么一定要用这个呢？ SparseArray 有什么优点吗？</p>
 <p>private SparseArray<view> mViews; </view></p>
 <p>使用SparseArray保存View。</p>
@@ -304,7 +304,7 @@ public E valueAt(int index)
     
     <entry>
       <title><![CDATA[说说 OverLoading（ 重载 ）和 Overriding（ 重写 ）的区别 ？]]></title>
-      <url>/2017/08/02/overriding-overloading/</url>
+      <url>/blog/2017/08/02/overriding-overloading/</url>
       <content type="html"><![CDATA[<a id="more"></a>
 <p>1、方法重载发生在编译期，方法重写发生在运行期：也就是说方法重载的方法调用绑定发生在编译期，方法重写的方法调用绑定发生在运行期。</p>
 <p>2、静态方法可以被重载，意味着一个类可以有多个同名的静态方法。静态方法不能被重写，即使你在子类定义了相同的静态方法，那么对于父类的静态方法来说没有任何影响。</p>
@@ -322,7 +322,7 @@ public E valueAt(int index)
     
     <entry>
       <title><![CDATA[温故而知新——封装继承多态]]></title>
-      <url>/2017/07/30/encapsulation-inheritance-polymorphism/</url>
+      <url>/blog/2017/07/30/encapsulation-inheritance-polymorphism/</url>
       <content type="html"><![CDATA[<p><img src="https://mmbiz.qlogo.cn/mmbiz_jpg/cOpSHfR7OBp9wokabGvc5BEdicoQ2hI8nZibyaTyYPReLg9fwmO5ce4ibR1fBTFgVaoOGiar3eSIa8VXMSoibRYzpcw/0.jpeg" alt="img"></p>
 <blockquote>
 <p>面向对象的三个基本特征是：封装、继承、多态。这是我对这三个特征的一些总结，希望能帮助大家复习一下。</p>
@@ -394,7 +394,7 @@ public E valueAt(int index)
     
     <entry>
       <title><![CDATA[Android 中 gradle 和 plugin 到底是什么关系？]]></title>
-      <url>/2017/07/19/gradle-plugin/</url>
+      <url>/blog/2017/07/19/gradle-plugin/</url>
       <content type="html"><![CDATA[<p>最近做项目碰到 Android Studio 提示 Android Gradle Plugin Version 版本太低的问题。之前对 Plugin Version 和 Gradle Version 一直没有明确的认识，认为它俩是一个概念。索性刨根问底去 Google 一下。</p>
 <a id="more"></a>
 <p>Android Studio 报错如下：<br><img src="http://osoa5juml.bkt.clouddn.com//image/site/1500459320686.png" width="1177"></p>
@@ -426,7 +426,7 @@ public E valueAt(int index)
     
     <entry>
       <title><![CDATA[Mac 下配置环境变量不生效问题]]></title>
-      <url>/2017/07/15/Mac%E4%B8%8B%E9%85%8D%E7%BD%AE%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E4%B8%8D%E7%94%9F%E6%95%88%E9%97%AE%E9%A2%98/</url>
+      <url>/blog/2017/07/15/Mac%E4%B8%8B%E9%85%8D%E7%BD%AE%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E4%B8%8D%E7%94%9F%E6%95%88%E9%97%AE%E9%A2%98/</url>
       <content type="html"><![CDATA[<p>注意：Mac 下一般使用 bash 作为默认的 shell。</p>
 <hr>
 <h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>今天在捣鼓 MySQL 的时候，安装删除了好几个循环之后，发现打开 iTerm 之后输入 <code>mysql</code> 不起作用了，刚开始还以为是 MySQL 安装失败了，但是再一次安装成功后还是提示 <code>command not found: mysql</code> 。看到这句话第一时间我就想到了是不是环境变量没有配呢？但是一想不对啊，我之前也是用的好好的也没出现过这个问题啊。<a id="more"></a></p>
@@ -525,7 +525,7 @@ export PATH=$PATH:&lt;PATH 1&gt;:&lt;PATH 2&gt;:&lt;PATH 3&gt;:......:&lt;PATH N
     
     <entry>
       <title><![CDATA[20 个数据库设计的最佳实践]]></title>
-      <url>/2017/07/13/00001-Database-2017-07-13-20bastdatabase/</url>
+      <url>/blog/2017/07/13/00001-Database-2017-07-13-20bastdatabase/</url>
       <content type="html"><![CDATA[<p>数据库设计是整个程序的重点之一，为了支持相关程序运行，最佳的数据库设计往往不可能一蹴而就，只能反复探寻并逐步求精，这是一个复杂的过程，也是规划和结构化数据库中的数据对象以及这些数据对象之间关系的过程。下面给出了20个数据库设计最佳实践，当然，所谓最佳，还是要看它是否适合你的程序。一起来了解了解吧。</p>
 <p> <img src="http://osoa5juml.bkt.clouddn.com//image/site/1499949068975.gif" alt="img"></p>
 <a id="more"></a>
@@ -565,7 +565,7 @@ export PATH=$PATH:&lt;PATH 1&gt;:&lt;PATH 2&gt;:&lt;PATH 3&gt;:......:&lt;PATH N
     
     <entry>
       <title><![CDATA[Android 异步消息处理机制（一）]]></title>
-      <url>/2017/06/14/Android-2017-06-14-Android%E5%BC%82%E6%AD%A5%E6%B6%88%E6%81%AF%E5%A4%84%E7%90%86%E6%9C%BA%E5%88%B6%EF%BC%88%E4%B8%80%EF%BC%89/</url>
+      <url>/blog/2017/06/14/Android-2017-06-14-Android%E5%BC%82%E6%AD%A5%E6%B6%88%E6%81%AF%E5%A4%84%E7%90%86%E6%9C%BA%E5%88%B6%EF%BC%88%E4%B8%80%EF%BC%89/</url>
       <content type="html"><![CDATA[<p>两个问题：</p>
 <p>​    1、在子线程中如何创建的Handler？需要先做什么？如何发送消息？</p>
 <p>​    2、Handler中发送的消息去哪啦？为什么handleMessage中又能得到这个Message？</p>
@@ -618,7 +618,7 @@ export PATH=$PATH:&lt;PATH 1&gt;:&lt;PATH 2&gt;:&lt;PATH 3&gt;:......:&lt;PATH N
     
     <entry>
       <title><![CDATA[Android 消息处理机制之二：消息中 obtain 源代码剖析]]></title>
-      <url>/2017/06/14/Android-2017-06-14-Android%E6%B6%88%E6%81%AF%E5%A4%84%E7%90%86%E6%9C%BA%E5%88%B6%E4%B9%8B%E4%BA%8C%EF%BC%9A%E6%B6%88%E6%81%AF%E4%B8%ADobtain%E6%BA%90%E4%BB%A3%E7%A0%81%E5%89%96%E6%9E%90/</url>
+      <url>/blog/2017/06/14/Android-2017-06-14-Android%E6%B6%88%E6%81%AF%E5%A4%84%E7%90%86%E6%9C%BA%E5%88%B6%E4%B9%8B%E4%BA%8C%EF%BC%9A%E6%B6%88%E6%81%AF%E4%B8%ADobtain%E6%BA%90%E4%BB%A3%E7%A0%81%E5%89%96%E6%9E%90/</url>
       <content type="html"><![CDATA[<p>Message中obtain()源码分析</p>
 <a id="more"></a>
 <p>参考自 AHuier的<a href="http://blog.csdn.net/xukunhui2/article/details/17012923" target="_blank" rel="external">Android消息处理机制之二：消息中obtain()源代码剖析</a> </p>
@@ -788,7 +788,7 @@ public static Message obtain(Message orig) {
     
     <entry>
       <title><![CDATA[Android 消息处理机制之三： Handler 中 sendMessage 源代码剖析]]></title>
-      <url>/2017/06/14/Android-2017-06-14-Android%E6%B6%88%E6%81%AF%E5%A4%84%E7%90%86%E6%9C%BA%E5%88%B6%E4%B9%8B%E4%B8%89%EF%BC%9AHandler%E4%B8%ADsendMessage%E6%BA%90%E4%BB%A3%E7%A0%81%E5%89%96%E6%9E%90/</url>
+      <url>/blog/2017/06/14/Android-2017-06-14-Android%E6%B6%88%E6%81%AF%E5%A4%84%E7%90%86%E6%9C%BA%E5%88%B6%E4%B9%8B%E4%B8%89%EF%BC%9AHandler%E4%B8%ADsendMessage%E6%BA%90%E4%BB%A3%E7%A0%81%E5%89%96%E6%9E%90/</url>
       <content type="html"><![CDATA[<p>Handler中sendMessage源代码剖析。</p>
 <a id="more"></a>
 <p>参考自 AHuier的 <a href="http://blog.csdn.net/xukunhui2/article/details/17013647" target="_blank" rel="external">Handler 中 sendMessage() 源代码剖析</a></p>
@@ -847,7 +847,7 @@ public static Message obtain(Message orig) {
     
     <entry>
       <title><![CDATA[Activity 的生命周期和启动模式]]></title>
-      <url>/2017/06/08/Android-2017-06-08-Activity%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E5%92%8C%E5%90%AF%E5%8A%A8%E6%A8%A1%E5%BC%8F/</url>
+      <url>/blog/2017/06/08/Android-2017-06-08-Activity%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E5%92%8C%E5%90%AF%E5%8A%A8%E6%A8%A1%E5%BC%8F/</url>
       <content type="html"><![CDATA[<p>Android中我们最先接触到的就是Activity，如果掌握了 Activity，那么对学习其他四大组件无疑是很有帮助的。</p>
 <a id="more"></a>
 <h1 id="Activity-的生命周期"><a href="#Activity-的生命周期" class="headerlink" title="Activity 的生命周期"></a>Activity 的生命周期</h1><p><img src="http://osoa5juml.bkt.clouddn.com/image/site/1499949623365.png" alt=""></p>
@@ -993,7 +993,7 @@ public static Message obtain(Message orig) {
     
     <entry>
       <title><![CDATA[Maven 学习总结]]></title>
-      <url>/2017/05/20/00001-maven-2017-05-20-maven/</url>
+      <url>/blog/2017/05/20/00001-maven-2017-05-20-maven/</url>
       <content type="html"><![CDATA[ <div align="center"><br>  想学习Maven吗？<br><br></div>
 
 <a id="more"></a>
@@ -1387,7 +1387,7 @@ public static Message obtain(Message orig) {
     
     <entry>
       <title><![CDATA[GitHub 学习之路]]></title>
-      <url>/2017/05/14/00001-Git-2017-05-14-GitHub/</url>
+      <url>/blog/2017/05/14/00001-Git-2017-05-14-GitHub/</url>
       <content type="html"><![CDATA[<p><img src="http://osoa5juml.bkt.clouddn.com/image/site/1499949527648.png" alt=""></p>
 <div align="center"><br><br>自学 Git 的一些总结<br><br></div>
 
@@ -2117,7 +2117,7 @@ $ git remote add -f 用户名 git@github.com:当前操作仓库的名字.git
     
     <entry>
       <title><![CDATA[搭建个人博客 - Hexo]]></title>
-      <url>/2017/05/06/00001-Blog-2017-05-05-hexo/</url>
+      <url>/blog/2017/05/06/00001-Blog-2017-05-05-hexo/</url>
       <content type="html"><![CDATA[<p><img src="http://osoa5juml.bkt.clouddn.com/avatar.jpg" alt=""></p>
  <div align="center"><br>  今天，是你未来所有剩余的日子中，最早的一天<br><br></div>
 
