@@ -8,6 +8,8 @@ dark: false
 menu:
   Home: /
   Archives: /archives
+  Programming: /programming
+  Categories: /categories
   About: /about
 rss: /atom.xml
 
@@ -17,7 +19,7 @@ fancybox: true
 
 # Miscellaneous
 google_analytics: UA-102765380-1
-favicon: /favicon.ico
+favicon: /images/squirrel.png
 twitter:
 google_plus: 
 fb_admins:
@@ -32,11 +34,12 @@ description: I am a Android developer, student and lifelong learner interested i
 links:
   Blog: /archives
   GitHub: https://github.com/SmartNJ
-  Instagram: http://instagram.com/
-  Facebook: http://facebook.com/
-  Twitter : http://twitter.com/
+  #Instagram: http://instagram.com/
+  #Facebook: http://facebook.com/
+  #Twitter : http://twitter.com/
 
 
 # Info
-archive_footer_content: Lorem ipsum dolor sit amet, **consectetur adipiscing elit.** Fusce eget urna vitae velit *eleifend interdum at ac nisi. In nec ligula lacus. Cum sociis natoque* penatibus et magnis dis parturient montes, nascetur ridiculus mus. Sed eu cursus erat, ut dapibus quam. Archive
-post_footer_content: ipsum dolor sit amet, **consectetur adipiscing elit.** Fusce eget urna vitae velit *eleifend interdum at ac nisi. In nec ligula lacus. Cum sociis natoque* penatibus et magnis dis parturient montes, nascetur ridiculus mus. Sed eu cursus erat, ut dapibus quam. Post
+archive_footer_content: It's not about making one choice and being done with it. It's about continuous learning and sometimes, bold choices. 
+
+post_footer_content: It's not about making one choice and being done with it. It's about continuous learning and sometimes, bold choices. 
