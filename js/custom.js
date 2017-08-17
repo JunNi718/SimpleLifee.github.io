@@ -1,11 +1,8 @@
-
+    // 彩色的输入框效果
     POWERMODE.colorful = true;
     POWERMODE.shake = false;
     document.body.addEventListener('input', POWERMODE);
 
-
-
-       
 
 jQuery(function($) {
   function init() {

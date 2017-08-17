@@ -16,10 +16,10 @@
 
 /*search*/
 
-.gsib_a {
+/*.gsib_a {
   width: 100%;
   padding: 0px 6px 0px;
-}
+}*/
 
 a.gs-title {
   color: #1A0DAB;
@@ -29,6 +29,6 @@ a.gs-title {
 .gsc-control-cse {
   padding: 1em;
   margin: 40px;
-  margin-left: 0px;
+  margin-left: 10px;
   width: 80%;
 }
