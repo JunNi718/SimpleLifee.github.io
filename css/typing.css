@@ -784,7 +784,8 @@ em {
 }
 
 .footer-content {
-  width: 60%;
+  /*width: 60%;*/
+  width:80%;
   margin: 0 auto;
   text-align: left
 }
@@ -857,7 +858,8 @@ em {
 .archive-container,
 .category-container,
 .tag-container {
-  width: 60%;
+  width: 80%;
+  /*width:60%;*/
   margin: 0 auto;
   position: relative;
   line-height: 1;
