@@ -173,7 +173,7 @@ a:hover {
 }
 
 .typo a {
-  border-bottom: 1px solid #1abc9c
+  border-bottom: 1px solid #ffff
 }
 
 .typo a:hover {
@@ -704,6 +704,7 @@ h6 {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-family: source sans pro, proxima nova, -apple-system, sans-serif;
+  /*font-family: Courier New;*/
   -moz-font-feature-settings: "liga" on;
   -webkit-transition: all .25s ease;
   transition: all .25s ease
@@ -961,7 +962,7 @@ em {
 }
 
 .article {
-  width: 60%;
+  width: 80%;
   margin: 0 auto
 }
 

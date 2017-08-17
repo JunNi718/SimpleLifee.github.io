@@ -5,20 +5,20 @@
   
   <title>温故而知新——封装继承多态 | SmartNi</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="面向对象的三个基本特征是：封装、继承、多态。这是我对这三个特征的一些总结，希望能帮助大家复习一下。  什么是封装 ？封装通过合并特征和行为来创建新的数据类型，并隐藏实现细节（私有化），把接口和实现分离开来，使得代码模块化。 什么是继承 ？一句话解释就是：继承可以扩展已存在的代码模板（类）。继承和封装有一个共同的目的——代码重用。 除了修饰为 private 和 final 的，子类是继承不了的">
+  <meta name="description" content="面向对象的三个基本特征是：封装、继承、多态。这是我对这三个特征的一些总结，希望能帮助大家复习一下。  什么是封装 ？封装通过合并特征和行为来创建新的数据类型，并隐藏实现细节（私有化），把接口和实现分离开来，使得代码模块化。 什么是继承 ？一句话解释就是：继承可以扩展已存在的代码模板（类）。继承和封装有一个共同的目的——代码重用。 除了修饰为 private 和 final 的，子类是继承不了的之">
+<meta name="keywords" content="Java">
 <meta property="og:type" content="article">
 <meta property="og:title" content="温故而知新——封装继承多态">
 <meta property="og:url" content="http://nijun.me/2017/07/30/encapsulation-inheritance-polymorphism/index.html">
 <meta property="og:site_name" content="SmartNi">
-<meta property="og:description" content="面向对象的三个基本特征是：封装、继承、多态。这是我对这三个特征的一些总结，希望能帮助大家复习一下。  什么是封装 ？封装通过合并特征和行为来创建新的数据类型，并隐藏实现细节（私有化），把接口和实现分离开来，使得代码模块化。 什么是继承 ？一句话解释就是：继承可以扩展已存在的代码模板（类）。继承和封装有一个共同的目的——代码重用。 除了修饰为 private 和 final 的，子类是继承不了的">
-<meta property="og:image" content="https://mmbiz.qlogo.cn/mmbiz_jpg/cOpSHfR7OBp9wokabGvc5BEdicoQ2hI8nZibyaTyYPReLg9fwmO5ce4ibR1fBTFgVaoOGiar3eSIa8VXMSoibRYzpcw/0.jpeg">
+<meta property="og:description" content="面向对象的三个基本特征是：封装、继承、多态。这是我对这三个特征的一些总结，希望能帮助大家复习一下。  什么是封装 ？封装通过合并特征和行为来创建新的数据类型，并隐藏实现细节（私有化），把接口和实现分离开来，使得代码模块化。 什么是继承 ？一句话解释就是：继承可以扩展已存在的代码模板（类）。继承和封装有一个共同的目的——代码重用。 除了修饰为 private 和 final 的，子类是继承不了的之">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://mmbiz.qlogo.cn/mmbiz/cZV2hRpuAPjEIibB1UYw1VMPzscNxReKZVxEh23qB9KgPqFq3uoyBy3M93PcFOunrvjkYVrtfvXMworbBuWAZ4A/0">
-<meta property="og:image" content="https://mmbiz.qlogo.cn/mmbiz_jpg/cOpSHfR7OBp9wokabGvc5BEdicoQ2hI8nQ2VylH1opRxHc5XAkvrTf4nS4KoZC14SRgh0vkHLIM7icicHlDwD8gQA/0.jpeg">
-<meta property="og:updated_time" content="2017-08-04T12:44:37.000Z">
+<meta property="og:updated_time" content="2017-08-16T14:19:11.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="温故而知新——封装继承多态">
-<meta name="twitter:description" content="面向对象的三个基本特征是：封装、继承、多态。这是我对这三个特征的一些总结，希望能帮助大家复习一下。  什么是封装 ？封装通过合并特征和行为来创建新的数据类型，并隐藏实现细节（私有化），把接口和实现分离开来，使得代码模块化。 什么是继承 ？一句话解释就是：继承可以扩展已存在的代码模板（类）。继承和封装有一个共同的目的——代码重用。 除了修饰为 private 和 final 的，子类是继承不了的">
-<meta name="twitter:image" content="https://mmbiz.qlogo.cn/mmbiz_jpg/cOpSHfR7OBp9wokabGvc5BEdicoQ2hI8nZibyaTyYPReLg9fwmO5ce4ibR1fBTFgVaoOGiar3eSIa8VXMSoibRYzpcw/0.jpeg">
+<meta name="twitter:description" content="面向对象的三个基本特征是：封装、继承、多态。这是我对这三个特征的一些总结，希望能帮助大家复习一下。  什么是封装 ？封装通过合并特征和行为来创建新的数据类型，并隐藏实现细节（私有化），把接口和实现分离开来，使得代码模块化。 什么是继承 ？一句话解释就是：继承可以扩展已存在的代码模板（类）。继承和封装有一个共同的目的——代码重用。 除了修饰为 private 和 final 的，子类是继承不了的之">
+<meta name="twitter:image" content="https://mmbiz.qlogo.cn/mmbiz/cZV2hRpuAPjEIibB1UYw1VMPzscNxReKZVxEh23qB9KgPqFq3uoyBy3M93PcFOunrvjkYVrtfvXMworbBuWAZ4A/0">
   
     <link rel="alternate" href="/atom.xml" title="SmartNi" type="application/atom+xml">
   
@@ -34,7 +34,8 @@
     
   
       <div id="container" class="container">
-        <article id="post-encapsulation-inheritance-polymorphism" class="article article-type-post" itemscope itemprop="blogPost">
+        
+<article id="post-encapsulation-inheritance-polymorphism" class="article article-type-post" itemscope itemprop="blogPost">
   <header id="header" class="header">
   <nav id="main-nav" class="main-nav">
     
@@ -62,19 +63,41 @@
         About
       </a>
       
+      <a class="main-nav-link" href="/blog">
+        Blog
+      </a>
+      
   </nav>
+  
+  <link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/mono-blue.min.css">
+  <script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
+  <!-- gruvbox-dark  ,monokai-sublime,zenburn -->
+  <!-- railscasts   mono-blue  tomorrow  androidstudio  monokai-->
+  <script>
+  hljs.initHighlightingOnLoad();
+
+  </script>
   <nav id="sub-nav">
     
       <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
       
-      <br/>
-      <p id="text"> </p>
-      <div class="descriptionwrapper">
-      <p class="description"> </p>
-      </div>
+        <br/>
+        <p id="text"> </p>
+        <div class="descriptionwrapper">
+          <p class="description"> </p>
+        </div>
   </nav>
 </header>
+
   <hr/>
+  <div class="widget widget-search">
+  <form class="navbar-form navbar-right" id="search" onsubmit="search(event);return false;" _lpchecked="1">
+    <div class="input-group">
+    <span class="input-group-addon" id="searchIcon" onclick="search(event);"><i class="fa fa-search"></i></span>
+    <input type="text" style="font-family: 'Helvetica Neue', 'PingFang SC', 'Microsoft YaHei', 'WenQuanYi Micro Hei', sans-serif;color:#6D7569;outline-color:#c05b4d;" placeholder="Search" id="searchInput" class="form-control" value="">
+    </div>
+  </form>
+</div>
   <div class="article-inner">
     
     
@@ -89,9 +112,17 @@
       </header>
     
     <div class="article-entry typo" itemprop="articleBody">
+
+<!--  -->
+
+   <!-- 目录内容 -->
+             
+        <!-- 目录内容结束 -->
+
+
+
       
-        <p><img src="https://mmbiz.qlogo.cn/mmbiz_jpg/cOpSHfR7OBp9wokabGvc5BEdicoQ2hI8nZibyaTyYPReLg9fwmO5ce4ibR1fBTFgVaoOGiar3eSIa8VXMSoibRYzpcw/0.jpeg" alt="img"></p>
-<blockquote>
+        <blockquote>
 <p>面向对象的三个基本特征是：封装、继承、多态。这是我对这三个特征的一些总结，希望能帮助大家复习一下。</p>
 </blockquote>
 <h1 id="什么是封装-？"><a href="#什么是封装-？" class="headerlink" title="什么是封装 ？"></a>什么是封装 ？</h1><p>封装通过合并特征和行为来创建新的数据类型，并隐藏实现细节（私有化），把接口和实现分离开来，使得代码模块化。</p>
@@ -151,9 +182,6 @@
 <p>Connecting a method call to a method body is called binding. when binding is performed before the program is run (by the compiler and linker,if there is one), it’s called early binding. </p>
 <p>将一个方法调用同一个方法主体关联起来称为绑定。在程序执行前进行绑定（一般由编译器和连接程序实现），就叫做前期绑定（也可以说成是编译期绑定）。C 语言只有一种方法调用，那就是前期绑定。</p>
 <p>相信小伙伴们一定猜到有前期绑定，就一定有后期绑定。没错，Java 中的后期绑定就是在运行时根据对象的类型进行绑定，后期绑定也叫做动态绑定或运行时绑定。 Java 中除了static 方法和 final 方法（ private 属于 final 方法 ） ，其他方法都是后期绑定。</p>
-<center><br>END<br><img src="https://mmbiz.qlogo.cn/mmbiz_jpg/cOpSHfR7OBp9wokabGvc5BEdicoQ2hI8nQ2VylH1opRxHc5XAkvrTf4nS4KoZC14SRgh0vkHLIM7icicHlDwD8gQA/0.jpeg" alt="img"><br>长按二维码关注<br>个人博客：<a href="http://nijun.github.io" target="_blank" rel="external">http://nijun.github.io</a><br>GitHub：<a href="https://github.com/SmartNJ" target="_blank" rel="external">https://github.com/SmartNJ</a><br></center>
-
-
 
       
     </div>
@@ -168,6 +196,14 @@
         </li>
         
         
+          <li>
+            <span class="label">Tag:</span>
+            
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li></ul>
+
+
+          </li>
+        
         <hr/>
       </ul>
     </footer>
@@ -180,7 +216,7 @@
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          说说 OverLoading（ 重载 ）和 Overriding（ 重写 ）的区别 ？
+          OverLoading（ 重载 ）和 Overriding（ 重写 ）的区别
         
       </div>
     </a>

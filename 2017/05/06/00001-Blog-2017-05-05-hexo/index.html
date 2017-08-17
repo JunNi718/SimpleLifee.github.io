@@ -12,9 +12,10 @@
 <meta property="og:url" content="http://nijun.me/2017/05/06/00001-Blog-2017-05-05-hexo/index.html">
 <meta property="og:site_name" content="SmartNi">
 <meta property="og:description" content="今天，是你未来所有剩余的日子中，最早的一天  ——stormzhang              背景 个人博客地址：http://nijun.me 我为什么要写这篇文章？是因为大学三年了，感觉学了这么多知识，但是并没有真正地去消化和总结过，最近又看到了stormzhang大神写的这篇我为什么坚持写博客？。我真的感触很深，以前花了很多时间学的东西，不久之后便会印象模糊，想要回忆的时候，又不">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://osoa5juml.bkt.clouddn.com/avatar.jpg">
 <meta property="og:image" content="http://i.imgur.com/qqg116z.png">
-<meta property="og:updated_time" content="2017-07-29T06:10:44.000Z">
+<meta property="og:updated_time" content="2017-08-16T14:23:46.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="搭建个人博客 - Hexo">
 <meta name="twitter:description" content="今天，是你未来所有剩余的日子中，最早的一天  ——stormzhang              背景 个人博客地址：http://nijun.me 我为什么要写这篇文章？是因为大学三年了，感觉学了这么多知识，但是并没有真正地去消化和总结过，最近又看到了stormzhang大神写的这篇我为什么坚持写博客？。我真的感触很深，以前花了很多时间学的东西，不久之后便会印象模糊，想要回忆的时候，又不">
@@ -34,7 +35,8 @@
     
   
       <div id="container" class="container">
-        <article id="post-00001-Blog-2017-05-05-hexo" class="article article-type-post" itemscope itemprop="blogPost">
+        
+<article id="post-00001-Blog-2017-05-05-hexo" class="article article-type-post" itemscope itemprop="blogPost">
   <header id="header" class="header">
   <nav id="main-nav" class="main-nav">
     
@@ -62,19 +64,41 @@
         About
       </a>
       
+      <a class="main-nav-link" href="/blog">
+        Blog
+      </a>
+      
   </nav>
+  
+  <link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/mono-blue.min.css">
+  <script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
+  <!-- gruvbox-dark  ,monokai-sublime,zenburn -->
+  <!-- railscasts   mono-blue  tomorrow  androidstudio  monokai-->
+  <script>
+  hljs.initHighlightingOnLoad();
+
+  </script>
   <nav id="sub-nav">
     
       <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
       
-      <br/>
-      <p id="text"> </p>
-      <div class="descriptionwrapper">
-      <p class="description"> </p>
-      </div>
+        <br/>
+        <p id="text"> </p>
+        <div class="descriptionwrapper">
+          <p class="description"> </p>
+        </div>
   </nav>
 </header>
+
   <hr/>
+  <div class="widget widget-search">
+  <form class="navbar-form navbar-right" id="search" onsubmit="search(event);return false;" _lpchecked="1">
+    <div class="input-group">
+    <span class="input-group-addon" id="searchIcon" onclick="search(event);"><i class="fa fa-search"></i></span>
+    <input type="text" style="font-family: 'Helvetica Neue', 'PingFang SC', 'Microsoft YaHei', 'WenQuanYi Micro Hei', sans-serif;color:#6D7569;outline-color:#c05b4d;" placeholder="Search" id="searchInput" class="form-control" value="">
+    </div>
+  </form>
+</div>
   <div class="article-inner">
     
     
@@ -89,6 +113,15 @@
       </header>
     
     <div class="article-entry typo" itemprop="articleBody">
+
+<!--  -->
+
+   <!-- 目录内容 -->
+             
+        <!-- 目录内容结束 -->
+
+
+
       
         <p><img src="http://osoa5juml.bkt.clouddn.com/avatar.jpg" alt=""></p>
  <div align="center"><br>  今天，是你未来所有剩余的日子中，最早的一天<br><br></div>
@@ -440,46 +473,22 @@ $ npm install hexo --save
 { [Error: Cannot find module &#39;./build/Debug/DTraceProviderBindings&#39;] code: &#39;MODULE_NOT_FOUND&#39; }
 </code></pre><p>那就</p>
 <pre><code>npm install hexo --no-optional
-</code></pre><p>#NexT</p>
-<p>如果你熟悉 Git， 建议你使用 克隆最新版本 的方式，之后的更新可以通过 git pull 来快速更新， 而不用再次下载压缩包替换。</p>
+</code></pre><h1 id="NexT"><a href="#NexT" class="headerlink" title="NexT"></a>NexT</h1><p>如果你熟悉 Git， 建议你使用 克隆最新版本 的方式，之后的更新可以通过 git pull 来快速更新， 而不用再次下载压缩包替换。</p>
 <ol>
 <li>下载主题</li>
 </ol>
-<pre><code class="java">
+<pre><code class="java">$ cd your-hexo-site
+$ git clone https://github.com/iissnan/hexo-theme-next themes/next
 </code></pre>
-<p>$ cd your-hexo-site<br>$ git clone <a href="https://github.com/iissnan/hexo-theme-next" target="_blank" rel="external">https://github.com/iissnan/hexo-theme-next</a> themes/next</p>
-<pre><code>
+<ol>
+<li><p>启用主题<br>与所有 Hexo 主题启用的模式一样。 当 克隆/下载 完成后，打开 <code>站点配置文件</code>， 找到<code>theme</code>字段，并将其值更改为<code>next</code>。</p>
+<pre><code>theme: next
+</code></pre><p>到此，NexT 主题安装完成。下一步我们将验证主题是否正确启用。在切换主题之后、验证之前， 我们最好使用 <code>$ hexo clean</code> 来清除 Hexo 的缓存。</p>
+</li>
+</ol>
+<h3 id="一些好用的插件"><a href="#一些好用的插件" class="headerlink" title="一些好用的插件"></a>一些好用的插件</h3><p>hexo可视化后台管理，很方便 - <a href="https://github.com/nihgwu/hexo-hey" target="_blank" rel="external">hexo-hey</a><br>在 hexo 中无痛使用本地图片 - <a href="https://github.com/CodeFalling/hexo-asset-image" target="_blank" rel="external">hexo-asset-image</a><br>备份整个博客包括主题 - <a href="https://github.com/coneycode/hexo-git-backup" target="_blank" rel="external">hexo-git-backup</a></p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p>网易云音乐 - <a href="http://weqeo.com/2016/10/11/Hexo中播放网易云音乐的实践" target="_blank" rel="external">Hexo中播放网易云音乐的实践</a><br>网易云音乐 - <a href="https://github.com/blog/273-github-ribbons" target="_blank" rel="external">GitHub Ribbons</a><br>字数统计WordCount 、阅读时长预计Min2Read、总字数统计TotalCount - <a href="https://github.com/willin/hexo-wordcount" target="_blank" rel="external">hexo-wordcount</a>  </p>
 
-
-2. 启用主题
-   与所有 Hexo 主题启用的模式一样。 当 克隆/下载 完成后，打开 `站点配置文件`， 找到` theme `字段，并将其值更改为` next`。
-</code></pre><p>   theme: next</p>
-<pre><code>
-   到此，NexT 主题安装完成。下一步我们将验证主题是否正确启用。在切换主题之后、验证之前， 我们最好使用 `$ hexo clean` 来清除 Hexo 的缓存。
-
-
-
-
-
-### 一些好用的插件 ###
-
-{% blockquote %}
-hexo可视化后台管理，很方便 - [hexo-hey](https://github.com/nihgwu/hexo-hey)  
-在 hexo 中无痛使用本地图片 - [hexo-asset-image](https://github.com/CodeFalling/hexo-asset-image)
-备份整个博客包括主题 - [hexo-git-backup](https://github.com/coneycode/hexo-git-backup)
-
-
-{% endblockquote %}
-
-### 参考 ###
-
-{% blockquote %}
-网易云音乐 - [Hexo中播放网易云音乐的实践](http://weqeo.com/2016/10/11/Hexo中播放网易云音乐的实践)  
-网易云音乐 - [GitHub Ribbons](https://github.com/blog/273-github-ribbons)  
-字数统计WordCount 、阅读时长预计Min2Read、总字数统计TotalCount - [hexo-wordcount](https://github.com/willin/hexo-wordcount)  
-
-{% endblockquote %}
-</code></pre>
       
     </div>
     <footer class="article-footer">
