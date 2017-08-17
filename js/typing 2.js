@@ -27,7 +27,7 @@
   }
 
   //让网页每次刷新随机显示不同文字
-  document.write("<script src='/js/marquee.js'></script>");
+  document.write("<script src='/js/resume.js'></script>");
   document.write("<script src='/js/toc.js'></script>");
   document.write("<script src='/js/activate-power-mode.js'></script>");
   document.write("<script src='/js/bootstrap-min.js'></script>");

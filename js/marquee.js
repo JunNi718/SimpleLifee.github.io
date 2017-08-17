@@ -265,7 +265,7 @@ jQuery(function($)
       arrMaxim = arrMaxim.concat(arrMaximEconomy);
     // }
 
-    console.log("hah"+arrMaxim.length);
+   
     var str = arrMaxim[Math.floor(Math.random() * arrMaxim.length)];
     str = str.replace(/\t/g, "<br/>");
     str = str.replace(/@/g, "&#8212;&#8212;");

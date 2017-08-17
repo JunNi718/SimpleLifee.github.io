@@ -3,20 +3,24 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Android 消息处理机制之三： Handler 中 sendMessage 源代码剖析 | SmartNi</title>
+  <title>Android 中 gradle 和 plugin 到底是什么关系？ | SmartNi</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Handler中sendMessage源代码剖析。">
+  <meta name="description" content="最近做项目碰到 Android Studio 提示 Android Gradle Plugin Version 版本太低的问题。之前对 Plugin Version 和 Gradle Version 一直没有明确的认识，认为它俩是一个概念。索性刨根问底去 Google 一下。">
 <meta name="keywords" content="Android">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Android 消息处理机制之三： Handler 中 sendMessage 源代码剖析">
-<meta property="og:url" content="http://nijun.me/2017/06/14/Android-2017-06-14-Android消息处理机制之三：Handler中sendMessage源代码剖析/index.html">
+<meta property="og:title" content="Android 中 gradle 和 plugin 到底是什么关系？">
+<meta property="og:url" content="http://nijun.me/2017/07/19/gradle-plugin/index.html">
 <meta property="og:site_name" content="SmartNi">
-<meta property="og:description" content="Handler中sendMessage源代码剖析。">
+<meta property="og:description" content="最近做项目碰到 Android Studio 提示 Android Gradle Plugin Version 版本太低的问题。之前对 Plugin Version 和 Gradle Version 一直没有明确的认识，认为它俩是一个概念。索性刨根问底去 Google 一下。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-07-29T06:09:51.000Z">
+<meta property="og:image" content="http://osoa5juml.bkt.clouddn.com//image/site/1500459320686.png">
+<meta property="og:image" content="http://osoa5juml.bkt.clouddn.com//image/site/1500460060716.png">
+<meta property="og:image" content="http://osoa5juml.bkt.clouddn.com//image/site/1500460312617.png">
+<meta property="og:updated_time" content="2017-07-29T14:32:40.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Android 消息处理机制之三： Handler 中 sendMessage 源代码剖析">
-<meta name="twitter:description" content="Handler中sendMessage源代码剖析。">
+<meta name="twitter:title" content="Android 中 gradle 和 plugin 到底是什么关系？">
+<meta name="twitter:description" content="最近做项目碰到 Android Studio 提示 Android Gradle Plugin Version 版本太低的问题。之前对 Plugin Version 和 Gradle Version 一直没有明确的认识，认为它俩是一个概念。索性刨根问底去 Google 一下。">
+<meta name="twitter:image" content="http://osoa5juml.bkt.clouddn.com//image/site/1500459320686.png">
   
     <link rel="alternate" href="/atom.xml" title="SmartNi" type="application/atom+xml">
   
@@ -33,7 +37,7 @@
   
       <div id="container" class="container">
         
-<article id="post-Android-2017-06-14-Android消息处理机制之三：Handler中sendMessage源代码剖析" class="article article-type-post" itemscope itemprop="blogPost">
+<article id="post-gradle-plugin" class="article article-type-post" itemscope itemprop="blogPost">
   <header id="header" class="header">
   <nav id="main-nav" class="main-nav">
     
@@ -58,6 +62,7 @@
       </a>
       
   </nav>
+  
   <link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/mono-blue.min.css">
   <script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
   <!-- gruvbox-dark  ,monokai-sublime,zenburn -->
@@ -75,20 +80,6 @@
         <div class="descriptionwrapper">
           <p class="description"> </p>
         </div>
-        
-        <script>
-        (function() {
-          var cx = '007353942166503285590:dkdb_c3efim';
-          var gcse = document.createElement('script');
-          gcse.type = 'text/javascript';
-          gcse.async = true;
-          gcse.src = 'https://cse.google.com/cse.js?cx=' + cx;
-          var s = document.getElementsByTagName('script')[0];
-          s.parentNode.insertBefore(gcse, s);
-        })();
-
-        </script>
-        <gcse:search></gcse:search>
   </nav>
 </header>
 
@@ -100,7 +91,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Android 消息处理机制之三： Handler 中 sendMessage 源代码剖析
+      Android 中 gradle 和 plugin 到底是什么关系？
     </h1>
   
 
@@ -117,45 +108,24 @@
 
 
       
-        <p>Handler中sendMessage源代码剖析。</p>
+        <p>最近做项目碰到 Android Studio 提示 Android Gradle Plugin Version 版本太低的问题。之前对 Plugin Version 和 Gradle Version 一直没有明确的认识，认为它俩是一个概念。索性刨根问底去 Google 一下。</p>
 <a id="more"></a>
-<p>参考自 AHuier的 <a href="http://blog.csdn.net/xukunhui2/article/details/17013647" target="_blank" rel="external">Handler 中 sendMessage() 源代码剖析</a></p>
-<ol>
-<li><p>使用Handler中的sendEmptyMessage(int what)方式来发送消息.</p>
-<p>sendEmptyMessage (int what)</p>
-</li>
-</ol>
-<p>——&gt; sendEmptyMessageDelayed(int what, long delayMillis)</p>
-<p>——&gt;sendMessageDelayed(Message msg, long delayMillis)  </p>
-<p>——&gt;sendMessageAtTime(Message msg, long uptimeMillis)  </p>
-<p>——&gt;enqueueMessage(Message msg, long when)</p>
-<ol>
-<li>使用Handler中的sendEmptyMessageAtTime(int what,long uptimeMillis)方式来发送消息.</li>
-</ol>
-<p>sendEmptyMessageAtTime(int what,long uptimeMillis)</p>
-<p>——&gt;sendMessageAtTime(msg, uptimeMillis)</p>
-<ol>
-<li>使用Handler中的sendEmptyMessageDelayed (int what, long delayMillis)方式来发送消息。</li>
-</ol>
-<p>sendEmptyMessageDelayed(int what, long delayMillis) </p>
-<p>——&gt;sendMessageDelayed(Message msg, long delayMillis) </p>
-<p>——&gt;sendMessageAtTime(Message msg, long uptimeMillis)</p>
-<pre><code class="shell">public final boolean sendMessageDelayed(Message msg, long delayMillis)  
-{  
-    if (delayMillis &lt; 0) {  
-        delayMillis = 0;  
-    }  
-    return sendMessageAtTime(msg, SystemClock.uptimeMillis() + delayMillis); 
-}
+<p>Android Studio 报错如下：<br><img src="http://osoa5juml.bkt.clouddn.com//image/site/1500459320686.png" width="1177"></p>
+<p>其实，Android 中的 Plugin Version和Gradle Version 是两个不同的概念，<strong><code>Plugin Version</code> 指的是 Android 中的 Gradle Plugin 插件的版本，后者是本地使用的 Gradle 版本</strong>。区分了这两个概念，后面说的就容易理解了。</p>
+<p>在项目中，Gradle插件的版本一般在 项目的 <strong><code>build.gradle</code></strong> 中</p>
+<pre><code class="groovy">    dependencies {
+         classpath &#39;com.android.tools.build:gradle:3.0.0-alpha1&#39;
+         ...
+    }
 </code></pre>
-<p>SystemClock.uptimeMillis() 是获得到系统启动开机的时间到当前的时间（不包括休眠的时间）</p>
-<p>SystemClock.uptimeMillis() + delayMillis 这个是sendMessageAtTime 和 sendMessageDelayed 的区别。</p>
-<ol>
-<li>使用Handler中的sendMessage (Message msg)方式来发送消息.</li>
-</ol>
-<p>sendMessage(Message msg) </p>
-<p>——&gt; sendMessageDelayed(Message msg, long delayMillis) </p>
-<p>——&gt; sendMessageAtTime(Message msg, long uptimeMillis)</p>
+<p>本地的 Gradle 版本在 <strong><code>gradle-wrapper.properties</code></strong> 中</p>
+<pre><code>distributionUrl=https\://services.gradle.org/distributions/gradle-4.0-milestone-1-all.zip
+</code></pre><p>然后根据官方提供的这张对照表</p>
+<p><img src="http://osoa5juml.bkt.clouddn.com//image/site/1500460060716.png" width="834"></p>
+<p>可以看出，只要 Plugin Version 在 <code>2.3.0</code> 以以上，本地的 Gradle 版本就必须在 <code>3.3+</code> 以上。至此我是符合规定的。那为什么会报错呢？</p>
+<p>原因是 <code>alpha/beta</code> 版本有40天的使用时间限制，到时间 AndroidStudio 就会强制提示你要求更新版本，如果根据上面那张表换成2.3.1这个稳定版就没有问题了。</p>
+<p>这是 Stack Overflow 中找到的答案：</p>
+<p><img src="http://osoa5juml.bkt.clouddn.com//image/site/1500460312617.png" width="746"></p>
 
       
     </div>
@@ -163,21 +133,11 @@
       <ul class="article-meta">
         <li>
           <span class="label">Published Date:</span>
-          <a href="/2017/06/14/Android-2017-06-14-Android消息处理机制之三：Handler中sendMessage源代码剖析/" class="article-date">
-  <time datetime="2017-06-14T02:35:30.000Z" itemprop="datePublished">2017-06-14</time>
+          <a href="/2017/07/19/gradle-plugin/" class="article-date">
+  <time datetime="2017-07-19T10:34:04.000Z" itemprop="datePublished">2017-07-19</time>
 </a>
 
         </li>
-        
-          <li>
-            <span class="label">Category:</span>
-            
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Android/">Android</a>
-  </div>
-
-
-          </li>
         
         
           <li>
@@ -196,19 +156,19 @@
     
 <nav id="article-nav" class="article-nav">
   
-    <a href="/2017/06/14/Android-2017-06-14-Android消息处理机制之二：消息中obtain源代码剖析/" id="article-nav-newer" class="article-nav-link-wrap newer">
+    <a href="/2017/07/30/encapsulation-inheritance-polymorphism/" id="article-nav-newer" class="article-nav-link-wrap newer">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          Android 消息处理机制之二：消息中 obtain 源代码剖析
+          温故而知新——封装继承多态
         
       </div>
     </a>
   
   
-    <a href="/2017/06/08/Android-2017-06-08-Activity的生命周期和启动模式/" id="article-nav-older" class="article-nav-link-wrap older">
+    <a href="/2017/07/15/Mac下配置环境变量不生效问题/" id="article-nav-older" class="article-nav-link-wrap older">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">Activity 的生命周期和启动模式</div>
+      <div class="article-nav-title">Mac 下配置环境变量不生效问题</div>
     </a>
   
 </nav>
@@ -231,6 +191,18 @@
 
 
 
+<script>
+  (function() {
+    var cx = '007353942166503285590:dkdb_c3efim';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = 'https://cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script>
+<gcse:search></gcse:search>
 
 
 
