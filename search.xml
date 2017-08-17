@@ -1,130 +1,2507 @@
 <?xml version="1.0" encoding="utf-8"?>
-<search>
-  <entry>
-    <title><![CDATA[可以知道滑动方向的 ViewPager]]></title>
-    <url>%2F2017%2F08%2F04%2Fsmartviewpager%2F</url>
-    <content type="text"><![CDATA[做项目的时候使用到 ViewPager，那么顺便总结一下它的 OnPageChangeListener 监听器。随便撸了个可以判断滑动方向的 ViewPager。欢迎来提Issue。 OnPageChangeListener的有三个回调接口，按照执行顺序分别是： /** * 响应触摸事件，页面的滑动状态 * @param state SCROLL_STATE_IDLE -&gt; SCROLL_STATE_DRAGGING -&gt; * SCROLL_STATE_SETTLING -&gt; SCROLL_STATE_IDLE */ @Override public void onPageScrollStateChanged(int state) { ... } state 有三个状态值，0、1、2 分别代表初始空闲状态、正在滑动、滑动完成。 /** * 当正在滑动的时候，会连续调用。 * @param position 当前你滑动的页面，第一个页面的值为 0 * @param positionOffset 当前页面偏移的百分比 * @param positionOffsetPixels 当前页面的偏移像素 */ @Override public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) { ... } 这个回调会在滑动的时候多次调用。 /** * 页面移动完毕后调用 * @param position 当前移动完毕后的页面，第一个页面的值为 0 */ @Override public void onPageSelected(int position) { System.out.println(&quot;onPageSelected 当前 position:&quot;+position); } 所以，当发生滑动操作的时候，执行顺序如下： ① 你把手接触屏幕刚进行滑动 ② onPageScrollStateChanged#state = 1 ③ onPageScrolled (int position, float positionOffset, int positionOffsetPixels) 这个方法会执行多次，以当前页面为基准。下面具体解释一下： ▼向右滑动 ( 向前一个页面 ) ​ ▶ position ： position = curPosition - 1; //当前位置减 1 ​ ▶ positionOffset ：从 1 到 0；//偏移的百分比 ​ ▶ positionOffsetPixels：从屏幕像素最大值到 0；//偏移的像素值 ▼向左滑动 ( 向后一个页面 ) position = curPosition + 1; ​ ▶position ： position = curPosition + 1; ​ ▶positionOffset ：从 0 到 1； ​ ▶positionOffsetPixels：从屏幕像素最小值到 1； ④ 你松手了 ⑤ onPageScrollStateChanged#state = 2 ⑥ onPageSelected ⑦ onPageScrolled 参照第 3 点，不过这时候方向已经确定了，只是不断向这个方向的最值改变。 ⑧ onPageScrollStateChanged#state = 0 position 的总结：onPageScrolled中的position的变化规律是，假设有3个page，当前正在第二个页面，如果这时你往右（向第一个页面）滑动，那么position的值就是 0 ，position + 1就是1。position + 1 指的是下一个即将滑动到的页面索引。所以这时手不松开向左滑动超过原来第二个页面的位置，这时 position 的值就会变成 1 ，而 position + 1 就变成了 2。 一般情况下，我们在 onPageScrolled 中可以根据手势对 UI 的进行相应变化。 我写了个ViewPager类，可以获取到当前是向左滑动还是向右滑动，只要在回调函数中进行相应的判断和操作即可。 /** * @创建者 倪军 * @创建时间 2017/8/4 * @描述 可以判断 ViewPager 滑动的方向。 */ public class SmartViewPager extends ViewPager { private boolean directionLeft = false; private boolean directionRight = false; private boolean isCompleted = true; private int currentPosition = -1; onPageChangeListener onPageChangeListener ; public SmartViewPager(Context context) { super(context); init(); } public SmartViewPager(Context context, AttributeSet attrs) { super(context, attrs); init(); } public void init() { addOnPageChangeListener(listener); } OnPageChangeListener listener = new OnPageChangeListener() { @Override public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) { //说明是第一次 if (!isCompleted) { if (currentPosition == -1) { if (position == 0 || positionOffset == 0.0f || positionOffsetPixels == 0) { directionLeft = true; } else { directionRight = true; } currentPosition = position; } else { clearState(); if (positionOffset &gt; 0 &amp;&amp; currentPosition == position) { directionRight = true; if (position &lt; currentPosition) { directionLeft = true; } } else if (positionOffset &gt; 0) { directionLeft = true; if (position == currentPosition) { directionRight = true; } } } } if (isCompleted) { //滑动完成了 if (getAdapter() != null) { //adapter不为null if (currentPosition == 0) { //说明是第一页 if (currentPosition == position) { } if(position &gt;currentPosition){ directionRight = true; } } else if (currentPosition &lt; getAdapter().getCount()-1) { //中间部分 if(position == currentPosition){ } if(position &lt; currentPosition){ directionLeft =true; } if(position &gt;currentPosition){ directionRight = true; } }else{ //最后一页 if(position==currentPosition){ } if(position&lt;currentPosition){ directionLeft =true; } } } currentPosition = position; } } @Override public void onPageSelected(int position) { } @Override public void onPageScrollStateChanged(int state) { System.out.println(&quot;onPageScrollStateChanged current state:&quot; + state); if (state == 1) { isCompleted = false; } else if (state == 2) { isCompleted = true; } else { onPageChangeListener.onPagechanged(directionLeft,directionRight); Log.d(&quot;SmartViewPager&quot;, &quot;custom onPageChangeListener is called.&quot;); } } }; public boolean isDirectionLeft() { return directionLeft; } public boolean isDirectionRight() { return directionRight; } public void clearState() { directionLeft = false; directionRight = false; } public interface onPageChangeListener{ void onPagechanged(boolean directionLeft,boolean directionRight); } public void setOnPageChangeListener(onPageChangeListener onPageChangeListener){ this.onPageChangeListener = onPageChangeListener; } } 附上 GitHub 地址：https://gist.github.com/SmartNJ/00234d5f7ca3bb203788b4644887763f]]></content>
-      <tags>
-        <tag>Android</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[Viewholder中为什么要使用SparseArray对View进行存储？]]></title>
-    <url>%2F2017%2F08%2F04%2FSparseArray-ArrayMap%2F</url>
-    <content type="text"><![CDATA[最近项目时，设计 ViewHolder 时用到了 SparseArray，为什么一定要用这个呢？ SparseArray 有什么优点吗？ private SparseArray mViews; 使用SparseArray保存View。 SparseArray 比 HashMap更省内存。为什么？ 参考：http://blog.csdn.net/u010687392/article/details/47809295 HashmapHashmap内部默认使用一个容量16的数组来存储数据，而数组中每个元素又是一个链表的头结点。也就是说，Hashmap内部是使用哈希表的拉链结构（数组+链表），也叫做拉链法： 每个结点是一个Entry，Entry的内部的属性： final K key; V value; final int hash; HashMapEntry&lt;K, V&gt; next; 这些Entry数据是按什么规则进行存储的？ 通过key计算hash值，然后对HashMap中的数组长度取余得到该元素的存储位置， hash(key) % len。 拉链法解决了元素冲突的问题，后一个元素不会覆盖前一个元素。 解决hash冲突的方法还有： 1、开放地址法 2、再哈希法 3、链地址法 4、建立公共溢出区 HashMap的默认容量是16，我们创建一个新的HashMap，即使里面没有数据，也会占用16个数据的内存。如果不断往里面put东西，容量到达一个值时就会扩容，这个值怎么算？ 答 ：当前容量 * 加载因子（HashMap默认是0.75）。 根据源码，它一定会扩大为原来的两倍。 int newCapacity = oldCapacity * 2; 所以说，只要满足条件就会扩容，如果数据量很大，就需要不算扩容（而且是2倍），加上计算hash值的消耗，会对内存空间造成很大的消耗和浪费。 HashMap是通过遍历entry[]数组来得到对应的元素，数据量一大就会比较慢。 SparseArraySparseArray能避免对key的自动装箱（比如 int 转为 Integer），内部是通过两个数组来存储数据。注意这里key只能是int类型的。 private int[] mKeys; private Object[] mValues; SparseArray在读取和存放数据的时候，是使用二分查找法 public void put(int key, E value) { int i = ContainerHelpers.binarySearch(mKeys, mSize, key); … } public E get(int key, E valueIfKeyNotFound) { int i = ContainerHelpers.binarySearch(mKeys, mSize, key); … } Put的时候会使用二分查找法，对当前添加的元素和之前已添加的元素的key进行比较，然后从小到大排序。所以SparseArray存储的元素都是按元素的key值从小到大排序好的。 获取的时候也使用二分查找法，比HashMap快得多，HashMap是通过遍历entry数组来获取元素的。 添加数据 public void put(int key, E value) 删除数据 public void remove(int key) 或者 public void delete(int key) remove内部就是调用delete来删除的。 获取数据 public E get(int key) 或者 public E get(int key, E valueIfKeyNotFound) 如果key不存在就会返回valueIfKeyNotFound。 特有方法 public int keyAt(int index) 和 public E valueAt(int index) SparseArray 应用场景虽说SparseArray的性能比较好，但是由于每次增加、修改、删除都需要进行一个二分查找，所以一旦数据量大了，性能提升的并不明显，降低至少50%。 满足下面两个条件我们可以使用SparseArray代替HashMap： 数据量不大，最好在千级以内 key必须为int类型 这样，把HashMap替换成SparseArray比较好。 ArrayMapArrayMap是一个映射的map数据结构，SparseArray是数组结构，基本和SparseArray一样。 ArrayMap应用场景 满足下面两个条件我们可以使用ArrayMap代替HashMap： 数据量不大，最好在千级以内 数据结构类型为Map类型 注意这个类在API 19之后才能用，若要兼容之前版本，需要导包： import android.support.v4.util.ArrayMap; 总结：SparseArray 和 ArrayMap 如何选择？ 假设数据量都在千级以内的情况下： 1、如果key的数据类型确定为int类型，那么使用SparseArray，因为它避免了自动装箱，如果key为long，它还提供了一个LongSparseArray来确保key为long类型时的使用。 2、如果key类型为其它的类型，则使用ArrayMap。]]></content>
-      <tags>
-        <tag>Android</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[OverLoading（ 重载 ）和 Overriding（ 重写 ）的区别]]></title>
-    <url>%2F2017%2F08%2F02%2Foverriding-overloading%2F</url>
-    <content type="text"><![CDATA[1、方法重载发生在编译期，方法重写发生在运行期：也就是说方法重载的方法调用绑定发生在编译期，方法重写的方法调用绑定发生在运行期。 2、静态方法可以被重载，意味着一个类可以有多个同名的静态方法。静态方法不能被重写，即使你在子类定义了相同的静态方法，那么对于父类的静态方法来说没有任何影响。 3、最基本的不同在于方法重载是在同一个类中完成的，而方法重写是需要由子类完成，方法重写最常用于为父类继承过来的方法提供一个特定的实现。 4、静态绑定被用于方法重载，动态绑定被用于方法重写。性能：因为方法重载在编译器就完成了操作，而方法重写在运行期完成，所以方法重载比方法重写的性能更好。 5、private 和 final 方法可以被重载但不能被重写。这意味着一个类可以有多于一个的 private/final 方法，但是子类不能重写这些方法。 6、方法重载不关心返回值的类型，可以相同也可以不同。然而方法重写的重写方法可以有多个具体的返回值。 7、方法重载的参数列表是不同的，方法重写的参数列表是相同的。 8、方法重载其实不属于 “ 面向对象编程 ”，重载的实现是：编译器根据函数不同的参数列表，对同名函数的名称做修饰，然后这些同名函数就成了不同的函数（ 至少对于编译器来说是这样的 ）。也就是说，重载的方法的地址在编译器就绑定了（ 前期绑定 ），因此，重载与多态无关。 真正和多态相关的是 “ 覆盖 ” ，也就是方法重写。当子类重新定义父类的函数后，子类将自己的类型传递给父类后，父类动态调用属于子类的该函数，这样的函数调用再编译器是无法确定的（ 调用子类的的函数地址无法给出 ）。因此，这样的函数地址是在运行期绑定的。]]></content>
-      <tags>
-        <tag>Java</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[温故而知新——封装继承多态]]></title>
-    <url>%2F2017%2F07%2F30%2Fencapsulation-inheritance-polymorphism%2F</url>
-    <content type="text"><![CDATA[面向对象的三个基本特征是：封装、继承、多态。这是我对这三个特征的一些总结，希望能帮助大家复习一下。 什么是封装 ？封装通过合并特征和行为来创建新的数据类型，并隐藏实现细节（私有化），把接口和实现分离开来，使得代码模块化。 什么是继承 ？一句话解释就是：继承可以扩展已存在的代码模板（类）。继承和封装有一个共同的目的——代码重用。 除了修饰为 private 和 final 的，子类是继承不了的之外，构造器也是不能被继承的。对于构造器而言，它只能够被调用（ super() ），而不能被继承。 子类会默认调用父类的构造器。如果父类没有默认的构造器，子类必须显示地指定父类的构造器，而且必须是在子类构造器中做的第一件事（第一行代码）。 要实现继承，可以通过 “ 继承 ” 或 “ 组合 ” 来实现。 继承是一种强耦合关系，当考虑要不要继承的时候，先问自己子类是否需要向上转型到父类。如果必须向上转型，则继承是必要的，但是如果不需要，则应当好好考虑是否需要继承。 继承允许将对象视为自己本身的类型或其基类型来加以处理（ 向上转型 ）。也就是说继承允许将多种类型（ 同一父类导出的 ）视为同一类型来处理。这为多态提供了前提条件。接下来我们来看看多态。 什么是多态 ？ “不要犯傻，如果它不是后期绑定，它就不是多态。” ——Bruce Eckel 多态通过分离做什么和怎么做，从另一个角度将接口和实现分离开来。多态的作用是消除类型之间的耦合关系。多态的目的——接口重用。 多态的实现条件？ ✔继承/接口✔重写✔向上转型 在继承的基础上，多态允许一种类型表现出与其他相似类型之间的区别，只要它们都是从同一基类导出的。通过对同一个基类方法的调用，表现出不同的行为。 例如，Shape 类有三个具体子类 Circle、Square、Triangle。他们都具体实现了父类的 draw() 方法。将其中一个子类对象的引用传递给父类对象（ 这里会发生向上转型 ），调用父类对象的 draw() 方法，就会表现出子类对象的具体行为。这是多么的神奇啊！ 继承是单继承，接口是多继承多实现。实际上，接口与多态有更广泛的应用。 为什么重载不行？ 方法重载其实不属于 “ 面向对象编程 ”，重载的实现是：编译器根据函数不同的参数列表，对同名函数的名称做修饰，然后这些同名函数就成了不同的函数（ 至少对于编译器来说是这样的 ）。也就是说，重载的方法的地址在编译器就绑定了（ 前期绑定 ），因此，重载与多态无关。 真正和多态相关的是 “ 覆盖 ” ，也就是方法重写。当子类重新定义父类的函数后，子类将自己的类型传递给父类后，父类动态调用属于子类的该函数，这样的函数调用再编译器是无法确定的（ 调用子类的的函数地址无法给出 ）。因此，这样的函数地址是在运行期绑定的。 需要注意的是，private 和 final 方法是不能被覆盖的。private 方法被自动认为是 final 方法。 这里还有一个大坑，那就是域和静态方法。我们来看一个例子 class Super{ public int field = 0; public int getField() { return field; } } class Sub extends Super{ public int field = 1; public int getField() { return field; } public int getSuperField() { return super.field; } } public class FieldAccess{ public static void main(String[] args){ Super sup = new Sub(); //向上转型 System.out.println(&quot;sup.field = &quot; + sup.field + &quot;, sup.getField() = &quot; + sup.getFiled()); Sub sub = new Sub(); System.out.println(&quot;sub.field = &quot; + sub.field + &quot;, sub.getField() = &quot; + sub.getFiled() + &quot;, sub.getSuperField() = &quot; + sub.getSuperField()); } } 结果是 sup.field = 0,sup.getField() = 1 sub.field = 1,sub.getField() = 1,sub.getSuperField() = 0 可以看到 sup.field 等于 0 ，也就是说，并没有显示出子类的具体特征。 当子类对象转型为父类引用时，任何域的访问操作都将由编译器解析。由编译器解析就不是多态，因为它是前期绑定。在这个例子中，为 Super.field 和 Sub.field 分配了不同的存储空间，这样 Sub 就包含了两个称为 field 的域：它自己的和从 Super 继承得到的，最重要的是在引用 Sub 中的 field 时所产生的默认域并非 Super 的，要想获取 Super.field 就必须显式地指明 super.field。 注：方法调用绑定（Method-call binding） 下面是 《Think in Java》中对绑定的解释: Connecting a method call to a method body is called binding. when binding is performed before the program is run (by the compiler and linker,if there is one), it’s called early binding. 将一个方法调用同一个方法主体关联起来称为绑定。在程序执行前进行绑定（一般由编译器和连接程序实现），就叫做前期绑定（也可以说成是编译期绑定）。C 语言只有一种方法调用，那就是前期绑定。 相信小伙伴们一定猜到有前期绑定，就一定有后期绑定。没错，Java 中的后期绑定就是在运行时根据对象的类型进行绑定，后期绑定也叫做动态绑定或运行时绑定。 Java 中除了static 方法和 final 方法（ private 属于 final 方法 ） ，其他方法都是后期绑定。]]></content>
-      <tags>
-        <tag>Java</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[Android 中 gradle 和 plugin 到底是什么关系？]]></title>
-    <url>%2F2017%2F07%2F19%2Fgradle-plugin%2F</url>
-    <content type="text"><![CDATA[最近做项目碰到 Android Studio 提示 Android Gradle Plugin Version 版本太低的问题。之前对 Plugin Version 和 Gradle Version 一直没有明确的认识，认为它俩是一个概念。索性刨根问底去 Google 一下。 Android Studio 报错如下： 其实，Android 中的 Plugin Version和Gradle Version 是两个不同的概念，Plugin Version 指的是 Android 中的 Gradle Plugin 插件的版本，后者是本地使用的 Gradle 版本。区分了这两个概念，后面说的就容易理解了。 在项目中，Gradle插件的版本一般在 项目的 build.gradle 中 dependencies { classpath &#39;com.android.tools.build:gradle:3.0.0-alpha1&#39; ... } 本地的 Gradle 版本在 gradle-wrapper.properties 中 distributionUrl=https\://services.gradle.org/distributions/gradle-4.0-milestone-1-all.zip 然后根据官方提供的这张对照表 可以看出，只要 Plugin Version 在 2.3.0 以以上，本地的 Gradle 版本就必须在 3.3+ 以上。至此我是符合规定的。那为什么会报错呢？ 原因是 alpha/beta 版本有40天的使用时间限制，到时间 AndroidStudio 就会强制提示你要求更新版本，如果根据上面那张表换成2.3.1这个稳定版就没有问题了。 这是 Stack Overflow 中找到的答案：]]></content>
-      <tags>
-        <tag>Android</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[Mac 下配置环境变量不生效问题]]></title>
-    <url>%2F2017%2F07%2F15%2FMac%E4%B8%8B%E9%85%8D%E7%BD%AE%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E4%B8%8D%E7%94%9F%E6%95%88%E9%97%AE%E9%A2%98%2F</url>
-    <content type="text"><![CDATA[注意：Mac 下一般使用 bash 作为默认的 shell。 问题描述今天在捣鼓 MySQL 的时候，安装删除了好几个循环之后，发现打开 iTerm 之后输入 mysql 不起作用了，刚开始还以为是 MySQL 安装失败了，但是再一次安装成功后还是提示 command not found: mysql 。看到这句话第一时间我就想到了是不是环境变量没有配呢？但是一想不对啊，我之前也是用的好好的也没出现过这个问题啊。 思路：我们知道 .bash_profile 中是可以设置环境变量的，所以就先从它入手，于是我就往其中添加了下面这句： export PATH=$PATH:/usr/local/mysql/bin 然后保存，输入命令 source ~/.bash_profile ，确实有效！ 但是呢，别高兴的太早，作用是有的，但是仅限于当前这个会话。一旦重新开启新的会话，又被打回老样子。 于是我就想，既然 source ~/.bash_profile 这句话能起作用，就不是 .bash_profile 的问题了，那么问题到底出在哪了呢？会不会是系统压根没执行 .bash_profile ？所以我根据系统环境变量的加载顺序，去寻找 /etc 下的两个文件。 profile if [ -x /usr/libexec/path_helper ]; then eval `/usr/libexec/path_helper -s` fi if [ &quot;${BASH-no}&quot; != &quot;no&quot; ]; then [ -r /etc/bashrc ] &amp;&amp; . /etc/bashrc fi 这个文件好像看不出有什么问题。 paths /usr/local/bin /usr/bin /bin /usr/sbin /sbin 这些是系统默认的环境变量，也找不到什么原因。 然后我新开了一个 Terminal 会话，执行下面查看当前系统环境变量的命令 $ echo $PATH /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/aria2/bin 很奇怪，除了系统默认环境变量之外，还多了 /usr/local/aria2/bin 这个，要知道在我的 ‘.bash_profile’ 中并没有声明这个环境变量。 以上我碰到的问题描述，这个问题花了我一个下午的时间，还好最终是解决了，花了一个晚上写了以下这个总结。 一、Mac 系统的环境变量，加载顺序为： /etc/profile /etc/paths ~/.bash_profile ~/.bash_login ~/.profile ~/.bashrc 前两个是系统级别的，系统启动就会加载。后面 3 个是当前用户级别的环境变量。后面几个按照从前往后的顺序读取，如果 ~/.bash_profile 存在，则后面的几个文件就会被忽略不读了，如果 .bash_profile 不存在，才会依次读取垢面的文件。~/.bashrc没有上述规则，它是bash shell打开的时候载入的。 也就是说在当前用户的目录下，如果又了.bash_profile文件就不会去加载.bashrc文件。 所以如果要能正常加载.bashrc文件，需要在.bash_profile文件的最末尾上加入如下语句： if [ -f ~/.bashrc ]; then source ~/.bashrc fi 然而如果你没有修改过，上面的方法默认重启后就能生效。 但是，现在的 mac 上有些使用 zsh 这个作为默认的 shell（比如我！！！），所以，在启动 shell 时，默认不会按上面的套路去加载。 如果想要正常加载 .bashrc 文件时，就要找到用户目录下的 .zshrc 文件加入如下代码： if [ -f ~/.bashrc ]; then source ~/.bashrc fi 参考：.bash_profile vs .bashrc，建议读一下。 According to the bash man page, .bash_profile is executed for login shells, while .bashrc is executed for interactive non-login shells. 二、设置 PATH 的语法//中间用冒号隔开 export PATH=$PATH:&lt;PATH 1&gt;:&lt;PATH 2&gt;:&lt;PATH 3&gt;:......:&lt;PATH N&gt; 全局设置下面的几个文件设置是全局的，修改时需要 root 权限。 /etc/paths （全局建议修改这个文件）编辑时一行一个路径。注意：输入环境变量时，不用一个一个输入，只要拖拽文件夹到 Terminal 里就可以了。 /etc/profile （建议不修改这个文件）全局（公有）配置，不管是哪个用户，登录时都会读取该文件。 /etc/bashrc （一般在这个文件中添加系统级环境变量）全局（公有）配置，bash shell 执行时，不管是何种方式，都会读取此文件。 分模块创建环境变量 1) 创建一个文件：$ sudo touch /etc/paths.d/mysql 2) 用 vim 打开这个文件（如果是以 open -t 的方式打开，则不允许编辑）：$ sudo vim /etc/paths.d/mysql 3) 编辑该文件，键入路径并保存（关闭该 Terminal 窗口并重新打开一个，就能使用 mysql 命令了）/usr/local/mysql/bin 在我的 ‘/etc/paths.d’ 目录下已经存在了一个文件 aria2c ，这也说了为什么一开始打印系统环境变量时，在最后多出了一个 /usr/local/aria2/bin 目录，因为在我的 .bash_profile 中并没有设置这个路径。顿时豁然开朗，哈哈。 还有就是，这样就不用把变量全放在 paths 文件里，方便管理。 单用户设置 ~/.bash_profile （任意一个文件中添加用户级环境变量）（注：Linux 里面是 .bashrc 而 Mac 是 .bash_profile）若 bash shell 是以 login 方式执行时，才会读取此文件。该文件仅仅执行一次 1 默认情况下,它用来设置一些环境变量设置命令别名:alias ll=’ls -la’ 设置环境变量:export PATH=/opt/local/bin:/opt/local/sbin:$PATH 生效如果想要立刻生效，则可以执行下面的语句： source ~/.bash_profile 一般环境变量更改后，重启后生效。]]></content>
-      <tags>
-        <tag>Mac</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[20 个数据库设计的最佳实践]]></title>
-    <url>%2F2017%2F07%2F13%2F00001-Database-2017-07-13-20bastdatabase%2F</url>
-    <content type="text"><![CDATA[数据库设计是整个程序的重点之一，为了支持相关程序运行，最佳的数据库设计往往不可能一蹴而就，只能反复探寻并逐步求精，这是一个复杂的过程，也是规划和结构化数据库中的数据对象以及这些数据对象之间关系的过程。下面给出了20个数据库设计最佳实践，当然，所谓最佳，还是要看它是否适合你的程序。一起来了解了解吧。 使用明确、统一的标明和列名，例如 School, SchoolCourse, CourceID。 数据表名使用单数而不是复数，例如 StudentCourse，而不是 StudentCourses。 数据表名不要使用空格。 数据表名不要使用不必要的前缀或者后缀，例如使用 School，而不是 TblSchool，或者 SchoolTable 等等。 数据库中的密码要加密，到应用中再解密。 （其实就是散列存储、单向加密） 使用整数作为 ID 字段，也许现在没有这个必要，但是将来需要，例如关联表，索引等等。 使用整数字段做索引，否则会带来很大的性能问题 。 使用 bit 作为布尔字段，使用整数或者 varchar 是浪费。同时，这类字段应该以 “Is” 开头。 要经过认证才能访问数据库，不要给每一个用户管理员权限。 尽量避免使用 “select *”，而使用 “select [required_column_list]” 以获得更好的性能。 假如程序代码比较复杂，使用 ORM 框架，例如 hibernate，iBatis。ORM 框架的性能问题可以通过详细的配置去解决。 分割不常使用的数据表到不同的物理存储以获得更好的性能。 对于关键数据库，使用安全备份系统，例如集群，同步等等。 使用外键，非空等限制来保证数据的完整性，不要把所有的东西都扔给程序。 缺乏数据库文档是致命的。你应该为你的数据库设计写文档，包括触发器、存储过程和其他脚本。 对于经常使用的查询和大型数据表，要使用索引。数据分析工具可以帮助你决定如何建立索引。 数据库服务器和网页服务器应该放在不同的机器上。这回提高安全性，并减轻 CPU 压力。 Image 和 blob 字段不应该定义在常用的数据表中，否则会影响性能。 范式（Normalization）要按照要求使用以提高性能。Normalization 做的不够会导致数据冗余，而过度Normalization 会导致太多的 join 和数据表，这两种情况都会影响性能。 多花点时间在数据库设计上，否则你将来会付出加倍的时间来偿还。 洋文原址：javacodegeeks.com]]></content>
-      <tags>
-        <tag>Database</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[Android 异步消息处理机制（一）]]></title>
-    <url>%2F2017%2F06%2F14%2FAndroid-2017-06-14-Android%E5%BC%82%E6%AD%A5%E6%B6%88%E6%81%AF%E5%A4%84%E7%90%86%E6%9C%BA%E5%88%B6%EF%BC%88%E4%B8%80%EF%BC%89%2F</url>
-    <content type="text"><![CDATA[两个问题： ​ 1、在子线程中如何创建的Handler？需要先做什么？如何发送消息？ ​ 2、Handler中发送的消息去哪啦？为什么handleMessage中又能得到这个Message？ 首先明确：网络请求必须在子线程中执行，不然会出 NetworkOnMainThreadException 异常。 参考自郭霖的 android 异步消息处理机制 一、如何在子线程创建Headler首先我们想在子线程中创建一个Handler。（注意是在子线程中） 在Handler的构造函数中会调用Looper.myLooper() 得到当前的线程的Looper对象，如果没有的话就会报 ” Can’t create handler inside thread that has not called Looper.prepare().“ 这个错误。 prepare() 会先判断sThreadLocal.get() 这个方法从当前线程得到Looper的对象是否为空，如果为空就创建一个，不为空会报“Only one Looper may be created per thread”错误。 ActivityThread的main()方法中，会调用 Looper.prapareMainLooper方法，这其中又会调用 Looper.prepare() 方法，因此主线程中始终有一个Looper对象。 总结一下，普通线程必须先调用Looper.prepare()，然后才能创建Handler对象， 二、Headler发送消息源码解析创建完Handler之后，只要用把 bundle 放到 Message 中，并且再把 message放到 handler 发送即可。但是这里 Handler 把消息发送到哪里，为什么在 handleMessage 又能得到这个 Message 呢。 除了sendMessageAtFrontOfQueue之外，其他发送消息的方法都会辗转到sendMessageAtTime()中。而入队操作就是在这个sendMessageAtTime() 方法中。 Looper.loop()中包含出队操作，这个方法会一直等待新的消息入队，不然就会进入阻塞状态。每当又一个消息出队 queue.next() ，那就会调用当前handler的dispatchMessage()方法。在dispatchMessage() 方法里就会调用 handleMessage(msg)，这样我们在handleMessage就可以得到这个Message了。 MessageQueue 在 Looper 的构造函数中创建，那么一个 Looper 对应了一个 MessageQueue。 一个最标准的异步消息处理线程的写法应该是这样： class LooperThread extends Thread { public Handler mHandler; public void run() { //先调用Looper.prepare()方法，也就是说必须要有一个 looper 对象。 Looper.prepare(); mHandler = new Handler() { public void handleMessage(Message msg) { // process incoming messages here } }; //调用之后就会一直在MessageQueue中循环遍历Message，如果没有新的消息，就会挂起。 Looper.loop(); } }]]></content>
-      <categories>
-        <category>Android</category>
-      </categories>
-      <tags>
-        <tag>Android</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[Android 消息处理机制之二：消息中 obtain 源代码剖析]]></title>
-    <url>%2F2017%2F06%2F14%2FAndroid-2017-06-14-Android%E6%B6%88%E6%81%AF%E5%A4%84%E7%90%86%E6%9C%BA%E5%88%B6%E4%B9%8B%E4%BA%8C%EF%BC%9A%E6%B6%88%E6%81%AF%E4%B8%ADobtain%E6%BA%90%E4%BB%A3%E7%A0%81%E5%89%96%E6%9E%90%2F</url>
-    <content type="text"><![CDATA[Message中obtain()源码分析 参考自 AHuier的Android消息处理机制之二：消息中obtain()源代码剖析 obtain的源码，可见是从消息池中取出对象。这里为了防止多个任务访问消息池获取对象，使用 synchronized(sPoolSync) 将 obtain() 方法上锁了。 private static final Object sPoolSync = new Object(); private static Message sPool; private static int sPoolSize = 0; private static final int MAX_POOL_SIZE = 10; /** * Return a new Message instance from the global pool. Allows us to * avoid allocating new objects in many cases. */ public static Message obtain() { synchronized (sPoolSync) { if (sPool != null) { Message m = sPool; sPool = m.next; m.next = null; sPoolSize--; return m; } } return new Message(); } 1) 通过 Message.obtain()方式获取Message对象 public class MyThread implements Runnable{ @Override public void run() { // 使用第一种构造方法 Message message = Message.obtain(); message.what = 1; message.arg1 = 1; message.arg2 = 3; message.obj = &quot;SmartNi&quot;; handler.sendMessage(message); } } 2) 通过 Message.obtain(Handler h)的方式获取Message对象 首先查看一下obtain(Handler h)的源码，可见 message 的目标对象已经指向了 Handler ，那么在发送消息的时候就直接调用 sendToTarget() 方法即可。 /** * Same as {@link #obtain()}, but sets the value for the &lt;em&gt;target&lt;/em&gt; member on the Message returned. * @param h Handler to assign to the returned Message object&#39;s &lt;em&gt;target&lt;/em&gt; member. * @return A Message object from the global pool. */ public static Message obtain(Handler h) { Message m = obtain(); m.target = h; return m; } /* * 第二种获取Message对象的方法 * public static Message obtain (Handler h) * 传递一个关联到消息Handler. */ Message message = Message.obtain(handler); message.what = 1; message.arg1 = 1; message.arg2 = 3; message.obj = &quot;SmartNi&quot;; message.sendToTarget(); // 完成发送消息的动作 因为 ... /*package*/ Handler target; ... /** * Sends this Message to the Handler specified by {@link #getTarget}. * Throws a null pointer exception if this field has not been set. */ public void sendToTarget() { target.sendMessage(this); //这里 } 3) 通过 Message.obtain(Handler h,int what)的方式获取Message对象 /** * Same as {@link #obtain()}, but sets the values for both &lt;em&gt;target&lt;/em&gt; and * &lt;em&gt;what&lt;/em&gt; members on the Message. * @param h Value to assign to the &lt;em&gt;target&lt;/em&gt; member. * @param what Value to assign to the &lt;em&gt;what&lt;/em&gt; member. * @return A Message object from the global pool. */ public static Message obtain(Handler h, int what) { Message m = obtain(); m.target = h; m.what = what; return m; } 4) 通过 Message.obtain(Handler h, int what, int arg1, int arg2, Object obj)的方式获取Message对象 /* * public static Message obtain (Handler h, int what, int arg1, int arg2, Object obj) * 关联Handler和传递Message的几种常用属性值 */ Message message = Message.obtain(handler, 1, 1, 3, &quot;SmartNi&quot;); message.sendToTarget(); /** * Same as {@link #obtain()}, but sets the values of the &lt;em&gt;target&lt;/em&gt;, &lt;em&gt;what&lt;/em&gt;, * &lt;em&gt;arg1&lt;/em&gt;, &lt;em&gt;arg2&lt;/em&gt;, and &lt;em&gt;obj&lt;/em&gt; members. * * @param h The &lt;em&gt;target&lt;/em&gt; value to set. * @param what The &lt;em&gt;what&lt;/em&gt; value to set. * @param arg1 The &lt;em&gt;arg1&lt;/em&gt; value to set. * @param arg2 The &lt;em&gt;arg2&lt;/em&gt; value to set. * @param obj The &lt;em&gt;obj&lt;/em&gt; value to set. * @return A Message object from the global pool. */ public static Message obtain(Handler h, int what, int arg1, int arg2, Object obj) { Message m = obtain(); m.target = h; m.what = what; m.arg1 = arg1; m.arg2 = arg2; m.obj = obj; return m; } 5) 通过上述几个例子我们可以知道Message中的obtain()的几种重载方法在底层的实现都是大同小异的,他们都是底层都是首先调用obtain()方法来从消息池中获得一个消息的对象的。然后在通过参数传递来封装指定的Handler和需要携带的数据。如果使用这些重载的方法建议完成数据封装之后调用sendToTarget()方法。这就是几种obtain()重载方法的不同。 6) 这里我们需要特别注意Message中的这个重载方法:Message obtain (Message orig) 它是将原有的消息体作为一个新的消息参数来发送的,我们看一下它的源代码。 /** * Same as {@link #obtain()}, but copies the values of an existing * message (including its target) into the new one. * @param orig Original message to copy. * @return A Message object from the global pool. */ public static Message obtain(Message orig) { Message m = obtain(); m.what = orig.what; m.arg1 = orig.arg1; m.arg2 = orig.arg2; m.obj = orig.obj; m.replyTo = orig.replyTo; if (orig.data != null) { m.data = new Bundle(orig.data); } m.target = orig.target; m.callback = orig.callback; return m; }]]></content>
-      <categories>
-        <category>Android</category>
-      </categories>
-      <tags>
-        <tag>Android</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[Android 消息处理机制之三： Handler 中 sendMessage 源代码剖析]]></title>
-    <url>%2F2017%2F06%2F14%2FAndroid-2017-06-14-Android%E6%B6%88%E6%81%AF%E5%A4%84%E7%90%86%E6%9C%BA%E5%88%B6%E4%B9%8B%E4%B8%89%EF%BC%9AHandler%E4%B8%ADsendMessage%E6%BA%90%E4%BB%A3%E7%A0%81%E5%89%96%E6%9E%90%2F</url>
-    <content type="text"><![CDATA[Handler中sendMessage源代码剖析。 参考自 AHuier的 Handler 中 sendMessage() 源代码剖析 使用Handler中的sendEmptyMessage(int what)方式来发送消息. sendEmptyMessage (int what) ——&gt; sendEmptyMessageDelayed(int what, long delayMillis) ——&gt;sendMessageDelayed(Message msg, long delayMillis) ——&gt;sendMessageAtTime(Message msg, long uptimeMillis) ——&gt;enqueueMessage(Message msg, long when) 使用Handler中的sendEmptyMessageAtTime(int what,long uptimeMillis)方式来发送消息. sendEmptyMessageAtTime(int what,long uptimeMillis) ——&gt;sendMessageAtTime(msg, uptimeMillis) 使用Handler中的sendEmptyMessageDelayed (int what, long delayMillis)方式来发送消息。 sendEmptyMessageDelayed(int what, long delayMillis) ——&gt;sendMessageDelayed(Message msg, long delayMillis) ——&gt;sendMessageAtTime(Message msg, long uptimeMillis) public final boolean sendMessageDelayed(Message msg, long delayMillis) { if (delayMillis &lt; 0) { delayMillis = 0; } return sendMessageAtTime(msg, SystemClock.uptimeMillis() + delayMillis); } SystemClock.uptimeMillis() 是获得到系统启动开机的时间到当前的时间（不包括休眠的时间） SystemClock.uptimeMillis() + delayMillis 这个是sendMessageAtTime 和 sendMessageDelayed 的区别。 使用Handler中的sendMessage (Message msg)方式来发送消息. sendMessage(Message msg) ——&gt; sendMessageDelayed(Message msg, long delayMillis) ——&gt; sendMessageAtTime(Message msg, long uptimeMillis)]]></content>
-      <categories>
-        <category>Android</category>
-      </categories>
-      <tags>
-        <tag>Android</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[Activity 的生命周期和启动模式]]></title>
-    <url>%2F2017%2F06%2F08%2FAndroid-2017-06-08-Activity%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E5%92%8C%E5%90%AF%E5%8A%A8%E6%A8%A1%E5%BC%8F%2F</url>
-    <content type="text"><![CDATA[Android中我们最先接触到的就是Activity，如果掌握了 Activity，那么对学习其他四大组件无疑是很有帮助的。 Activity 的生命周期 情形一例如：运行一个 Activity ，不进行任何的页面跳转，然后按下返回键结束。 05-30 12:00:44.864 3561-3561/me.nijun.launchmode I/AActivity: onCreate: A 05-30 12:00:44.864 3561-3561/me.nijun.launchmode I/AActivity: onStart: A 05-30 12:00:44.864 3561-3561/me.nijun.launchmode I/AActivity: onResume: A 05-30 12:00:44.864 3561-3561/me.nijun.launchmode I/AActivity: onPause: A 05-30 12:00:44.864 3561-3561/me.nijun.launchmode I/AActivity: onStop: A 05-30 12:00:44.864 3561-3561/me.nijun.launchmode I/AActivity: onDestory: A 情形二（1）当第一次启动 A Activity 的时候，会按照下面的顺序执行。 05-30 12:00:44.864 3561-3561/me.nijun.launchmode I/AActivity: onCreate: A 05-30 12:00:44.864 3561-3561/me.nijun.launchmode I/AActivity: onStart: A 05-30 12:00:44.864 3561-3561/me.nijun.launchmode I/AActivity: onResume: A onStart 的时候 Activity 还在后台，onResume 的时候才会显示到前台。 （2）这时候点击按钮启动 B Acitivity 的时候 05-30 12:00:56.869 3561-3561/me.nijun.launchmode I/AActivity: onPause: A 05-30 12:21:03.756 4030-4030/me.nijun.launchmode I/BActivity: onCreate: B 05-30 12:00:56.882 3561-3561/me.nijun.launchmode I/BActivity: onStart: B 05-30 12:00:56.883 3561-3561/me.nijun.launchmode I/BActivity: onResume: B 05-30 12:00:57.310 3561-3561/me.nijun.launchmode I/AActivity: onSaveInstanceState: A 05-30 12:00:57.312 3561-3561/me.nijun.launchmode I/AActivity: onStop: A 可见，首先调用旧Activity的 onpause 方法，onpause 一定在要启动的新 Activity 之前执行，只有它执行完之后，新的 Activity 才会启动。正因为如此，我们在 onPause方法中不能重量级的操作，应当在 onStop 中处理操作，使新 Activity 尽快显示出来。 onSaveInstanceState 方法会在 onStop 方法之前执行，但具体是否在onPause 之前还是之后是不确定的。 onStop 方法是否执行是看 Activity 是否可见，如果用户回到桌面（不可见了），那么就会调用这个方法。但是如果如果调用新的 Activity 采用了新透明的主题，那么是不会调用onStop 方法的。 （3）当用户按下返回键的时候 这时候 BAcitivity 将被销毁。在 onPause 执行后，并不会直接执行 onStop 而是会先执行 AActivity 的 onRestart 、onStart、onResume 方法。 05-30 12:21:11.422 4030-4030/me.nijun.launchmode I/BActivity: onPause: B 05-30 12:21:11.433 4030-4030/me.nijun.launchmode I/AActivity: onRestart: A 05-30 12:21:11.433 4030-4030/me.nijun.launchmode I/AActivity: onStart: A 05-30 12:21:11.433 4030-4030/me.nijun.launchmode I/AActivity: onResume: A 05-30 12:21:11.764 4030-4030/me.nijun.launchmode I/BActivity: onStop: B 05-30 12:21:11.765 4030-4030/me.nijun.launchmode I/BActivity: onDestroy: B （4）当Activity被系统回收后再次打开，生命周期回调方法和 （1）一样，但是不是所有过程都一样。 小结： onCreate 和 onDestory 是配对的，代表这创建和销毁。 onStart 和 onStop 是配对的，代表着 Activity 是否可见。 onResume 和 onPause 是配对的，代表的 Activity 是否在前台。 Activity的onResume在wm.addView之前！ A Activity 的生命周期： A 被 B 完全遮挡住了：onCreate-&gt;onStart-&gt;onResume-&gt;onPause-&gt;onStop-&gt;onRestart-&gt;onStart-&gt;onResume。 A 被 B 部分遮挡住了：onCreate-&gt;onStart-&gt;onResume-&gt;onPause-&gt;onResume。 情形三我们启动 Activity 之后，然后点击按钮弹出 AlertDialog 。 Activity 的启动过程：onCreate-&gt;onStart-&gt;onResume 因为当启动和退出 Dialog 的时候 ，Activity 的状态始终没有改变。这样看来，Dialog 是 Activity 内部的界面，不会影响到 Activity 的生命周期。 异常情况（1）相关资源的配置发生改变导致 Activity 被杀死并重新创建。 例子：比如用户转换屏幕，从竖屏切换到横屏。 这时候Activity被销毁，其 onPause、onStop、onDestroy都会被调用。这个过程中也会调用 onSaveInstanceState 方法来保存当前Activity的状态，这个方法会在onStop之前执行，顺序与onPause无关。注意：在正常情况下是不会调用这个方法的。 当Activity重新创建后，系统会调用 onRestoreInstanceState 方法，并把 onSaveInstanceState 保存的 Bundle 对象传递给onRestoreInstanceState和onCreate方法。 从时序上看，onRestoreInstanceState 会在 onStart 方法之后调用。 05-30 12:34:27.247 4030-4030/me.nijun.launchmode I/AActivity: onPause: A 05-30 12:34:27.247 4030-4030/me.nijun.launchmode I/AActivity: onSaveInstanceState: A 05-30 12:34:27.249 4030-4030/me.nijun.launchmode I/AActivity: onStop: A 05-30 12:34:27.249 4030-4030/me.nijun.launchmode I/AActivity: onDestroy: A 05-30 12:34:27.262 4030-4030/me.nijun.launchmode I/AActivity: onCreate: A 05-30 12:34:27.262 4030-4030/me.nijun.launchmode I/AActivity: onStart: A 05-30 12:34:27.262 4030-4030/me.nijun.launchmode I/AActivity: onRestoreInstanceState: restore extra_test test 05-30 12:34:27.263 4030-4030/me.nijun.launchmode I/AActivity: onResume: A public void main(){ } 扩展View 与 Activity 一样，也有 onSaveInstanceState 和 onRestoreInstanceState 两个方法。 关于保存和恢复View层次结构，系统的工作流程是这样的：首先Activity 在异常中止的情况下，会调用 onSaveInstanceState 去保存数据。 Activity 会委托 Window 去保存数据，Window再委托他上面的顶层容器去保存。顶层容器是一个ViewGroup，一般来说是 DecorView。顶层容器再去一一通知它的子元素去保存数据。 这是一种典型的委托思想，上层委托下层，父容器委托子元素去处理意见事情。这在Android中有很多实现，比如View的绘制过程、事件分发。 onSaveInstanceState 只会在 Activity 即将销毁并且有机会重新显示的情况下才会去调用。 还有一点onRestoreInstanceState 和 onCreate 的区别： onRestoreInstanceState 一旦被调用，其参数 Bundle 一定有值，而onCreate在正常启动的时候其参数Bundle为null。 官方推荐：使用 onRestoreInstanceState 去恢复保存的数据。 解决办法如果不想要系统重新创建 Activity的话，可以指定在 AndroidManifest.xml 中指定 android:configChanges 的属性。 最好是加上 orientation|screenSize|keyboardHidden 这三个值，因为 Android 13 （ API13 ）之后，screen size 也会跟着屏幕横竖屏切换而改变。可以设置下列语句 android:configChanges=&quot;orientation|screenSize|keyboardHidden&quot; Activity 的LaunchMode路漫漫其修远兮，吾将上下而求索。—屈原《离骚》 今天，花了一个晚上的时间整理了一下 Activity 的 LaunchMode 启动模式。既然下定决心要走这一行，那么就从最基础的开始学起。 在 Android 中，一共由四种启动模式，分别是 standard singleTop singleTask singleInstance 这里，我把这四个分成两组。 其中，standard 和 singleTop Activity 为一类，使用 standard 或 singleTop 启动模式的 Activity 可多次实例化。可以属于任何任务栈，并且可以位于活动堆栈的任何位置。但是通常，它们被启动到所调用的任务中栈中。 其中，standard 模式很简单，调用几次就创建几次。singleTop 与之类似，不同在于如果要启动的 Activity 已经在栈顶了，那么就不创建直接复用，并且调用 onNewIntent 方法。如果一个现有实例虽在目标任务内，但未处于堆栈顶部，或者虽然位于堆栈顶部，但不在目标任务中 — 则系统会创建一个新实例并将其推送到堆栈上。 singleTask 和 singleInstance 为另一类。singleTask 和 singleInstance Activity 只能启动任务。 它们始终位于 Activity 堆栈的栈顶，并且每个栈中只能有一个相同的 Activity 。 singleTask 和 singleInstance 同样只在一个方面有差异。 singleTask 允许其他 Activity 成为其任务（必然是 standard 和 singleTask 的 Activity ）的组成部分，它始终位于其任务的根位置。singleInstance 不允许其他 Activity 成为其任务的组成部分。它是任务中唯一的 Activity。 如果它启动另一个 Activity，系统会将该 Activity 分配给其他任务 — 就好像 Intent 中包含 FLAG_ACTIVITY_NEW_TASK 一样。 我自己做了一个实验。分别创建两个程序，一个叫做 LaunchMode，有 Activity A 和 Activity B，另一个叫做 LaunchModeB，有 Activity C 和 Activity D。在 Android 6.0 上运行。 情形一 前置条件：LaunchMode中从 A 启动 B（这时任务栈是 B-&gt;A），LaunchModeB 从 C 启动 D（这时任务栈是 D-&gt;C），这时我想从 B 中 启动 C 和 Ｄ，其中 C 和 D 都是standard 模式。 结果：在 B 中启动 C 后（这时任务栈是 C-&gt;B-&gt;A），C 从当前 Activity 右侧出现，按下 back 键直接向右侧消失。D 也是这个情况。 首先，从右侧出现代表没有切换到其他的应用程序，而我们知道 C 和 D Activity 是 LaunchModeB 中的 Activity。那为什么不是打开 LaunchModeB 之后再启动 C Activity 呢？这时因为设置了 standard 这个启动模式，在这个例子中当前程序并没有创建新得任务栈，而是在 B Activity 所在的任务栈中将 C Activity 启动并加入其中。也就是说被启动的 Activity 会被加入到启动它的 Activity 中。 情形二 前置条件：LaunchMode中从 A 启动 B（这时任务栈是 B-&gt;A），LaunchModeB 从 C 启动 D（这时任务栈是 D-&gt;C ，我想从 B 中 启动 C 和 Ｄ，其中 C 是 standard 模式 ，D 都是 singleTask 模式。 结果：我在 B Activity 中点击启动 C ，这时和情形一是一样的，这里不讨论了。而如果点击启动 D 之后，系统发现在现有任务栈中已经有了 D Activity，这时候会并不会去创建新的，而是直接切换到 D Activity 所在的任务栈，这时候按下 back 键，将回退到 C Activity 中，再次按下 back 键，就销毁了LaunchModeB 中的任务栈。这时候再次在 B 中启动 D，这时候系统发现在任务栈中没有已有的 D，就会创建 D，并加入到新的任务栈中（这时任务栈是 D），按下 back 键就会直接销毁 Ｄ返回到 B Activity。 情形三 前置条件：LaunchMode中从 A 启动 B（这时任务栈是 B-&gt;A），LaunchModeB 从 C 启动 D（这时任务栈是 D-&gt;C ，我想从 B 中 启动 C 和 Ｄ，其中 C 是 singleTask 模式 ，D 都是 standard 模式。 结果：从 B 点击按钮打开 C （这时任务栈是 C ），singleTask 因为有 clearTop 的效果而被推出任务栈。在 C Activity 中再次打开 D Activity，不要按 back 键，选择任务返回到 B Activity，点击按钮打开 D Activity（这时任务栈是 D-&gt;B-&gt;A），发现动画效果是从右侧进入，断定此时这个 D Activity 所在的任务栈是 B Activity 所在的任务栈，因此这时按下 back 键，就不会返回到 C Activity，而是返回到 B Activity。 还有一点需要注意，当我从 C 中启动 D 之后，按下 Home 键返回桌面，在从桌面图标点击进入程序，发现进入的是 C Activity，而不是 D Activity。原因还是 C Activity 是 singleTask 模式。 情形四 还是上面的前置条件，但是 C 和 D 都是 singleTask 模式。情况与情形三类似，只是在打开 D Activity 的时候（这时任务栈是 D-&gt;C），当前任务栈转移到了 LaunchModeB 程序中，相当于打开了 LaunchMode 这个程序，而这时栈顶是 D ，所以出现的是 D Activity，按下返回键跳转到 C Activity。 另一种情况是在 Intent 中设置标志位来为 Activity 指定启动模式。这种方式优先于 AndroidManifest 中配置的方式，当两种同时存在时，以第二种方式为准。然后它们在限定范围上有所不同，第一种方式无法设置 FLAG_ACTIVITY_CLEAR_TOP 标志，而第二种方式无法指定 singleInstance 模式。 FLAG_ACTIVITY_NEW_TASK 等同于 “singleTask” 。在这种情况下，被启动的 Activity 的实例如果已经存在，那么系统会调用他的 onNewIntent ，而不会去调用 onCreate 。但是不要忘记，系统可能会杀掉后台运行的 Activity，如果这一切发生，那么系统就会调用 onCreate 方法，而不调用 onNewIntent 方法，一个好的解决方法就是在 onCreate 和 onNewIntent 方法中调用同一个处理数据的方法。 FLAG_ACTIVITY_SINGLE_TOP 等同于 “singleTop” 。 FLAG_ACTIVITY_CLEAR_TOP 等同于 “singleTop” 。 在 Android Studio 中可以使用 adb shell dumpsys activity 来查看任务栈和 taskAffinity 的值。 taskAffinity]]></content>
-      <categories>
-        <category>Android</category>
-      </categories>
-      <tags>
-        <tag>Android</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[Maven 学习总结]]></title>
-    <url>%2F2017%2F05%2F20%2F00001-maven-2017-05-20-maven%2F</url>
-    <content type="text"><![CDATA[想学习Maven吗？ 常用的构建命令mvn v 查看版本 compile 编译 test 测试 package 打包 会依次执行 clean 、 clean 删除target文件夹 Install 安装jar包到本地仓库中 自动创建目录骨架创建目录的两种方式： mvn archetype:generate 按照提示进行选择 mvn archetype:generate -DgroupId=组织名，公司网址的反写+项目名 ​ -DartifactId=项目名-模块名 ​ -Dversion=版本号 ​ -Dpackage=代码所在的包名 src/main/java:存放java源文件 src/main/resources:存放项目配置文件，如spring.xml,hibernate.cfg.xml。。。 src/test/java:存放test的java文件 src/test/resources:存放test时候所需的配置文件 maven中的坐标和仓库坐标在&lt;dependency&gt;中的就是坐标 &lt;dependency&gt; &lt;groupId&gt;com.nimon.maven01&lt;/groupId&gt; &lt;artifactId&gt;maven01-model&lt;/artifactId&gt; &lt;version&gt;0.0.1SNAPSHOT&lt;/version&gt; &lt;/dependency&gt; 项目的包名，建议和groupId和artifactId相吻合，这样看起来，就更加清晰，符合逻辑，也更方便搜索。 构件在maven世界中，任何一个依赖、插件、项目构建的输出，都可以被称作为构件。 构件通过坐标作为其唯一的标识，就好像我们的工作单位和家庭地址。 收宝贝的时候，不是收到的那一刻，而是中间等待的过程。 仓库​ 本地仓库和远程仓库 ​ 查看仓库 ​ 全球中央仓库 ​ MVN Repository 镜像仓库 一旦配置了镜像，那么所有访问都会到镜像仓库中，原仓库将不能直接访问。 maven主目录 &gt; conf &gt; settings.xml &gt; 146行 &lt;mirror&gt; &lt;id&gt;maven.net.cn&lt;/id&gt; &lt;mirrorOf&gt;central&lt;/mirrorOf&gt; &lt;name&gt;Central mirror in china&lt;/name&gt; &lt;url&gt;http://maven.net.cn/content/groups/public&lt;/url&gt; &lt;/mirror&gt; 更改仓库位置 maven从远程中央仓库下载默认是存放在当前用户目录中 ​ 即 ~/.m2/repository 修改 settings.xml文件，复制第 53 行的内容 &lt;localRepository&gt;/Users/nimon/nj/proj/maven/repo&lt;/localRepository&gt; 其中路径表示新仓库的位置。然后复制一份 settings.xml 到 repo 目录下，这样我们以后更新maven版本就不用再修改原始的 settings.xml maven的生命周期和插件完整的项目构建过程包括清理、编译、测试、打包、集成测试、验证、部署 maven将其进行抽象。实际上，maven和插件是密不可分的，maven抽象出一套项目构建的生命周期，而插件是对maven抽象的具体实现。 比如，我们对项目进行编译， maven中定义了三套独立的生命周期 clean 清理项目 default 构建项目 site 生成项目站点 这三套生命周期是相互独立的，每个生命周期又包含一些阶段，这些阶段是有顺序的，后面的阶段依赖于前面的阶段。在执行的时候，前面的阶段会顺序执行，并不会触发另外两个生命周期中的阶段。 clean 清理项目阶段pre-clean 执行清理前的工作 clean 清理上一次构建的文件 post-clean 执行清理后的文件 default 构建项目（最核心）compile test package install site 生成项目站点pre-site 在生成项目站点前要完成工作 site 生成项目的站点文档 post-site 在生成项目站点后要完成的工作 site-deploy 发布生成的站点到服务器 可以去 官方插件 ，查找使用插件 pom.xml常用元素pom.xml是maven项目的核心管理文件，用于项目描述、组织管理、依赖管理和构建信息的管理。 &lt;project xmlns=&quot;http://maven.apache.org/POM/4.0.0&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xsi:schemaLocation=&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd&quot;&gt; &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt; &lt;groupId&gt;组织名，公司网址的反写+项目名&lt;/groupId&gt; &lt;artifactId&gt;项目名-模块名&lt;/artifactId&gt; &lt;!--打包类型，默认是jar war zip pom --&gt; &lt;packaging&gt;war&lt;/packaging&gt; &lt;!--第一个0表示大版本号 第二个0 表示分支版本号 第三个0 表示小版本号 SNAPSHOT ：不稳定，尚处于开发中，快照版本 ALPHA ：是内部测试版,一般不向外部发布,会有很多Bug.一般只有测试人员使用。 Beta：也是测试版，这个阶段的版本会一直加入新的功能。在Alpha版之后推出。 RELEASE ：稳定版 GA ：正式发布 --&gt; &lt;version&gt;0.0.1-SNAPSHOT&lt;/version&gt; &lt;!--项目描述名--&gt; &lt;name&gt;maven05-demo Maven Webapp&lt;/name&gt; &lt;!--项目地址--&gt; &lt;url&gt;http://maven.apache.org&lt;/url&gt; &lt;!--项目描述--&gt; &lt;description&gt;&lt;/description&gt; &lt;developers&gt;&lt;/developers&gt; &lt;licenses&gt;&lt;/licenses&gt; &lt;organization&gt;&lt;/organization&gt; &lt;dependencies&gt; &lt;dependency&gt; &lt;groupId&gt;junit&lt;/groupId&gt; &lt;artifactId&gt;junit&lt;/artifactId&gt; &lt;version&gt;4.10&lt;/version&gt; &lt;!--只存在于测试的 classpath 中--&gt; &lt;scope&gt;test&lt;/scope&gt; &lt;type&gt;&lt;/type&gt; &lt;!--设置依赖是否可选--&gt; &lt;optional&gt;&lt;/optional&gt; &lt;!--排除依赖传递列表--&gt; &lt;exclusions&gt; &lt;exclusion&gt; &lt;/exclusion&gt; &lt;/exclusions&gt; &lt;/dependency&gt; &lt;/dependencies&gt; &lt;!--依赖的管理，不会被运行和引入到实际的依赖中--&gt; &lt;dependencyManagerment&gt; &lt;!--主要定义在父模块中，供子模块集成用的--&gt; &lt;dependency&gt; &lt;/dependency&gt; &lt;/dependencyManagerment&gt; &lt;!--插件列表--&gt; &lt;build&gt; &lt;plugins&gt; &lt;plugin&gt; &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt; &lt;artifactId&gt;maven-source-plugin&lt;/artifactId&gt; &lt;version&gt;2.4&lt;/version&gt; &lt;!--上面三项是坐标--&gt; &lt;executions&gt; &lt;execution&gt; &lt;phase&gt;package&lt;/phase&gt; &lt;goals&gt; &lt;goal&gt;jar-no-fork&lt;/goal&gt; &lt;/goals&gt; &lt;/execution&gt; &lt;/executions&gt; &lt;/plugin&gt; &lt;plugin&gt; &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt; &lt;artifactId&gt;maven-jar-plugin&lt;/artifactId&gt; &lt;version&gt;3.0.2&lt;/version&gt; &lt;/plugin&gt; &lt;/plugins&gt; &lt;!--子模块对父模块的继承--&gt; &lt;parent&gt;&lt;/parent&gt; &lt;!--聚合多个maven运行项--&gt; &lt;modules&gt;&lt;/modules&gt; &lt;finalName&gt;maven05-demo&lt;/finalName&gt; &lt;/build&gt; &lt;/project&gt; 依赖范围我们平时在开发时，如果要使用某一个框架，就需要把框架的jar包引入项目的 classpath 中，这样我们的项目就可以使用 框架为我们封装好的一些方法。maven给我们提供了三种classpath： 编译 测试 test 运行 所以依赖的范围就是控制依赖于三种 classpath 的关系的。 有六中依赖范围的值可以选择： compile 默认的范围，如果没有明确指定，编译依赖将在所有的 classpath 中都有效，而且会传递到依赖项目中。 provided 在编译和测试的时候有效 runtime 在测试和运行时有效 test 只在测试的时候有效 system 于本机系统相关联，可移植性差 import 导入的范围，它只使用在 dependencyManagerment ，表示从其他 pom 中导入的 dependency 的配置。 例如 &lt;project&gt; &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt; &lt;groupId&gt;maven&lt;/groupId&gt; &lt;artifactId&gt;B&lt;/artifactId&gt; &lt;packaging&gt;pom&lt;/packaging&gt; &lt;name&gt;B&lt;/name&gt; &lt;version&gt;1.0&lt;/version&gt; &lt;dependencyManagement&gt; &lt;dependencies&gt; &lt;dependency&gt; &lt;groupId&gt;maven&lt;/groupId&gt; &lt;artifactId&gt;A&lt;/artifactId&gt; &lt;version&gt;1.0&lt;/version&gt; &lt;type&gt;pom&lt;/type&gt; &lt;scope&gt;import&lt;/scope&gt; &lt;/dependency&gt; ..... 依赖传递一个小案例 shanji 依赖于 nage nage 依赖于 bge bge的依赖关系 &lt;dependencies&gt; &lt;dependency&gt; &lt;groupId&gt;junit&lt;/groupId&gt; &lt;artifactId&gt;junit&lt;/artifactId&gt; &lt;version&gt;4.10&lt;/version&gt; &lt;scope&gt;test&lt;/scope&gt; &lt;/dependency&gt; &lt;/dependencies&gt; nage的依赖关系 &lt;dependencies&gt; &lt;dependency&gt; &lt;groupId&gt;junit&lt;/groupId&gt; &lt;artifactId&gt;junit&lt;/artifactId&gt; &lt;version&gt;3.8.1&lt;/version&gt; &lt;scope&gt;test&lt;/scope&gt; &lt;/dependency&gt; &lt;dependency&gt; &lt;groupId&gt;com.hongxing&lt;/groupId&gt; &lt;artifactId&gt;hongxing-bge&lt;/artifactId&gt; &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt; &lt;/dependency&gt; &lt;/dependencies&gt; shanji的依赖关系 &lt;dependencies&gt; &lt;dependency&gt; &lt;groupId&gt;junit&lt;/groupId&gt; &lt;artifactId&gt;junit&lt;/artifactId&gt; &lt;version&gt;3.8.1&lt;/version&gt; &lt;scope&gt;test&lt;/scope&gt; &lt;/dependency&gt; &lt;dependency&gt; &lt;groupId&gt;com.hongxing&lt;/groupId&gt; &lt;artifactId&gt;hongxing-nage&lt;/artifactId&gt; &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt; &lt;exclusions&gt; &lt;exclusion&gt; &lt;groupId&gt;com.hongxing&lt;/groupId&gt; &lt;artifactId&gt;hongxing-bge&lt;/artifactId&gt; &lt;/exclusion&gt; &lt;/exclusions&gt; &lt;/dependency&gt; &lt;/dependencies&gt; 这时候nage下就有bge的依赖jar包，shanji下有bge和nage的依赖jar包。 但是由于依赖的传递性，shanji 只依赖于nage ，shanji 项目中会出现 bge 的jar包。有时候，这不是我们想要的。 这时可以在 nage 依赖下使用 把 bge 排除在外。 依赖冲突 eg 对不同版本的同一个构建。 短路优先 A -&gt; B -&gt; C -&gt; X（JAR) A -&gt; D -&gt; X（JAR) 优先 举例： 在 bge 中添加commons-io 2.5的版本依赖 在 nage 中添加commons-io 2.0的版本依赖 这时候在 shanji 项目中就会出现 2.0 的版本，因为shanji 离 nage 比较近。 先声明先优先 如果路径长度相同，谁先声明，先解析谁。 举例： &lt;dependencies&gt; &lt;dependency&gt; &lt;groupId&gt;junit&lt;/groupId&gt; &lt;artifactId&gt;junit&lt;/artifactId&gt; &lt;version&gt;3.8.1&lt;/version&gt; &lt;scope&gt;test&lt;/scope&gt; &lt;/dependency&gt; &lt;dependency&gt; &lt;groupId&gt;com.hongxing&lt;/groupId&gt; &lt;artifactId&gt;hongxing-bge&lt;/artifactId&gt; &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt; &lt;/dependency&gt; &lt;dependency&gt; &lt;groupId&gt;com.hongxing&lt;/groupId&gt; &lt;artifactId&gt;hongxing-nage&lt;/artifactId&gt; &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt; &lt;!--&lt;exclusions&gt;--&gt; &lt;!--&lt;exclusion&gt;--&gt; &lt;!--&lt;groupId&gt;com.hongxing&lt;/groupId&gt;--&gt; &lt;!--&lt;artifactId&gt;hongxing-bge&lt;/artifactId&gt;--&gt; &lt;!--&lt;/exclusion&gt;--&gt; &lt;!--&lt;/exclusions&gt;--&gt; &lt;/dependency&gt; &lt;/dependencies&gt; 这时候，项目中 commons-io 的版本就变成了 2.5，因为是先声明 bge ，后声明 nage 。 聚合和继承如果在maven中有多个项目，我们想要 install 将其放到本地仓库中， 必须对其依次执行 install 命令 maven 给我提供了一个解决办法，就是使用 聚合 &lt;modules&gt; &lt;module&gt;../hongxing-bge&lt;/module&gt; &lt;module&gt;../hongxing-nage&lt;/module&gt; &lt;module&gt;../hongxing-shanji&lt;/module&gt; &lt;/modules&gt; 然后执行 install 命令，就会自动把三个module都安装到本地仓库中了。 定义父容器 &lt;properties&gt; &lt;project.build.sourceEncoding&gt;UTF-8&lt;/project.build.sourceEncoding&gt; &lt;junit.version&gt; 3.8.1 &lt;/junit.version&gt; &lt;/properties&gt; &lt;dependencyManagement&gt; &lt;dependencies&gt; &lt;dependency&gt; &lt;groupId&gt;junit&lt;/groupId&gt; &lt;artifactId&gt;junit&lt;/artifactId&gt; &lt;version&gt;${junit.version}&lt;/version&gt; &lt;/dependency&gt; &lt;/dependencies&gt; &lt;/dependencyManagement&gt; 然后在子类中使用 &lt;parent&gt; &lt;groupId&gt;com.hongxing&lt;/groupId&gt; &lt;artifactId&gt;hongxing-parent&lt;/artifactId&gt; &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt; &lt;/parent&gt; 注意修改 为pom 使用maven构建web项目Next，这里在Properties中添加一个参数archetypeCatalog=internal，不加这个参数，在maven生成骨架的时候将会非常慢，有时候会直接卡住。 来自网上的解释： archetypeCatalog表示插件使用的archetype元数据，不加这个参数时默认为remote，local，即中央仓库archetype元数据，由于中央仓库的archetype太多了，所以导致很慢，指定internal来表示仅使用内部元数据。 使用 jetty 发布 &lt;plugin&gt; &lt;groupId&gt;org.eclipse.jetty&lt;/groupId&gt; &lt;artifactId&gt;jetty-maven-plugin&lt;/artifactId&gt; &lt;version&gt;9.4.4.v20170414&lt;/version&gt; &lt;executions&gt; &lt;execution&gt; &lt;!--在打包成功后使用jetty:run来运行jetty服务--&gt; &lt;phase&gt;package&lt;/phase&gt; &lt;!--指定在package阶段的时候--&gt; &lt;goals&gt; &lt;goal&gt;run&lt;/goal&gt; &lt;/goals&gt; &lt;/execution&gt; &lt;/executions&gt; &lt;/plugin&gt;]]></content>
-      <tags>
-        <tag>maven</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[GitHub 学习之路]]></title>
-    <url>%2F2017%2F05%2F14%2F00001-Git-2017-05-14-GitHub%2F</url>
-    <content type="text"><![CDATA[成大事不在于力量的大小，而在于能坚持多久。 ——约翰生 Git配置多个SSH在日常开发中，我们可能会使用多个帐号以及多个 SSH-Key ，可能是 码云，也可能是 GitHub ，如果你的电脑中只配置了一个 SSH-Key ，那到时候另一个或多个帐号在使用上，就会带来些许不便。（你能忍受每次 push 都要求你输入密码吗？或者每次切换帐号都需要重新配置 SSH-Key 吗？因为每次使用默认配置的方法都会将前一次配置覆盖。），作为程序员，怎么能让这种事情发生呢，我们需要一种一劳永逸的解决办法。经过上网搜索及筛选，我找到一种比较简单方便的方法。 1. 生成并添加第一个SSH首先你得安装 git 客户端。Windows 平台，安装完后，在桌面右键选择 git bash 打开。Mac 平台安装好，打开 Terminal 或者 iTerm 输入以下命令。 $ ssh-keygen -t rsa -C &quot;youremail@xxx.com&quot; 在 Git Bash 中执行命令一路回车，会在 ~/.ssh/ 目录下生成 id_rsa 和 id_rsa.pub 两个文件用文本编辑器打开 id_rsa.pub 里的内容，在 Github 中添加 SSH Keys 2. 生成并添加第二个SSH接着上一步，为了区分开不同的 SSH-Key，我在生成文件的时候用了不同的名称来区分。 输入你要配置的另一个 SSH-Key 的邮箱。 $ ssh-keygen -t rsa -C &quot;otheremail@xxx.com&quot; 这次不要一路回车，请输入这个文件的名字，见下面的第三行。 $ ssh-keygen -t rsa -C &quot;824291045@qq.com&quot; Generating public/private rsa key pair. Enter file in which to save the key (/Users/nimon/.ssh/id_rsa): other Enter passphrase (empty for no passphrase): Enter same passphrase again: Your identification has been saved in other. Your public key has been saved in other.pub. The key fingerprint is: SHA256:tlHc9GiN8cLngDw8QmomMlxmc+2odsRciMjIu6ljjzQ 824291045@qq.com The key&#39;s randomart image is: +---[RSA 2048]----+ |.o .=..o. o | |.oo+.o.oo+ = B | 如上输入 other 之后会在.ssh目录下生成两个文件 other 和 other.pub ，原理同步骤1。 3.创建config文件因为 SSH-Key 有一个默认的配置，如果我们还是按照默认配置，那么注定是不会成功的。 我们需要在 ~/.ssh 目录下添加 config 配置文件用于区分多个 SSH-Key 。 Host github.com HostName github.com PreferredAuthentications publickey IdentityFile ~/.ssh/id_rsa Host other.github.com HostName github.com PreferredAuthentications publickey IdentityFile ~/.ssh/other 之后保存并推出编辑器。 Host : 代表一个映射的域名地址，可以自己取。 HostName ： 是实际的域名地址，一般是代码托管平台的域名。 PreferredAuthentications ： 配置登录时用什么权限认证，可设为publickey,password publickey,keyboard-interactive，在这里使用 publickey 即可。 IdentityFile ： 就是更改生成的两个 Key 文件的地址，这里只需填写对应的文件名即可。 测试以上完成之后，在命令行中输入 ssh -T git@xxx.com （xxx 就写刚才在配置文件中 Host 后面的名字）与远程进行验证，验证成功就会显示如下信息。 $ ssh -T git@github.com Hi SmartJunNi! You&#39;ve successfully authenticated, but GitHub does not provide shell access. $ ssh -T git@other.github.com ssh git@github.com Hi junoni! You&#39;ve successfully authenticated, but GitHub does not provide shell access. 可能出现的问题如果在项目中使用 git push 时提示[remote reject] (Permission denied) 。如下所示 Counting objects: 3, done. Delta compression using up to 8 threads. Compressing objects: 100% (2/2), done. Writing objects: 100% (3/3), 252 bytes | 0 bytes/s, done. Total 3 (delta 1), reused 0 (delta 0) remote: Resolving deltas: 100% (1/1), completed with 1 local object. To other.github.com:junoni/nimon.git ! [remote rejected] master -&gt; master (permission denied) error: failed to push some refs to &#39;git@other.github.com:junoni/nimon.git&#39; 我花了一个半小时从 google 到 stackoverflow 查了个边，就差没有百度一下了，就是没有找到可以解决的办法。这时我发现最后一行的git@other.github.com:junoni/nimon.git 这个地址，我想了想，刚刚配置了 config 这个文件，其中Host 使用的是 other.github.com，我用 git remote -v 查看了当前远程仓库的 origin 。 $ git remote -v origin git@github.com:junoni/nimon.git (fetch) origin git@github.com:junoni/nimon.git (push) 可以看到，fetch 和 push 的 origin 地址都是 git@github.com ，而不是 git@other.github.com ，我就抱着试试的心态，改成了 git@other.github.com。还有一个步骤，将 other 加入到密钥列表中。 $ ssh-add ~/.ssh/other 再尝试 push 一下，没想到成功了。如迈克尔•乔丹所说：“我可以接受失败，但我不能接受放弃。” 当然，添加之后我们还可以查看当前密钥列表。也可以删除密钥。 $ ssh-add -l $ ssh-add -d ~/.ssh/other 类似debug，查看与远程连接情况。 $ ssh -v git@github.com 总结：我们设置的远程仓库的地址必须和 config 文件中设置的域名映射地址相同，不然就会出现错误。 总览查看全局config信息mac 下在~/.gitconfig 文件中配置 git 的全局信息。使用 git config --list 可以列出全局配置信息。 $ git config --list 用户信息配置你个人的用户名称和电子邮件地址。这两条配置很重要，每次 Git 提交时都会引用这两条信息，说明是谁提交了更新，所以会随更新内容一起被永久纳入历史记录： $ git config --global user.name “youname” $ git config --global user.email “12345@example.com” 如果用了 –global 选项，那么更改的配置文件就是位于你用户主目录下的那个，以后你所有的项目都会默认使用这里配置的用户信息。如果要在某个特定的项目中使用其他名字或者电邮，只要去掉 –global 选项重新配置即可，新的设定保存在当前项目的 .git/config 文件里。 GIT总结查看配置信息查看已有的配置信息 $ git config --list $ git config -l 获取帮助例如想获取config命令的帮助信息 $ git help config $ git config --help 初始化新仓库 $ git init 初始化后，在当前目录下会出现一个名为 .git 的目录，所有 Git 需要的数据和资源都存放在这个目录中。不过目前，仅仅是按照既有的结构框架初始化好了里边所有的文件和目录，但我们还没有开始跟踪管理项目中的任何一个文件。 如果当前目录下有几个文件想要纳入版本控制，需要先用 git add 命令告诉 Git 开始对这些文件进行跟踪，然后提交：跟踪文件：（将文件加到暂存区域） $ git add readme.txt 跟踪全部文件 $ git add . 提交更新 $ git commit -m “first version” 上传（推送）到github $ git push origin master 从现有仓库克隆 $ git clone git://github.com/youname/project.git $ git clone git@github.com:youname/project.git $ git clone https://github.com/youname/project.git 检查当前文件状态 $ git status 创建.gitignore文件 $ touch .gitignore 查看修改之后没有暂存起来的内容 $ git diff 移除文件 $ git rm readme.txt 重命名文件 $ git mv oldname.txt newname.txt 查看提交历史 $ git log 取消暂存 $ git reset HEAD readme.txt 添加远程仓库（远程仓库必须先在github上建好） $ git remote add [shortname] [url] 实例： $ git remote add origin git@github.com:youname/yourRepo.git 推送数据到仓库 $ git push [remote-name] [branch-name] 如果要把本地的 master 分支推送到origin服务器上（再次说明下，克隆操作会自动使用默认的master 和origin 名字），可以运行下面的命令： $ git push origin master 从远程仓库抓取数据 $ git fetch [remote-name] 碰到远端仓库服务器迁移，或者原来的克隆镜像不再使用，又或者某个参与者不再贡献代码，那么需要移除对应的远端仓库远程仓库的删除 $ git remote rm origin 远程仓库重命名(此处命名的是上文添加远程仓库中的shortname) $ git remote rename origin origin2 自动补全输入命令后按tab键，就会看到列出所有匹配的可用命令建议： $ git co&lt;tab&gt; GIT分支创建一个名为“testing”的分支 $ git branch testing 切换到“testing”分支(默认为master分支) $ git checkout testing 新建并切换到该分支 $ git checkout -b iss53 这条命令相当于执行下面这两条命令 $ git branch iss53 $ git checkout iss53 删除hotfix分支（如果该分支还未被合并则会提示错误，因为这样会丢失数据） $ git branch -d hotfix 强制删除hotfix分支（强制删除，不会提示错误） $ git branch -D hotfix 合并iss53分支（先切换到master分支） $ git checkout master $ git merge iss53 查看当前所有分支 $ git branch 查看各个分支最后一个提交对象的信息 $ git branch -v 查看已经与当前分支合并的分支（已经合并的查出来后可以删掉） $ git branch --merge 查看未与当前分支合并的分支 $ git branch --no-merged 同步远程服务器数据到本地 $ git fetch origin 从新添加的远程仓库下载数据 $ git remote add teamone git://git.team1.ourcompany.com $ git fetch teamone 分化一个新的分支(使用这个命令会从服务器上下载master最新的版本，所以如果当前本地版本不是最新的，新的分支和本地分支会不同) $ git checkout -b test1 origin/master 假如你用这个新的分支进行git push，并且通过了合并，那么会在远程仓库建立一个新的同名分支删除该分支的方法 $ git push origin :test1 分支的衍合：将test1分支衍合到master主分支 $ git checkout test1 $ git rebase master 另一种方法，直接衍合，不用再先切换到test1 $ git rebase master test1 快进master分支 $ git checkout master $ git merge client 多人协作 查看远程库信息，使用git remote -v； 本地新建的分支如果不推送到远程，对其他人就是不可见的； 从本地推送分支，使用git push origin branch-name，如果推送失败，先用git pull抓取远程的新提交； 在本地创建和远程分支对应的分支，使用git checkout -b branch-name origin/branch-name，本地和远程分支的名称最好一致； 建立本地分支和远程分支的关联，使用git branch --set-upstream branch-name origin/branch-name； 从远程抓取分支，使用git pull，如果有冲突，要先处理冲突。 找到历史提交的commit ID git log --graph --pretty=oneline --abbrev-commit 创建标签 小结 命令git tag &lt;name&gt;用于新建一个标签，默认为HEAD，也可以指定一个commit id； git tag -a &lt;tagname&gt; -m &quot;blablabla...&quot;可以指定标签信息； git tag -s &lt;tagname&gt; -m &quot;blablabla...&quot;可以用PGP签名标签； 命令git tag可以查看所有标签。 git show &lt;tagname&gt;可以查看标签的详情 操作标签小结 命令git push origin &lt;tagname&gt;可以推送一个本地标签； 命令git push origin --tags可以推送全部未推送过的本地标签； 命令git tag -d &lt;tagname&gt;可以删除一个本地标签； 命令git push origin :refs/tags/&lt;tagname&gt;可以删除一个远程标签 git config --global alias.lg &quot;log --color --graph --pretty=format:&#39;%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)&lt;%an&gt;%Creset&#39; --abbrev-commit&quot; touch readme.md 基本操作刚开始，你需要选择一个目录，开始一个新的 repository。使用以下命令可以在当前目录下初始化 Git 。 git init git status 查看仓库的状态 git add 向暂存区中添加文件 git commit 保存仓库的历史记录 记录一行提交信息 $ git commit -m &quot;First Commit&quot; 记录详细提交信息请不要加-m，直接执行 git commit 命令。 $ git commit +git tracks changes of files. # Please enter the commit message for your changes. Lines starting # with &#39;#&#39; will be ignored, and an empty message aborts the commit. # On branch dev # Your branch is ahead of &#39;origin/dev&#39; by 3 commits. # (use &quot;git push&quot; to publish your local commits) # # Changes to be committed: # modified: readme.md # 在编辑器中记录提交信息 第一行：用一行文件简述提交的更改内容 第二行：空行 第三行：记录更改的原因和详细内容 在以 # 标位注释的 Changes to be committed 可以查看本次提交中包含的文件。其他信息不必修改。 终止提交请将提交信息留空并直接关闭编译器，随后提交就会被中止。 Abor11ting commit due to empty commit message. ##查看提交后的状态 执行完git commit 命令后再来查看当前状态 $ git status On branch dev nothing to commit, working tree clean 当前工作树处于刚刚提交的最新状态，所以结果显示没有更改。 git log 查看提交日志可以查看以往仓库中提交的日志。包括什么人在什么时候进行了提交或合并，以及操作后有怎样的差别。 $ git log commit d97ade219a7f50f61790a14aa40f3142a07f49ba Author: SimpleLifee &lt;824291045@qq.com&gt; Date: Sat May 20 16:47:09 2017 +0800 First Commit Commit 旁边显示的是这个提交的哈希值。这个值很重要，在后面会讲到。 Author 栏中显示的是我们给 Git 设置的用户名和邮箱。 Date 栏显示的是提交的日期和时间。 最后是提交信息。 只显示提交信息的第一行在 git log 后面加上 --pretty=short $ git log --pretty=short commit d97ade219a7f50f61790a14aa40f3142a07f49ba Author: SimpleLifee &lt;824291045@qq.com&gt; First Commit 只显示指定目录、文件的日志在 git log 后加上文件名或者目录名即可。 显示改动的文件如果想查看提交所带来的改动，可以加上 -p 参数，文件的前后差别就会显示在提交信息之后。 $ git log -p 只查看某个文件提交前和提交后的差别 $ git log -p README.md 如上， 我们不必依次记下全部参数，每当有想查看的日志就积极去查，慢慢就能得心应手了。 简要列出每个commit的内容变化$ git log --stat ##git diff 查看更改前后的差别 git diff 可以查看工作树、暂存区、最新提交之间的差别。 注意暂存区是指 git add 之后，但未 git commit 时保存在暂存区的内容。这个时候可以使用 git diff 来查看工作树和暂存区的差别。 $ git diff readme.md diff --git a/readme.md b/readme.md index 7f612d5..c4123d2 100644 --- a/readme.md +++ b/readme.md @@ -11,5 +11,5 @@ dev: other something happend. i will be fine. hah - +hey! Git! 注意，这里的 + 标出的是新添加的行，被删除的行则用 - 标出。 这时候如果使用 git add 将 README.md 加入暂存区后。工作树和正常启动内容并无差别，结果什么都不会显示。 $ git add README.md 查看工作树和最新提交的差别 当使用git add 将 README.md 加入暂存区后，要查看工作树与最新提交的差别，请使用以下命令。 $ git diff HEAD diff --git a/readme.md b/readme.md index 7f612d5..c4123d2 100644 --- a/readme.md +++ b/readme.md @@ -11,5 +11,5 @@ dev: other something happend. i will be fine. hah - +hey! Git! 不妨养成这样一个好习惯，在执行 git commit 命令之前先执行 git diff HEAD 查看本次提交与上次提交之间有什么差别，等确认完毕再进行提交。这里的 HEAD 指当前分支中最新的一次提交的指针。 分支的操作git branch 显示分支一览表这个命令会将本地的分支名列表显示，* 表示当前所在分支。 $ git branch * master git checkout -b 创建、切换分支以当前分支为基础创建新的分支，可以使用 git checkout -b命令 切换到 feature-A 分支并进行提交执行下面的命令，创建名为 feature-A $ git checkout -b feature-A Switched to a new branch &#39;feature-A&#39; 实际上，以上语句等同于 $ git branch feature-A $ git checkout feature-A 切换分支$ git checkout master ##切换回上一个分支 $ git checkout - 使用 - （连字符） 代替分支名。 特性分支顾名思义，特性分支是集中实现单一特性（主题），除此之外不进行任何作业的分支。在日常开发中，往往会创建数个特性分支，同时再保留一个随时可以发布软件的稳定分支。稳定分支一般由 master 分支担当。 只要保持这样一个开发流程，就能保证master分支可以随时供人查看。其他开发者也可以放心大胆从master分支创建新的特性分支。 ##主干分支 特性分支的原点，也是合并的终点。主干分支没有开发到一半的代码，可以随时供人查看。 主干分支可以有多个，使用 Tag 标签创建版本信息。 git merge 合并分支先切换到master，然后与 feature-A 合并 $ git merge --no-ff feature-A 以图表形式查看分支可以直观地用图表形式输出提交的日志。 $ git log --graph * commit 685c45a39c33a4777d14fb29f6f0bfb9b9920c49 |\ Merge: 6b15d42 40befaa | | Author: SimpleLifee &lt;824291045@qq.com&gt; | | Date: Sat May 20 18:04:48 2017 +0800 | | | | merge | | | * commit 40befaab3f0db6fd47e2d553b88428a4ca39e670 | |\ Merge: a0b10f9 6b15d42 | |/ Author: SimpleLifee &lt;824291045@qq.com&gt; |/| Date: Sat May 20 17:51:52 2017 +0800 | | | | fix | | 更改提交的操作git reset 回溯历史版本回溯到创建 feature-A 分支前 让仓库的HEAD、暂存区、当前的工作树回溯到指定状态。 $ git reset --hard &lt;哈希值&gt; 创建 fix-B 分支 推进至feature-A分支合并后的状态 首先回复到feature-A分支合并后的状态，可以称之为“推进历史”。 git log 只能查看以当前状态为终点的历史日志。 所以这里要使用git reflog 查看当前仓库的操作历史， 可以看到commit、checkout、reset、merge等Git命令的执行记录。 消除冲突如果系统提示我们文件发生了冲突，那么不解决冲突就无法完成合并，所以需要我们手动来解决冲突。解决完冲突文件后再执行git add 和git commit 。 修改提交信息git commit --amend git rebase -i 压缩历史在合并特性分支之前，如果发现已提交的内容中有些拼写错误，不妨提交一个修改，然后将这个修改包含到前一个提交之中，压缩成一个历史记录。这是个会经常用到的技巧。 创建 feature-C 分支首先创建 feature-C 分支，然后 add 和 commit命令。 但是没必要每次这么麻烦。 $ git commit -am &quot;Add feature-C&quot; 执行上面语句的前提是，当前工作树中没有新增的Untracked 的文件。 修正拼写错误修改错误之后，使用git diff 来查看差别。 $ git diff diff --git a/readme.md b/readme.md index 10f9ebb..3bbe2d0 100644 --- a/readme.md +++ b/readme.md @@ -1,2 +1,3 @@ C C +fix C 然后进行提交 $ git commit -am &quot;Fix Typo&quot; [C c3955c1] Fix Typo 1 file changed, 1 insertion(+) 错字漏字等失误称作typo，但是我们不希望在历史记录中看到这类提交，因为健全的历史记录不需要它们。 更改历史我们将修正的内容与之前的一次提交合并，在历史记录中合并为一次完美的提交。 $ git rebase -i HEAD~2 上面的命令，可以选定当前分支中包含HEAD ( 最新提交 ) 在内的两个最新历史记录为对象，并在编辑器中打开。 pick 695471a Add C pick 2f8a965 fix typo # Rebase 1db92da..2f8a965 onto 1db92da (2 commands) # # Commands: # p, pick = use commit # r, reword = use commit, but edit the commit message # e, edit = use commit, but stop for amending # s, squash = use commit, but meld into previous commit # f, fixup = like &quot;squash&quot;, but discard this commit&#39;s log message # x, exec = run command (the rest of the line) using shell # d, drop = remove commit # # These lines can be re-ordered; they are executed from top to bottom. # # If you remove a line here THAT COMMIT WILL BE LOST. # # However, if you remove everything, the rebase will be aborted. # # Note that empty commits are commented out 695471a我们将 2f8a965 的 fix typo 的历史记录压缩到 695471a 的 Add C里。按照下图所示，将2f8a965左侧的 pick 部分删除，改写为 fixup 。 pick 695471a Add C fixup 2f8a965 fix typo 保存编译器里的内容，关闭编辑器 [detached HEAD 5f770a9] nnnnnnnn Date: Sat May 20 22:07:28 2017 +0800 1 file changed, 1 insertion(+) Successfully rebased and updated refs/heads/C. 系统显示 rebase 成功，也就是以下面这两个提交作为对象，将 fix typo 的内容合并到了上一个提交Add C 之中，改写成一个新的提交。 695471a Add C 2f8a965 fix typo 现在查看提交日志时会发现 Add C 的哈希值以及不再是 695471a ，这证明提交已经被更改了。 $ git log --graph --oneline * 5f770a9 Add C * 1db92da haha * c1aabf4 Add B ... 这样，fix typo就从历史中被抹去了，也相当于 Add C从来没有出现过拼写错误。这算是一种良性的历史改写。 合并至master分支C 分支的使命告一段落，我们将它与master分支合并。 $ git checkout master Switched to branch &#39;master&#39; $ git merge --no-ff feature-C Merge made by the &#39;recursive&#39; strategy. a | 2 ++ readme.md | 2 ++ 2 files changed, 4 insertions(+) create mode 100644 a create mode 100644 readme.md 按照递归策略合并。 推送至远程仓库 建议在新建远程仓库的时候不要勾选自动生成README文件的选项。 添加远程仓库我们用 git remote add 命令将它设置成本地仓库的远程仓库。 $ git remote add origin git@github.com:9981NAN/9981NAN.git 这样，Git会自动将 git@github.com:9981NAN/9981NAN.git 远程仓库名称设置为 origin （ 标识符 ） 添加多个 URL 地址像上面 git remote add origin &lt;url1&gt; 添加第一个URL之后，如果想要添加多个 URL 地址，那么可以使用git remote set-url --add origin &lt;url2&gt; 添加第二个URL。 $ git remote set-url --add origin git@github.com:9981NAN/9981NAN.git 这样一来，以后每次 git push origin master 的时候，就会自动向多个远程仓库中推送了。 但是使用 git pull 时，只能拉取origin里的一个URL地址（即fetch-url，如上），这个 fetch-url 默认是你添加到origin 的第一个地址。 如果你想更改，只需要更改 config 文件里，那几个url的顺序即可。 fetch-url 会直接对应排行第一的那个url 链接。 推送至master分支如果想把当前分支下本地仓库的内容推送给远程仓库，需要用到 git push，假定我们在master分支下 $ git push -u origin master -u参数可以在推送的同时，将origin仓库的master分支设置为本地仓库当前分支的 upstream（上游）。这样一来，下次运行 git pull命令从远程仓库获取内容时，本地仓库这个分支就可以直接从origin 的master 分支获取内容，省去了另外添加参数的麻烦。 推送至master以外的分支创建其他分支 $ git checkout -b feature-D 将它push给远程仓库，并保持分支名不变 $ git push -u origin feature-D 从远程仓库获取假设现在有另一名开发者要来共同开发，在另一个目录下新建本地仓库。 git clone 获取远程仓库$ git clone git@github.com:9981NAN/9981NAN.git 注意clone的目录不要与之前操作的仓库在同一目录下 执行 git clone命令后我们会默认处于master分支下，同时系统会自动将origin设置成该远程仓库的标识符。 我们可以使用下面的命令查看本地仓库和远程仓库的分支信息。 $ git branch -a 获取远程的feature-D分支我们试着将feature-D分支获取至本地仓库。 $ git checkout -b feature-D origin/feature-D -b 参数后面是本地仓库中新建分支的名称，可以与远程仓库不同名，但是建议同名，便于理解。 向本地的feature-D分支提交更改假定我们是另一位开发者，要做一个新的提交。在修改文件内容后进行查看和提交。 $ git diff $ git commit -am &quot;Add feature-D&quot; 推送至feature-D分支在feature-D分支下直接使用 git push 即可 $ git diff git pull 获取最新的远程仓库分支回到我们刚刚放下操作的目录，这边的本地仓库中只是创建了feature-D分支，并没有在feature-D进行任何提交，而远程仓库已经有了我们刚刚推送的提交。这时候就可以用git pull ，将本地的 feature-D 分支更新到最新状态。 $ git pull origin feature-D 如果两人同时修改了同一部分的源代码，push时就很容易发生冲突。所以多名开发者在同一个分支中进行作业时，为了减少冲突的情况，建议更频繁地进行push和pull操作。 GitHub功能通过部分名称搜索文件在仓库页面按下键盘T 键，然后输入要找的文件或者目录。速度非常快。 查看差别查看分支间的差别以我的9981NAN项目为例，要比较nimon分支和yong分支的差别，可以直接在浏览器URL中输入： https://github.com/9981NAN/9981NAN/compare/nimon...yong 这样就可以查看两个分支间的差别了。 查看与几天前的差别输入下面的URL就可以查看nimon分支最近7天内的差别了。 https://github.com/9981NAN/9981NAN/compare/nimon@{7.day.ago}...nimon 类似的还有 day week month year hour 查看指定日期之间的差别https://github.com/9981NAN/9981NAN/compare/nimon@{2017-05-19}...nimon Issue通过提交信息操作Issue在项目的Issue一览表中，每一个Issue标题的下面部分都分配 “#18” 的编号。我们只要在描述信息中加入 “#18” ，就可以在Issue中显示该提交的相关信息，使关联的提交一目了然。 Close Issue如果一个处于 Open 状态的 Issue 已经处理完毕，只要在该提交中以下列任意一种格式描述提交信息，对应的 Issue 就会被 close 。 fix #18 fixes #18 fixed #18 close #18 closes #18 closed #18 resolve #18 resolves #18 resloved #18 这样我们每次提交并push之后，就不必每次都到 Issue 中寻找相应的 Issue 再手动关闭了。这是一项很实用的功能。 Issue 和 Pull Request 的编号通用。 Pull Requestconversation 引用评论，选中别人的评论后按 R 键。 在评论中应用表情，输入 “ ：” 即可选择。 Files Changed默认情况下，系统会将空格的不同也高亮显示，想要关闭之？ 在URL 的末尾添加 “ ?w=1 ” 就可以不显示空格的差异了。 将鼠标放到被更改行号的左侧，可以看到一个加号，我们可以点击这个加号在代码中插入评论。这样评论是针对哪行代码就一目了然了 PulsePulse是体现该仓库软件开发活跃度的功能，近期仓库创建了多个pull request 或 Issue，有多少人参与了这个仓库的开发。用户可以判断目前这个人间是否正在积极开发，在挑选GitHub上开发的软件时，可以作为一个重要的衡量标准。 发送Pull Request基本步骤Forkclonebranch前面两步完成之后，我们需要在特性分支中进行开发 确认分支$ git br -a * master remotes/origin/HEAD -&gt; origin/master remotes/origin/master 创建特性分支在 work 之后加上 master 表明在 master 分支的基础上创建 work 分支。 $ git checkout -b work master Switched to a new branch &#39;work&#39; 添加代码在 readme.md 文件中添加要增加的代码。 提交修改$ git commit -am &quot;Add pull request&quot; [work f3d798e] Add pull request 1 file changed, 1 insertion(+), 2 deletions(-) 创建远程分支把在本地创建的分支推送到远程仓库，如果远程仓库没有该分支，那么就创建之。 $ git push origin work Counting objects: 3, done. Delta compression using up to 8 threads. Compressing objects: 100% (2/2), done. Writing objects: 100% (3/3), 283 bytes | 0 bytes/s, done. Total 3 (delta 1), reused 0 (delta 0) remote: Resolving deltas: 100% (1/1), completed with 1 local object. To github.com:junoni/nimon.git * [new branch] work -&gt; work 在GitHub页面上创建Pull Request不进行Fork直接从分支发送Pull Request前提是拥有这个仓库编辑的权限 仓库的维护Fork 或者 clone 来的仓库，一旦放置不管就会离最新的源代码越来越远。这时候我们需要让本地仓库与源代码保持最新状态。 我们需要将原仓库设置为远程仓库，从该仓库获取fetch 数据与本地仓库进行合并 merge 。 Fork 与 clone给原仓库设置名称$ git remote add upstream git@github.com:SimpleLifee/nimon.git 这样，我们这个仓库将以upstream作为原仓库的标识符。这个环境下只需要设定一次。 可以下面的命令查看 $ git remote -v origin git@github.com:junoni/nimon.git (fetch) origin git@github.com:junoni/nimon.git (push) upstream git@github.com:SimpleLifee/nimon.git (fetch) upstream git@github.com:SimpleLifee/nimon.git (push) 获取最新数据要让仓库维持最新状态，只需要重复这一工作即可。 $ git fetch upstream remote: Counting objects: 14, done. remote: Compressing objects: 100% (7/7), done. remote: Total 14 (delta 3), reused 14 (delta 3), pack-reused 0 Unpacking objects: 100% (14/14), done. From github.com:SimpleLifee/nimon * [new branch] dev -&gt; upstream/dev * [new branch] feature-A -&gt; upstream/feature-A * [new branch] master -&gt; upstream/master 接受 Pull Request采纳 Pull Request 之前的准备将接受方的本地仓库更新至最新状态获取发送方的远程仓库$ git remote add PR发送者 git@github.com:junoni/nimon.git 查看添加后的情况 $ git remote -v PR发送者 git@github.com:junoni/nimon.git (fetch) PR发送者 git@github.com:junoni/nimon.git (push) origin git@github.com:SimpleLifee/nimon.git (fetch) origin git@github.com:SimpleLifee/nimon.git (push) 接着进行fetch $ git fetch PR发送者 remote: Counting objects: 32, done. remote: Compressing objects: 100% (18/18), done. remote: Total 32 (delta 14), reused 26 (delta 8), pack-reused 0 Unpacking objects: 100% (32/32), done. From github.com:junoni/nimon * [new branch] dev -&gt; PR发送者/dev * [new branch] master -&gt; PR发送者/master * [new branch] work -&gt; PR发送者/work 现在我们获取了Pull Request 发送仓库以及分支的数据（PR发送者/work） 创建用于检查的分支前面我们只获取了远程仓库的数据，这些数据尚未反映在任何一个分支中。因此我们需要创建一个分支，用于模拟采纳 Pull Request 后的状态。由于这是我们第一个 Pull Request ，分支名就叫 pr1 。 $ git checkout -b pr1 Switched to a new branch &#39;pr1&#39; 合并下面要将已经 fetch 完毕的 “PR发送者/work ” 的修改内容与 pr1 分支进行合并 $ git merge PR发送者/work 这时候我们需要检查一下合并的情况。 删除分支检查结束后pr1 分支就没用了，可以直接删除。我们需要先切换到 pr1 之外，例如 master $ git checkout master Previous HEAD position was f3d798e... Add pull request Switched to branch &#39;master&#39; Your branch is ahead of &#39;origin/master&#39; by 12 commits. (use &quot;git push&quot; to publish your local commits) 这时候，Git 提醒我们当前 master 分支已经比远程仓库多出 12 个新提交了，并建议我们使用 git push 向远程仓库推送新的提交。 之后我们进行删除分支。 $ git branch -D pr1 Deleted branch pr1 (was 685c45a). 采纳 Pull Request我们可以打开浏览器找到相应的 Pull Request 页面，点击 merge pull request按钮，随后Pull Request的内容就会自动合并至仓库。 不过我们已经在本地构筑了相同的环境，只要通过 CLI 进行合并操作后再 push 至 Github，就可以完成Pull Request。 合并到主分支首先我们切换到 master 分支上 $ git checkout master 然后合并 PR发送者/work $ git merge PR发送者/work Push 修改内容先查看本地仓库和远程 GitHub端仓库库代码的差别 $ git diff origin/master 确认没有目的之外的差别后，进行push $ git push Counting objects: 10, done. Delta compression using up to 8 threads. Compressing objects: 100% (7/7), done. Writing objects: 100% (10/10), 1.05 KiB | 0 bytes/s, done. Total 10 (delta 3), reused 0 (delta 0) remote: Resolving deltas: 100% (3/3), completed with 1 local object. To github.com:SimpleLifee/nimon.git 8caf54d..067a3c8 master -&gt; master 这样，仓库的 Pull Request会自动从 Open 状态变为 Close 状态。 至此，Pull Request 的操作都介绍完了。 Hub命令安装如果使用Homebrew $ brew install hub 然后，在shell的环境路径后面添加 ~/bin 。 $ echo &#39;export PATH=&quot;~/bin:$PATH&quot;&#39; &gt;&gt; ~/.bash_profile 重新启动shell，就可以使用hub命令了。 确认运行情况$ hub --version git version 2.11.0 (Apple Git-81) hub version 2.2.9 设置别名使用hub命令的最佳实践是将相应的 git 设置成 hub 的别名。hub 命令可以完成 git 命令的所有操作，只需要在 shell 的配置文件中（.bash_profile） 添加下面一句即可。 eval &quot;$(hub alias -s)&quot; ~/.config/hubhub 命令在初次访问 GitHub 的 API 的时候会询问用户名和密码。 $ cat ~/.config/hub github.com: - user: SimpleLifee oauth_token: 5cb6fb57b65693dac153bf2c61dd642a916b268b protocol: https 命令hub clone使用 hub clone 命令，可以省去指定 GitHub 端仓库的部分 $ hub clone nimon 上面这个命令与下面的命令效果相同。 $ git clone git@github.com/SimpleLifee/nimon.git 如果要指定用户，可以输入以下命令。 $ hub clone junoni/nimon 上面这个命令与下面的命令效果相同。 $ git clone git@github.com/junoni/nimon.git hub remote add$ hub remote add junoni 等同于 $ git remote add junoni git://github.com/junoni/nimon.git hub fetch类似于 hub remote add hub cherry-pickhub cherry-pick 只需要输入 URL 就可以获取对应的修改并应用到当前分支。 $ hub cherry-pick https://github.com/SimpleLifee/SimpleLifee.github.io/commit/647c558f5b3767c2995dda5ddd5663d0466ed4dd 这个命令可以将下面两个命令的效果一次性执行 $ git remote add -f SimpleLifee git@github.com:SimpleLifee/SimpleLifee.github.io.git $ git cherry-pick 647c558f5b3767c2995dda5ddd5663d0466ed4dd hub forkhub fork 命令的功能与 GitHub 页面的 Fork 按钮相同，比如我们 clone 了其他用户的仓库，现在想 Fork 成自己的仓库，只需要执行 $ hub fork 这一命令，就可获得与下面这一系列操作相同的效果 (在 GitHub 对仓库做 Fork 处理) $ git remote add -f 用户名 git@github.com:当前操作仓库的名字.git 执行完毕后，Fork 出的仓库会被设置成当前本地仓库的远程仓库（以用户名为标识符） hub pull-request]]></content>
-      <tags>
-        <tag>git</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[搭建个人博客 - Hexo]]></title>
-    <url>%2F2017%2F05%2F06%2F00001-Blog-2017-05-05-hexo%2F</url>
-    <content type="text"><![CDATA[今天，是你未来所有剩余的日子中，最早的一天 ——stormzhang 背景 个人博客地址：http://nijun.me 我为什么要写这篇文章？是因为大学三年了，感觉学了这么多知识，但是并没有真正地去消化和总结过，最近又看到了stormzhang大神写的这篇我为什么坚持写博客？。我真的感触很深，以前花了很多时间学的东西，不久之后便会印象模糊，想要回忆的时候，又不能快速找到。所以我决定从今天开始写博客，总结和梳理自己的知识。 stormzhang在他的文章里推荐了hexo，基于Node框架，可以和Github Pages结合起来搭建个人博客。而且主题样式非常多，可以自己选择搭配的东西很多。当我第一次把博客跑起来的时候，真的惊呆了，没想到个人博客也可以这么轻松的搭建。我用了五一这个假期，自己动手搭建了现在您正看到的这个博客，虽然现在很粗糙，但是我会不断的学习和优化它的。 Hexo什么是HexoHexo是一个快速，简单和强大的博客框架。可以使用Markdown进行写作，Hexo会在几秒钟内生成具有美丽主题的静态文件。 安装要求这里具体的操作步骤可以到hexo官网。 Node.js Git 如果已经装好了这些，那么我们现在就开始吧！ 第一步一旦安装了所有要求，可以用npm安装Hexo。 $ npm install hexo-cli -g //在本地安装hexo的环境 第二步首先选择一个目录作为hexo博客的根目录，使用git bash cd到这个目录，然后输入 $ hexo init &lt;folder&gt; //推荐 ，这里的folder参数如果指定，便会在终端当前的资料夹建立一个名为 folder 的新资料夹； $ hexo init //直接使用当前目录初始化 完成后 $ cd folder $ npm install //在当前目录下安装hexo核心文件 $ npm install hexo --no-optional --save 这样就安装完成了。这时候可以看到floder文件夹下具有这些子目录 . ├── _config.yml 站点配置文件 ├── package.json ├── scaffolds 存放模板的地方 ├── source 原文件夹，存放网站内容 | ├── _drafts 存放临时草稿文件的地方 | └── _posts 已经发布的文章 └── themes 主题文件夹 source中带有前缀_(下划线)的文件夹，在generate的时候会渲染到public目录中，其他的文件夹和文件仅仅被简单地复制到public中。 在floder目录下，有一个_config.yml，这个文件是整个网站的核心配置文件，由于后面主题文件夹中也有一个同名的配置文件，为了区分，网站的核心配置文件就叫做站点配置文件，主题中的叫做主题配置文件。 打开站点配置文件,可以看到Site标签，这是我的配置。 # Site title: SimpleLifee #网站标题 subtitle: code, mylife #网站副标题 description: start from zero #网站描述 author: Nimon #你的名字 language: zh-Hans #语言， timezone: Asia/Shanghai #时区 还有Deployment标签，与Github Pages进行关联 # Deployment ## Docs: https://hexo.io/docs/deployment.html deploy: type: git repo: git@github.com:SimpleLifee/SimpleLifee.github.io.git branch: master 其中type必须填git，repo填写你在git上创建的库的ssh地址，或者https地址。注意如果是https的那么以后每次deploy的时候都要求你输入用户名和密码,如果改成ssh并且你没有给你的id_rsa设置密码（空密码也一样）的话，就不用每次都输入密码了。 $ ssh-keygen -p -f /root/.ssh/id_dsa -N &#39;&#39; 如果你之前设置了密码，那么使用这条命令就可以更改你的私钥的密码了。参考superuser 命令写作$ hexo new [layout] &lt;title&gt; 创建一个新文章，layout可以有三个参数post、page、draft, hexo 会在 Scaffold 文件夹下寻找你写的 layout.md 文件模板来建立文件。如果 title 包含空格，请用引号括起来。 文件名称在站点配置文件中Writing 标签下添加 new_post_name: :year-:month-:day-:title.md 其中 :month 和 :i_month 的区别在于 前者有前导零 （比如 04 ） 草稿如果创建新文章的时候，指定了 draft 参数，那么就是保存到 source/_drafts 文件夹中，可以使用下面的语句，将草稿移动到 source/_posts文件中。 $ hexo publish [layout] &lt;filename&gt; 发布草稿变成正式文章。一般filename写你的草稿文件的名字，layout写post 模版（Scaffold）在新建文章时，Hexo 会根据 scaffolds 文件夹内相对应的文件来建立文件，例如： $ hexo new photo &quot;My Gallery&quot; 在执行这行指令时，Hexo 会尝试在 scaffolds 文件夹中寻找 photo.md，并根据其内容建立文章 变量 描述 layout 布局 title 标题 date 文件建立日期 布局（Layout）Hexo 有三种默认布局：post、page、draft，它们分别对应不同的路径，自定义的其他布局和 post 相同，都将储存到 source/_posts 文件夹。 布局 路径 post source/_posts page source draft source/_drafts 不要处理我的文章可以在Front-Matter 中的layout: 设为 false。 Front-matterFront-matter 是文件最上方以 — 分隔的区域，用于指定个别文件的变量，例如 title: Hello World date: 2017/5/1 20:46:25 --- 也可以使用JSON 格式，只需要把 — 换成 ;;; &quot;title&quot;: &quot;Hello World&quot;, &quot;date&quot;: &quot;2017/5/1 20:46:25&quot; ;;; Front-matter的参数列表 参数 描述 默认值 layout 布局 title 标题 date 建立日期 文件建立日期 updated 更新日期 文件更新日期 comments 开启文章的评论功能 true description 文章的描述 tags 标签（不适用于分页） categories 分类（不适用于分页） permalink 覆盖文章网址 分类和标签tags: - List - Dictionary - ArraryList - hashtable - Stack - Queue 或者 tags: [Python, Javascript, Hexo] 引用块（Block Quote）模板如下 {% blockquote [author[, source]] [link] [source_link_title] %} content {% endblockquote %} 例如 {% blockquote stormzhang %} 今天，是你未来所有剩余的日子中，最早的一天 {% endblockquote %} 今天，是你未来所有剩余的日子中，最早的一天 stormzhang 代码块（Code Block）模板如下 {% codeblock [title] [lang:language] [url] [link text]%} code snippet {% endcodeblock %} 例如： {% codeblock main.java lang:java http://www.runoob.com/java/java-tutorial.html Java%} public static void main(String []args){ } {% endcodeblock %} public static void main(String []args){ } 醒目引文（Pull Quote）{% pullquote [class] %} something important {% endpullquote %} 如下 something important 图片（Image）有两种方式，一种是markdown格式的 ![](/images/avatar.jpg) 另一种是hexo支持的格式 {% img [class names] /path/to/image [width] [height][title text [alt text]] %} 链接（Link）在文章中插入链接，并自动给外部链接添加 target=”_blank” 属性。 {% link text url [external] [title] %} {% link 谷歌 http://www.google.com google %} 如谷歌 外部引用（Include Code）可以引入其他文件中的代码，例如下面语句 {% include_code [title][lang:language] path/to/file %} hexo支持的语法还有很多，如jsFiddle、Gist、iframe、Youtube、Vimeo等等，有需要的建议自行查阅官方文档 服务器安装与使用要使用hexo的服务器，首先要安装 npm install hexo-server –save 安装完成后，默认在 http://localhost:4000 下启动。在服务器启动期间，Hexo 会监视文件变动并自动更新，无须重启服务器。 $ hexo server -p 5000 //启动服务器， 可以简写 hexo s 参数 -p 覆盖默认端口，参数 -w 查看文件改动看到下面的信息，说明已经成功，可以查看你的博客了。 静态模式在静态模式下，服务器只处理 public 文件夹内的文件，而不会处理文件变动，一般性用于你正在写博客的情况下。 $ hexo server -s 生成文件(Generating)$ hexo generate 生成静态文件，参数 -d 生成完成后部署，参数 -w 查看文件改动，下面两种写法都一样 $ hexo g -d $ hexo d -g 监视文件变动$ hexo generate --watch Hexo 能够监视文件变动并立即重新生成静态文件，在生成时会比对文件的 SHA1 checksum，只有变动的文件才会写入。 部署（Deployment）$ hexo deploy 部署你的网站，在使用之前，需要在站点配置文件 进行配置。可以有多个deployer deploy: - type: git repo: - type: heroku repo: 缩进 YAML依靠缩进来确定元素间的从属关系。因此，请确保每个deployer的缩进长度相同，并且使用空格缩进。 Git部署提示找不到Git , 直接使用这个命令从 hexo-deployer-git 上安装git的部署插件 $ npm install hexo-deployer-git --save 修改配置。deploy: type: git repo: &lt;repository url&gt; branch: [branch] message: [message]​ 参数 描述 repo 库（Repository）地址 branch 分支名称。如果您使用的是 GitHub 或 GitCafe 的话，程序会尝试自动检测。 最好填ssh，这样就每次deploy的时候都要输入密码了。 message 自定义提交信息 (默认为 Site updated: { { now(&#39;YYYY-MM-DD HH:mm:ss&#39;) }}) 其他其他部署方案，可以参见官方文档 $ hexo clean 清除缓存文件（db.json）和生成的文件（public） $ hexo list &lt;type&gt; type 可以是page, post,route, tag, category $ hexo version 显示版本信息 $ hexo --config custom.yml $ hexo --config custom.yml，custom2.json 使用自定义配置文件（而不是_config.yml），还可以接受将文件合并为一个的JSON或YAML配置文件的逗号分隔列表（无空格） 自动更新文件 $ hexo g //也可以这样写hexo generate 部署到git $ hexo d 一般可以这样简写，就是说在部署到git之前，先进行更新 $ hexo d -g 可以查看hexo的版本 hexo -v 这时候万一遇到这个错误 ERROR Deployer not found: git 试试 $ npm install hexo-deployer-git --save $ npm install hexo --save 如果是下面这个问题： { [Error: Cannot find module &#39;./build/Release/DTraceProviderBindings&#39;] code: &#39;MODULE_NOT_FOUND&#39; } { [Error: Cannot find module &#39;./build/default/DTraceProviderBindings&#39;] code: &#39;MODULE_NOT_FOUND&#39; } { [Error: Cannot find module &#39;./build/Debug/DTraceProviderBindings&#39;] code: &#39;MODULE_NOT_FOUND&#39; } 那就 npm install hexo --no-optional NexT如果你熟悉 Git， 建议你使用 克隆最新版本 的方式，之后的更新可以通过 git pull 来快速更新， 而不用再次下载压缩包替换。 下载主题 $ cd your-hexo-site $ git clone https://github.com/iissnan/hexo-theme-next themes/next 启用主题与所有 Hexo 主题启用的模式一样。 当 克隆/下载 完成后，打开 站点配置文件， 找到theme字段，并将其值更改为next。 theme: next 到此，NexT 主题安装完成。下一步我们将验证主题是否正确启用。在切换主题之后、验证之前， 我们最好使用 $ hexo clean 来清除 Hexo 的缓存。 一些好用的插件hexo可视化后台管理，很方便 - hexo-hey在 hexo 中无痛使用本地图片 - hexo-asset-image备份整个博客包括主题 - hexo-git-backup 参考网易云音乐 - Hexo中播放网易云音乐的实践网易云音乐 - GitHub Ribbons字数统计WordCount 、阅读时长预计Min2Read、总字数统计TotalCount - hexo-wordcount]]></content>
-      <categories>
-        <category>技术</category>
-      </categories>
-      <tags>
-        <tag>技术</tag>
-      </tags>
-  </entry>
+<search> 
+  
+    
+    <entry>
+      <title><![CDATA[可以知道滑动方向的 ViewPager]]></title>
+      <url>/2017/08/04/smartviewpager/</url>
+      <content type="html"><![CDATA[<p>做项目的时候使用到 ViewPager，那么顺便总结一下它的 OnPageChangeListener 监听器。随便撸了个可以判断滑动方向的 ViewPager。欢迎来提Issue。</p>
+<p>OnPageChangeListener的有三个回调接口，按照执行顺序分别是：</p>
+<pre><code>/**
+* 响应触摸事件，页面的滑动状态
+* @param state SCROLL_STATE_IDLE -&gt; SCROLL_STATE_DRAGGING -&gt; 
+* SCROLL_STATE_SETTLING -&gt; SCROLL_STATE_IDLE
+*/
+@Override
+public void onPageScrollStateChanged(int state) {
+    ...
+}
+</code></pre><p>state 有三个状态值，0、1、2 分别代表初始空闲状态、正在滑动、滑动完成。</p>
+<pre><code>/**
+* 当正在滑动的时候，会连续调用。
+* @param position  当前你滑动的页面，第一个页面的值为 0
+* @param positionOffset 当前页面偏移的百分比
+* @param positionOffsetPixels 当前页面的偏移像素
+*/
+@Override
+public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+    ...     
+}
+</code></pre><p>这个回调会在滑动的时候多次调用。</p>
+<pre><code> /**
+ * 页面移动完毕后调用
+ * @param position 当前移动完毕后的页面，第一个页面的值为 0
+ */
+    @Override
+ public void onPageSelected(int position) {
+        System.out.println(&quot;onPageSelected 当前 position:&quot;+position);
+ }
+</code></pre><hr>
+<p>所以，当发生滑动操作的时候，执行顺序如下：</p>
+<p>① 你把手接触屏幕刚进行滑动</p>
+<p>② onPageScrollStateChanged#state = 1</p>
+<p>③ onPageScrolled (int position, float positionOffset, int positionOffsetPixels)</p>
+<p>这个方法会执行多次，以当前页面为基准。下面具体解释一下：</p>
+<p>▼向右滑动 ( 向前一个页面 ) </p>
+<p>​        ▶ position ： position = curPosition - 1;  //当前位置减 1</p>
+<p>​        ▶ positionOffset ：从 1 到 0；//偏移的百分比</p>
+<p>​        ▶ positionOffsetPixels：从屏幕像素最大值到 0；//偏移的像素值</p>
+<p>▼向左滑动 ( 向后一个页面 ) position = curPosition + 1;</p>
+<p>​        ▶position ： position = curPosition + 1;</p>
+<p>​        ▶positionOffset ：从 0 到 1；</p>
+<p>​        ▶positionOffsetPixels：从屏幕像素最小值到 1；</p>
+<p>④ 你松手了</p>
+<p>⑤ onPageScrollStateChanged#state = 2</p>
+<p>⑥ onPageSelected</p>
+<p>⑦ onPageScrolled 参照第 3 点，不过这时候方向已经确定了，只是不断向这个方向的最值改变。</p>
+<p>⑧ onPageScrollStateChanged#state = 0</p>
+<h3 id="position-的总结："><a href="#position-的总结：" class="headerlink" title="position 的总结："></a>position 的总结：</h3><p>onPageScrolled中的position的变化规律是，假设有3个page，当前正在第二个页面，如果这时你往右（向第一个页面）滑动，那么position的值就是 0 ，position + 1就是1。position + 1 指的是下一个即将滑动到的页面索引。所以这时手不松开向左滑动超过原来第二个页面的位置，这时 position 的值就会变成 1 ，而 position + 1 就变成了 2。</p>
+<p>一般情况下，我们在 onPageScrolled 中可以根据手势对 UI 的进行相应变化。</p>
+<p>我写了个ViewPager类，可以获取到当前是向左滑动还是向右滑动，只要在回调函数中进行相应的判断和操作即可。</p>
+<pre><code class="java">/**
+ * @创建者 倪军
+ * @创建时间 2017/8/4
+ * @描述 可以判断 ViewPager 滑动的方向。
+ */
+
+public class SmartViewPager extends ViewPager {
+
+    private boolean directionLeft = false;
+    private boolean directionRight = false;
+    private boolean isCompleted = true;
+    private int currentPosition = -1;
+
+    onPageChangeListener onPageChangeListener ;
+
+    public SmartViewPager(Context context) {
+        super(context);
+        init();
+    }
+
+    public SmartViewPager(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        init();
+    }
+
+    public void init() {
+        addOnPageChangeListener(listener);
+    }
+
+    OnPageChangeListener listener = new OnPageChangeListener() {
+        @Override
+        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            //说明是第一次
+            if (!isCompleted) {
+                if (currentPosition == -1) {
+                    if (position == 0 || positionOffset == 0.0f || positionOffsetPixels == 0) {
+                        directionLeft = true;
+                    } else {
+                        directionRight = true;
+                    }
+                    currentPosition = position;
+                } else {
+                    clearState();
+                    if (positionOffset &gt; 0 &amp;&amp; currentPosition == position) {
+                        directionRight = true;
+                        if (position &lt; currentPosition) {
+                            directionLeft = true;
+                        }
+                    } else if (positionOffset &gt; 0) {
+                        directionLeft = true;
+                        if (position == currentPosition) {
+                            directionRight = true;
+                        }
+                    }
+                }
+            }
+
+            if (isCompleted) {
+                //滑动完成了
+                if (getAdapter() != null) {
+                    //adapter不为null
+                    if (currentPosition == 0) {
+                        //说明是第一页
+                        if (currentPosition == position) {
+                        }
+                        if(position &gt;currentPosition){
+                            directionRight = true;
+                        }
+                    } else if (currentPosition &lt; getAdapter().getCount()-1) {
+                        //中间部分
+                        if(position == currentPosition){
+                        }
+                        if(position &lt; currentPosition){
+                            directionLeft =true;
+                        }
+                        if(position &gt;currentPosition){
+                            directionRight = true;
+                        }
+                    }else{
+                        //最后一页
+                        if(position==currentPosition){
+                        }
+                        if(position&lt;currentPosition){
+                            directionLeft =true;
+                        }
+                    }
+                }
+                currentPosition = position;
+            }
+        }
+
+        @Override
+        public void onPageSelected(int position) {
+
+        }
+
+        @Override
+        public void onPageScrollStateChanged(int state) {
+            System.out.println(&quot;onPageScrollStateChanged current state:&quot; + state);
+            if (state == 1) {
+                isCompleted = false;
+            } else if (state == 2) {
+                isCompleted = true;
+
+            } else {
+                onPageChangeListener.onPagechanged(directionLeft,directionRight);
+                Log.d(&quot;SmartViewPager&quot;, &quot;custom onPageChangeListener is called.&quot;);
+            }
+        }
+    };
+
+    public boolean isDirectionLeft() {
+        return directionLeft;
+    }
+
+    public boolean isDirectionRight() {
+        return directionRight;
+    }
+
+    public void clearState() {
+        directionLeft = false;
+        directionRight = false;
+    }
+
+
+    public interface onPageChangeListener{
+         void onPagechanged(boolean directionLeft,boolean directionRight);
+    }
+
+    public void setOnPageChangeListener(onPageChangeListener onPageChangeListener){
+        this.onPageChangeListener = onPageChangeListener;
+    }
+}
+</code></pre>
+<p>附上 GitHub 地址：<br><a href="https://gist.github.com/SmartNJ/00234d5f7ca3bb203788b4644887763f" target="_blank" rel="external">https://gist.github.com/SmartNJ/00234d5f7ca3bb203788b4644887763f</a></p>
+]]></content>
+      
+        
+        <tags>
+            
+            <tag> Android </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Viewholder中为什么要使用SparseArray对View进行存储？]]></title>
+      <url>/2017/08/04/SparseArray-ArrayMap/</url>
+      <content type="html"><![CDATA[<p>最近项目时，设计 ViewHolder 时用到了 SparseArray，为什么一定要用这个呢？ SparseArray 有什么优点吗？</p>
+<p>private SparseArray<view> mViews; </view></p>
+<p>使用SparseArray保存View。</p>
+<p> SparseArray 比 HashMap更省内存。为什么？</p>
+<p>参考：<a href="http://blog.csdn.net/u010687392/article/details/47809295" target="_blank" rel="external">http://blog.csdn.net/u010687392/article/details/47809295</a></p>
+<hr>
+<h1 id="Hashmap"><a href="#Hashmap" class="headerlink" title="Hashmap"></a>Hashmap</h1><p>Hashmap内部默认使用一个容量16的数组来存储数据，而数组中每个元素又是一个链表的头结点。也就是说，Hashmap内部是使用哈希表的拉链结构（数组+链表），也叫做拉链法：</p>
+<p><img src="http://osoa5juml.bkt.clouddn.com/image/site/1501826801083.png" width="528"></p>
+<p>每个结点是一个Entry，Entry的内部的属性：</p>
+<pre><code>final K key; 
+
+V value; 
+
+final int hash; 
+
+HashMapEntry&lt;K, V&gt; next;
+</code></pre><p>这些Entry数据是按什么规则进行存储的？</p>
+<p>通过key计算hash值，然后对HashMap中的数组长度取余得到该元素的存储位置，  hash(key) % len。</p>
+<p>拉链法解决了元素冲突的问题，后一个元素不会覆盖前一个元素。</p>
+<p>解决hash冲突的方法还有：</p>
+<p>1、开放地址法</p>
+<p>2、再哈希法</p>
+<p>3、链地址法</p>
+<p>4、建立公共溢出区</p>
+<p>HashMap的默认容量是16，我们创建一个新的HashMap，即使里面没有数据，也会占用16个数据的内存。如果不断往里面put东西，容量到达一个值时就会扩容，这个值怎么算？  答 ：当前容量 * 加载因子（HashMap默认是0.75）。 根据源码，它一定会扩大为原来的两倍。</p>
+<pre><code>int newCapacity = oldCapacity * 2;
+</code></pre><p>所以说，只要满足条件就会扩容，如果数据量很大，就需要不算扩容（而且是2倍），加上计算hash值的消耗，会对内存空间造成很大的消耗和浪费。</p>
+<p>HashMap是通过遍历entry[]数组来得到对应的元素，数据量一大就会比较慢。</p>
+<h1 id="SparseArray"><a href="#SparseArray" class="headerlink" title="SparseArray"></a>SparseArray</h1><p>SparseArray能避免对key的自动装箱（比如 int 转为 Integer），内部是通过两个数组来存储数据。注意这里key只能是int类型的。</p>
+<pre><code>private int[] mKeys; 
+
+private Object[] mValues;
+</code></pre><p>SparseArray在读取和存放数据的时候，是使用二分查找法</p>
+<pre><code>public void put(int key, E value) {
+      int i = ContainerHelpers.binarySearch(mKeys, mSize, key); 
+      … 
+} 
+public E get(int key, E valueIfKeyNotFound) {
+      int i = ContainerHelpers.binarySearch(mKeys, mSize, key); 
+      … 
+}
+</code></pre><p>Put的时候会使用二分查找法，对当前添加的元素和之前已添加的元素的key进行比较，然后从小到大排序。所以SparseArray存储的元素都是按元素的key值从小到大排序好的。</p>
+<p>获取的时候也使用二分查找法，比HashMap快得多，HashMap是通过遍历entry数组来获取元素的。</p>
+<p>添加数据</p>
+<pre><code>public void put(int key, E value)
+</code></pre><p>删除数据</p>
+<pre><code>public void remove(int key)
+</code></pre><p>或者</p>
+<pre><code>public void delete(int key)
+</code></pre><p>remove内部就是调用delete来删除的。</p>
+<p>获取数据</p>
+<pre><code>public E get(int key)
+</code></pre><p>或者</p>
+<pre><code>public E get(int key, E valueIfKeyNotFound)
+</code></pre><p>如果key不存在就会返回valueIfKeyNotFound。</p>
+<p>特有方法</p>
+<pre><code>public int keyAt(int index)
+
+和
+
+public E valueAt(int index)
+</code></pre><p>SparseArray      应用场景<br>虽说SparseArray的性能比较好，但是由于每次增加、修改、删除都需要进行一个二分查找，所以一旦数据量大了，性能提升的并不明显，降低至少50%。</p>
+<p>满足下面两个条件我们可以使用SparseArray代替HashMap：</p>
+<ol>
+<li>数据量不大，最好在千级以内</li>
+<li>key必须为int类型</li>
+</ol>
+<p>这样，把HashMap替换成SparseArray比较好。</p>
+<h1 id="ArrayMap"><a href="#ArrayMap" class="headerlink" title="ArrayMap"></a>ArrayMap</h1><p>ArrayMap是一个<key,value>映射的map数据结构，SparseArray是数组结构，基本和SparseArray一样。</key,value></p>
+<p>ArrayMap应用场景</p>
+<p>满足下面两个条件我们可以使用ArrayMap代替HashMap：</p>
+<ul>
+<li>数据量不大，最好在千级以内</li>
+<li>数据结构类型为Map类型</li>
+</ul>
+<p>注意这个类在API 19之后才能用，若要兼容之前版本，需要导包：</p>
+<p>import android.support.v4.util.ArrayMap;</p>
+<h3 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h3><p>SparseArray 和 ArrayMap 如何选择？</p>
+<p>假设数据量都在千级以内的情况下：</p>
+<p>1、如果key的数据类型确定为int类型，那么使用SparseArray，因为它避免了自动装箱，如果key为long，它还提供了一个LongSparseArray来确保key为long类型时的使用。</p>
+<p>2、如果key类型为其它的类型，则使用ArrayMap。</p>
+]]></content>
+      
+        
+        <tags>
+            
+            <tag> Android </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[OverLoading（ 重载 ）和 Overriding（ 重写 ）的区别]]></title>
+      <url>/2017/08/02/overriding-overloading/</url>
+      <content type="html"><![CDATA[<a id="more"></a>
+<p>1、方法重载发生在编译期，方法重写发生在运行期：也就是说方法重载的方法调用绑定发生在编译期，方法重写的方法调用绑定发生在运行期。</p>
+<p>2、静态方法可以被重载，意味着一个类可以有多个同名的静态方法。静态方法不能被重写，即使你在子类定义了相同的静态方法，那么对于父类的静态方法来说没有任何影响。</p>
+<p>3、最基本的不同在于方法重载是在同一个类中完成的，而方法重写是需要由子类完成，方法重写最常用于为父类继承过来的方法提供一个特定的实现。</p>
+<p>4、静态绑定被用于方法重载，动态绑定被用于方法重写。性能：因为方法重载在编译器就完成了操作，而方法重写在运行期完成，所以方法重载比方法重写的性能更好。</p>
+<p>5、private 和 final 方法可以被重载但不能被重写。这意味着一个类可以有多于一个的 private/final 方法，但是子类不能重写这些方法。</p>
+<p>6、方法重载不关心返回值的类型，可以相同也可以不同。然而方法重写的重写方法可以有多个具体的返回值。</p>
+<p>7、方法重载的参数列表是不同的，方法重写的参数列表是相同的。</p>
+<p>8、方法重载其实不属于 “ 面向对象编程 ”，重载的实现是：编译器根据函数不同的参数列表，对同名函数的名称做修饰，然后这些同名函数就成了不同的函数（ 至少对于编译器来说是这样的 ）。也就是说，重载的方法的地址在编译器就绑定了（ 前期绑定 ），因此，重载与多态无关。</p>
+<p>真正和多态相关的是 “ 覆盖 ” ，也就是方法重写。当子类重新定义父类的函数后，子类将自己的类型传递给父类后，父类动态调用属于子类的该函数，这样的函数调用再编译器是无法确定的（ 调用子类的的函数地址无法给出 ）。因此，这样的函数地址是在运行期绑定的。</p>
+]]></content>
+      
+        
+        <tags>
+            
+            <tag> Java </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[温故而知新——封装继承多态]]></title>
+      <url>/2017/07/30/encapsulation-inheritance-polymorphism/</url>
+      <content type="html"><![CDATA[<blockquote>
+<p>面向对象的三个基本特征是：封装、继承、多态。这是我对这三个特征的一些总结，希望能帮助大家复习一下。</p>
+</blockquote>
+<h1 id="什么是封装-？"><a href="#什么是封装-？" class="headerlink" title="什么是封装 ？"></a>什么是封装 ？</h1><p>封装通过合并特征和行为来创建新的数据类型，并隐藏实现细节（私有化），把接口和实现分离开来，使得代码模块化。</p>
+<h1 id="什么是继承-？"><a href="#什么是继承-？" class="headerlink" title="什么是继承 ？"></a>什么是继承 ？</h1><p>一句话解释就是：继承可以扩展已存在的代码模板（类）。继承和封装有一个共同的目的——代码重用。</p>
+<p>除了修饰为 private 和 final 的，子类是继承不了的之外，构造器也是不能被继承的。对于构造器而言，它只能够被调用（ super() ），而不能被继承。</p>
+<p>子类会默认调用父类的构造器。如果父类没有默认的构造器，子类必须显示地指定父类的构造器，而且必须是在子类构造器中做的第一件事（第一行代码）。</p>
+<p>要实现继承，可以通过 “ 继承 ” 或 “ 组合 ” 来实现。</p>
+<p>继承是一种强耦合关系，当考虑要不要继承的时候，先问自己子类是否需要向上转型到父类。如果必须向上转型，则继承是必要的，但是如果不需要，则应当好好考虑是否需要继承。</p>
+<p>继承允许将对象视为自己本身的类型或其基类型来加以处理（ 向上转型 ）。也就是说继承允许将多种类型（ 同一父类导出的 ）视为同一类型来处理。这为多态提供了前提条件。接下来我们来看看多态。</p>
+<h1 id="什么是多态-？"><a href="#什么是多态-？" class="headerlink" title="什么是多态 ？"></a>什么是多态 ？</h1><blockquote>
+<p>“不要犯傻，如果它不是后期绑定，它就不是多态。” ——Bruce Eckel</p>
+</blockquote>
+<p>多态通过分离做什么和怎么做，从另一个角度将接口和实现分离开来。多态的作用是消除类型之间的耦合关系。多态的目的——接口重用。</p>
+<p>多态的实现条件？</p>
+<p>✔继承/接口✔重写✔向上转型</p>
+<p>在继承的基础上，多态允许一种类型表现出与其他相似类型之间的区别，只要它们都是从同一基类导出的。通过对同一个基类方法的调用，表现出不同的行为。</p>
+<p>例如，Shape 类有三个具体子类 Circle、Square、Triangle。他们都具体实现了父类的 draw() 方法。将其中一个子类对象的引用传递给父类对象（ 这里会发生向上转型 ），调用父类对象的 draw() 方法，就会表现出子类对象的具体行为。这是多么的神奇啊！</p>
+<p>继承是单继承，接口是多继承多实现。实际上，接口与多态有更广泛的应用。</p>
+<p>为什么重载不行？</p>
+<p>方法重载其实不属于 “ 面向对象编程 ”，重载的实现是：编译器根据函数不同的参数列表，对同名函数的名称做修饰，然后这些同名函数就成了不同的函数（ 至少对于编译器来说是这样的 ）。也就是说，重载的方法的地址在编译器就绑定了（ 前期绑定 ），因此，重载与多态无关。</p>
+<p>真正和多态相关的是 “ 覆盖 ” ，也就是方法重写。当子类重新定义父类的函数后，子类将自己的类型传递给父类后，父类动态调用属于子类的该函数，这样的函数调用再编译器是无法确定的（ 调用子类的的函数地址无法给出 ）。因此，这样的函数地址是在运行期绑定的。</p>
+<p>需要注意的是，private 和 final 方法是不能被覆盖的。private 方法被自动认为是 final 方法。</p>
+<p>这里还有一个大坑，那就是域和静态方法。我们来看一个例子</p>
+<pre><code class="java">class Super{
+  public int field = 0;
+  public int getField() { return field; }
+}
+</code></pre>
+<pre><code class="java">class Sub extends Super{
+    public int field = 1;
+      public int getField() { return field; }
+      public int getSuperField() { return super.field; }
+}
+</code></pre>
+<pre><code class="java">public class FieldAccess{
+  public static void main(String[] args){
+    Super sup = new Sub(); //向上转型
+    System.out.println(&quot;sup.field = &quot; + sup.field +
+        &quot;, sup.getField() = &quot; + sup.getFiled());
+    Sub sub = new Sub(); 
+    System.out.println(&quot;sub.field = &quot; + sub.field +
+        &quot;, sub.getField() = &quot; + sub.getFiled() +
+        &quot;, sub.getSuperField() = &quot; + sub.getSuperField());
+  }
+}
+</code></pre>
+<p>结果是</p>
+<blockquote>
+<p>sup.field = 0,sup.getField() = 1</p>
+<p>sub.field = 1,sub.getField() = 1,sub.getSuperField() = 0</p>
+</blockquote>
+<p>可以看到 sup.field 等于 0 ，也就是说，并没有显示出子类的具体特征。</p>
+<p>当子类对象转型为父类引用时，任何域的访问操作都将由编译器解析。由编译器解析就不是多态，因为它是前期绑定。在这个例子中，为 Super.field 和 Sub.field 分配了不同的存储空间，这样 Sub 就包含了两个称为 field 的域：它自己的和从 Super 继承得到的，最重要的是在引用 Sub 中的 field 时所产生的默认域并非 Super 的，要想获取 Super.field 就必须显式地指明 super.field。</p>
+<p><img src="https://mmbiz.qlogo.cn/mmbiz/cZV2hRpuAPjEIibB1UYw1VMPzscNxReKZVxEh23qB9KgPqFq3uoyBy3M93PcFOunrvjkYVrtfvXMworbBuWAZ4A/0" alt="金属质感分割线"></p>
+<p>注：方法调用绑定（Method-call binding）</p>
+<p>下面是 《Think in Java》中对绑定的解释:</p>
+<p>Connecting a method call to a method body is called binding. when binding is performed before the program is run (by the compiler and linker,if there is one), it’s called early binding. </p>
+<p>将一个方法调用同一个方法主体关联起来称为绑定。在程序执行前进行绑定（一般由编译器和连接程序实现），就叫做前期绑定（也可以说成是编译期绑定）。C 语言只有一种方法调用，那就是前期绑定。</p>
+<p>相信小伙伴们一定猜到有前期绑定，就一定有后期绑定。没错，Java 中的后期绑定就是在运行时根据对象的类型进行绑定，后期绑定也叫做动态绑定或运行时绑定。 Java 中除了static 方法和 final 方法（ private 属于 final 方法 ） ，其他方法都是后期绑定。</p>
+]]></content>
+      
+        
+        <tags>
+            
+            <tag> Java </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Android 中 gradle 和 plugin 到底是什么关系？]]></title>
+      <url>/2017/07/19/gradle-plugin/</url>
+      <content type="html"><![CDATA[<p>最近做项目碰到 Android Studio 提示 Android Gradle Plugin Version 版本太低的问题。之前对 Plugin Version 和 Gradle Version 一直没有明确的认识，认为它俩是一个概念。索性刨根问底去 Google 一下。</p>
+<a id="more"></a>
+<p>Android Studio 报错如下：<br><img src="http://osoa5juml.bkt.clouddn.com//image/site/1500459320686.png" width="1177"></p>
+<p>其实，Android 中的 Plugin Version和Gradle Version 是两个不同的概念，<strong><code>Plugin Version</code> 指的是 Android 中的 Gradle Plugin 插件的版本，后者是本地使用的 Gradle 版本</strong>。区分了这两个概念，后面说的就容易理解了。</p>
+<p>在项目中，Gradle插件的版本一般在 项目的 <strong><code>build.gradle</code></strong> 中</p>
+<pre><code class="groovy">    dependencies {
+         classpath &#39;com.android.tools.build:gradle:3.0.0-alpha1&#39;
+         ...
+    }
+</code></pre>
+<p>本地的 Gradle 版本在 <strong><code>gradle-wrapper.properties</code></strong> 中</p>
+<pre><code>distributionUrl=https\://services.gradle.org/distributions/gradle-4.0-milestone-1-all.zip
+</code></pre><p>然后根据官方提供的这张对照表</p>
+<p><img src="http://osoa5juml.bkt.clouddn.com//image/site/1500460060716.png" width="834"></p>
+<p>可以看出，只要 Plugin Version 在 <code>2.3.0</code> 以以上，本地的 Gradle 版本就必须在 <code>3.3+</code> 以上。至此我是符合规定的。那为什么会报错呢？</p>
+<p>原因是 <code>alpha/beta</code> 版本有40天的使用时间限制，到时间 AndroidStudio 就会强制提示你要求更新版本，如果根据上面那张表换成2.3.1这个稳定版就没有问题了。</p>
+<p>这是 Stack Overflow 中找到的答案：</p>
+<p><img src="http://osoa5juml.bkt.clouddn.com//image/site/1500460312617.png" width="746"></p>
+]]></content>
+      
+        
+        <tags>
+            
+            <tag> Android </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Mac 下配置环境变量不生效问题]]></title>
+      <url>/2017/07/15/Mac%E4%B8%8B%E9%85%8D%E7%BD%AE%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E4%B8%8D%E7%94%9F%E6%95%88%E9%97%AE%E9%A2%98/</url>
+      <content type="html"><![CDATA[<p>注意：Mac 下一般使用 bash 作为默认的 shell。</p>
+<hr>
+<h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>今天在捣鼓 MySQL 的时候，安装删除了好几个循环之后，发现打开 iTerm 之后输入 <code>mysql</code> 不起作用了，刚开始还以为是 MySQL 安装失败了，但是再一次安装成功后还是提示 <code>command not found: mysql</code> 。看到这句话第一时间我就想到了是不是环境变量没有配呢？但是一想不对啊，我之前也是用的好好的也没出现过这个问题啊。<a id="more"></a></p>
+<p>思路：我们知道 <strong><code>.bash_profile</code></strong> 中是可以设置环境变量的，所以就先从它入手，于是我就往其中添加了下面这句：</p>
+<pre><code>export PATH=$PATH:/usr/local/mysql/bin
+</code></pre><p>然后保存，输入命令 <strong><code>source ~/.bash_profile</code></strong> ，确实有效！</p>
+<p>但是呢，别高兴的太早，作用是有的，但是仅限于当前这个会话。一旦重新开启新的会话，又被打回老样子。</p>
+<p>于是我就想，既然 <strong><code>source ~/.bash_profile</code></strong> 这句话能起作用，就不是 <strong><code>.bash_profile</code></strong> 的问题了，那么问题到底出在哪了呢？会不会是系统压根没执行 <strong><code>.bash_profile</code></strong> ？所以我根据系统环境变量的加载顺序，去寻找 <strong><code>/etc</code></strong> 下的两个文件。</p>
+<p><strong>profile</strong></p>
+<pre><code>if [ -x /usr/libexec/path_helper ]; then
+    eval `/usr/libexec/path_helper -s`
+fi
+
+if [ &quot;${BASH-no}&quot; != &quot;no&quot; ]; then
+    [ -r /etc/bashrc ] &amp;&amp; . /etc/bashrc
+fi
+</code></pre><p>这个文件好像看不出有什么问题。</p>
+<p><strong>paths</strong></p>
+<pre><code>/usr/local/bin
+/usr/bin
+/bin
+/usr/sbin
+/sbin
+</code></pre><p>这些是系统默认的环境变量，也找不到什么原因。</p>
+<p>然后我新开了一个 Terminal 会话，执行下面查看当前系统环境变量的命令</p>
+<pre><code>$ echo $PATH
+/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/aria2/bin
+</code></pre><p>很奇怪，除了系统默认环境变量之外，还多了 <code>/usr/local/aria2/bin</code> 这个，要知道在我的 ‘.bash_profile’ 中并没有声明这个环境变量。</p>
+<p>以上我碰到的问题描述，这个问题花了我一个下午的时间，还好最终是解决了，花了一个晚上写了以下这个总结。</p>
+<hr>
+<h2 id="一、Mac-系统的环境变量，加载顺序为："><a href="#一、Mac-系统的环境变量，加载顺序为：" class="headerlink" title="一、Mac 系统的环境变量，加载顺序为："></a>一、Mac 系统的环境变量，加载顺序为：</h2><ol>
+<li>/etc/profile</li>
+<li>/etc/paths</li>
+<li>~/.bash_profile</li>
+<li>~/.bash_login</li>
+<li>~/.profile</li>
+<li>~/.bashrc</li>
+</ol>
+<p>前两个是系统级别的，系统启动就会加载。后面 <strong>3</strong> 个是当前用户级别的环境变量。后面几个按照从前往后的顺序读取，如果 <strong><code>~/.bash_profile</code></strong> 存在，则后面的几个文件就会被忽略不读了，如果 <strong><code>.bash_profile</code></strong> 不存在，才会依次读取垢面的文件。~/.bashrc没有上述规则，它是bash shell打开的时候载入的。</p>
+<p>也就是说在当前用户的目录下，如果又了.bash_profile文件就不会去加载.bashrc文件。</p>
+<p>所以如果要能正常加载.bashrc文件，需要在.bash_profile文件的最末尾上加入如下语句：</p>
+<pre><code class="shell">if [ -f ~/.bashrc ]; then
+   source ~/.bashrc
+fi
+</code></pre>
+<h3 id="然而"><a href="#然而" class="headerlink" title="然而"></a>然而</h3><p>如果你没有修改过，上面的方法默认重启后就能生效。</p>
+<p>但是，现在的 mac 上有些使用 zsh 这个作为默认的 shell（比如我！！！），所以，在启动 shell 时，默认不会按上面的套路去加载。</p>
+<p>如果想要正常加载 <code>.bashrc</code> 文件时，就要找到用户目录下的 <code>.zshrc</code> 文件加入如下代码：</p>
+<pre><code>if [ -f ~/.bashrc ]; then
+   source ~/.bashrc
+fi
+</code></pre><p>参考：<a href="http://www.joshstaiger.org/archives/2005/07/bash_profile_vs.html" target="_blank" rel="external">.bash_profile vs .bashrc</a>，建议读一下。</p>
+<p>According to the bash man page, .bash_profile is executed for <strong>login</strong> shells, while .bashrc is executed for <strong>interactive non-login</strong> shells.</p>
+<hr>
+<h2 id="二、设置-PATH-的语法"><a href="#二、设置-PATH-的语法" class="headerlink" title="二、设置 PATH 的语法"></a>二、设置 PATH 的语法</h2><pre><code>//中间用冒号隔开
+export PATH=$PATH:&lt;PATH 1&gt;:&lt;PATH 2&gt;:&lt;PATH 3&gt;:......:&lt;PATH N&gt;
+</code></pre><h3 id="全局设置"><a href="#全局设置" class="headerlink" title="全局设置"></a>全局设置</h3><p>下面的几个文件设置是全局的，修改时需要 root 权限。</p>
+<ol>
+<li><code>/etc/paths</code> （全局建议修改这个文件）<br>编辑时一行一个路径。<br>注意：输入环境变量时，不用一个一个输入，只要拖拽文件夹到 Terminal 里就可以了。</li>
+<li><code>/etc/profile</code> （建议不修改这个文件）<br>全局（公有）配置，不管是哪个用户，登录时都会读取该文件。</li>
+<li><code>/etc/bashrc</code> （一般在这个文件中添加系统级环境变量）<br>全局（公有）配置，<code>bash shell</code> 执行时，不管是何种方式，都会读取此文件。</li>
+<li>分模块创建环境变量<ul>
+<li>1) 创建一个文件：<pre><code class="shell">$ sudo touch /etc/paths.d/mysql
+</code></pre>
+</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li>2) 用 vim 打开这个文件（如果是以 open -t 的方式打开，则不允许编辑）：<pre><code class="shell">$ sudo vim /etc/paths.d/mysql
+</code></pre>
+</li>
+<li>3) 编辑该文件，键入路径并保存（关闭该 Terminal 窗口并重新打开一个，就能使用 mysql 命令了）<pre><code>/usr/local/mysql/bin
+</code></pre>在我的 ‘/etc/paths.d’ 目录下已经存在了一个文件 <code>aria2c</code> ，这也说了为什么一开始打印系统环境变量时，在最后多出了一个 <code>/usr/local/aria2/bin</code> 目录，因为在我的 <code>.bash_profile</code> 中并没有设置这个路径。顿时豁然开朗，哈哈。</li>
+</ul>
+<p>还有就是，这样就不用把变量全放在 <code>paths</code> 文件里，方便管理。</p>
+<h3 id="单用户设置"><a href="#单用户设置" class="headerlink" title="单用户设置"></a>单用户设置</h3><ol>
+<li><strong><code>~/.bash_profile</code></strong> （任意一个文件中添加用户级环境变量）（注：<code>Linux</code> 里面是 <strong><code>.bashrc</code></strong> 而 <code>Mac</code> 是 <code>.bash_profile</code>）<br>若 bash shell 是以 login 方式执行时，才会读取此文件。该文件仅仅执行一次 <strong>1</strong> 默认情况下,它用来设置一些环境变量<br>设置命令别名:<pre><code>alias ll=’ls -la’
+</code></pre>设置环境变量:<pre><code>export PATH=/opt/local/bin:/opt/local/sbin:$PATH
+</code></pre></li>
+</ol>
+<h3 id="生效"><a href="#生效" class="headerlink" title="生效"></a>生效</h3><p>如果想要立刻生效，则可以执行下面的语句：</p>
+<pre><code class="shell">source ~/.bash_profile
+</code></pre>
+<p>一般环境变量更改后，重启后生效。</p>
+]]></content>
+      
+        
+        <tags>
+            
+            <tag> Mac </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[20 个数据库设计的最佳实践]]></title>
+      <url>/2017/07/13/00001-Database-2017-07-13-20bastdatabase/</url>
+      <content type="html"><![CDATA[<p>数据库设计是整个程序的重点之一，为了支持相关程序运行，最佳的数据库设计往往不可能一蹴而就，只能反复探寻并逐步求精，这是一个复杂的过程，也是规划和结构化数据库中的数据对象以及这些数据对象之间关系的过程。下面给出了20个数据库设计最佳实践，当然，所谓最佳，还是要看它是否适合你的程序。一起来了解了解吧。</p>
+<p> <img src="http://osoa5juml.bkt.clouddn.com//image/site/1499949068975.gif" alt="img"></p>
+<a id="more"></a>
+<ol>
+<li>使用明确、统一的标明和列名，例如 School, SchoolCourse, CourceID。</li>
+<li>数据表名使用单数而不是复数，例如 StudentCourse，而不是 StudentCourses。</li>
+<li>数据表名不要使用空格。</li>
+<li>数据表名不要使用不必要的前缀或者后缀，例如使用 School，而不是 TblSchool，或者 SchoolTable 等等。</li>
+<li>数据库中的密码要加密，到应用中再解密。 （其实就是散列存储、单向加密）</li>
+<li>使用整数作为 ID 字段，也许现在没有这个必要，但是将来需要，例如关联表，索引等等。</li>
+<li>使用整数字段做索引，否则会带来很大的性能问题 。</li>
+<li>使用 bit 作为布尔字段，使用整数或者 varchar 是浪费。同时，这类字段应该以 “Is” 开头。</li>
+<li>要经过认证才能访问数据库，不要给每一个用户管理员权限。</li>
+<li>尽量避免使用 “select *”，而使用 “select [required_column_list]” 以获得更好的性能。</li>
+<li>假如程序代码比较复杂，使用 ORM 框架，例如 hibernate，iBatis。ORM 框架的性能问题可以通过详细的配置去解决。</li>
+<li>分割不常使用的数据表到不同的物理存储以获得更好的性能。</li>
+<li>对于关键数据库，使用安全备份系统，例如集群，同步等等。</li>
+<li>使用外键，非空等限制来保证数据的完整性，不要把所有的东西都扔给程序。</li>
+<li>缺乏数据库文档是致命的。你应该为你的数据库设计写文档，包括触发器、存储过程和其他脚本。</li>
+<li>对于经常使用的查询和大型数据表，要使用索引。数据分析工具可以帮助你决定如何建立索引。</li>
+<li>数据库服务器和网页服务器应该放在不同的机器上。这回提高安全性，并减轻 CPU 压力。</li>
+<li>Image 和 blob 字段不应该定义在常用的数据表中，否则会影响性能。</li>
+<li>范式（Normalization）要按照要求使用以提高性能。Normalization 做的不够会导致数据冗余，而过度Normalization 会导致太多的 join 和数据表，这两种情况都会影响性能。</li>
+<li>多花点时间在数据库设计上，否则你将来会付出加倍的时间来偿还。</li>
+</ol>
+<p>　　洋文原址：<a href="http://www.javacodegeeks.com/2012/02/20-database-design-best-practices.html" target="_blank" rel="external">javacodegeeks.com</a></p>
+]]></content>
+      
+        
+        <tags>
+            
+            <tag> Database </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Android 异步消息处理机制（一）]]></title>
+      <url>/2017/06/14/Android-2017-06-14-Android%E5%BC%82%E6%AD%A5%E6%B6%88%E6%81%AF%E5%A4%84%E7%90%86%E6%9C%BA%E5%88%B6%EF%BC%88%E4%B8%80%EF%BC%89/</url>
+      <content type="html"><![CDATA[<p>两个问题：</p>
+<p>​    1、在子线程中如何创建的Handler？需要先做什么？如何发送消息？</p>
+<p>​    2、Handler中发送的消息去哪啦？为什么handleMessage中又能得到这个Message？</p>
+<a id="more"></a>
+<p><strong>首先明确</strong>：网络请求必须在子线程中执行，不然会出 <code>NetworkOnMainThreadException</code> 异常。</p>
+<p>参考自<a href="http://blog.csdn.net/guolin_blog" target="_blank" rel="external">郭霖</a>的 <a href="http://blog.csdn.net/guolin_blog/article/details/9991569" target="_blank" rel="external">android 异步消息处理机制</a></p>
+<h1 id="一、如何在子线程创建Headler"><a href="#一、如何在子线程创建Headler" class="headerlink" title="一、如何在子线程创建Headler"></a>一、如何在子线程创建Headler</h1><p>首先我们想在子线程中创建一个Handler。（注意是在子线程中）</p>
+<p>在Handler的构造函数中会调用Looper.myLooper() 得到当前的线程的Looper对象，如果没有的话就会报 ” Can’t create handler inside thread that has not called Looper.prepare().“ 这个错误。</p>
+<p>prepare() 会先判断sThreadLocal.get() 这个方法从当前线程得到Looper的对象是否为空，如果为空就创建一个，不为空会报“Only one Looper may be created per thread”错误。</p>
+<p>ActivityThread的main()方法中，会调用 Looper.prapareMainLooper方法，这其中又会调用  Looper.prepare() 方法，因此主线程中始终有一个Looper对象。</p>
+<p>总结一下，普通线程必须先调用Looper.prepare()，然后才能创建Handler对象，</p>
+<h1 id="二、Headler发送消息源码解析"><a href="#二、Headler发送消息源码解析" class="headerlink" title="二、Headler发送消息源码解析"></a>二、Headler发送消息源码解析</h1><p>创建完Handler之后，只要用把 bundle 放到 Message 中，并且再把 message放到 handler 发送即可。但是这里 Handler 把消息发送到哪里，为什么在 handleMessage 又能得到这个 Message 呢。</p>
+<p>除了sendMessageAtFrontOfQueue之外，其他发送消息的方法都会辗转到sendMessageAtTime()中。而入队操作就是在这个sendMessageAtTime() 方法中。</p>
+<p>Looper.loop()中包含出队操作，这个方法会一直等待新的消息入队，不然就会进入阻塞状态。每当又一个消息出队 queue.next() ，那就会调用当前handler的dispatchMessage()方法。在dispatchMessage() 方法里就会调用 handleMessage(msg)，这样我们在handleMessage就可以得到这个Message了。</p>
+<p>MessageQueue 在 Looper 的构造函数中创建，那么一个 Looper 对应了一个 MessageQueue。</p>
+<p>一个最标准的异步消息处理线程的写法应该是这样：</p>
+<pre><code class="java">class LooperThread extends Thread {  
+      public Handler mHandler;  
+
+      public void run() {  
+          //先调用Looper.prepare()方法，也就是说必须要有一个 looper 对象。
+          Looper.prepare();  
+
+          mHandler = new Handler() {  
+              public void handleMessage(Message msg) {  
+                  // process incoming messages here  
+              }  
+          };  
+            //调用之后就会一直在MessageQueue中循环遍历Message，如果没有新的消息，就会挂起。
+          Looper.loop();  
+      }  
+  }
+</code></pre>
+]]></content>
+      
+        <categories>
+            
+            <category> Android </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> Android </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Android 消息处理机制之二：消息中 obtain 源代码剖析]]></title>
+      <url>/2017/06/14/Android-2017-06-14-Android%E6%B6%88%E6%81%AF%E5%A4%84%E7%90%86%E6%9C%BA%E5%88%B6%E4%B9%8B%E4%BA%8C%EF%BC%9A%E6%B6%88%E6%81%AF%E4%B8%ADobtain%E6%BA%90%E4%BB%A3%E7%A0%81%E5%89%96%E6%9E%90/</url>
+      <content type="html"><![CDATA[<p>Message中obtain()源码分析</p>
+<a id="more"></a>
+<p>参考自 AHuier的<a href="http://blog.csdn.net/xukunhui2/article/details/17012923" target="_blank" rel="external">Android消息处理机制之二：消息中obtain()源代码剖析</a> </p>
+<p>obtain的源码，可见是从消息池中取出对象。这里为了防止多个任务访问消息池获取对象，使用 synchronized(sPoolSync) 将 obtain() 方法上锁了。</p>
+<pre><code class="java">private static final Object sPoolSync = new Object();  
+private static Message sPool;  
+private static int sPoolSize = 0;  
+
+private static final int MAX_POOL_SIZE = 10;  
+
+/** 
+ * Return a new Message instance from the global pool. Allows us to 
+ * avoid allocating new objects in many cases. 
+ */  
+public static Message obtain() {  
+    synchronized (sPoolSync) {  
+        if (sPool != null) {  
+            Message m = sPool;  
+            sPool = m.next;  
+            m.next = null;  
+            sPoolSize--;  
+            return m;  
+        }  
+    }  
+    return new Message();  
+}
+</code></pre>
+<p>1) 通过 Message.obtain()方式获取Message对象</p>
+<pre><code class="java">public class MyThread implements Runnable{  
+
+    @Override  
+    public void run() {  
+        // 使用第一种构造方法  
+        Message message = Message.obtain();  
+        message.what = 1;  
+        message.arg1 = 1;  
+        message.arg2 = 3;  
+        message.obj = &quot;SmartNi&quot;;  
+        handler.sendMessage(message);  
+    }          
+}
+</code></pre>
+<p>2) 通过 Message.obtain(Handler h)的方式获取Message对象</p>
+<p>首先查看一下obtain(Handler h)的源码，可见 message 的目标对象已经指向了 Handler ，那么在发送消息的时候就直接调用 sendToTarget() 方法即可。</p>
+<pre><code class="java">     /**
+     * Same as {@link #obtain()}, but sets the value for the &lt;em&gt;target&lt;/em&gt; member on the Message returned.
+     * @param h  Handler to assign to the returned Message object&#39;s &lt;em&gt;target&lt;/em&gt; member.
+     * @return A Message object from the global pool.
+     */
+    public static Message obtain(Handler h) {
+        Message m = obtain();
+        m.target = h;
+        return m;
+    }
+</code></pre>
+<pre><code class="java">/* 
+ *  第二种获取Message对象的方法 
+ *  public static Message obtain (Handler h) 
+ *  传递一个关联到消息Handler. 
+ */  
+Message message = Message.obtain(handler);  
+message.what = 1;  
+message.arg1 = 1;  
+message.arg2 = 3;  
+message.obj = &quot;SmartNi&quot;;  
+message.sendToTarget(); // 完成发送消息的动作
+</code></pre>
+<p>因为</p>
+<pre><code class="java">...  
+/*package*/ Handler target;    
+...   
+/** 
+ * Sends this Message to the Handler specified by {@link #getTarget}. 
+ * Throws a null pointer exception if this field has not been set. 
+ */  
+public void sendToTarget() {  
+    target.sendMessage(this);  //这里
+}
+</code></pre>
+<p>3) 通过 Message.obtain(Handler h,int what)的方式获取Message对象</p>
+<pre><code class="java">/** 
+ * Same as {@link #obtain()}, but sets the values for both &lt;em&gt;target&lt;/em&gt; and 
+ * &lt;em&gt;what&lt;/em&gt; members on the Message. 
+ * @param h  Value to assign to the &lt;em&gt;target&lt;/em&gt; member. 
+ * @param what  Value to assign to the &lt;em&gt;what&lt;/em&gt; member. 
+ * @return A Message object from the global pool. 
+ */  
+public static Message obtain(Handler h, int what) {  
+    Message m = obtain();  
+    m.target = h;  
+    m.what = what;  
+
+    return m;  
+}
+</code></pre>
+<p>4) 通过 Message.obtain(Handler h, int what, int arg1, int arg2, Object obj)的方式获取Message对象</p>
+<pre><code class="java">/* 
+ * public static Message obtain (Handler h, int what, int arg1, int arg2, Object obj) 
+ * 关联Handler和传递Message的几种常用属性值 
+ */  
+Message message = Message.obtain(handler, 1, 1, 3, &quot;SmartNi&quot;);  
+message.sendToTarget();
+</code></pre>
+<pre><code class="java">/** 
+ * Same as {@link #obtain()}, but sets the values of the &lt;em&gt;target&lt;/em&gt;, &lt;em&gt;what&lt;/em&gt;,  
+ * &lt;em&gt;arg1&lt;/em&gt;, &lt;em&gt;arg2&lt;/em&gt;, and &lt;em&gt;obj&lt;/em&gt; members. 
+ *  
+ * @param h  The &lt;em&gt;target&lt;/em&gt; value to set. 
+ * @param what  The &lt;em&gt;what&lt;/em&gt; value to set. 
+ * @param arg1  The &lt;em&gt;arg1&lt;/em&gt; value to set. 
+ * @param arg2  The &lt;em&gt;arg2&lt;/em&gt; value to set. 
+ * @param obj  The &lt;em&gt;obj&lt;/em&gt; value to set. 
+ * @return  A Message object from the global pool. 
+ */  
+public static Message obtain(Handler h, int what,   
+        int arg1, int arg2, Object obj) {  
+    Message m = obtain();  
+    m.target = h;  
+    m.what = what;  
+    m.arg1 = arg1;  
+    m.arg2 = arg2;  
+    m.obj = obj;  
+
+    return m;  
+}
+</code></pre>
+<p>5) 通过上述几个例子我们可以知道Message中的obtain()的几种重载方法在底层的实现都是大同小异的,他们都是底层都是首先调用obtain()方法来从消息池中获得一个消息的对象的。然后在通过参数传递来封装指定的Handler和需要携带的数据。如果使用这些重载的方法建议完成数据封装之后调用sendToTarget()方法。这就是几种obtain()重载方法的不同。</p>
+<p>6) 这里我们需要特别注意Message中的这个重载方法:<strong>Message obtain (Message orig)</strong> 它是将原有的消息体作为一个新的消息参数来发送的,我们看一下它的源代码。</p>
+<pre><code class="java">/** 
+ * Same as {@link #obtain()}, but copies the values of an existing 
+ * message (including its target) into the new one. 
+ * @param orig Original message to copy. 
+ * @return A Message object from the global pool. 
+ */  
+public static Message obtain(Message orig) {  
+    Message m = obtain();  
+    m.what = orig.what;  
+    m.arg1 = orig.arg1;  
+    m.arg2 = orig.arg2;  
+    m.obj = orig.obj;  
+    m.replyTo = orig.replyTo;  
+    if (orig.data != null) {  
+        m.data = new Bundle(orig.data);  
+    }  
+    m.target = orig.target;  
+    m.callback = orig.callback;  
+
+    return m;  
+}
+</code></pre>
+]]></content>
+      
+        <categories>
+            
+            <category> Android </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> Android </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Android 消息处理机制之三： Handler 中 sendMessage 源代码剖析]]></title>
+      <url>/2017/06/14/Android-2017-06-14-Android%E6%B6%88%E6%81%AF%E5%A4%84%E7%90%86%E6%9C%BA%E5%88%B6%E4%B9%8B%E4%B8%89%EF%BC%9AHandler%E4%B8%ADsendMessage%E6%BA%90%E4%BB%A3%E7%A0%81%E5%89%96%E6%9E%90/</url>
+      <content type="html"><![CDATA[<p>Handler中sendMessage源代码剖析。</p>
+<a id="more"></a>
+<p>参考自 AHuier的 <a href="http://blog.csdn.net/xukunhui2/article/details/17013647" target="_blank" rel="external">Handler 中 sendMessage() 源代码剖析</a></p>
+<ol>
+<li><p>使用Handler中的sendEmptyMessage(int what)方式来发送消息.</p>
+<p>sendEmptyMessage (int what)</p>
+</li>
+</ol>
+<p>——&gt; sendEmptyMessageDelayed(int what, long delayMillis)</p>
+<p>——&gt;sendMessageDelayed(Message msg, long delayMillis)  </p>
+<p>——&gt;sendMessageAtTime(Message msg, long uptimeMillis)  </p>
+<p>——&gt;enqueueMessage(Message msg, long when)</p>
+<ol>
+<li>使用Handler中的sendEmptyMessageAtTime(int what,long uptimeMillis)方式来发送消息.</li>
+</ol>
+<p>sendEmptyMessageAtTime(int what,long uptimeMillis)</p>
+<p>——&gt;sendMessageAtTime(msg, uptimeMillis)</p>
+<ol>
+<li>使用Handler中的sendEmptyMessageDelayed (int what, long delayMillis)方式来发送消息。</li>
+</ol>
+<p>sendEmptyMessageDelayed(int what, long delayMillis) </p>
+<p>——&gt;sendMessageDelayed(Message msg, long delayMillis) </p>
+<p>——&gt;sendMessageAtTime(Message msg, long uptimeMillis)</p>
+<pre><code class="shell">public final boolean sendMessageDelayed(Message msg, long delayMillis)  
+{  
+    if (delayMillis &lt; 0) {  
+        delayMillis = 0;  
+    }  
+    return sendMessageAtTime(msg, SystemClock.uptimeMillis() + delayMillis); 
+}
+</code></pre>
+<p>SystemClock.uptimeMillis() 是获得到系统启动开机的时间到当前的时间（不包括休眠的时间）</p>
+<p>SystemClock.uptimeMillis() + delayMillis 这个是sendMessageAtTime 和 sendMessageDelayed 的区别。</p>
+<ol>
+<li>使用Handler中的sendMessage (Message msg)方式来发送消息.</li>
+</ol>
+<p>sendMessage(Message msg) </p>
+<p>——&gt; sendMessageDelayed(Message msg, long delayMillis) </p>
+<p>——&gt; sendMessageAtTime(Message msg, long uptimeMillis)</p>
+]]></content>
+      
+        <categories>
+            
+            <category> Android </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> Android </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Activity 的生命周期和启动模式]]></title>
+      <url>/2017/06/08/Android-2017-06-08-Activity%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E5%92%8C%E5%90%AF%E5%8A%A8%E6%A8%A1%E5%BC%8F/</url>
+      <content type="html"><![CDATA[<p>Android中我们最先接触到的就是Activity，如果掌握了 Activity，那么对学习其他四大组件无疑是很有帮助的。</p>
+<a id="more"></a>
+<h1 id="Activity-的生命周期"><a href="#Activity-的生命周期" class="headerlink" title="Activity 的生命周期"></a>Activity 的生命周期</h1><p><img src="http://osoa5juml.bkt.clouddn.com/image/site/1499949623365.png" alt=""></p>
+<h2 id="情形一"><a href="#情形一" class="headerlink" title="情形一"></a>情形一</h2><p>例如：运行一个 Activity ，不进行任何的页面跳转，然后按下返回键结束。</p>
+<pre><code class="shell">05-30 12:00:44.864 3561-3561/me.nijun.launchmode I/AActivity: onCreate: A
+05-30 12:00:44.864 3561-3561/me.nijun.launchmode I/AActivity: onStart: A
+05-30 12:00:44.864 3561-3561/me.nijun.launchmode I/AActivity: onResume: A
+05-30 12:00:44.864 3561-3561/me.nijun.launchmode I/AActivity: onPause: A
+05-30 12:00:44.864 3561-3561/me.nijun.launchmode I/AActivity: onStop: A
+05-30 12:00:44.864 3561-3561/me.nijun.launchmode I/AActivity: onDestory: A
+</code></pre>
+<h2 id="情形二"><a href="#情形二" class="headerlink" title="情形二"></a>情形二</h2><p>（1）当第一次启动 A Activity 的时候，会按照下面的顺序执行。</p>
+<pre><code class="shell">05-30 12:00:44.864 3561-3561/me.nijun.launchmode I/AActivity: onCreate: A
+05-30 12:00:44.864 3561-3561/me.nijun.launchmode I/AActivity: onStart: A
+05-30 12:00:44.864 3561-3561/me.nijun.launchmode I/AActivity: onResume: A
+</code></pre>
+<p><code>onStart</code> 的时候 Activity 还在后台，<code>onResume</code> 的时候才会显示到前台。</p>
+<p>（2）这时候点击按钮启动 B Acitivity 的时候</p>
+<pre><code class="Shell">05-30 12:00:56.869 3561-3561/me.nijun.launchmode I/AActivity: onPause: A
+05-30 12:21:03.756 4030-4030/me.nijun.launchmode I/BActivity: onCreate: B
+05-30 12:00:56.882 3561-3561/me.nijun.launchmode I/BActivity: onStart: B
+05-30 12:00:56.883 3561-3561/me.nijun.launchmode I/BActivity: onResume: B
+05-30 12:00:57.310 3561-3561/me.nijun.launchmode I/AActivity: onSaveInstanceState: A
+05-30 12:00:57.312 3561-3561/me.nijun.launchmode I/AActivity: onStop: A
+</code></pre>
+<p>可见，首先调用旧Activity的 <code>onpause</code> 方法，<code>onpause</code> 一定在要启动的新 Activity 之前执行，只有它执行完之后，新的 Activity 才会启动。正因为如此，我们在 onPause方法中不能重量级的操作，应当在 onStop 中处理操作，使新 Activity 尽快显示出来。</p>
+<p><code>onSaveInstanceState</code> 方法会在 <code>onStop</code> 方法之前执行，但具体是否在<code>onPause</code> 之前还是之后是不确定的。</p>
+<p><code>onStop</code> 方法是否执行是看 Activity 是否可见，如果用户回到桌面（不可见了），那么就会调用这个方法。但是如果如果调用新的 Activity 采用了新透明的主题，那么是<strong>不会调用<code>onStop</code></strong> 方法的。</p>
+<p>（3）当用户按下返回键的时候</p>
+<p> 这时候 BAcitivity 将被销毁。在 <code>onPause</code> 执行后，并不会直接执行 <code>onStop</code> 而是会先执行 AActivity 的 onRestart 、onStart、onResume 方法。</p>
+<pre><code class="shell">05-30 12:21:11.422 4030-4030/me.nijun.launchmode I/BActivity: onPause: B
+05-30 12:21:11.433 4030-4030/me.nijun.launchmode I/AActivity: onRestart: A
+05-30 12:21:11.433 4030-4030/me.nijun.launchmode I/AActivity: onStart: A
+05-30 12:21:11.433 4030-4030/me.nijun.launchmode I/AActivity: onResume: A
+05-30 12:21:11.764 4030-4030/me.nijun.launchmode I/BActivity: onStop: B
+05-30 12:21:11.765 4030-4030/me.nijun.launchmode I/BActivity: onDestroy: B
+</code></pre>
+<p>（4）当Activity被系统回收后再次打开，生命周期回调方法和 （1）一样，但是不是所有过程都一样。</p>
+<p>小结：</p>
+<ol>
+<li>onCreate 和 onDestory 是配对的，代表这创建和销毁。</li>
+<li>onStart 和 onStop 是配对的，代表着 Activity 是否可见。</li>
+<li>onResume 和 onPause 是配对的，代表的 Activity 是否在前台。</li>
+<li><strong>Activity的onResume在wm.addView之前！</strong></li>
+<li>A Activity 的生命周期：<ol>
+<li>A 被 B 完全遮挡住了：onCreate-&gt;onStart-&gt;onResume-&gt;onPause-&gt;onStop-&gt;onRestart-&gt;onStart-&gt;onResume。</li>
+<li>A 被 B 部分遮挡住了：onCreate-&gt;onStart-&gt;onResume-&gt;onPause-&gt;onResume。</li>
+</ol>
+</li>
+</ol>
+<h2 id="情形三"><a href="#情形三" class="headerlink" title="情形三"></a>情形三</h2><p>我们启动 Activity 之后，然后点击按钮弹出 AlertDialog 。</p>
+<p>Activity 的启动过程：onCreate-&gt;onStart-&gt;onResume</p>
+<p>因为当启动和退出 Dialog 的时候 ，Activity 的状态始终没有改变。这样看来，Dialog 是 Activity 内部的界面，不会影响到 Activity 的生命周期。</p>
+<h2 id="异常情况"><a href="#异常情况" class="headerlink" title="异常情况"></a>异常情况</h2><p>（1）相关资源的配置发生改变导致 Activity 被杀死并重新创建。</p>
+<p>例子：比如用户转换屏幕，从竖屏切换到横屏。</p>
+<p>这时候Activity被销毁，其 onPause、onStop、onDestroy都会被调用。这个过程中也会调用 onSaveInstanceState 方法来保存当前Activity的状态，这个方法会在onStop之前执行，顺序与onPause无关。注意：在正常情况下是不会调用这个方法的。</p>
+<p>当Activity重新创建后，系统会调用 onRestoreInstanceState 方法，并把 onSaveInstanceState 保存的 Bundle 对象传递给onRestoreInstanceState和onCreate方法。</p>
+<p>从时序上看，onRestoreInstanceState 会在 onStart 方法之后调用。</p>
+<pre><code class="java">05-30 12:34:27.247 4030-4030/me.nijun.launchmode I/AActivity: onPause: A
+05-30 12:34:27.247 4030-4030/me.nijun.launchmode I/AActivity: onSaveInstanceState: A
+05-30 12:34:27.249 4030-4030/me.nijun.launchmode I/AActivity: onStop: A
+05-30 12:34:27.249 4030-4030/me.nijun.launchmode I/AActivity: onDestroy: A
+05-30 12:34:27.262 4030-4030/me.nijun.launchmode I/AActivity: onCreate:  A
+05-30 12:34:27.262 4030-4030/me.nijun.launchmode I/AActivity: onStart: A
+05-30 12:34:27.262 4030-4030/me.nijun.launchmode I/AActivity: onRestoreInstanceState: restore extra_test test
+05-30 12:34:27.263 4030-4030/me.nijun.launchmode I/AActivity: onResume: A
+
+  public void main(){
+
+  }
+</code></pre>
+<h3 id="扩展"><a href="#扩展" class="headerlink" title="扩展"></a>扩展</h3><p>View 与 Activity 一样，也有 onSaveInstanceState 和 onRestoreInstanceState 两个方法。</p>
+<p>关于保存和恢复View层次结构，系统的工作流程是这样的：首先Activity 在异常中止的情况下，会调用 onSaveInstanceState 去保存数据。 Activity 会委托 Window 去保存数据，Window再委托他上面的顶层容器去保存。顶层容器是一个ViewGroup，一般来说是 DecorView。顶层容器再去一一通知它的子元素去保存数据。</p>
+<p>这是一种典型的委托思想，上层委托下层，父容器委托子元素去处理意见事情。这在Android中有很多实现，比如<strong>View的绘制过程、事件分发</strong>。</p>
+<p>onSaveInstanceState 只会在 Activity 即将销毁并且有机会重新显示的情况下才会去调用。</p>
+<h3 id="还有一点"><a href="#还有一点" class="headerlink" title="还有一点"></a>还有一点</h3><p>onRestoreInstanceState 和 onCreate 的区别：</p>
+<p>onRestoreInstanceState 一旦被调用，其参数 Bundle 一定有值，而onCreate在正常启动的时候其参数Bundle为null。</p>
+<p>官方推荐：使用 <strong>onRestoreInstanceState</strong> 去恢复保存的数据。</p>
+<h3 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h3><p>如果不想要系统重新创建 Activity的话，可以指定在 AndroidManifest.xml 中指定 android:configChanges 的属性。</p>
+<p>最好是加上 orientation|screenSize|keyboardHidden 这三个值，因为 Android 13 （ API13 ）之后，screen size 也会跟着屏幕横竖屏切换而改变。可以设置下列语句</p>
+<pre><code>android:configChanges=&quot;orientation|screenSize|keyboardHidden&quot;
+</code></pre><h1 id="Activity-的LaunchMode"><a href="#Activity-的LaunchMode" class="headerlink" title="Activity 的LaunchMode"></a>Activity 的LaunchMode</h1><p>路漫漫其修远兮，吾将上下而求索。—屈原《离骚》</p>
+<p>今天，花了一个晚上的时间整理了一下 Activity 的 LaunchMode 启动模式。既然下定决心要走这一行，那么就从最基础的开始学起。</p>
+<p>在 Android 中，一共由四种启动模式，分别是</p>
+<ol>
+<li>standard</li>
+<li>singleTop</li>
+<li>singleTask</li>
+<li>singleInstance</li>
+</ol>
+<p>这里，我把这四个分成两组。</p>
+<p>其中，<code>standard</code>  和 <code>singleTop</code> Activity 为一类，使用 <code>standard</code> 或 <code>singleTop</code> 启动模式的 Activity 可多次实例化。可以属于任何任务栈，并且可以位于活动堆栈的任何位置。但是通常，它们被启动到所调用的任务中栈中。</p>
+<p>其中，standard 模式很简单，调用几次就创建几次。singleTop 与之类似，不同在于如果要启动的 Activity 已经在栈顶了，那么就不创建直接复用，并且调用 onNewIntent 方法。如果一个现有实例虽在目标任务内，但未处于堆栈顶部，或者虽然位于堆栈顶部，但不在目标任务中 — 则系统会创建一个新实例并将其推送到堆栈上。</p>
+<p><code>singleTask</code> 和 <code>singleInstance</code> 为另一类。<code>singleTask</code> 和 <code>singleInstance</code> Activity 只能启动任务。 它们始终位于 Activity 堆栈的<strong>栈顶</strong>，并且每个栈中只能有一个相同的 Activity 。</p>
+<p>singleTask 和 singleInstance 同样只在一个方面有差异。 singleTask 允许其他 Activity 成为其任务（必然是 standard 和 singleTask 的 Activity ）的组成部分，它始终位于其任务的根位置。singleInstance 不允许其他 Activity 成为其任务的组成部分。它是任务中唯一的 Activity。 如果它启动另一个 Activity，系统会将该 Activity 分配给其他任务 — 就好像 Intent 中包含 <code>FLAG_ACTIVITY_NEW_TASK</code> 一样。</p>
+<p>我自己做了一个实验。分别创建两个程序，一个叫做 LaunchMode，有 Activity A 和 Activity B，另一个叫做 LaunchModeB，有 Activity C 和 Activity D。在 Android 6.0 上运行。</p>
+<ul>
+<li>情形一</li>
+</ul>
+<p>前置条件：LaunchMode中从 A 启动 B（这时任务栈是 B-&gt;A），LaunchModeB 从 C 启动 D（这时任务栈是 D-&gt;C），这时我想从 B 中 启动 C 和 Ｄ，其中 C 和 D 都是standard 模式。</p>
+<p>结果：在 B 中启动 C 后（这时任务栈是 C-&gt;B-&gt;A），C 从当前 Activity 右侧出现，按下 back 键直接向右侧消失。D 也是这个情况。</p>
+<p>首先，从右侧出现代表没有切换到其他的应用程序，而我们知道 C 和 D Activity 是 LaunchModeB 中的 Activity。那为什么不是打开 LaunchModeB 之后再启动 C Activity 呢？这时因为设置了 standard 这个启动模式，在这个例子中当前程序并没有创建新得任务栈，而是在 B Activity 所在的任务栈中将 C Activity 启动并加入其中。也就是说被启动的 Activity 会被加入到启动它的 Activity 中。</p>
+<ul>
+<li>情形二</li>
+</ul>
+<p>前置条件：LaunchMode中从 A 启动 B（这时任务栈是 B-&gt;A），LaunchModeB 从 C 启动 D（这时任务栈是 D-&gt;C ，我想从 B 中 启动 C 和 Ｄ，其中 C 是 standard 模式 ，D 都是 singleTask 模式。</p>
+<p>结果：我在 B Activity 中点击启动 C ，这时和情形一是一样的，这里不讨论了。而如果点击启动 D 之后，系统发现在现有任务栈中已经有了 D Activity，这时候会并不会去创建新的，而是直接切换到 D Activity 所在的任务栈，这时候按下 back 键，将回退到 C Activity 中，再次按下 back 键，就销毁了LaunchModeB 中的任务栈。这时候再次在 B 中启动 D，这时候系统发现在任务栈中没有已有的 D，就会创建 D，并加入到新的任务栈中（这时任务栈是 D），按下 back 键就会直接销毁 Ｄ返回到 B Activity。</p>
+<ul>
+<li>情形三</li>
+</ul>
+<p>前置条件：LaunchMode中从 A 启动 B（这时任务栈是 B-&gt;A），LaunchModeB 从 C 启动 D（这时任务栈是 D-&gt;C ，我想从 B 中 启动 C 和 Ｄ，其中 C 是 singleTask 模式 ，D 都是 standard 模式。</p>
+<p>结果：从 B 点击按钮打开 C （这时任务栈是 C ），singleTask 因为有 clearTop 的效果而被推出任务栈。在 C Activity 中再次打开 D Activity，不要按 back 键，选择任务返回到 B Activity，点击按钮打开 D Activity（这时任务栈是 D-&gt;B-&gt;A），发现动画效果是从右侧进入，断定此时这个 D Activity 所在的任务栈是 B Activity 所在的任务栈，因此这时按下 back 键，就不会返回到 C Activity，而是返回到 B Activity。</p>
+<p>还有一点需要注意，当我从 C 中启动 D 之后，按下 Home 键返回桌面，在从桌面图标点击进入程序，发现进入的是 C Activity，而不是 D Activity。原因还是 C Activity 是 singleTask 模式。</p>
+<ul>
+<li>情形四</li>
+</ul>
+<p>还是上面的前置条件，但是 C 和 D 都是 singleTask 模式。情况与情形三类似，只是在打开 D Activity 的时候（这时任务栈是 D-&gt;C），当前任务栈转移到了 LaunchModeB 程序中，相当于打开了 LaunchMode 这个程序，而这时栈顶是 D ，所以出现的是 D Activity，按下返回键跳转到 C Activity。</p>
+<p>另一种情况是在 Intent 中设置标志位来为 Activity 指定启动模式。这种方式优先于 AndroidManifest 中配置的方式，当两种同时存在时，以第二种方式为准。然后它们在限定范围上有所不同，第一种方式无法设置  FLAG_ACTIVITY_CLEAR_TOP 标志，而第二种方式无法指定 singleInstance 模式。</p>
+<p><strong>FLAG_ACTIVITY_NEW_TASK</strong> </p>
+<p>等同于 “singleTask” 。在这种情况下，被启动的 Activity 的实例如果已经存在，那么系统会调用他的 onNewIntent ，而不会去调用 onCreate 。但是不要忘记，系统可能会杀掉后台运行的 Activity，如果这一切发生，那么系统就会调用 onCreate 方法，而不调用 onNewIntent 方法，一个好的解决方法就是在 onCreate 和 onNewIntent 方法中调用同一个处理数据的方法。</p>
+<p><strong>FLAG_ACTIVITY_SINGLE_TOP</strong></p>
+<p>等同于 “singleTop” 。</p>
+<p><strong>FLAG_ACTIVITY_CLEAR_TOP</strong></p>
+<p>等同于 “singleTop” 。</p>
+<p>在 Android Studio 中可以使用 <code>adb shell dumpsys activity</code> 来查看任务栈和 <code>taskAffinity</code> 的值。</p>
+<p> <a href="http://android.xsoftlab.net/guide/topics/manifest/activity-element.html#aff" target="_blank" rel="external">taskAffinity</a></p>
+]]></content>
+      
+        <categories>
+            
+            <category> Android </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> Android </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Maven 学习总结]]></title>
+      <url>/2017/05/20/00001-maven-2017-05-20-maven/</url>
+      <content type="html"><![CDATA[ <div align="center"><br>  想学习Maven吗？<br><br></div>
+
+<a id="more"></a>
+<h1 id="常用的构建命令"><a href="#常用的构建命令" class="headerlink" title="常用的构建命令"></a>常用的构建命令</h1><p>mvn </p>
+<ul>
+<li>v 查看版本</li>
+</ul>
+<ul>
+<li>compile 编译</li>
+</ul>
+<ul>
+<li>test 测试</li>
+</ul>
+<ul>
+<li>package  打包<ul>
+<li>会依次执行  clean 、</li>
+</ul>
+</li>
+<li>clean 删除target文件夹</li>
+<li>Install 安装jar包到本地仓库中</li>
+</ul>
+<h1 id="自动创建目录骨架"><a href="#自动创建目录骨架" class="headerlink" title="自动创建目录骨架"></a>自动创建目录骨架</h1><p>创建目录的两种方式：</p>
+<ol>
+<li>mvn archetype:generate 按照提示进行选择</li>
+</ol>
+<ol>
+<li><p>mvn archetype:generate -DgroupId=组织名，公司网址的反写+项目名</p>
+<p>​                        -DartifactId=项目名-模块名</p>
+<p>​                        -Dversion=版本号</p>
+<p>​                        -Dpackage=代码所在的包名</p>
+</li>
+</ol>
+<p>src/main/java:存放java源文件</p>
+<p>src/main/resources:存放项目配置文件，如spring.xml,hibernate.cfg.xml。。。</p>
+<p>src/test/java:存放test的java文件</p>
+<p>src/test/resources:存放test时候所需的配置文件</p>
+<h1 id="maven中的坐标和仓库"><a href="#maven中的坐标和仓库" class="headerlink" title="maven中的坐标和仓库"></a>maven中的坐标和仓库</h1><h2 id="坐标"><a href="#坐标" class="headerlink" title="坐标"></a>坐标</h2><p>在<code>&lt;dependency&gt;</code>中的就是坐标</p>
+<pre><code class="Xml">  &lt;dependency&gt;
+    &lt;groupId&gt;com.nimon.maven01&lt;/groupId&gt;
+    &lt;artifactId&gt;maven01-model&lt;/artifactId&gt;  
+    &lt;version&gt;0.0.1SNAPSHOT&lt;/version&gt;
+  &lt;/dependency&gt;
+</code></pre>
+<blockquote>
+<p>项目的包名，建议和groupId和artifactId相吻合，这样看起来，就更加清晰，符合逻辑，也更方便搜索。</p>
+</blockquote>
+<h2 id="构件"><a href="#构件" class="headerlink" title="构件"></a>构件</h2><p>在maven世界中，任何一个依赖、插件、项目构建的输出，都可以被称作为<strong>构件</strong>。</p>
+<p><strong>构件</strong>通过坐标作为其唯一的标识，就好像我们的工作单位和家庭地址。</p>
+<blockquote>
+<p>收宝贝的时候，不是收到的那一刻，而是中间等待的过程。</p>
+</blockquote>
+<h2 id="仓库"><a href="#仓库" class="headerlink" title="仓库"></a>仓库</h2><p>​    本地仓库和远程仓库</p>
+<p>​    <a href="http://search.maven.org/" target="_blank" rel="external">查看仓库</a></p>
+<p>​    <a href="https://repo.maven.apache.org/maven2/" target="_blank" rel="external">全球中央仓库</a></p>
+<p>​    <a href="http://mvnrepository.com/" target="_blank" rel="external">MVN Repository</a></p>
+<h2 id="镜像仓库"><a href="#镜像仓库" class="headerlink" title="镜像仓库"></a>镜像仓库</h2><blockquote>
+<p>一旦配置了镜像，那么所有访问都会到镜像仓库中，原仓库将不能直接访问。</p>
+<p>maven主目录 &gt; conf &gt; settings.xml &gt; 146行</p>
+</blockquote>
+<pre><code class="Xml">    &lt;mirror&gt;
+      &lt;id&gt;maven.net.cn&lt;/id&gt;
+      &lt;mirrorOf&gt;central&lt;/mirrorOf&gt;
+      &lt;name&gt;Central mirror in china&lt;/name&gt;
+      &lt;url&gt;http://maven.net.cn/content/groups/public&lt;/url&gt;
+    &lt;/mirror&gt;
+</code></pre>
+<h2 id="更改仓库位置"><a href="#更改仓库位置" class="headerlink" title="更改仓库位置"></a>更改仓库位置</h2><blockquote>
+<p>maven从远程中央仓库下载默认是存放在当前用户目录中</p>
+<p>​    即 ~/.m2/repository</p>
+</blockquote>
+<p>修改 <code>settings.xml</code>文件，复制第 53 行的内容</p>
+<pre><code> &lt;localRepository&gt;/Users/nimon/nj/proj/maven/repo&lt;/localRepository&gt;
+</code></pre><p>其中路径表示新仓库的位置。然后复制一份 <code>settings.xml</code>  到 <code>repo</code> 目录下，这样我们以后更新maven版本就不用再修改原始的 <code>settings.xml</code></p>
+<h1 id="maven的生命周期和插件"><a href="#maven的生命周期和插件" class="headerlink" title="maven的生命周期和插件"></a>maven的生命周期和插件</h1><h2 id="完整的项目构建过程包括"><a href="#完整的项目构建过程包括" class="headerlink" title="完整的项目构建过程包括"></a>完整的项目构建过程包括</h2><p>清理、编译、测试、打包、集成测试、验证、部署</p>
+<p>maven将其进行抽象。实际上，maven和插件是密不可分的，maven抽象出一套项目构建的生命周期，而插件是对maven抽象的具体实现。</p>
+<p>比如，我们对项目进行编译，</p>
+<h2 id="maven中定义了三套独立的生命周期"><a href="#maven中定义了三套独立的生命周期" class="headerlink" title="maven中定义了三套独立的生命周期"></a>maven中定义了三套独立的生命周期</h2><ol>
+<li>clean    清理项目</li>
+<li>default  构建项目</li>
+<li>site   生成项目站点</li>
+</ol>
+<p>这三套生命周期是相互独立的，每个生命周期又包含一些阶段，这些阶段是有顺序的，后面的阶段依赖于前面的阶段。在执行的时候，前面的阶段会顺序执行，并不会触发另外两个生命周期中的阶段。</p>
+<h3 id="clean-清理项目阶段"><a href="#clean-清理项目阶段" class="headerlink" title="clean 清理项目阶段"></a>clean 清理项目阶段</h3><p>pre-clean 执行清理前的工作</p>
+<p>clean 清理上一次构建的文件</p>
+<p>post-clean 执行清理后的文件</p>
+<h3 id="default-构建项目（最核心）"><a href="#default-构建项目（最核心）" class="headerlink" title="default 构建项目（最核心）"></a>default 构建项目（最核心）</h3><p>compile test package install</p>
+<h3 id="site-生成项目站点"><a href="#site-生成项目站点" class="headerlink" title="site 生成项目站点"></a>site 生成项目站点</h3><p>pre-site 在生成项目站点前要完成工作</p>
+<p>site  生成项目的站点文档</p>
+<p>post-site  在生成项目站点后要完成的工作</p>
+<p>site-deploy  发布生成的站点到服务器</p>
+<p>可以去 <strong><a href="https://maven.apache.org/plugins" target="_blank" rel="external">官方插件</a></strong> ，查找使用插件</p>
+<h1 id="pom-xml常用元素"><a href="#pom-xml常用元素" class="headerlink" title="pom.xml常用元素"></a>pom.xml常用元素</h1><p>pom.xml是maven项目的核心管理文件，用于项目描述、组织管理、依赖管理和构建信息的管理。 </p>
+<pre><code class="xml">&lt;project xmlns=&quot;http://maven.apache.org/POM/4.0.0&quot;
+         xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+         xsi:schemaLocation=&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd&quot;&gt;
+    &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;   
+
+    &lt;groupId&gt;组织名，公司网址的反写+项目名&lt;/groupId&gt;
+    &lt;artifactId&gt;项目名-模块名&lt;/artifactId&gt;
+      &lt;!--打包类型，默认是jar
+        war zip pom    
+    --&gt;
+    &lt;packaging&gt;war&lt;/packaging&gt;
+      &lt;!--第一个0表示大版本号
+    第二个0 表示分支版本号
+    第三个0 表示小版本号
+    SNAPSHOT ：不稳定，尚处于开发中，快照版本
+    ALPHA ：是内部测试版,一般不向外部发布,会有很多Bug.一般只有测试人员使用。
+    Beta：也是测试版，这个阶段的版本会一直加入新的功能。在Alpha版之后推出。
+    RELEASE ：稳定版
+    GA ：正式发布
+    --&gt;
+    &lt;version&gt;0.0.1-SNAPSHOT&lt;/version&gt;
+    &lt;!--项目描述名--&gt;
+    &lt;name&gt;maven05-demo Maven Webapp&lt;/name&gt;
+      &lt;!--项目地址--&gt;
+    &lt;url&gt;http://maven.apache.org&lt;/url&gt;
+    &lt;!--项目描述--&gt;
+    &lt;description&gt;&lt;/description&gt;
+      &lt;developers&gt;&lt;/developers&gt;
+      &lt;licenses&gt;&lt;/licenses&gt;
+      &lt;organization&gt;&lt;/organization&gt;
+
+    &lt;dependencies&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;junit&lt;/groupId&gt;
+            &lt;artifactId&gt;junit&lt;/artifactId&gt;
+            &lt;version&gt;4.10&lt;/version&gt;
+              &lt;!--只存在于测试的 classpath 中--&gt;
+            &lt;scope&gt;test&lt;/scope&gt;
+              &lt;type&gt;&lt;/type&gt;
+              &lt;!--设置依赖是否可选--&gt;
+              &lt;optional&gt;&lt;/optional&gt;
+              &lt;!--排除依赖传递列表--&gt;
+              &lt;exclusions&gt;
+                  &lt;exclusion&gt;
+
+                  &lt;/exclusion&gt;
+              &lt;/exclusions&gt;
+        &lt;/dependency&gt;
+    &lt;/dependencies&gt;
+
+      &lt;!--依赖的管理，不会被运行和引入到实际的依赖中--&gt;
+      &lt;dependencyManagerment&gt;
+          &lt;!--主要定义在父模块中，供子模块集成用的--&gt;
+          &lt;dependency&gt;
+
+          &lt;/dependency&gt;
+      &lt;/dependencyManagerment&gt;
+
+      &lt;!--插件列表--&gt;
+       &lt;build&gt;
+        &lt;plugins&gt;
+            &lt;plugin&gt;
+                &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+                &lt;artifactId&gt;maven-source-plugin&lt;/artifactId&gt;
+                &lt;version&gt;2.4&lt;/version&gt;
+                  &lt;!--上面三项是坐标--&gt;
+                &lt;executions&gt;
+                    &lt;execution&gt;
+                        &lt;phase&gt;package&lt;/phase&gt;
+                        &lt;goals&gt;
+                            &lt;goal&gt;jar-no-fork&lt;/goal&gt;
+                        &lt;/goals&gt;
+                    &lt;/execution&gt;
+                &lt;/executions&gt;
+            &lt;/plugin&gt;
+
+            &lt;plugin&gt;
+                &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+                &lt;artifactId&gt;maven-jar-plugin&lt;/artifactId&gt;
+                &lt;version&gt;3.0.2&lt;/version&gt;
+            &lt;/plugin&gt;
+        &lt;/plugins&gt;
+        &lt;!--子模块对父模块的继承--&gt;
+           &lt;parent&gt;&lt;/parent&gt;
+        &lt;!--聚合多个maven运行项--&gt;
+           &lt;modules&gt;&lt;/modules&gt;
+
+        &lt;finalName&gt;maven05-demo&lt;/finalName&gt;
+    &lt;/build&gt;
+
+&lt;/project&gt;
+</code></pre>
+<h1 id="依赖范围"><a href="#依赖范围" class="headerlink" title="依赖范围"></a>依赖范围</h1><p>我们平时在开发时，如果要使用某一个框架，就需要把框架的jar包引入项目的 classpath 中，这样我们的项目就可以使用 框架为我们封装好的一些方法。maven给我们提供了三种classpath：</p>
+<ol>
+<li>编译</li>
+<li>测试 test</li>
+<li>运行  </li>
+</ol>
+<p>所以依赖的范围就是控制依赖于三种 classpath 的关系的。</p>
+<p>有六中依赖范围的值可以选择：</p>
+<ul>
+<li>compile 默认的范围，如果没有明确指定，编译依赖将在所有的 classpath 中都有效，而且会传递到依赖项目中。</li>
+<li>provided  在编译和测试的时候有效</li>
+<li>runtime 在测试和运行时有效</li>
+<li>test 只在测试的时候有效</li>
+<li>system 于本机系统相关联，可移植性差</li>
+<li>import 导入的范围，它只使用在 dependencyManagerment ，表示从其他 pom 中导入的 dependency 的配置。</li>
+</ul>
+<p>例如</p>
+<pre><code class="xml">&lt;project&gt;
+  &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+  &lt;groupId&gt;maven&lt;/groupId&gt;
+  &lt;artifactId&gt;B&lt;/artifactId&gt;
+  &lt;packaging&gt;pom&lt;/packaging&gt;
+  &lt;name&gt;B&lt;/name&gt;
+  &lt;version&gt;1.0&lt;/version&gt;
+  &lt;dependencyManagement&gt;
+    &lt;dependencies&gt;
+      &lt;dependency&gt;
+        &lt;groupId&gt;maven&lt;/groupId&gt;
+        &lt;artifactId&gt;A&lt;/artifactId&gt;
+        &lt;version&gt;1.0&lt;/version&gt;
+        &lt;type&gt;pom&lt;/type&gt;
+        &lt;scope&gt;import&lt;/scope&gt;
+      &lt;/dependency&gt;
+      .....
+</code></pre>
+<h1 id="依赖传递"><a href="#依赖传递" class="headerlink" title="依赖传递"></a>依赖传递</h1><p>一个小案例</p>
+<p>shanji 依赖于 nage</p>
+<p>nage 依赖于 bge</p>
+<p>bge的依赖关系</p>
+<pre><code class="xml">&lt;dependencies&gt;
+    &lt;dependency&gt;
+      &lt;groupId&gt;junit&lt;/groupId&gt;
+      &lt;artifactId&gt;junit&lt;/artifactId&gt;
+      &lt;version&gt;4.10&lt;/version&gt;
+      &lt;scope&gt;test&lt;/scope&gt;
+    &lt;/dependency&gt;
+ &lt;/dependencies&gt;
+</code></pre>
+<p>nage的依赖关系</p>
+<pre><code class="xml">&lt;dependencies&gt;
+
+    &lt;dependency&gt;
+      &lt;groupId&gt;junit&lt;/groupId&gt;
+      &lt;artifactId&gt;junit&lt;/artifactId&gt;
+      &lt;version&gt;3.8.1&lt;/version&gt;
+      &lt;scope&gt;test&lt;/scope&gt;
+    &lt;/dependency&gt;
+
+    &lt;dependency&gt;
+      &lt;groupId&gt;com.hongxing&lt;/groupId&gt;
+      &lt;artifactId&gt;hongxing-bge&lt;/artifactId&gt;
+      &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
+    &lt;/dependency&gt;
+
+  &lt;/dependencies&gt;
+</code></pre>
+<p>shanji的依赖关系</p>
+<pre><code class="Xml">&lt;dependencies&gt;
+    &lt;dependency&gt;
+      &lt;groupId&gt;junit&lt;/groupId&gt;
+      &lt;artifactId&gt;junit&lt;/artifactId&gt;
+      &lt;version&gt;3.8.1&lt;/version&gt;
+      &lt;scope&gt;test&lt;/scope&gt;
+    &lt;/dependency&gt;
+
+    &lt;dependency&gt;
+      &lt;groupId&gt;com.hongxing&lt;/groupId&gt;
+      &lt;artifactId&gt;hongxing-nage&lt;/artifactId&gt;
+      &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
+      &lt;exclusions&gt;
+        &lt;exclusion&gt;
+          &lt;groupId&gt;com.hongxing&lt;/groupId&gt;
+          &lt;artifactId&gt;hongxing-bge&lt;/artifactId&gt;
+        &lt;/exclusion&gt;
+      &lt;/exclusions&gt;
+    &lt;/dependency&gt;
+  &lt;/dependencies&gt;
+</code></pre>
+<p>这时候nage下就有bge的依赖jar包，shanji下有bge和nage的依赖jar包。</p>
+<p>但是由于依赖的传递性，shanji 只依赖于nage ，shanji 项目中会出现 bge 的jar包。有时候，这不是我们想要的。</p>
+<p>这时可以在 nage 依赖下使用 <exclusions>  把 bge 排除在外。</exclusions></p>
+<h1 id="依赖冲突"><a href="#依赖冲突" class="headerlink" title="依赖冲突"></a>依赖冲突</h1><blockquote>
+<p>eg 对不同版本的同一个构建。</p>
+</blockquote>
+<ol>
+<li><p>短路优先</p>
+<p>A -&gt; B -&gt; C -&gt; X（JAR)</p>
+<p>A -&gt; D -&gt; X（JAR)    <strong>优先</strong></p>
+</li>
+</ol>
+<p>举例：</p>
+<p>在 bge 中添加commons-io 2.5的版本依赖</p>
+<p>在 nage 中添加commons-io 2.0的版本依赖</p>
+<p>这时候在 shanji 项目中就会出现 2.0 的版本，因为shanji 离 nage 比较近。</p>
+<ol>
+<li>先声明先优先</li>
+</ol>
+<p>如果路径长度相同，谁先声明，先解析谁。</p>
+<p>举例：</p>
+<pre><code class="xml">&lt;dependencies&gt;
+    &lt;dependency&gt;
+      &lt;groupId&gt;junit&lt;/groupId&gt;
+      &lt;artifactId&gt;junit&lt;/artifactId&gt;
+      &lt;version&gt;3.8.1&lt;/version&gt;
+      &lt;scope&gt;test&lt;/scope&gt;
+    &lt;/dependency&gt;
+
+    &lt;dependency&gt;
+      &lt;groupId&gt;com.hongxing&lt;/groupId&gt;
+      &lt;artifactId&gt;hongxing-bge&lt;/artifactId&gt;
+      &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
+    &lt;/dependency&gt;
+
+    &lt;dependency&gt;
+      &lt;groupId&gt;com.hongxing&lt;/groupId&gt;
+      &lt;artifactId&gt;hongxing-nage&lt;/artifactId&gt;
+      &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
+      &lt;!--&lt;exclusions&gt;--&gt;
+        &lt;!--&lt;exclusion&gt;--&gt;
+          &lt;!--&lt;groupId&gt;com.hongxing&lt;/groupId&gt;--&gt;
+          &lt;!--&lt;artifactId&gt;hongxing-bge&lt;/artifactId&gt;--&gt;
+        &lt;!--&lt;/exclusion&gt;--&gt;
+      &lt;!--&lt;/exclusions&gt;--&gt;
+    &lt;/dependency&gt;
+  &lt;/dependencies&gt;
+</code></pre>
+<p>这时候，项目中 commons-io 的版本就变成了 2.5，因为是先声明 bge ，后声明 nage 。</p>
+<h1 id="聚合和继承"><a href="#聚合和继承" class="headerlink" title="聚合和继承"></a>聚合和继承</h1><p>如果在maven中有多个项目，我们想要 install 将其放到本地仓库中， 必须对其依次执行 install 命令</p>
+<p>maven 给我提供了一个解决办法，就是使用 <strong>聚合</strong> </p>
+<pre><code class="xml">&lt;modules&gt;
+  &lt;module&gt;../hongxing-bge&lt;/module&gt;
+  &lt;module&gt;../hongxing-nage&lt;/module&gt;
+  &lt;module&gt;../hongxing-shanji&lt;/module&gt;
+&lt;/modules&gt;
+</code></pre>
+<p>然后执行 install 命令，就会自动把三个module都安装到本地仓库中了。</p>
+<p>定义父容器</p>
+<pre><code class="xml">      &lt;properties&gt;
+        &lt;project.build.sourceEncoding&gt;UTF-8&lt;/project.build.sourceEncoding&gt;
+        &lt;junit.version&gt;
+            3.8.1
+        &lt;/junit.version&gt;
+    &lt;/properties&gt;
+
+    &lt;dependencyManagement&gt;
+        &lt;dependencies&gt;
+            &lt;dependency&gt;
+                &lt;groupId&gt;junit&lt;/groupId&gt;
+                &lt;artifactId&gt;junit&lt;/artifactId&gt;
+                &lt;version&gt;${junit.version}&lt;/version&gt;
+            &lt;/dependency&gt;
+        &lt;/dependencies&gt;
+    &lt;/dependencyManagement&gt;
+</code></pre>
+<p>然后在子类中使用</p>
+<pre><code class="xml">  &lt;parent&gt;
+    &lt;groupId&gt;com.hongxing&lt;/groupId&gt;
+    &lt;artifactId&gt;hongxing-parent&lt;/artifactId&gt;
+    &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
+  &lt;/parent&gt;
+</code></pre>
+<blockquote>
+<p>注意修改  <strong><packaging></packaging></strong> 为pom</p>
+</blockquote>
+<h1 id="使用maven构建web项目"><a href="#使用maven构建web项目" class="headerlink" title="使用maven构建web项目"></a>使用maven构建web项目</h1><p>Next，这里在Properties中添加一个参数<code>archetypeCatalog=internal</code>，不加这个参数，在maven生成骨架的时候将会非常慢，有时候会直接卡住。</p>
+<p>来自网上的解释：</p>
+<blockquote>
+<p>archetypeCatalog表示插件使用的archetype元数据，不加这个参数时默认为remote，local，即中央仓库archetype元数据，由于中央仓库的archetype太多了，所以导致很慢，指定internal来表示仅使用内部元数据。</p>
+</blockquote>
+<p><img src="http://osoa5juml.bkt.clouddn.com//image/site/1499951126858.png" alt=""></p>
+<p>使用 jetty 发布</p>
+<pre><code class="xml">&lt;plugin&gt;
+  &lt;groupId&gt;org.eclipse.jetty&lt;/groupId&gt;
+  &lt;artifactId&gt;jetty-maven-plugin&lt;/artifactId&gt;
+  &lt;version&gt;9.4.4.v20170414&lt;/version&gt;
+  &lt;executions&gt;
+    &lt;execution&gt;
+      &lt;!--在打包成功后使用jetty:run来运行jetty服务--&gt;
+      &lt;phase&gt;package&lt;/phase&gt;  &lt;!--指定在package阶段的时候--&gt;
+      &lt;goals&gt;
+        &lt;goal&gt;run&lt;/goal&gt;
+      &lt;/goals&gt;
+    &lt;/execution&gt;
+  &lt;/executions&gt;
+&lt;/plugin&gt;
+</code></pre>
+]]></content>
+      
+        
+        <tags>
+            
+            <tag> maven </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[GitHub 学习之路]]></title>
+      <url>/2017/05/14/00001-Git-2017-05-14-GitHub/</url>
+      <content type="html"><![CDATA[<p><img src="http://osoa5juml.bkt.clouddn.com/image/site/1499949527648.png" alt=""></p>
+<blockquote>
+<p>成大事不在于力量的大小，而在于能坚持多久。              ——约翰生</p>
+</blockquote>
+<h1 id="Git配置多个SSH"><a href="#Git配置多个SSH" class="headerlink" title="Git配置多个SSH"></a>Git配置多个SSH</h1><p>在日常开发中，我们可能会使用多个帐号以及多个  SSH-Key ，可能是 <a href="https://git.oschina.net/" target="_blank" rel="external">码云</a>，也可能是 <a href="https://github.com/" target="_blank" rel="external">GitHub</a> ，如果你的电脑中只配置了一个 SSH-Key ，那到时候另一个或多个帐号在使用上，就会带来些许不便。（你能忍受每次 push 都要求你输入密码吗？或者每次切换帐号都需要重新配置 SSH-Key 吗？因为每次使用默认配置的方法都会将前一次配置覆盖。），作为程序员，怎么能让这种事情发生呢，我们需要一种一劳永逸的解决办法。经过上网搜索及筛选，我找到一种比较简单方便的方法。</p>
+<h2 id="1-生成并添加第一个SSH"><a href="#1-生成并添加第一个SSH" class="headerlink" title="1. 生成并添加第一个SSH"></a>1. 生成并添加第一个SSH</h2><p>首先你得安装 <a href="https://git-scm.com/" target="_blank" rel="external">git</a> 客户端。Windows 平台，安装完后，在桌面右键选择 git bash 打开。Mac 平台安装好，打开 Terminal 或者 iTerm 输入以下命令。</p>
+<pre><code class="Java">$ ssh-keygen -t rsa -C &quot;youremail@xxx.com&quot;
+</code></pre>
+<p>在 Git Bash 中执行命令一路回车，会在 ~/.ssh/ 目录下生成 id_rsa 和 id_rsa.pub 两个文件用文本编辑器打开 id_rsa.pub 里的内容，在 Github 中添加 SSH Keys</p>
+<h2 id="2-生成并添加第二个SSH"><a href="#2-生成并添加第二个SSH" class="headerlink" title="2. 生成并添加第二个SSH"></a>2. 生成并添加第二个SSH</h2><p>接着上一步，为了区分开不同的 SSH-Key，我在生成文件的时候用了不同的名称来区分。 输入你要配置的另一个 SSH-Key 的邮箱。</p>
+<pre><code class="shell">$ ssh-keygen -t rsa -C &quot;otheremail@xxx.com&quot;
+</code></pre>
+<p>这次不要一路回车，请输入这个文件的名字，见下面的第三行。</p>
+<pre><code class="Shell">$ ssh-keygen -t rsa -C &quot;824291045@qq.com&quot;
+Generating public/private rsa key pair.
+Enter file in which to save the key (/Users/nimon/.ssh/id_rsa): other
+Enter passphrase (empty for no passphrase):
+Enter same passphrase again:
+Your identification has been saved in other.
+Your public key has been saved in other.pub.
+The key fingerprint is:
+SHA256:tlHc9GiN8cLngDw8QmomMlxmc+2odsRciMjIu6ljjzQ 824291045@qq.com
+The key&#39;s randomart image is:
++---[RSA 2048]----+
+|.o .=..o.   o    |
+|.oo+.o.oo+ = B   |
+</code></pre>
+<p>如上输入 <code>other</code>  之后会在.ssh目录下生成两个文件 <code>other</code> 和 <code>other.pub</code> ，原理同步骤1。</p>
+<h2 id="3-创建config文件"><a href="#3-创建config文件" class="headerlink" title="3.创建config文件"></a>3.创建config文件</h2><p>因为 SSH-Key 有一个默认的配置，如果我们还是按照默认配置，那么注定是不会成功的。</p>
+<p>我们需要在 ~/.ssh 目录下添加 config 配置文件用于区分多个 SSH-Key 。</p>
+<pre><code class="tex">Host github.com  
+    HostName github.com  
+    PreferredAuthentications publickey  
+    IdentityFile ~/.ssh/id_rsa  
+
+Host other.github.com  
+    HostName github.com  
+    PreferredAuthentications publickey  
+    IdentityFile ~/.ssh/other
+</code></pre>
+<p>之后保存并推出编辑器。</p>
+<ul>
+<li>Host : 代表一个映射的域名地址，可以自己取。</li>
+<li>HostName ： 是实际的域名地址，一般是代码托管平台的域名。</li>
+<li>PreferredAuthentications ： 配置登录时用什么权限认证，可设为<code>publickey,password publickey,keyboard-interactive</code>，在这里使用 publickey 即可。</li>
+<li>IdentityFile ： 就是更改生成的两个 Key 文件的地址，这里只需填写对应的文件名即可。</li>
+</ul>
+<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><p>以上完成之后，在命令行中输入 <code>ssh -T git@xxx.com</code> （xxx 就写刚才在配置文件中 Host 后面的名字）与远程进行验证，验证成功就会显示如下信息。</p>
+<pre><code class="shell">$ ssh -T git@github.com
+Hi SmartJunNi! You&#39;ve successfully authenticated, but GitHub does not provide shell access.
+
+$ ssh -T git@other.github.com
+ssh git@github.com
+Hi junoni! You&#39;ve successfully authenticated, but GitHub does not provide shell access.
+</code></pre>
+<h2 id="可能出现的问题"><a href="#可能出现的问题" class="headerlink" title="可能出现的问题"></a>可能出现的问题</h2><p>如果在项目中使用 <code>git push</code> 时提示<code>[remote reject]   (Permission denied)</code> 。如下所示</p>
+<pre><code class="shell">Counting objects: 3, done.
+Delta compression using up to 8 threads.
+Compressing objects: 100% (2/2), done.
+Writing objects: 100% (3/3), 252 bytes | 0 bytes/s, done.
+Total 3 (delta 1), reused 0 (delta 0)
+remote: Resolving deltas: 100% (1/1), completed with 1 local object.
+To other.github.com:junoni/nimon.git
+ ! [remote rejected] master -&gt; master (permission denied)
+error: failed to push some refs to &#39;git@other.github.com:junoni/nimon.git&#39;
+</code></pre>
+<p>我花了一个半小时从 google 到 stackoverflow 查了个边，就差没有百度一下了，就是没有找到可以解决的办法。这时我发现最后一行的<code>git@other.github.com:junoni/nimon.git</code> 这个地址，我想了想，刚刚配置了 config 这个文件，其中<code>Host</code>   使用的是 <code>other.github.com</code>，我用 <code>git remote -v</code> 查看了当前远程仓库的 origin 。</p>
+<pre><code class="shell">$ git remote -v
+origin    git@github.com:junoni/nimon.git (fetch)
+origin    git@github.com:junoni/nimon.git (push)
+</code></pre>
+<p>可以看到，fetch 和 push 的 origin 地址都是 git@github.com ，而不是 git@other.github.com ，我就抱着试试的心态，改成了 git@other.github.com。还有一个步骤，将 <code>other</code> 加入到密钥列表中。</p>
+<pre><code class="shell">$ ssh-add ~/.ssh/other
+</code></pre>
+<p> 再尝试 push 一下，没想到成功了。如迈克尔•乔丹所说：“我可以接受失败，但我不能接受放弃。”</p>
+<p>当然，添加之后我们还可以查看当前密钥列表。也可以删除密钥。</p>
+<pre><code class="shell">$ ssh-add -l
+$ ssh-add -d ~/.ssh/other
+</code></pre>
+<p>类似debug，查看与远程连接情况。</p>
+<pre><code class="Shell">$ ssh -v git@github.com
+</code></pre>
+<p>总结：我们设置的远程仓库的地址必须和 config 文件中设置的域名映射地址相同，不然就会出现错误。</p>
+<h1 id="总览"><a href="#总览" class="headerlink" title="总览"></a>总览</h1><h2 id="查看全局config信息"><a href="#查看全局config信息" class="headerlink" title="查看全局config信息"></a>查看全局config信息</h2><p>mac 下在~/.gitconfig 文件中配置 git 的全局信息。使用 <code>git config --list</code> 可以列出全局配置信息。</p>
+<pre><code class="shell">$ git config --list
+</code></pre>
+<p><strong>用户信息</strong><br>配置你个人的用户名称和电子邮件地址。这两条配置很重要，每次 Git 提交时都会引用这两条信息，说明是谁提交了更新，所以会随更新内容一起被永久纳入历史记录：</p>
+<pre><code>$ git config --global user.name “youname”
+$ git config --global user.email “12345@example.com”
+</code></pre><p>如果用了 –global 选项，那么更改的配置文件就是位于你用户主目录下的那个，以后你所有的项目都会默认使用这里配置的用户信息。如果要在某个特定的项目中使用其他名字或者电邮，只要去掉 –global 选项重新配置即可，新的设定保存在当前项目的 .git/config 文件里。</p>
+<h2 id="GIT总结"><a href="#GIT总结" class="headerlink" title="GIT总结"></a>GIT总结</h2><p><strong>查看配置信息</strong><br>查看已有的配置信息</p>
+<pre><code>$ git config --list
+$ git config -l
+</code></pre><p><strong>获取帮助</strong><br>例如想获取config命令的帮助信息</p>
+<pre><code>$ git help config 
+$ git config --help
+</code></pre><p><strong>初始化新仓库</strong></p>
+<pre><code>$ git init
+</code></pre><p>初始化后，在当前目录下会出现一个名为 .git 的目录，所有 Git 需要的数据和资源都存放在这个目录中。不过目前，仅仅是按照既有的结构框架初始化好了里边所有的文件和目录，但我们还没有开始跟踪管理项目中的任何一个文件。</p>
+<p>如果当前目录下有几个文件想要纳入版本控制，需要先用 git add 命令告诉 Git 开始对这些文件进行跟踪，然后提交：<br><strong>跟踪文件：</strong>（将文件加到暂存区域）</p>
+<pre><code>$ git add readme.txt
+</code></pre><p><strong>跟踪全部文件</strong></p>
+<pre><code>$ git add .
+</code></pre><p><strong>提交更新</strong></p>
+<pre><code>$ git commit -m “first version”
+</code></pre><p><strong>上传（推送）到github</strong></p>
+<pre><code>$ git push origin master
+</code></pre><p><strong>从现有仓库克隆</strong></p>
+<pre><code>$ git clone git://github.com/youname/project.git
+$ git clone git@github.com:youname/project.git
+$ git clone https://github.com/youname/project.git
+</code></pre><p><strong>检查当前文件状态</strong></p>
+<pre><code>$ git status
+</code></pre><p><strong>创建.gitignore文件</strong></p>
+<pre><code>$ touch .gitignore
+</code></pre><p><strong>查看修改之后没有暂存起来的内容</strong></p>
+<pre><code>$ git diff
+</code></pre><p><strong>移除文件</strong></p>
+<pre><code>$ git rm readme.txt
+</code></pre><p><strong>重命名文件</strong></p>
+<pre><code>$ git mv oldname.txt newname.txt
+</code></pre><p><strong>查看提交历史</strong></p>
+<pre><code>$ git log
+</code></pre><p><strong>取消暂存</strong></p>
+<pre><code>$ git reset HEAD readme.txt
+</code></pre><p><strong>添加远程仓库</strong>（远程仓库必须先在github上建好）</p>
+<pre><code>$ git remote add [shortname] [url]
+</code></pre><p><strong>实例：</strong></p>
+<pre><code>$ git remote add origin git@github.com:youname/yourRepo.git
+</code></pre><p><strong>推送数据到仓库</strong></p>
+<pre><code>$ git push [remote-name] [branch-name]
+</code></pre><p>如果要把本地的 master 分支推送到origin服务器上（再次说明下，克隆操作会自动使用默认的master 和origin 名字），可以运行下面的命令：</p>
+<pre><code>$ git push origin master
+</code></pre><p><strong>从远程仓库抓取数据</strong></p>
+<pre><code>$ git fetch [remote-name]
+</code></pre><p>碰到远端仓库服务器迁移，或者原来的克隆镜像不再使用，又或者某个参与者不再贡献代码，那么需要移除对应的远端仓库<br><strong>远程仓库的删除</strong></p>
+<pre><code>$ git remote rm origin
+</code></pre><p><strong>远程仓库重命名</strong>(此处命名的是上文添加远程仓库中的shortname)</p>
+<pre><code>$ git remote rename origin origin2
+</code></pre><p><strong>自动补全</strong><br>输入命令后按tab键，就会看到列出所有匹配的可用命令建议：</p>
+<pre><code>$ git co&lt;tab&gt;
+</code></pre><h2 id="GIT分支"><a href="#GIT分支" class="headerlink" title="GIT分支"></a>GIT分支</h2><p><strong>创建一个名为“testing”的分支</strong></p>
+<pre><code>$ git branch testing
+</code></pre><p>切换到“testing”分支(默认为master分支)</p>
+<pre><code>$ git checkout testing
+</code></pre><p><strong>新建并切换到该分支</strong></p>
+<pre><code>$ git checkout -b iss53
+</code></pre><p>这条命令相当于执行下面这两条命令</p>
+<pre><code>$ git branch iss53
+$ git checkout iss53
+</code></pre><p><strong>删除hotfix分支</strong>（如果该分支还未被合并则会提示错误，因为这样会丢失数据）</p>
+<pre><code>$ git branch -d hotfix
+</code></pre><p><strong>强制删除hotfix分支</strong>（强制删除，不会提示错误）</p>
+<pre><code>$ git branch -D hotfix
+</code></pre><p><strong>合并iss53分支</strong>（先切换到master分支）</p>
+<pre><code>$ git checkout master
+$ git merge iss53
+</code></pre><p><strong>查看当前所有分支</strong></p>
+<pre><code>$ git branch
+</code></pre><p><strong>查看各个分支最后一个提交对象的信息</strong></p>
+<pre><code>$ git branch -v
+</code></pre><p><strong>查看已经与当前分支合并的分支</strong>（已经合并的查出来后可以删掉）</p>
+<pre><code>$ git branch --merge
+</code></pre><p><strong>查看未与当前分支合并的分支</strong></p>
+<pre><code>$ git branch --no-merged
+</code></pre><p><strong>同步远程服务器数据到本地</strong></p>
+<pre><code>$ git fetch origin
+</code></pre><p><strong>从新添加的远程仓库下载数据</strong></p>
+<pre><code>$ git remote add teamone git://git.team1.ourcompany.com
+$ git fetch teamone
+</code></pre><p><strong>分化一个新的分支</strong>(使用这个命令会从服务器上下载master最新的版本，所以如果当前本地版本不是最新的，新的分支和本地分支会不同)</p>
+<pre><code>$ git checkout -b test1 origin/master
+</code></pre><p>假如你用这个新的分支进行git push，并且通过了合并，那么会在远程仓库建立一个新的同名分支<br>删除该分支的方法</p>
+<pre><code>$ git push origin :test1
+</code></pre><p><strong>分支的衍合：</strong>将test1分支衍合到master主分支</p>
+<pre><code>$ git checkout test1
+$ git rebase master
+</code></pre><p>另一种方法，直接衍合，不用再先切换到test1</p>
+<pre><code>$ git rebase master test1
+</code></pre><p><strong>快进master分支</strong></p>
+<pre><code>$ git checkout master
+$ git merge client
+</code></pre><h1 id="多人协作"><a href="#多人协作" class="headerlink" title="多人协作"></a>多人协作</h1><ul>
+<li>查看远程库信息，使用<code>git remote -v</code>；</li>
+<li>本地新建的分支如果不推送到远程，对其他人就是不可见的；</li>
+<li>从本地推送分支，使用<code>git push origin branch-name</code>，如果推送失败，先用<code>git pull</code>抓取远程的新提交；</li>
+<li>在本地创建和远程分支对应的分支，使用<code>git checkout -b branch-name origin/branch-name</code>，本地和远程分支的名称最好一致；</li>
+<li>建立本地分支和远程分支的关联，使用<code>git branch --set-upstream branch-name origin/branch-name</code>；</li>
+<li>从远程抓取分支，使用<code>git pull</code>，如果有冲突，要先处理冲突。</li>
+</ul>
+<p><strong>找到历史提交的commit ID</strong></p>
+<pre><code>git log  --graph --pretty=oneline --abbrev-commit
+</code></pre><h1 id="创建标签"><a href="#创建标签" class="headerlink" title="创建标签"></a>创建标签</h1><p> <strong>小结</strong></p>
+<ul>
+<li>命令<code>git tag &lt;name&gt;</code>用于新建一个标签，默认为<code>HEAD</code>，也可以指定一个commit id；</li>
+<li><code>git tag -a &lt;tagname&gt; -m &quot;blablabla...&quot;</code>可以指定标签信息；</li>
+<li><code>git tag -s &lt;tagname&gt; -m &quot;blablabla...&quot;</code>可以用PGP签名标签；</li>
+<li>命令<code>git tag</code>可以查看所有标签。</li>
+<li><code>git show &lt;tagname&gt;</code>可以查看标签的详情</li>
+</ul>
+<h1 id="操作标签"><a href="#操作标签" class="headerlink" title="操作标签"></a>操作标签</h1><p><strong>小结</strong></p>
+<ul>
+<li>命令<code>git push origin &lt;tagname&gt;</code>可以推送一个本地标签；</li>
+<li>命令<code>git push origin --tags</code>可以推送全部未推送过的本地标签；</li>
+<li>命令<code>git tag -d &lt;tagname&gt;</code>可以删除一个本地标签；</li>
+<li>命令<code>git push origin :refs/tags/&lt;tagname&gt;</code>可以删除一个远程标签</li>
+</ul>
+<pre><code class="shell">git config --global alias.lg &quot;log --color --graph --pretty=format:&#39;%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)&lt;%an&gt;%Creset&#39; --abbrev-commit&quot;
+</code></pre>
+<p>touch readme.md</p>
+<h1 id="基本操作"><a href="#基本操作" class="headerlink" title="基本操作"></a>基本操作</h1><p>刚开始，你需要选择一个目录，开始一个新的 repository。使用以下命令可以在当前目录下初始化 Git 。</p>
+<p><strong>git init </strong></p>
+<p>git status  查看仓库的状态</p>
+<p>git add 向暂存区中添加文件</p>
+<p>git commit 保存仓库的历史记录</p>
+<p>记录一行提交信息</p>
+<pre><code class="shell">$ git commit -m &quot;First Commit&quot;
+</code></pre>
+<h2 id="记录详细提交信息"><a href="#记录详细提交信息" class="headerlink" title="记录详细提交信息"></a>记录详细提交信息</h2><p>请不要加-m，直接执行 git commit 命令。</p>
+<pre><code class="shell">$ git commit 
++git tracks changes of files.
+
+# Please enter the commit message for your changes. Lines starting
+# with &#39;#&#39; will be ignored, and an empty message aborts the commit.
+# On branch dev
+# Your branch is ahead of &#39;origin/dev&#39; by 3 commits.
+#   (use &quot;git push&quot; to publish your local commits)
+#
+# Changes to be committed:
+#       modified:   readme.md
+#
+</code></pre>
+<p>在编辑器中记录提交信息</p>
+<ul>
+<li>第一行：用一行文件简述提交的更改内容</li>
+<li>第二行：空行</li>
+<li>第三行：记录更改的原因和详细内容</li>
+</ul>
+<p>在以 # 标位注释的 Changes to be committed 可以查看本次提交中包含的文件。其他信息不必修改。</p>
+<h2 id="终止提交"><a href="#终止提交" class="headerlink" title="终止提交"></a>终止提交</h2><p>请将提交信息留空并直接关闭编译器，随后提交就会被中止。</p>
+<pre><code class="shell">Abor11ting commit due to empty commit message.
+</code></pre>
+<p>##查看提交后的状态</p>
+<p>执行完git commit 命令后再来查看当前状态</p>
+<pre><code class="shell">$ git status
+On branch dev
+nothing to commit, working tree clean
+</code></pre>
+<p>当前工作树处于刚刚提交的最新状态，所以结果显示没有更改。</p>
+<h2 id="git-log-查看提交日志"><a href="#git-log-查看提交日志" class="headerlink" title="git log 查看提交日志"></a>git log 查看提交日志</h2><p>可以查看以往仓库中提交的日志。包括什么人在什么时候进行了提交或合并，以及操作后有怎样的差别。</p>
+<pre><code class="shell">$ git log
+commit d97ade219a7f50f61790a14aa40f3142a07f49ba
+Author: SimpleLifee &lt;824291045@qq.com&gt;
+Date:   Sat May 20 16:47:09 2017 +0800
+
+    First Commit
+</code></pre>
+<p>Commit 旁边显示的是这个提交的哈希值。这个值很重要，在后面会讲到。</p>
+<p>Author 栏中显示的是我们给 Git 设置的用户名和邮箱。</p>
+<p>Date 栏显示的是提交的日期和时间。</p>
+<p>最后是提交信息。</p>
+<h2 id="只显示提交信息的第一行"><a href="#只显示提交信息的第一行" class="headerlink" title="只显示提交信息的第一行"></a>只显示提交信息的第一行</h2><p>在 <code>git log</code>  后面加上 <code>--pretty=short</code></p>
+<pre><code class="shell">$ git log --pretty=short
+
+commit d97ade219a7f50f61790a14aa40f3142a07f49ba
+Author: SimpleLifee &lt;824291045@qq.com&gt;
+
+    First Commit
+</code></pre>
+<h2 id="只显示指定目录、文件的日志"><a href="#只显示指定目录、文件的日志" class="headerlink" title="只显示指定目录、文件的日志"></a>只显示指定目录、文件的日志</h2><p>在 <code>git log</code> 后加上文件名或者目录名即可。</p>
+<h2 id="显示改动的文件"><a href="#显示改动的文件" class="headerlink" title="显示改动的文件"></a>显示改动的文件</h2><p>如果想查看提交所带来的改动，可以加上 <code>-p</code> 参数，文件的前后差别就会显示在提交信息之后。</p>
+<pre><code class="Shell">$ git log -p
+</code></pre>
+<p>只查看某个文件提交前和提交后的差别</p>
+<pre><code class="shell">$ git log -p README.md
+</code></pre>
+<p>如上， 我们不必依次记下全部参数，每当有想查看的日志就积极去查，慢慢就能得心应手了。</p>
+<h2 id="简要列出每个commit的内容变化"><a href="#简要列出每个commit的内容变化" class="headerlink" title="简要列出每个commit的内容变化"></a>简要列出每个commit的内容变化</h2><pre><code class="shell">$ git log --stat
+</code></pre>
+<p>##git diff 查看更改前后的差别</p>
+<p><code>git diff</code> 可以查看工作树、暂存区、最新提交之间的差别。</p>
+<p>注意暂存区是指 <code>git add</code> 之后，但未 <code>git commit</code>  时保存在暂存区的内容。这个时候可以使用 <code>git diff</code> 来查看工作树和暂存区的差别。</p>
+<pre><code class="shell">$ git diff readme.md
+diff --git a/readme.md b/readme.md
+index 7f612d5..c4123d2 100644
+--- a/readme.md
++++ b/readme.md
+@@ -11,5 +11,5 @@ dev: other
+ something happend.
+ i will be fine.
+ hah
+-
++hey! Git!
+</code></pre>
+<p>注意，这里的 <code>+</code>  标出的是新添加的行，被删除的行则用 <code>-</code> 标出。</p>
+<p>这时候如果使用 <code>git add</code> 将 <code>README.md</code> 加入暂存区后。工作树和正常启动内容并无差别，结果什么都不会显示。</p>
+<pre><code class="shell">$ git add README.md
+</code></pre>
+<h2 id="查看工作树和最新提交的差别"><a href="#查看工作树和最新提交的差别" class="headerlink" title="查看工作树和最新提交的差别"></a>查看工作树和最新提交的差别</h2><p> 当使用<code>git add</code> 将 <code>README.md</code> 加入暂存区后，要查看工作树与最新提交的差别，请使用以下命令。</p>
+<pre><code class="shell">$ git diff HEAD
+diff --git a/readme.md b/readme.md
+index 7f612d5..c4123d2 100644
+--- a/readme.md
++++ b/readme.md
+@@ -11,5 +11,5 @@ dev: other
+ something happend.
+ i will be fine.
+ hah
+-
++hey! Git!
+</code></pre>
+<p>不妨养成这样一个好习惯，在执行 <code>git commit</code> 命令之前先执行 <code>git diff HEAD</code> 查看本次提交与上次提交之间有什么差别，等确认完毕再进行提交。这里的 <code>HEAD</code> 指当前分支中最新的一次提交的指针。</p>
+<h1 id="分支的操作"><a href="#分支的操作" class="headerlink" title="分支的操作"></a>分支的操作</h1><h2 id="git-branch-显示分支一览表"><a href="#git-branch-显示分支一览表" class="headerlink" title="git branch 显示分支一览表"></a>git branch 显示分支一览表</h2><p>这个命令会将本地的分支名列表显示，* 表示当前所在分支。</p>
+<pre><code class="shell">$ git branch
+* master
+</code></pre>
+<h2 id="git-checkout-b-创建、切换分支"><a href="#git-checkout-b-创建、切换分支" class="headerlink" title="git checkout -b 创建、切换分支"></a>git checkout -b 创建、切换分支</h2><p>以当前分支为基础创建新的分支，可以使用 <code>git checkout -b</code>命令</p>
+<h2 id="切换到-feature-A-分支并进行提交"><a href="#切换到-feature-A-分支并进行提交" class="headerlink" title="切换到 feature-A 分支并进行提交"></a>切换到 feature-A 分支并进行提交</h2><p>执行下面的命令，创建名为 <code>feature-A</code></p>
+<pre><code class="shell">$ git checkout -b feature-A
+Switched to a new branch &#39;feature-A&#39;
+</code></pre>
+<p>实际上，以上语句等同于</p>
+<pre><code class="shell">$ git branch feature-A
+$ git checkout feature-A
+</code></pre>
+<h2 id="切换分支"><a href="#切换分支" class="headerlink" title="切换分支"></a>切换分支</h2><pre><code class="shell">$ git checkout master
+</code></pre>
+<p>##切换回上一个分支</p>
+<pre><code class="Shell">$ git checkout -
+</code></pre>
+<p>使用 <code>-</code> （连字符） 代替分支名。</p>
+<h2 id="特性分支"><a href="#特性分支" class="headerlink" title="特性分支"></a>特性分支</h2><p>顾名思义，特性分支是集中实现单一特性（主题），除此之外不进行任何作业的分支。在日常开发中，往往会创建数个特性分支，同时再保留一个随时可以发布软件的稳定分支。稳定分支一般由 <code>master</code>  分支担当。</p>
+<p>只要保持这样一个开发流程，就能保证master分支可以随时供人查看。其他开发者也可以放心大胆从master分支创建新的特性分支。</p>
+<p>##主干分支</p>
+<p>特性分支的原点，也是合并的终点。主干分支没有开发到一半的代码，可以随时供人查看。</p>
+<p>主干分支可以有多个，使用 Tag 标签创建版本信息。</p>
+<h2 id="git-merge-合并分支"><a href="#git-merge-合并分支" class="headerlink" title="git merge 合并分支"></a>git merge 合并分支</h2><p>先切换到master，然后与 <code>feature-A</code> 合并</p>
+<pre><code class="shell">$ git merge --no-ff feature-A
+</code></pre>
+<h2 id="以图表形式查看分支"><a href="#以图表形式查看分支" class="headerlink" title="以图表形式查看分支"></a>以图表形式查看分支</h2><p>可以直观地用图表形式输出提交的日志。</p>
+<pre><code class="shell">$ git log --graph
+*   commit 685c45a39c33a4777d14fb29f6f0bfb9b9920c49
+|\  Merge: 6b15d42 40befaa
+| | Author: SimpleLifee &lt;824291045@qq.com&gt;
+| | Date:   Sat May 20 18:04:48 2017 +0800
+| |
+| |     merge
+| |
+| *   commit 40befaab3f0db6fd47e2d553b88428a4ca39e670
+| |\  Merge: a0b10f9 6b15d42
+| |/  Author: SimpleLifee &lt;824291045@qq.com&gt;
+|/|   Date:   Sat May 20 17:51:52 2017 +0800
+| |
+| |       fix
+| |
+</code></pre>
+<h1 id="更改提交的操作"><a href="#更改提交的操作" class="headerlink" title="更改提交的操作"></a>更改提交的操作</h1><h2 id="git-reset-回溯历史版本"><a href="#git-reset-回溯历史版本" class="headerlink" title="git reset 回溯历史版本"></a>git reset 回溯历史版本</h2><p><strong>回溯到创建 <code>feature-A</code> 分支前</strong></p>
+<p>让仓库的HEAD、暂存区、当前的工作树回溯到指定状态。</p>
+<pre><code class="shell">$ git reset --hard &lt;哈希值&gt;
+</code></pre>
+<p> <strong>创建 fix-B 分支</strong></p>
+<p> <strong>推进至feature-A分支合并后的状态</strong></p>
+<p>首先回复到feature-A分支合并后的状态，可以称之为“推进历史”。</p>
+<p><code>git log</code> 只能查看以当前状态为终点的历史日志。</p>
+<p>所以这里要使用<code>git reflog</code> 查看当前仓库的操作历史， 可以看到commit、checkout、reset、merge等Git命令的执行记录。</p>
+<h2 id="消除冲突"><a href="#消除冲突" class="headerlink" title="消除冲突"></a>消除冲突</h2><p>如果系统提示我们文件发生了冲突，那么不解决冲突就无法完成合并，所以需要我们手动来解决冲突。解决完冲突文件后再执行<code>git add</code> 和<code>git commit</code> 。</p>
+<h2 id="修改提交信息"><a href="#修改提交信息" class="headerlink" title="修改提交信息"></a>修改提交信息</h2><pre><code>git commit --amend
+</code></pre><h2 id="git-rebase-i-压缩历史"><a href="#git-rebase-i-压缩历史" class="headerlink" title="git rebase -i 压缩历史"></a>git rebase -i 压缩历史</h2><p>在合并特性分支之前，如果发现已提交的内容中有些拼写错误，不妨提交一个修改，然后<strong>将这个修改包含到前一个提交之中</strong>，压缩成一个历史记录。这是个会经常用到的技巧。</p>
+<h3 id="创建-feature-C-分支"><a href="#创建-feature-C-分支" class="headerlink" title="创建 feature-C 分支"></a>创建 feature-C 分支</h3><p>首先创建 feature-C 分支，然后 add 和 commit命令。</p>
+<p>但是没必要每次这么麻烦。</p>
+<pre><code class="Shell">$ git commit -am &quot;Add feature-C&quot;
+</code></pre>
+<blockquote>
+<p>执行上面语句的前提是，当前工作树中没有新增的Untracked  的文件。</p>
+</blockquote>
+<h3 id="修正拼写错误"><a href="#修正拼写错误" class="headerlink" title="修正拼写错误"></a>修正拼写错误</h3><p>修改错误之后，使用<code>git diff</code> 来查看差别。</p>
+<pre><code class="Shell">$ git diff
+diff --git a/readme.md b/readme.md
+index 10f9ebb..3bbe2d0 100644
+--- a/readme.md
++++ b/readme.md
+@@ -1,2 +1,3 @@
+ C
+ C
++fix C
+</code></pre>
+<p>然后进行提交</p>
+<pre><code class="Shell">$ git commit -am &quot;Fix Typo&quot;
+[C c3955c1] Fix Typo
+ 1 file changed, 1 insertion(+)
+</code></pre>
+<p>错字漏字等失误称作typo，但是我们不希望在历史记录中看到这类提交，因为健全的历史记录不需要它们。</p>
+<h3 id="更改历史"><a href="#更改历史" class="headerlink" title="更改历史"></a>更改历史</h3><p>我们将修正的内容与之前的一次提交合并，在历史记录中合并为一次完美的提交。</p>
+<pre><code class="Shell">$ git rebase -i HEAD~2
+</code></pre>
+<p>上面的命令，可以选定当前分支中包含HEAD ( 最新提交 ) 在内的两个最新历史记录为对象，并在编辑器中打开。</p>
+<pre><code class="shell">pick 695471a Add C
+pick 2f8a965 fix typo
+
+# Rebase 1db92da..2f8a965 onto 1db92da (2 commands)
+#
+# Commands:
+# p, pick = use commit
+# r, reword = use commit, but edit the commit message
+# e, edit = use commit, but stop for amending
+# s, squash = use commit, but meld into previous commit
+# f, fixup = like &quot;squash&quot;, but discard this commit&#39;s log message
+# x, exec = run command (the rest of the line) using shell
+# d, drop = remove commit
+#
+# These lines can be re-ordered; they are executed from top to bottom.
+#
+# If you remove a line here THAT COMMIT WILL BE LOST.
+#
+# However, if you remove everything, the rebase will be aborted.
+#
+# Note that empty commits are commented out
+</code></pre>
+<p>695471a我们将 <code>2f8a965</code> 的 <code>fix typo</code> 的历史记录压缩到 <code>695471a</code> 的 <code>Add C</code>里。按照下图所示，将<code>2f8a965</code>左侧的 <code>pick</code> 部分删除，改写为 <code>fixup</code> 。</p>
+<pre><code class="Shell">pick 695471a Add C
+fixup 2f8a965 fix typo
+</code></pre>
+<p>保存编译器里的内容，关闭编辑器</p>
+<pre><code class="Shell">[detached HEAD 5f770a9] nnnnnnnn
+ Date: Sat May 20 22:07:28 2017 +0800
+ 1 file changed, 1 insertion(+)
+Successfully rebased and updated refs/heads/C.
+</code></pre>
+<p>系统显示 rebase 成功，也就是以下面这两个提交作为对象，将 <code>fix typo</code> 的内容合并到了上一个提交<code>Add C</code> 之中，改写成一个新的提交。</p>
+<ul>
+<li>695471a Add C</li>
+<li>2f8a965 fix typo</li>
+</ul>
+<p>现在查看提交日志时会发现 <code>Add C</code> 的哈希值以及不再是 <code>695471a</code> ，这证明提交已经被更改了。</p>
+<pre><code class="shell">$ git log --graph --oneline
+* 5f770a9 Add C
+* 1db92da haha
+* c1aabf4 Add B
+...
+</code></pre>
+<p>这样，<code>fix typo</code>就从历史中被抹去了，也相当于 <code>Add C</code>从来没有出现过拼写错误。这算是一种良性的历史改写。</p>
+<h3 id="合并至master分支"><a href="#合并至master分支" class="headerlink" title="合并至master分支"></a>合并至master分支</h3><p>C 分支的使命告一段落，我们将它与master分支合并。</p>
+<pre><code class="Shell">$ git checkout master
+Switched to branch &#39;master&#39;
+
+$ git merge --no-ff feature-C
+Merge made by the &#39;recursive&#39; strategy.
+ a         | 2 ++
+ readme.md | 2 ++
+ 2 files changed, 4 insertions(+)
+ create mode 100644 a
+ create mode 100644 readme.md
+</code></pre>
+<p>按照递归策略合并。</p>
+<h1 id="推送至远程仓库"><a href="#推送至远程仓库" class="headerlink" title="推送至远程仓库"></a>推送至远程仓库</h1><blockquote>
+<p>建议在新建远程仓库的时候不要勾选自动生成README文件的选项。</p>
+</blockquote>
+<h2 id="添加远程仓库"><a href="#添加远程仓库" class="headerlink" title="添加远程仓库"></a>添加远程仓库</h2><p>我们用 <code>git remote add</code> 命令将它设置成本地仓库的远程仓库。</p>
+<pre><code class="Shell">$ git remote add origin git@github.com:9981NAN/9981NAN.git
+</code></pre>
+<p>这样，Git会自动将 <code>git@github.com:9981NAN/9981NAN.git</code> 远程仓库名称设置为 origin （ 标识符 ）</p>
+<h2 id="添加多个-URL-地址"><a href="#添加多个-URL-地址" class="headerlink" title="添加多个 URL 地址"></a>添加多个 URL 地址</h2><p>像上面 <code>git remote add origin &lt;url1&gt;</code> 添加第一个URL之后，如果想要添加多个 URL 地址，那么可以使用<code>git remote set-url --add origin &lt;url2&gt;</code> 添加第二个URL。 </p>
+<pre><code class="shell">$ git remote set-url --add origin git@github.com:9981NAN/9981NAN.git
+</code></pre>
+<p>这样一来，以后每次 <code>git push origin master</code>  的时候，就会自动向多个远程仓库中推送了。 </p>
+<blockquote>
+<p>但是使用 git pull 时，只能拉取origin里的一个URL地址（即fetch-url，如上），这个 fetch-url 默认是你添加到origin 的第一个地址。</p>
+<p>如果你想更改，只需要更改 config 文件里，那几个url的顺序即可。 fetch-url 会直接对应排行第一的那个url 链接。</p>
+</blockquote>
+<h2 id="推送至master分支"><a href="#推送至master分支" class="headerlink" title="推送至master分支"></a>推送至master分支</h2><p>如果想把当前分支下本地仓库的内容推送给远程仓库，需要用到 <code>git push</code>，假定我们在master分支下</p>
+<pre><code class="Shell">$ git push -u origin master
+</code></pre>
+<p><code>-u</code>参数可以在推送的同时，将origin仓库的master分支设置为本地仓库当前分支的 upstream（上游）。这样一来，下次运行 <code>git pull</code>命令从远程仓库获取内容时，本地仓库这个分支就可以直接从origin 的master 分支获取内容，省去了另外添加参数的麻烦。</p>
+<h2 id="推送至master以外的分支"><a href="#推送至master以外的分支" class="headerlink" title="推送至master以外的分支"></a>推送至master以外的分支</h2><p>创建其他分支</p>
+<pre><code class="Shell">$ git checkout -b feature-D
+</code></pre>
+<p>将它push给远程仓库，并保持分支名不变</p>
+<pre><code class="shell">$ git push -u origin feature-D
+</code></pre>
+<h1 id="从远程仓库获取"><a href="#从远程仓库获取" class="headerlink" title="从远程仓库获取"></a>从远程仓库获取</h1><p>假设现在有另一名开发者要来共同开发，在另一个目录下新建本地仓库。</p>
+<h2 id="git-clone-获取远程仓库"><a href="#git-clone-获取远程仓库" class="headerlink" title="git clone 获取远程仓库"></a>git clone 获取远程仓库</h2><pre><code class="shell">$ git clone git@github.com:9981NAN/9981NAN.git
+</code></pre>
+<blockquote>
+<p>注意clone的目录不要与之前操作的仓库在同一目录下</p>
+</blockquote>
+<p>执行 <code>git clone</code>命令后我们会默认处于master分支下，同时系统会自动将origin设置成该远程仓库的标识符。</p>
+<p>我们可以使用下面的命令查看本地仓库和远程仓库的分支信息。</p>
+<pre><code class="shell">$ git branch -a
+</code></pre>
+<h2 id="获取远程的feature-D分支"><a href="#获取远程的feature-D分支" class="headerlink" title="获取远程的feature-D分支"></a>获取远程的feature-D分支</h2><p>我们试着将feature-D分支获取至本地仓库。</p>
+<pre><code class="shell">$ git checkout -b feature-D origin/feature-D
+</code></pre>
+<p><code>-b</code> 参数后面是本地仓库中新建分支的名称，可以与远程仓库不同名，但是建议同名，便于理解。</p>
+<h2 id="向本地的feature-D分支提交更改"><a href="#向本地的feature-D分支提交更改" class="headerlink" title="向本地的feature-D分支提交更改"></a>向本地的feature-D分支提交更改</h2><p>假定我们是另一位开发者，要做一个新的提交。在修改文件内容后进行查看和提交。</p>
+<pre><code class="shell">$ git diff
+
+$ git commit -am &quot;Add feature-D&quot;
+</code></pre>
+<h2 id="推送至feature-D分支"><a href="#推送至feature-D分支" class="headerlink" title="推送至feature-D分支"></a>推送至feature-D分支</h2><p>在<code>feature-D</code>分支下直接使用 <code>git push</code> 即可</p>
+<pre><code class="shell">$ git diff
+</code></pre>
+<h2 id="git-pull-获取最新的远程仓库分支"><a href="#git-pull-获取最新的远程仓库分支" class="headerlink" title="git pull 获取最新的远程仓库分支"></a>git pull 获取最新的远程仓库分支</h2><p>回到我们刚刚放下操作的目录，这边的本地仓库中只是创建了feature-D分支，并没有在feature-D进行任何提交，而远程仓库已经有了我们刚刚推送的提交。这时候就可以用<code>git pull</code> ，将本地的 feature-D 分支更新到最新状态。</p>
+<pre><code class="shell">$ git pull origin feature-D
+</code></pre>
+<blockquote>
+<p>如果两人同时修改了同一部分的源代码，push时就很容易发生冲突。所以多名开发者在同一个分支中进行作业时，为了减少冲突的情况，建议更频繁地进行push和pull操作。</p>
+</blockquote>
+<h1 id="GitHub功能"><a href="#GitHub功能" class="headerlink" title="GitHub功能"></a>GitHub功能</h1><h2 id="通过部分名称搜索文件"><a href="#通过部分名称搜索文件" class="headerlink" title="通过部分名称搜索文件"></a>通过部分名称搜索文件</h2><p>在仓库页面按下键盘T 键，然后输入要找的文件或者目录。速度非常快。</p>
+<h2 id="查看差别"><a href="#查看差别" class="headerlink" title="查看差别"></a>查看差别</h2><h3 id="查看分支间的差别"><a href="#查看分支间的差别" class="headerlink" title="查看分支间的差别"></a>查看分支间的差别</h3><p>以我的9981NAN项目为例，要比较nimon分支和yong分支的差别，可以直接在浏览器URL中输入：</p>
+<pre><code>https://github.com/9981NAN/9981NAN/compare/nimon...yong
+</code></pre><p>这样就可以查看两个分支间的差别了。</p>
+<h3 id="查看与几天前的差别"><a href="#查看与几天前的差别" class="headerlink" title="查看与几天前的差别"></a>查看与几天前的差别</h3><p>输入下面的URL就可以查看nimon分支最近7天内的差别了。</p>
+<pre><code>https://github.com/9981NAN/9981NAN/compare/nimon@{7.day.ago}...nimon
+</code></pre><p>类似的还有</p>
+<ul>
+<li>day</li>
+<li>week</li>
+<li>month</li>
+<li>year</li>
+<li>hour</li>
+</ul>
+<h3 id="查看指定日期之间的差别"><a href="#查看指定日期之间的差别" class="headerlink" title="查看指定日期之间的差别"></a>查看指定日期之间的差别</h3><pre><code>https://github.com/9981NAN/9981NAN/compare/nimon@{2017-05-19}...nimon
+</code></pre><h2 id="Issue"><a href="#Issue" class="headerlink" title="Issue"></a>Issue</h2><h3 id="通过提交信息操作Issue"><a href="#通过提交信息操作Issue" class="headerlink" title="通过提交信息操作Issue"></a>通过提交信息操作Issue</h3><p>在项目的Issue一览表中，每一个Issue标题的下面部分都分配 “#18” 的编号。我们只要在描述信息中加入 “#18” ，就可以在Issue中显示该提交的相关信息，使关联的提交一目了然。</p>
+<h3 id="Close-Issue"><a href="#Close-Issue" class="headerlink" title="Close Issue"></a>Close Issue</h3><p>如果一个处于 Open 状态的 Issue 已经处理完毕，只要在该提交中以下列任意一种格式描述提交信息，对应的 Issue 就会被 close 。</p>
+<ul>
+<li>fix #18</li>
+<li>fixes #18</li>
+<li>fixed #18</li>
+<li>close #18</li>
+<li>closes #18</li>
+<li>closed #18</li>
+<li>resolve #18</li>
+<li>resolves #18</li>
+<li>resloved #18</li>
+</ul>
+<p>这样我们每次提交并push之后，就不必每次都到 Issue 中寻找相应的 Issue 再手动关闭了。这是一项很实用的功能。</p>
+<blockquote>
+<p>Issue 和 Pull Request 的编号通用。</p>
+</blockquote>
+<h2 id="Pull-Request"><a href="#Pull-Request" class="headerlink" title="Pull Request"></a>Pull Request</h2><h5 id="conversation"><a href="#conversation" class="headerlink" title="conversation"></a>conversation</h5><blockquote>
+<p>引用评论，选中别人的评论后按 R 键。</p>
+<p>在评论中应用表情，输入 “ ：” 即可选择。</p>
+</blockquote>
+<h3 id="Files-Changed"><a href="#Files-Changed" class="headerlink" title="Files Changed"></a>Files Changed</h3><p>默认情况下，系统会将空格的不同也高亮显示，想要关闭之？ 在URL 的末尾添加 “ ?w=1 ” 就可以不显示空格的差异了。</p>
+<p>将鼠标放到被更改行号的左侧，可以看到一个加号，我们可以点击这个加号在代码中插入评论。这样评论是针对哪行代码就一目了然了</p>
+<h2 id="Pulse"><a href="#Pulse" class="headerlink" title="Pulse"></a>Pulse</h2><p>Pulse是体现该仓库软件开发活跃度的功能，近期仓库创建了多个pull request 或 Issue，有多少人参与了这个仓库的开发。用户可以判断目前这个人间是否正在积极开发，在挑选GitHub上开发的软件时，可以作为一个重要的衡量标准。</p>
+<h1 id="发送Pull-Request"><a href="#发送Pull-Request" class="headerlink" title="发送Pull Request"></a>发送Pull Request</h1><h2 id="基本步骤"><a href="#基本步骤" class="headerlink" title="基本步骤"></a>基本步骤</h2><h3 id="Fork"><a href="#Fork" class="headerlink" title="Fork"></a>Fork</h3><h3 id="clone"><a href="#clone" class="headerlink" title="clone"></a>clone</h3><h3 id="branch"><a href="#branch" class="headerlink" title="branch"></a>branch</h3><p>前面两步完成之后，我们需要在特性分支中进行开发</p>
+<h4 id="确认分支"><a href="#确认分支" class="headerlink" title="确认分支"></a>确认分支</h4><pre><code class="shell">$ git br -a
+* master
+  remotes/origin/HEAD -&gt; origin/master
+  remotes/origin/master
+</code></pre>
+<h4 id="创建特性分支"><a href="#创建特性分支" class="headerlink" title="创建特性分支"></a>创建特性分支</h4><p>在 <code>work</code> 之后加上 <code>master</code> 表明在 <code>master</code> 分支的基础上创建 <code>work</code> 分支。</p>
+<pre><code class="shell">$ git checkout -b work master
+Switched to a new branch &#39;work&#39;
+</code></pre>
+<h3 id="添加代码"><a href="#添加代码" class="headerlink" title="添加代码"></a>添加代码</h3><p>在 <code>readme.md</code> 文件中添加要增加的代码。</p>
+<h3 id="提交修改"><a href="#提交修改" class="headerlink" title="提交修改"></a>提交修改</h3><pre><code class="shell">$ git commit -am &quot;Add pull request&quot;
+[work f3d798e] Add pull request
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+</code></pre>
+<h3 id="创建远程分支"><a href="#创建远程分支" class="headerlink" title="创建远程分支"></a>创建远程分支</h3><p>把在本地创建的分支推送到远程仓库，如果远程仓库没有该分支，那么就创建之。</p>
+<pre><code class="shell">$ git push origin work
+Counting objects: 3, done.
+Delta compression using up to 8 threads.
+Compressing objects: 100% (2/2), done.
+Writing objects: 100% (3/3), 283 bytes | 0 bytes/s, done.
+Total 3 (delta 1), reused 0 (delta 0)
+remote: Resolving deltas: 100% (1/1), completed with 1 local object.
+To github.com:junoni/nimon.git
+ * [new branch]      work -&gt; work
+</code></pre>
+<h3 id="在GitHub页面上创建Pull-Request"><a href="#在GitHub页面上创建Pull-Request" class="headerlink" title="在GitHub页面上创建Pull Request"></a>在GitHub页面上创建Pull Request</h3><h3 id="不进行Fork直接从分支发送Pull-Request"><a href="#不进行Fork直接从分支发送Pull-Request" class="headerlink" title="不进行Fork直接从分支发送Pull Request"></a>不进行Fork直接从分支发送Pull Request</h3><p>前提是拥有这个仓库编辑的权限</p>
+<h2 id="仓库的维护"><a href="#仓库的维护" class="headerlink" title="仓库的维护"></a>仓库的维护</h2><p>Fork 或者 clone 来的仓库，一旦放置不管就会离最新的源代码越来越远。这时候我们需要让本地仓库与源代码保持最新状态。</p>
+<p>我们需要将原仓库设置为远程仓库，从该仓库获取<code>fetch</code> 数据与本地仓库进行合并 <code>merge</code>  。</p>
+<h3 id="Fork-与-clone"><a href="#Fork-与-clone" class="headerlink" title="Fork 与 clone"></a>Fork 与 clone</h3><h3 id="给原仓库设置名称"><a href="#给原仓库设置名称" class="headerlink" title="给原仓库设置名称"></a>给原仓库设置名称</h3><pre><code class="shell">$ git remote add upstream git@github.com:SimpleLifee/nimon.git
+</code></pre>
+<p>这样，我们这个仓库将以upstream作为原仓库的标识符。这个环境下只需要设定一次。</p>
+<p>可以下面的命令查看</p>
+<pre><code class="shell">$ git remote -v
+origin    git@github.com:junoni/nimon.git (fetch)
+origin    git@github.com:junoni/nimon.git (push)
+upstream    git@github.com:SimpleLifee/nimon.git (fetch)
+upstream    git@github.com:SimpleLifee/nimon.git (push)
+</code></pre>
+<h3 id="获取最新数据"><a href="#获取最新数据" class="headerlink" title="获取最新数据"></a>获取最新数据</h3><p>要让仓库维持最新状态，只需要重复这一工作即可。</p>
+<pre><code class="shell">$ git fetch upstream
+remote: Counting objects: 14, done.
+remote: Compressing objects: 100% (7/7), done.
+remote: Total 14 (delta 3), reused 14 (delta 3), pack-reused 0
+Unpacking objects: 100% (14/14), done.
+From github.com:SimpleLifee/nimon
+ * [new branch]      dev        -&gt; upstream/dev
+ * [new branch]      feature-A  -&gt; upstream/feature-A
+ * [new branch]      master     -&gt; upstream/master
+</code></pre>
+<h1 id="接受-Pull-Request"><a href="#接受-Pull-Request" class="headerlink" title="接受  Pull Request"></a>接受  Pull Request</h1><h2 id="采纳-Pull-Request-之前的准备"><a href="#采纳-Pull-Request-之前的准备" class="headerlink" title="采纳 Pull Request 之前的准备"></a>采纳 Pull Request 之前的准备</h2><h3 id="将接受方的本地仓库更新至最新状态"><a href="#将接受方的本地仓库更新至最新状态" class="headerlink" title="将接受方的本地仓库更新至最新状态"></a>将接受方的本地仓库更新至最新状态</h3><h3 id="获取发送方的远程仓库"><a href="#获取发送方的远程仓库" class="headerlink" title="获取发送方的远程仓库"></a>获取发送方的远程仓库</h3><pre><code class="shell">$ git remote add PR发送者 git@github.com:junoni/nimon.git
+</code></pre>
+<p>查看添加后的情况</p>
+<pre><code class="Shell">$ git remote -v
+PR发送者    git@github.com:junoni/nimon.git (fetch)
+PR发送者    git@github.com:junoni/nimon.git (push)
+origin    git@github.com:SimpleLifee/nimon.git (fetch)
+origin    git@github.com:SimpleLifee/nimon.git (push)
+</code></pre>
+<p>接着进行fetch</p>
+<pre><code class="shell">$ git fetch PR发送者
+remote: Counting objects: 32, done.
+remote: Compressing objects: 100% (18/18), done.
+remote: Total 32 (delta 14), reused 26 (delta 8), pack-reused 0
+Unpacking objects: 100% (32/32), done.
+From github.com:junoni/nimon
+ * [new branch]      dev        -&gt; PR发送者/dev
+ * [new branch]      master     -&gt; PR发送者/master
+ * [new branch]      work       -&gt; PR发送者/work
+</code></pre>
+<p>现在我们获取了Pull Request 发送仓库以及分支的数据（PR发送者/work）</p>
+<h3 id="创建用于检查的分支"><a href="#创建用于检查的分支" class="headerlink" title="创建用于检查的分支"></a>创建用于检查的分支</h3><p>前面我们只获取了远程仓库的数据，这些数据尚未反映在任何一个分支中。因此我们需要创建一个分支，用于模拟采纳 Pull Request 后的状态。由于这是我们第一个 Pull Request ，分支名就叫 <code>pr1</code> 。</p>
+<pre><code class="shell">$ git checkout -b pr1
+Switched to a new branch &#39;pr1&#39;
+</code></pre>
+<h3 id="合并"><a href="#合并" class="headerlink" title="合并"></a>合并</h3><p>下面要将已经 fetch 完毕的 “PR发送者/work ” 的修改内容与 <code>pr1</code> 分支进行合并</p>
+<pre><code class="shell">$ git merge PR发送者/work
+</code></pre>
+<p>这时候我们需要检查一下合并的情况。</p>
+<h3 id="删除分支"><a href="#删除分支" class="headerlink" title="删除分支"></a>删除分支</h3><p>检查结束后<code>pr1</code> 分支就没用了，可以直接删除。我们需要先切换到 <code>pr1</code> 之外，例如 <code>master</code></p>
+<pre><code class="shell">$ git checkout master
+Previous HEAD position was f3d798e... Add pull request
+Switched to branch &#39;master&#39;
+Your branch is ahead of &#39;origin/master&#39; by 12 commits.
+  (use &quot;git push&quot; to publish your local commits)
+</code></pre>
+<p>这时候，Git 提醒我们当前 <code>master</code> 分支已经比远程仓库多出 12 个新提交了，并建议我们使用 <code>git push</code> 向远程仓库推送新的提交。 </p>
+<p>之后我们进行删除分支。</p>
+<pre><code class="Shell">$ git branch -D pr1
+Deleted branch pr1 (was 685c45a).
+</code></pre>
+<h2 id="采纳-Pull-Request"><a href="#采纳-Pull-Request" class="headerlink" title="采纳 Pull Request"></a>采纳 Pull Request</h2><p>我们可以打开浏览器找到相应的 Pull Request 页面，点击 merge pull request按钮，随后Pull Request的内容就会自动合并至仓库。</p>
+<p>不过我们已经在本地构筑了相同的环境，只要通过 CLI 进行合并操作后再 push 至 Github，就可以完成Pull Request。</p>
+<h3 id="合并到主分支"><a href="#合并到主分支" class="headerlink" title="合并到主分支"></a>合并到主分支</h3><p>首先我们切换到 <code>master</code> 分支上</p>
+<pre><code class="Shell">$ git checkout master
+</code></pre>
+<p>然后合并 <code>PR发送者/work</code></p>
+<pre><code class="Shell">$ git merge PR发送者/work
+</code></pre>
+<h3 id="Push-修改内容"><a href="#Push-修改内容" class="headerlink" title="Push 修改内容"></a>Push 修改内容</h3><p>先查看本地仓库和远程 GitHub端仓库库代码的差别</p>
+<pre><code class="Shell">$ git diff origin/master
+</code></pre>
+<p>确认没有目的之外的差别后，进行push</p>
+<pre><code class="shell">$ git push
+Counting objects: 10, done.
+Delta compression using up to 8 threads.
+Compressing objects: 100% (7/7), done.
+Writing objects: 100% (10/10), 1.05 KiB | 0 bytes/s, done.
+Total 10 (delta 3), reused 0 (delta 0)
+remote: Resolving deltas: 100% (3/3), completed with 1 local object.
+To github.com:SimpleLifee/nimon.git
+   8caf54d..067a3c8  master -&gt; master
+</code></pre>
+<p>这样，仓库的 <code>Pull Request</code>会自动从 <code>Open</code> 状态变为 <code>Close</code> 状态。</p>
+<p>至此，Pull Request 的操作都介绍完了。</p>
+<h1 id="Hub命令"><a href="#Hub命令" class="headerlink" title="Hub命令"></a>Hub命令</h1><h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>如果使用Homebrew</p>
+<pre><code class="Shell">$ brew install hub
+</code></pre>
+<p>然后，在shell的环境路径后面添加 <code>~/bin</code> 。</p>
+<pre><code class="shell">$ echo &#39;export PATH=&quot;~/bin:$PATH&quot;&#39; &gt;&gt; ~/.bash_profile
+</code></pre>
+<p>重新启动shell，就可以使用hub命令了。</p>
+<h4 id="确认运行情况"><a href="#确认运行情况" class="headerlink" title="确认运行情况"></a>确认运行情况</h4><pre><code class="Shell">$ hub --version
+git version 2.11.0 (Apple Git-81)
+hub version 2.2.9
+</code></pre>
+<h4 id="设置别名"><a href="#设置别名" class="headerlink" title="设置别名"></a>设置别名</h4><p>使用hub命令的最佳实践是将相应的 git 设置成 hub 的别名。hub 命令可以完成 git 命令的所有操作，只需要在 shell 的配置文件中（.bash_profile） 添加下面一句即可。</p>
+<pre><code>eval &quot;$(hub alias -s)&quot;
+</code></pre><h4 id="config-hub"><a href="#config-hub" class="headerlink" title="~/.config/hub"></a>~/.config/hub</h4><p>hub 命令在初次访问 GitHub 的 API 的时候会询问用户名和密码。</p>
+<pre><code class="Shell">$ cat ~/.config/hub
+github.com:
+- user: SimpleLifee
+  oauth_token: 5cb6fb57b65693dac153bf2c61dd642a916b268b
+  protocol: https
+</code></pre>
+<h3 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h3><h4 id="hub-clone"><a href="#hub-clone" class="headerlink" title="hub clone"></a>hub clone</h4><p>使用 <code>hub clone</code> 命令，可以省去指定 <code>GitHub</code> 端仓库的部分</p>
+<pre><code class="shell">$ hub clone nimon
+</code></pre>
+<p>上面这个命令与下面的命令效果相同。</p>
+<pre><code class="shell">$ git clone git@github.com/SimpleLifee/nimon.git
+</code></pre>
+<p>如果要指定用户，可以输入以下命令。</p>
+<pre><code class="Shell">$ hub clone junoni/nimon
+</code></pre>
+<p>上面这个命令与下面的命令效果相同。</p>
+<pre><code>$ git clone git@github.com/junoni/nimon.git
+</code></pre><h4 id="hub-remote-add"><a href="#hub-remote-add" class="headerlink" title="hub remote add"></a>hub remote add</h4><pre><code class="shell">$ hub remote add junoni
+</code></pre>
+<p>等同于</p>
+<pre><code class="shell">$ git remote add junoni git://github.com/junoni/nimon.git
+</code></pre>
+<h4 id="hub-fetch"><a href="#hub-fetch" class="headerlink" title="hub fetch"></a>hub fetch</h4><p>类似于 <code>hub remote add</code></p>
+<h4 id="hub-cherry-pick"><a href="#hub-cherry-pick" class="headerlink" title="hub cherry-pick"></a>hub cherry-pick</h4><p><code>hub cherry-pick</code> 只需要输入 URL 就可以获取对应的修改并应用到当前分支。</p>
+<pre><code class="Shell">$ hub cherry-pick https://github.com/SimpleLifee/SimpleLifee.github.io/commit/647c558f5b3767c2995dda5ddd5663d0466ed4dd
+</code></pre>
+<p>这个命令可以将下面两个命令的效果一次性执行</p>
+<pre><code class="Shell">$ git remote add -f SimpleLifee git@github.com:SimpleLifee/SimpleLifee.github.io.git
+$ git cherry-pick 647c558f5b3767c2995dda5ddd5663d0466ed4dd
+</code></pre>
+<h4 id="hub-fork"><a href="#hub-fork" class="headerlink" title="hub fork"></a>hub fork</h4><p><code>hub fork</code> 命令的功能与 GitHub 页面的 Fork 按钮相同，比如我们 clone 了其他用户的仓库，现在想 Fork 成自己的仓库，只需要执行</p>
+<pre><code class="shell">$ hub fork
+</code></pre>
+<p>这一命令，就可获得与下面这一系列操作相同的效果</p>
+<pre><code class="shell">(在 GitHub 对仓库做 Fork 处理)
+$ git remote add -f 用户名 git@github.com:当前操作仓库的名字.git
+</code></pre>
+<p>执行完毕后，Fork 出的仓库会被设置成当前本地仓库的远程仓库（以用户名为标识符）</p>
+<h4 id="hub-pull-request"><a href="#hub-pull-request" class="headerlink" title="hub pull-request"></a>hub pull-request</h4>]]></content>
+      
+        
+        <tags>
+            
+            <tag> git </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[搭建个人博客 - Hexo]]></title>
+      <url>/2017/05/06/00001-Blog-2017-05-05-hexo/</url>
+      <content type="html"><![CDATA[<p><img src="http://osoa5juml.bkt.clouddn.com/avatar.jpg" alt=""></p>
+ <div align="center"><br>  今天，是你未来所有剩余的日子中，最早的一天<br><br></div>
+
+<div align="right">——<strong>stormzhang</strong>      </div>
+
+
+
+
+
+
+
+<h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p><br></p>
+<p>个人博客地址：<a href="http://nijun.me">http://nijun.me</a></p>
+<p>我为什么要写这篇文章？是因为大学三年了，感觉学了这么多知识，但是并没有真正地去消化和总结过，最近又看到了<a href="http://www.baidu.com" title="stormzhang" target="_blank" rel="external">stormzhang</a>大神写的这篇<a href="http://stormzhang.com/android/2016/03/04/why-i-keep-writing-blog/" title="stormzhang" target="_blank" rel="external">我为什么坚持写博客？</a>。我真的感触很深，以前花了很多时间学的东西，不久之后便会印象模糊，想要回忆的时候，又不能快速找到。所以我决定从今天开始写博客，总结和梳理自己的知识。</p>
+<a id="more"></a>
+<p>stormzhang在他的文章里推荐了hexo，基于Node框架，可以和Github Pages结合起来搭建个人博客。而且主题样式非常多，可以自己选择搭配的东西很多。当我第一次把博客跑起来的时候，真的惊呆了，没想到个人博客也可以这么轻松的搭建。我用了五一这个假期，自己动手搭建了现在您正看到的这个博客，虽然现在很粗糙，但是我会不断的学习和优化它的。</p>
+<h2 id="Hexo"><a href="#Hexo" class="headerlink" title="Hexo"></a>Hexo</h2><h3 id="什么是Hexo"><a href="#什么是Hexo" class="headerlink" title="什么是Hexo"></a>什么是Hexo</h3><p>Hexo是一个快速，简单和强大的博客框架。可以使用Markdown进行写作，Hexo会在几秒钟内生成具有美丽主题的静态文件。</p>
+<h3 id="安装要求"><a href="#安装要求" class="headerlink" title="安装要求"></a>安装要求</h3><p>这里具体的操作步骤可以到<a href="https://hexo.io/" target="_blank" rel="external">hexo官网</a>。</p>
+<ul>
+<li><a href="https://nodejs.org" target="_blank" rel="external">Node.js</a></li>
+<li><a href="https://git-scm.com/" target="_blank" rel="external">Git</a></li>
+</ul>
+<p>如果已经装好了这些，那么我们现在就开始吧！</p>
+<h4 id="第一步"><a href="#第一步" class="headerlink" title="第一步"></a>第一步</h4><p>一旦安装了所有要求，可以用npm安装Hexo。</p>
+<pre><code class="shell">$ npm install hexo-cli -g  //在本地安装hexo的环境
+</code></pre>
+<h4 id="第二步"><a href="#第二步" class="headerlink" title="第二步"></a>第二步</h4><p>首先选择一个目录作为hexo博客的根目录，使用git bash cd到这个目录，然后输入  </p>
+<pre><code class="shell">$ hexo init &lt;folder&gt;   //推荐 ，这里的folder参数如果指定，便会在终端当前的资料夹建立一个名为 folder 的新资料夹；
+$ hexo init  //直接使用当前目录初始化
+</code></pre>
+<p>完成后</p>
+<pre><code class="shell">   $ cd folder
+   $ npm install  //在当前目录下安装hexo核心文件
+   $ npm install hexo --no-optional --save
+</code></pre>
+<p>这样就安装完成了。这时候可以看到<code>floder</code>文件夹下具有这些子目录</p>
+<pre><code class="Yaml">    .
+    ├── _config.yml   站点配置文件
+    ├── package.json
+    ├── scaffolds    存放模板的地方
+    ├── source       原文件夹，存放网站内容
+    |   ├── _drafts  存放临时草稿文件的地方
+    |   └── _posts   已经发布的文章
+    └── themes       主题文件夹
+</code></pre>
+<p> <code>source</code>中带有前缀_(下划线)的文件夹，在<code>generate</code>的时候会渲染到<code>public</code>目录中，其他的文件夹和文件仅仅被简单地复制到<code>public</code>中。</p>
+<p>在<code>floder</code>目录下，有一个<code>_config.yml</code>，这个文件是整个网站的核心配置文件，由于后面主题文件夹中也有一个同名的配置文件，为了区分，网站的核心配置文件就叫做<code>站点配置文件</code>，主题中的叫做<code>主题配置文件</code>。</p>
+<p>打开<code>站点配置文件</code>,可以看到<code>Site</code>标签，这是我的配置。</p>
+<pre><code class="Yaml">    # Site
+    title: SimpleLifee  #网站标题
+    subtitle: code, mylife   #网站副标题
+    description: start from zero     #网站描述
+    author: Nimon        #你的名字
+    language: zh-Hans    #语言，
+    timezone: Asia/Shanghai  #时区
+</code></pre>
+<p>还有<code>Deployment</code>标签，与Github Pages进行关联</p>
+<pre><code class="Yaml"># Deployment
+## Docs: https://hexo.io/docs/deployment.html
+deploy:
+     type: git
+     repo: git@github.com:SimpleLifee/SimpleLifee.github.io.git 
+     branch: master
+</code></pre>
+<p>其中<code>type</code>必须填git，<code>repo</code>填写你在git上创建的库的<code>ssh</code>地址，或者<code>https</code>地址。<code>注意</code>如果是https的那么以后每次<code>deploy</code>的时候都要求你输入用户名和密码,如果改成<code>ssh</code>并且你没有给你的id_rsa设置密码（空密码也一样）的话，就不用每次都输入密码了。</p>
+<pre><code class="java">$ ssh-keygen -p -f /root/.ssh/id_dsa -N &#39;&#39;
+</code></pre>
+<p>如果你之前设置了密码，那么使用这条命令就可以更改你的私钥的密码了。参考<a href="https://superuser.com/questions/508408/public-key-always-asking-for-password-and-keyphrase" target="_blank" rel="external">superuser</a></p>
+<h2 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h2><h3 id="写作"><a href="#写作" class="headerlink" title="写作"></a>写作</h3><pre><code class="java">$ hexo new [layout] &lt;title&gt;
+</code></pre>
+<p>创建一个新文章，<code>layout</code>可以有三个参数<code>post</code>、<code>page</code>、<code>draft</code>, hexo 会在 <code>Scaffold</code> 文件夹下寻找你写的 <code>layout.md</code> 文件模板来建立文件。如果 <code>title</code> 包含空格，请用引号括起来。</p>
+<h4 id="文件名称"><a href="#文件名称" class="headerlink" title="文件名称"></a>文件名称</h4><p>在站点配置文件中<code>Writing</code> 标签下添加</p>
+<pre><code class="Yaml">new_post_name: :year-:month-:day-:title.md
+</code></pre>
+<p>其中 <code>:month</code> 和 <code>:i_month</code> 的区别在于 前者有前导零 （比如 <code>04</code> ）</p>
+<h4 id="草稿"><a href="#草稿" class="headerlink" title="草稿"></a>草稿</h4><p>如果创建新文章的时候，指定了 <code>draft</code> 参数，那么就是保存到 <code>source/_drafts</code> 文件夹中，可以使用下面的语句，将草稿移动到 <code>source/_posts</code>文件中。</p>
+<pre><code class="java">$ hexo publish [layout] &lt;filename&gt;
+</code></pre>
+<p>发布草稿变成正式文章。一般<code>filename</code>写你的草稿文件的名字，<code>layout</code>写<code>post</code></p>
+<h4 id="模版（Scaffold）"><a href="#模版（Scaffold）" class="headerlink" title="模版（Scaffold）"></a>模版（Scaffold）</h4><p>在新建文章时，Hexo 会根据 scaffolds 文件夹内相对应的文件来建立文件，例如：</p>
+<pre><code class="java">$ hexo new photo &quot;My Gallery&quot;
+</code></pre>
+<p>在执行这行指令时，Hexo 会尝试在 scaffolds 文件夹中寻找 photo.md，并根据其内容建立文章</p>
+<table>
+<thead>
+<tr>
+<th>变量</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>layout</code></td>
+<td>布局</td>
+</tr>
+<tr>
+<td><code>title</code></td>
+<td>标题</td>
+</tr>
+<tr>
+<td><code>date</code></td>
+<td>文件建立日期</td>
+</tr>
+</tbody>
+</table>
+<h3 id="布局（Layout）"><a href="#布局（Layout）" class="headerlink" title="布局（Layout）"></a>布局（Layout）</h3><p>Hexo 有三种默认布局：<code>post</code>、<code>page</code>、<code>draft</code>，它们分别对应不同的路径，自定义的其他布局和 <code>post</code> 相同，都将储存到 <code>source/_posts</code> 文件夹。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">布局</th>
+<th style="text-align:left">路径</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">post</td>
+<td style="text-align:left">source/_posts</td>
+</tr>
+<tr>
+<td style="text-align:left">page</td>
+<td style="text-align:left">source</td>
+</tr>
+<tr>
+<td style="text-align:left">draft</td>
+<td style="text-align:left">source/_drafts</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>不要处理我的文章<br>可以在Front-Matter 中的layout: 设为 false。</p>
+</blockquote>
+<h3 id="Front-matter"><a href="#Front-matter" class="headerlink" title="Front-matter"></a>Front-matter</h3><p>Front-matter 是文件最上方以 — 分隔的区域，用于指定个别文件的变量，例如</p>
+<pre><code>title: Hello World
+date: 2017/5/1 20:46:25
+---
+</code></pre><p>也可以使用JSON 格式，只需要把 — 换成 ;;;</p>
+<pre><code>&quot;title&quot;: &quot;Hello World&quot;,
+&quot;date&quot;: &quot;2017/5/1 20:46:25&quot;
+;;;
+</code></pre><p>Front-matter的参数列表</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>描述</th>
+<th>默认值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>layout</code></td>
+<td>布局</td>
+<td></td>
+</tr>
+<tr>
+<td><code>title</code></td>
+<td>标题</td>
+<td></td>
+</tr>
+<tr>
+<td><code>date</code></td>
+<td>建立日期</td>
+<td>文件建立日期</td>
+</tr>
+<tr>
+<td><code>updated</code></td>
+<td>更新日期</td>
+<td>文件更新日期</td>
+</tr>
+<tr>
+<td><code>comments</code></td>
+<td>开启文章的评论功能</td>
+<td>true</td>
+</tr>
+<tr>
+<td><code>description</code></td>
+<td>文章的描述</td>
+<td></td>
+</tr>
+<tr>
+<td><code>tags</code></td>
+<td>标签（不适用于分页）</td>
+<td></td>
+</tr>
+<tr>
+<td><code>categories</code></td>
+<td>分类（不适用于分页）</td>
+<td></td>
+</tr>
+<tr>
+<td><code>permalink</code></td>
+<td>覆盖文章网址</td>
+</tr>
+</tbody>
+</table>
+<h4 id="分类和标签"><a href="#分类和标签" class="headerlink" title="分类和标签"></a>分类和标签</h4><pre><code class="Yaml">tags:
+  - List
+  - Dictionary
+  - ArraryList
+  - hashtable
+  - Stack
+  - Queue
+</code></pre>
+<p>或者</p>
+<pre><code class="Yaml"> tags:
+ [Python, Javascript, Hexo]
+</code></pre>
+<h4 id="引用块（Block-Quote）"><a href="#引用块（Block-Quote）" class="headerlink" title="引用块（Block Quote）"></a>引用块（Block Quote）</h4><p>模板如下</p>
+<pre><code>{% blockquote [author[, source]] [link] [source_link_title] %}
+content
+{% endblockquote %}
+</code></pre><p>例如</p>
+<pre><code>{% blockquote stormzhang %}
+今天，是你未来所有剩余的日子中，最早的一天
+{% endblockquote %}
+</code></pre><blockquote><p>今天，是你未来所有剩余的日子中，最早的一天</p>
+<footer><strong>stormzhang</strong></footer></blockquote>
+<h4 id="代码块（Code-Block）"><a href="#代码块（Code-Block）" class="headerlink" title="代码块（Code Block）"></a>代码块（Code Block）</h4><p>模板如下</p>
+<pre><code>{% codeblock [title] [lang:language] [url] [link text]%}
+code snippet
+{% endcodeblock %}
+</code></pre><p>例如：</p>
+<pre><code>{% codeblock  main.java lang:java  http://www.runoob.com/java/java-tutorial.html Java%}
+public static void main(String []args){
+}
+{% endcodeblock  %}
+</code></pre><pre><code>public static void main(String []args){
+}</code></pre>
+<h4 id="醒目引文（Pull-Quote）"><a href="#醒目引文（Pull-Quote）" class="headerlink" title="醒目引文（Pull Quote）"></a>醒目引文（Pull Quote）</h4><pre><code class="Java">{% pullquote [class] %}
+something important
+{% endpullquote %}
+</code></pre>
+<p>如下</p>
+<blockquote class="pullquote [class]"><p>something important</p>
+</blockquote>
+<h4 id="图片（Image）"><a href="#图片（Image）" class="headerlink" title="图片（Image）"></a>图片（Image）</h4><p>有两种方式，一种是markdown格式的</p>
+<pre><code>![](/images/avatar.jpg)
+</code></pre><p>另一种是hexo支持的格式</p>
+<pre><code>{% img [class names] /path/to/image [width] [height][title text [alt text]] %}
+</code></pre><h4 id="链接（Link）"><a href="#链接（Link）" class="headerlink" title="链接（Link）"></a>链接（Link）</h4><p>在文章中插入链接，并自动给外部链接添加 target=”_blank” 属性。</p>
+<pre><code>{% link text url [external] [title] %}
+
+{% link 谷歌 http://www.google.com google %}
+</code></pre><p>如<a href="http://www.google.com" title="google" target="_blank" rel="external">谷歌</a></p>
+<h4 id="外部引用（Include-Code）"><a href="#外部引用（Include-Code）" class="headerlink" title="外部引用（Include Code）"></a>外部引用（Include Code）</h4><p>可以引入其他文件中的代码，例如下面语句</p>
+<pre><code>{% include_code [title][lang:language] path/to/file %}
+</code></pre><blockquote>
+<p>hexo支持的语法还有很多，如<br><strong>jsFiddle</strong>、<strong>Gist</strong>、<strong>iframe</strong>、<strong>Youtube</strong>、<strong>Vimeo</strong>等等，有需要的建议自行查阅<a href="https://hexo.io/zh-cn/docs/tag-plugins.html" target="_blank" rel="external">官方文档</a></p>
+</blockquote>
+<h3 id="服务器"><a href="#服务器" class="headerlink" title="服务器"></a>服务器</h3><h4 id="安装与使用"><a href="#安装与使用" class="headerlink" title="安装与使用"></a>安装与使用</h4><p>要使用hexo的服务器，首先要安装</p>
+<blockquote><p>npm install hexo-server –save</p>
+</blockquote>
+<p>安装完成后，默认在 <a href="http://localhost:4000" target="_blank" rel="external">http://localhost:4000</a> 下启动。在服务器启动期间，Hexo 会监视文件变动并自动更新，无须重启服务器。</p>
+<blockquote>
+<p> $ hexo server -p 5000 //启动服务器， 可以简写 hexo s</p>
+</blockquote>
+<p>参数 <code>-p</code> 覆盖默认端口，参数 <code>-w</code> 查看文件改动<br>看到下面的信息，说明已经成功，可以查看你的博客了。<br><img src="http://i.imgur.com/qqg116z.png" alt=""></p>
+<h4 id="静态模式"><a href="#静态模式" class="headerlink" title="静态模式"></a>静态模式</h4><p>在静态模式下，服务器只处理 public 文件夹内的文件，而不会处理文件变动，一般性用于你正在写博客的情况下。</p>
+<pre><code class="java">$ hexo server -s
+</code></pre>
+<h3 id="生成文件-Generating"><a href="#生成文件-Generating" class="headerlink" title="生成文件(Generating)"></a>生成文件(Generating)</h3><pre><code class="java">$ hexo generate
+</code></pre>
+<p>生成静态文件，参数 <code>-d</code> 生成完成后部署，参数 <code>-w</code> 查看文件改动，下面两种写法都一样</p>
+<pre><code class="java">$ hexo g -d
+$ hexo d -g
+</code></pre>
+<h4 id="监视文件变动"><a href="#监视文件变动" class="headerlink" title="监视文件变动"></a>监视文件变动</h4><pre><code class="java">$ hexo generate --watch
+</code></pre>
+<p>Hexo 能够监视文件变动并立即重新生成静态文件，在生成时会比对文件的 SHA1 checksum，只有变动的文件才会写入。</p>
+<h3 id="部署（Deployment）"><a href="#部署（Deployment）" class="headerlink" title="部署（Deployment）"></a>部署（Deployment）</h3><pre><code class="java">$ hexo deploy
+</code></pre>
+<p>部署你的网站，在使用之前，需要在<code>站点配置文件</code> 进行配置。可以有多个deployer</p>
+<pre><code class="Yaml">deploy:
+- type: git
+  repo:
+- type: heroku    
+  repo:
+</code></pre>
+<blockquote>
+<p>缩进</p>
+<p>YAML依靠缩进来确定元素间的从属关系。因此，请确保每个deployer的缩进长度相同，并且使用空格缩进。</p>
+</blockquote>
+<h4 id="Git"><a href="#Git" class="headerlink" title="Git"></a>Git</h4><p>部署提示找不到Git , 直接使用这个命令从 <a href="https://github.com/hexojs/hexo-deployer-git" target="_blank" rel="external">hexo-deployer-git</a> 上安装git的部署插件</p>
+<pre><code class="java">$ npm install hexo-deployer-git --save
+</code></pre>
+<p>修改配置。<br><pre><code>deploy:
+type: git
+repo: &lt;repository url&gt;  
+branch: [branch]  
+message: [message]</code></pre><br>​    </p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>repo</code></td>
+<td>库（Repository）地址</td>
+</tr>
+<tr>
+<td><code>branch</code></td>
+<td>分支名称。如果您使用的是 GitHub 或 GitCafe 的话，程序会尝试自动检测。                    最好填ssh，这样就每次deploy的时候都要输入密码了。</td>
+</tr>
+<tr>
+<td><code>message</code></td>
+<td>自定义提交信息 (默认为 <code>Site updated: { { now(&#39;YYYY-MM-DD HH:mm:ss&#39;) }}</code>)</td>
+</tr>
+</tbody>
+</table>
+<h4 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h4><p>其他部署方案，可以参见<a href="https://hexo.io/zh-cn/docs/tag-plugins.html" target="_blank" rel="external">官方文档</a></p>
+<pre><code class="java">$ hexo clean
+</code></pre>
+<p>清除缓存文件（db.json）和生成的文件（public）</p>
+<pre><code class="java">$ hexo list &lt;type&gt;
+</code></pre>
+<p><code>type</code> 可以是<code>page</code>, <code>post</code>,<code>route</code>, <code>tag</code>, <code>category</code></p>
+<pre><code class="java">$ hexo version
+</code></pre>
+<p>显示版本信息</p>
+<pre><code class="java">$ hexo --config custom.yml
+$ hexo --config custom.yml，custom2.json
+</code></pre>
+<p>使用自定义配置文件（而不是_config.yml），还可以接受将文件合并为一个的JSON或YAML配置文件的逗号分隔列表（无空格）</p>
+<p>自动更新文件</p>
+<pre><code class="java">$ hexo g     //也可以这样写hexo generate
+</code></pre>
+<p>部署到git</p>
+<pre><code class="java">$ hexo d
+</code></pre>
+<p>一般可以这样简写，就是说在部署到git之前，先进行更新</p>
+<pre><code class="java">$ hexo d -g
+</code></pre>
+<p>可以查看hexo的版本</p>
+<pre><code class="java">hexo -v
+</code></pre>
+<p>这时候万一遇到这个错误</p>
+<pre><code>ERROR Deployer not found: git
+</code></pre><p>试试</p>
+<pre><code class="java">$ npm install hexo-deployer-git --save
+$ npm install hexo --save
+</code></pre>
+<p>如果是下面这个问题：</p>
+<pre><code>{ [Error: Cannot find module &#39;./build/Release/DTraceProviderBindings&#39;] code: &#39;MODULE_NOT_FOUND&#39; }
+{ [Error: Cannot find module &#39;./build/default/DTraceProviderBindings&#39;] code: &#39;MODULE_NOT_FOUND&#39; }
+{ [Error: Cannot find module &#39;./build/Debug/DTraceProviderBindings&#39;] code: &#39;MODULE_NOT_FOUND&#39; }
+</code></pre><p>那就</p>
+<pre><code>npm install hexo --no-optional
+</code></pre><h1 id="NexT"><a href="#NexT" class="headerlink" title="NexT"></a>NexT</h1><p>如果你熟悉 Git， 建议你使用 克隆最新版本 的方式，之后的更新可以通过 git pull 来快速更新， 而不用再次下载压缩包替换。</p>
+<ol>
+<li>下载主题</li>
+</ol>
+<pre><code class="java">$ cd your-hexo-site
+$ git clone https://github.com/iissnan/hexo-theme-next themes/next
+</code></pre>
+<ol>
+<li><p>启用主题<br>与所有 Hexo 主题启用的模式一样。 当 克隆/下载 完成后，打开 <code>站点配置文件</code>， 找到<code>theme</code>字段，并将其值更改为<code>next</code>。</p>
+<pre><code>theme: next
+</code></pre><p>到此，NexT 主题安装完成。下一步我们将验证主题是否正确启用。在切换主题之后、验证之前， 我们最好使用 <code>$ hexo clean</code> 来清除 Hexo 的缓存。</p>
+</li>
+</ol>
+<h3 id="一些好用的插件"><a href="#一些好用的插件" class="headerlink" title="一些好用的插件"></a>一些好用的插件</h3><p>hexo可视化后台管理，很方便 - <a href="https://github.com/nihgwu/hexo-hey" target="_blank" rel="external">hexo-hey</a><br>在 hexo 中无痛使用本地图片 - <a href="https://github.com/CodeFalling/hexo-asset-image" target="_blank" rel="external">hexo-asset-image</a><br>备份整个博客包括主题 - <a href="https://github.com/coneycode/hexo-git-backup" target="_blank" rel="external">hexo-git-backup</a></p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p>网易云音乐 - <a href="http://weqeo.com/2016/10/11/Hexo中播放网易云音乐的实践" target="_blank" rel="external">Hexo中播放网易云音乐的实践</a><br>网易云音乐 - <a href="https://github.com/blog/273-github-ribbons" target="_blank" rel="external">GitHub Ribbons</a><br>字数统计WordCount 、阅读时长预计Min2Read、总字数统计TotalCount - <a href="https://github.com/willin/hexo-wordcount" target="_blank" rel="external">hexo-wordcount</a>  </p>
+]]></content>
+      
+        <categories>
+            
+            <category> 技术 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> 技术 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+  
+  
 </search>
