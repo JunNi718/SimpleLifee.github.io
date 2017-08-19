@@ -35,7 +35,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <meta name="theme-color" content="#0097A7">
     <meta name="author" content="SmartNi">
-    <meta name="description" itemprop="description" content="Message中obtain()源码分析">
+    <meta name="description" itemprop="description" content="人生中最大的两个财富是: 你的才华和你的时间&amp;#12290;    才华越来越多而时间越来越少&amp;#12290;我们的一生就是用时间来换取才华&amp;#12290;">
     <meta name="keywords" content="smartni,Android">
 
     <!-- Site Verification -->
@@ -67,17 +67,17 @@
     <meta property="og:type" content="blog">
     <meta property="og:title" content="Android 消息处理机制之二：消息中 obtain 源代码剖析 | SmartNi">
     <meta property="og:image" content="/img/favicon.png" />
-    <meta property="og:description" content="Message中obtain()源码分析">
+    <meta property="og:description" content="人生中最大的两个财富是: 你的才华和你的时间&amp;#12290;    才华越来越多而时间越来越少&amp;#12290;我们的一生就是用时间来换取才华&amp;#12290;">
     <meta property="og:article:tag" content="Android"> 
 
     
         <meta property="article:published_time" content="6月 14, 2017" />
-        <meta property="article:modified_time" content="7月 29, 2017" />
+        <meta property="article:modified_time" content="8月 19, 2017" />
     
 
     <!-- The Twitter Card protocol -->
     <meta name="twitter:title" content="Android 消息处理机制之二：消息中 obtain 源代码剖析 | SmartNi">
-    <meta name="twitter:description" content="Message中obtain()源码分析">
+    <meta name="twitter:description" content="人生中最大的两个财富是: 你的才华和你的时间&amp;#12290;    才华越来越多而时间越来越少&amp;#12290;我们的一生就是用时间来换取才华&amp;#12290;">
     <meta name="twitter:image" content="/img/favicon.png">
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:url" content="http://nijun.me" />
@@ -113,8 +113,8 @@
     "headline": "Android 消息处理机制之二：消息中 obtain 源代码剖析",
     "url": "http://nijun.me/2017/06/14/Android-2017-06-14-Android消息处理机制之二：消息中obtain源代码剖析/index.html",
     "datePublished": "6月 14, 2017",
-    "dateModified": "7月 29, 2017",
-    "description": "Message中obtain()源码分析",
+    "dateModified": "8月 19, 2017",
+    "description": "人生中最大的两个财富是: 你的才华和你的时间&amp;#12290;    才华越来越多而时间越来越少&amp;#12290;我们的一生就是用时间来换取才华&amp;#12290;",
     "mainEntityOfPage": {
         "@type": "WebPage",
         "@id": "http://nijun.me"
@@ -360,17 +360,8 @@
                 
     <!-- Paradox Post Header -->
     
-        
-            <!-- Random Thumbnail -->
-            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-            <script type="text/ls-javascript" id="post-thumbnail-script">
-    var randomNum = Math.floor(Math.random() * 19 + 1);
-
-    $('.post_thumbnail-random').attr('data-original', '/img/random/material-' + randomNum + '.png');
-    $('.post_thumbnail-random').addClass('lazy');
-</script>
-
-        
+        <!-- Custom Thumbnail -->
+        <div class="post_thumbnail-custom mdl-card__media mdl-color-text--grey-50" style="background-image:url(http://osoa5juml.bkt.clouddn.com/image/site/1503128098945.png)">
     
             <p class="article-headline-p">
                 Android 消息处理机制之二：消息中 obtain 源代码剖析
@@ -494,7 +485,7 @@
                 <!-- Post Content -->
                 <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
     
-        <p>Message中obtain()源码分析</p>
+        <p>人生中最大的两个财富是: 你的才华和你的时间&#12290;    才华越来越多而时间越来越少&#12290;我们的一生就是用时间来换取才华&#12290;</p>
 <a id="more"></a>
 <p>参考自 AHuier的<a href="http://blog.csdn.net/xukunhui2/article/details/17012923" target="_blank" rel="external">Android消息处理机制之二：消息中obtain()源代码剖析</a> </p>
 <p>obtain的源码，可见是从消息池中取出对象。这里为了防止多个任务访问消息池获取对象，使用 synchronized(sPoolSync) 将 obtain() 方法上锁了。</p>
