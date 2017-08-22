@@ -12,6 +12,8 @@
     
     <title>
         
+            关于ArrayList的Iterator源码分析 | 
+        
         SmartNi
     </title>
 
@@ -33,7 +35,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <meta name="theme-color" content="#0097A7">
     <meta name="author" content="SmartNi">
-    <meta name="description" itemprop="description" content="写出来是为了更好的理解">
+    <meta name="description" itemprop="description" content="读书不在于多，在于精。">
     <meta name="keywords" content="smartni">
 
     <!-- Site Verification -->
@@ -63,29 +65,62 @@
     <!-- The Open Graph protocol -->
     <meta property="og:url" content="http://nijun.me">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="SmartNi">
+    <meta property="og:title" content="关于ArrayList的Iterator源码分析 | SmartNi">
     <meta property="og:image" content="/img/favicon.png" />
-    <meta property="og:description" content="写出来是为了更好的理解">
+    <meta property="og:description" content="读书不在于多，在于精。">
     
 
+    
+        <meta property="article:published_time" content="8月 20, 2017" />
+        <meta property="article:modified_time" content="8月 22, 2017" />
     
 
     <!-- The Twitter Card protocol -->
-    <meta name="twitter:title" content="SmartNi">
-    <meta name="twitter:description" content="写出来是为了更好的理解">
+    <meta name="twitter:title" content="关于ArrayList的Iterator源码分析 | SmartNi">
+    <meta name="twitter:description" content="读书不在于多，在于精。">
     <meta name="twitter:image" content="/img/favicon.png">
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:url" content="http://nijun.me" />
 
     <!-- Add canonical link for SEO -->
     
-        <link rel="canonical" href="http://nijun.me/tags/index.html" />
+        <link rel="canonical" href="http://nijun.me/2017/08/20/arraylist-iterator/index.html" />
     
 
     <!-- Structured-data for SEO -->
     
         
 
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "SmartNi",
+        "logo": "/img/favicon.png"
+    },
+    "author": {
+        "@type": "Person",
+        "name": "SmartNi",
+        "image": {
+            "@type": "ImageObject",
+            "url": "/img/favicon.png"
+        },
+        "description": "生命不息<br/> 运动不止"
+    },
+    "headline": "关于ArrayList的Iterator源码分析",
+    "url": "http://nijun.me/2017/08/20/arraylist-iterator/index.html",
+    "datePublished": "8月 20, 2017",
+    "dateModified": "8月 22, 2017",
+    "description": "读书不在于多，在于精。",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "http://nijun.me"
+    }
+}
+</script>
 
 
     
@@ -275,60 +310,237 @@
 
                     <!-- Post TOC -->
 
+    
+    <!-- Back Button -->
+    <!--
+    <div class="material-back" id="backhome-div" tabindex="0">
+        <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"
+           href="#" onclick="window.history.back();return false;"
+           target="_self"
+           role="button"
+           data-upgraded=",MaterialButton,MaterialRipple">
+            <i class="material-icons" role="presentation">arrow_back</i>
+            <span class="mdl-button__ripple-container">
+                <span class="mdl-ripple"></span>
+            </span>
+        </a>
+    </div>
+    -->
+
+    <!-- Left aligned menu below button -->
+    <button id="post-toc-trigger-btn"
+        class="mdl-button mdl-js-button mdl-button--icon">
+        <i class="material-icons">format_list_numbered</i>
+    </button>
+
+    
+    <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
+        
+        <!--
+        <li class="mdl-menu__item">
+            Some Action
+        </li>
+        -->
+    </ul>
+    
+
+
+
+
 
 <!-- Layouts -->
 
-    <!-- Tags Cloud -->
-    <style>
-    #bottom{
-        position: relative;
-    }
+    <!-- Post Module -->
+    <div class="material-post_container">
 
-    @media screen and (max-width: 480px) {
-        .material-tagscloud{
-            margin: 6em 2em 0;
-        }
-    }
+        <div class="material-post mdl-grid">
+            <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
 
-    .material-tagscloud a{
-        text-decoration:none;
-        padding: 1px 9px;
-        margin: 9px 1px;
-        line-height: 40px;
-        white-space: nowrap;
-        transition: .6s;
-        opacity: .85;
-    }
+                <!-- Post Header(Thumbnail & Title) -->
+                
+    <!-- Paradox Post Header -->
+    
+        
+            <!-- Random Thumbnail -->
+            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
+            <script type="text/ls-javascript" id="post-thumbnail-script">
+    var randomNum = Math.floor(Math.random() * 19 + 1);
 
-    .material-tagscloud a:hover{
-        transition: .6s;
-        opacity: 1;
-        background: #FAFAFA;
-        box-shadow: 0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.12);
-    }
-</style>
+    $('.post_thumbnail-random').attr('data-original', '/img/random/material-' + randomNum + '.png');
+    $('.post_thumbnail-random').addClass('lazy');
+</script>
 
-<div class=" material-tagscloud">
-    <div class="material-post mdl-grid">
-        <a href="/tags/Android/" style="font-size: 35px; color: #212121">Android</a> <a href="/tags/Java/" style="font-size: 25.5px; color: #4b4b4b">Java</a> <a href="/tags/Mac/" style="font-size: 16px; color: #757575">Mac</a> <a href="/tags/git/" style="font-size: 16px; color: #757575">git</a> <a href="/tags/maven/" style="font-size: 16px; color: #757575">maven</a> <a href="/tags/技术/" style="font-size: 16px; color: #757575">技术</a>
+        
+    
+            <p class="article-headline-p">
+                关于ArrayList的Iterator源码分析
+            </p>
+        </div>
+
+
+
+
+
+                
+                    <!-- Paradox Post Info -->
+                    <div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
+
+    <!-- Author Avatar -->
+    <div id="author-avatar">
+        <img src="/img/avatar.png" width="44px" height="44px" alt="Author Avatar"/>
     </div>
+    <!-- Author Name & Date -->
+    <div>
+        <strong>SmartNi</strong>
+        <span>8月 20, 2017</span>
+    </div>
+
+    <div class="section-spacer"></div>
+
+    <!-- Favorite -->
+    <!--
+        <button id="article-functions-like-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon btn-like">
+            <i class="material-icons" role="presentation">favorite</i>
+            <span class="visuallyhidden">favorites</span>
+        </button>
+    -->
+
+    <!-- Qrcode -->
+    
+        <button id="article-functions-qrcode-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+    <i class="material-icons" role="presentation">devices other</i>
+    <span class="visuallyhidden">devices other</span>
+</button>
+<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-qrcode-button">
+    <li class="mdl-menu__item">在其它设备中阅读本文章</li>
+    
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACaElEQVR42u3aQW6DQBAEQP//08k1UhTcPSwLjooTihFsORI77pnX178+Xnh4eHh4eHh4eA/jveLj9/U//3L86fH1v89na8PDw8PbyXvzqj1cxF+M5CkJL18bHh4e3n7e8WZw/Mo+A06eW6wNDw8P72G8/Pp8QcnGgIeHh/e5vDZimN0ZDw8P71N4+Q/+PKTI7za7Jx4eHt5dvLYBtvP8hv4eHh4e3iGvHmlaFCuc32D+XCEeHh7exbx8ZOrMEleNDhyvFg8PD28PL2/5LxuKikcN2vgYDw8PbycvH59qS+o3wUE5fDDcGPDw8PAu4LXbQ/7INrCYBcd4eHh49/KGr+MT4WzU1lq1MeDh4eGd5s2GBpIXeh4ozKLbaGPAw8PDu4DXvnzbhtks/M3vhoeHh/cEXl4Et8X0bJNokXh4eHj7eW1hnccEOT4Pc/Hw8PDu4p0PamfbTBuFnJqMwMPDw1vESzBJkNqWv6vC3CKlxsPDw7uMNzufDZvm20MeZODh4eHt5CULzQvo2baxYDwLDw8PbyMvKZrba2YjBbMgGA8PD28Prw1h89iiHR1o4+MipcbDw8O7gJfHqefxSYE+exYeHh7eHt6stM1Hr5JPZ8MExS8GPDw8vKW89phRZ42x/OvDw8PD28lr2/Z5o6vdHvJQ+M0/AA8PD28Lr40DzoxJrWp6DcMIPDw8vKW8vMxtX+Jted1uTnh4eHhP5uWv77VtreKLw8PDw/sQXlJM5/i2/YaHh4d3F29V0ysJJtoW17LJCDw8PLxFvFkQcCaqSJ4yK9zx8PDwrub9vwMPDw8PDw8PD+8BxzejHVPv7YxeGgAAAABJRU5ErkJggg==">
+    
+</ul>
+    
+
+    <!-- Tags (bookmark) -->
+    
+    <button id="article-functions-viewtags-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+        <i class="material-icons" role="presentation">bookmark</i>
+        <span class="visuallyhidden">bookmark</span>
+    </button>
+    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
+        <li class="mdl-menu__item">
+        
+    </ul>
+    
+
+    <!-- Share -->
+    <button id="article-fuctions-share-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+    <i class="material-icons" role="presentation">share</i>
+    <span class="visuallyhidden">share</span>
+</button>
+<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-fuctions-share-button">
+    
+
+    
+
+    <!-- Share Weibo -->
+    
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=关于ArrayList的Iterator源码分析&url=http://nijun.me/2017/08/20/arraylist-iterator/index.html&pic=&searchPic=false&style=simple" target="_blank">
+            <li class="mdl-menu__item">
+                分享到微博
+            </li>
+        </a>
+    
+
+    <!-- Share Twitter -->
+    
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=关于ArrayList的Iterator源码分析&url=http://nijun.me/2017/08/20/arraylist-iterator/index.html&via=SmartNi" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Twitter
+            </li>
+        </a>
+    
+
+    <!-- Share Facebook -->
+    
+        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=http://nijun.me/2017/08/20/arraylist-iterator/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Facebook
+            </li>
+        </a>
+    
+
+    <!-- Share Google+ -->
+    
+        <a class="post_share-link" href="https://plus.google.com/share?url=http://nijun.me/2017/08/20/arraylist-iterator/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Google+
+            </li>
+        </a>
+    
+
+    <!-- Share LinkedIn -->
+    
+
+    <!-- Share QQ -->
+    
+
+    <!-- Share Telegram -->
+    
+</ul>
+
+</div>
+
+                
+
+                <!-- Post Content -->
+                <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
+    
+        <p>读书不在于多，在于精。</p>
+<a id="more"></a>
+<p>ArrayList 的 Iterator 对象不能连续调用remove() 两次，同时也不能在调用iterator()方法之后再增加或者删除原集合的元素（get和set无影响）。为什么？</p>
+<p>ArrayList 的父类 AbstractList 中有一个记录这个 List 修改次数的变量 modCount，每次 add 和 remove 时，这个字段会相应地增加1。咋们来看看源码：add()方法里就几行代码，没有发现modCount自增的操作，只有一个ensureCapacityInternal()方法，这个方法会确保集合能存下当前这个元素，ensureCapacityInternal()方法中又有ensureExplicitCapacity()方法，这个方法内部就执行了modCount++的操作。这当然不是这个方法最重要的操作，下面有个判断增加新的元素后的长度是否大于当前集合的长度，如果是说明容量不够，需要扩容。</p>
+<p>实现扩容的方法是grow(minCapacity)，它每次扩容的大小是当前集合长度 + （当前集合长度&gt;&gt;1)，也就是增加50%的长度，如果还是不满足minCapacity的要求，就直接指定成 minCapacity 的长度。对了，如果长度超级大，则可能会抛出OutOfMemoryError异常。接下来就是调用 Arrays.copyOf(elementData, newCapacity) 来把旧的集合元素拷贝到扩容后的新的集合中。</p>
+<p>接下来我们回到add()方法中，它调用了System.arraycopy(elementData, index, elementData, index + 1, size - index); 方法，它的作用是将源数组中指定长度的元素，拷贝到新的数组中。它的五个参数依次是：源数组，源数组中拷贝的起始索引，目标数组，目标数组中赋值的起始索引，拷贝的长度。</p>
+<p>System.arraycopy() 被修饰为了native ，说明是以JNI的方式调用本地操作系统中的方法。(JNI，Java Native Interface 故名思意，就是java语言调其它语言的一个接口)。</p>
+<p>Iterator 调用next之后再调用previous 是同一个元素。</p>
+<p>smartni</p>
+<p>2017年08月20日</p>
+
+    
+
+    
 </div>
 
 
-<script type="text/ls-javascript" id="page-tagcloud-script">
-    var adjustFooter = function() {
-        if( ($('#bottom').offset().top + $('#bottom').outerHeight() ) < $(window).height() ) {
-            var footerBottom = $(window).height() - $('#bottom').outerHeight() - $('#bottom').offset().top;
-            $('#bottom').css('bottom', '-' + footerBottom + 'px');
-        }
-    };
+                
 
-    $(document).ready(function() {
-        adjustFooter();
-    });
-</script>
+                <!-- Post Comments -->
+                
+                    
+                
+            </div>
 
+            <!-- Post Prev & Next Nav -->
+            <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
+    <!-- Prev Nav -->
+    
 
+    <!-- Section Spacer -->
+    <div class="section-spacer"></div>
+
+    <!-- Next Nav -->
+    
+        <a href="/2017/08/04/smartviewpager/" id="post_nav-older" class="next-content">
+            旧篇
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_forward</i>
+            </button>
+        </a>
+    
+</nav>
+
+        </div>
+    </div>
 
 
 
@@ -501,6 +713,14 @@ It will not impact the appearance and can give developers a lot of support :)
 </aside>
 
                     
+
+                    
+                        <!-- Footer Top Button -->
+                        <div id="back-to-top" class="toTop-wrap">
+    <a href="#top" class="toTop">
+        <i class="material-icons footer_top-i">expand_less</i>
+    </a>
+</div>
 
                     
 
