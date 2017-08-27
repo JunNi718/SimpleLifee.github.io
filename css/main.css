@@ -1817,7 +1817,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #f4df7c;
+  background: #4e25ff;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -3088,90 +3088,6 @@ body {
     top: 10px;
     right: 10px;
   }
-}
-#content h1:not(.post-title) {
-  background: #2b6600;
-  border-radius: 6px 6px 6px 6px;
-  box-shadow: 0 0 0 1px #5f5a4b, 1px 1px 6px 1px rgba(10,10,0,0.5);
-  color: #fff;
-  font-family: "΢���ź�", "����", "����", Arial;
-  font-size: 25px;
-  height: 35px;
-  line-height: 25px;
-  margin: 12px 0 !important;
-  padding: 15px 0 5px 20px;
-  text-shadow: 2px 2px 3px #222;
-}
-#content h2 {
-  background: #008eb7;
-  border-radius: 6px 6px 6px 6px;
-  box-shadow: 0 0 0 1px #5f5a4b, 1px 1px 6px 1px rgba(10,10,0,0.5);
-  color: #fff;
-  font-family: "΢���ź�", "����", "����", Arial;
-  font-size: 20px;
-  height: 25px;
-  line-height: 17px;
-  margin: 12px 0 !important;
-  padding: 15px 0 5px 20px;
-  text-shadow: 2px 2px 3px #222;
-}
-#content h3 {
-  font-size: 20px;
-  padding-right: 64px;
-  padding-left: 10px;
-  border-left-width: 3px;
-  border-left-style: solid;
-  border-left-color: #2175bc;
-  padding-top: 0px;
-}
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-size: 100%;
-  font-weight: normal;
-}
-.post-body a:hover:not(.post-title-link) {
-  background-color: #444;
-  border: none;
-  color: #fff;
-  text-decoration: none;
-  z-index: 2;
-}
-.post-body a:not(.post-title-link) {
-  padding: 0 2px;
-  border-bottom: 1px solid #333;
-  -webkit-transition: all 0.2s linear;
-  -moz-transition: all 0.2s linear;
-  -ms-transition: all 0.2s linear;
-  -o-transition: all 0.2s linear;
-  transition: all 0.2s linear;
-}
-.brick-item-active {
-  -webkit-box-shadow: 0 15px 30px rgba(0,0,0,0.1);
-  box-shadow: 0 15px 30px rgba(0,0,0,0.1);
-  -webkit-transform: translate3d(0, -2px, 0);
-  -webkit-transform: translate3d(0, -5px, 0);
-  -moz-transform: translate3d(0, -5px, 0);
-  -ms-transform: translate3d(0, -5px, 0);
-  -o-transform: translate3d(0, -5px, 0);
-  transform: translate3d(0, -5px, 0);
-}
-.brick-item {
-  margin-left: 14px;
-  margin-bottom: 14px;
-  background: #fff;
-  -webkit-transition: all 0.2s linear;
-  transition: all 0.2s linear;
-}
-blockquote {
-  background: #f1f1f3;
-}
-.site-meta .site-title {
-  font-size: 22px;
-  font-weight: bolder;
 }
 body {
   font-size: 17px;
