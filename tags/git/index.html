@@ -26,7 +26,7 @@
   <a id="top"></a>
   <div id="main">
     <div class="behind">
-      <a href="/" class="back black-color">
+      <a href="/" class="back black-color" style="z-index:1;">
         <svg class="i-close" viewBox="0 0 32 32" width="22" height="22" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3">
             <path d="M2 30 L30 2 M30 30 L2 2"></path>
         </svg>
