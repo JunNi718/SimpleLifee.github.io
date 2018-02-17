@@ -85,15 +85,15 @@
 <p>注意：Mac 下一般使用 bash 作为默认的 shell。</p>
 <hr>
 <h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>今天在捣鼓 MySQL 的时候，安装删除了好几个循环之后，发现打开 iTerm 之后输入 <code>mysql</code> 不起作用了，刚开始还以为是 MySQL 安装失败了，但是再一次安装成功后还是提示 <code>command not found: mysql</code> 。看到这句话第一时间我就想到了是不是环境变量没有配呢？但是一想不对啊，我之前也是用的好好的也没出现过这个问题啊。<!-- more --></p>
-<p>思路：我们知道 <strong><code>.bash_profile</code></strong> 中是可以设置环境变量的，所以就先从它入手，于是我就往其中添加了下面这句：<br><figure class="highlight elixir"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">export PATH=<span class="variable">$PATH</span><span class="symbol">:/usr/local/mysql/bin</span></div></pre></td></tr></table></figure></p>
+<p>思路：我们知道 <strong><code>.bash_profile</code></strong> 中是可以设置环境变量的，所以就先从它入手，于是我就往其中添加了下面这句：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">export PATH=$PATH:/usr/local/mysql/bin</div></pre></td></tr></table></figure></p>
 <p>然后保存，输入命令 <strong><code>source ~/.bash_profile</code></strong> ，确实有效！</p>
 <p>但是呢，别高兴的太早，作用是有的，但是仅限于当前这个会话。一旦重新开启新的会话，又被打回老样子。</p>
 <p>于是我就想，既然 <strong><code>source ~/.bash_profile</code></strong> 这句话能起作用，就不是 <strong><code>.bash_profile</code></strong> 的问题了，那么问题到底出在哪了呢？会不会是系统压根没执行 <strong><code>.bash_profile</code></strong> ？所以我根据系统环境变量的加载顺序，去寻找 <strong><code>/etc</code></strong> 下的两个文件。</p>
-<p><strong>profile</strong><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> [ -x /usr/libexec/path_helper ]; <span class="keyword">then</span></div><div class="line">	<span class="built_in">eval</span> `/usr/libexec/path_helper -s`</div><div class="line"><span class="keyword">fi</span></div><div class="line"></div><div class="line"><span class="keyword">if</span> [ <span class="string">"<span class="variable">$&#123;BASH-no&#125;</span>"</span> != <span class="string">"no"</span> ]; <span class="keyword">then</span></div><div class="line">	[ -r /etc/bashrc ] &amp;&amp; . /etc/bashrc</div><div class="line"><span class="keyword">fi</span></div></pre></td></tr></table></figure></p>
+<p><strong>profile</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">if [ -x /usr/libexec/path_helper ]; then</div><div class="line">	eval `/usr/libexec/path_helper -s`</div><div class="line">fi</div><div class="line"></div><div class="line">if [ &quot;$&#123;BASH-no&#125;&quot; != &quot;no&quot; ]; then</div><div class="line">	[ -r /etc/bashrc ] &amp;&amp; . /etc/bashrc</div><div class="line">fi</div></pre></td></tr></table></figure></p>
 <p>这个文件好像看不出有什么问题。</p>
-<p><strong>paths</strong><br><figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="string">/usr/local/bin</span></div><div class="line"><span class="string">/usr/bin</span></div><div class="line"><span class="string">/bin</span></div><div class="line"><span class="string">/usr/sbin</span></div><div class="line"><span class="string">/sbin</span></div></pre></td></tr></table></figure></p>
+<p><strong>paths</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">/usr/local/bin</div><div class="line">/usr/bin</div><div class="line">/bin</div><div class="line">/usr/sbin</div><div class="line">/sbin</div></pre></td></tr></table></figure></p>
 <p>这些是系统默认的环境变量，也找不到什么原因。</p>
-<p>然后我新开了一个 Terminal 会话，执行下面查看当前系统环境变量的命令<br><figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ echo $PATH</div><div class="line"><span class="regexp">/usr/</span>local<span class="regexp">/bin:/</span>usr<span class="regexp">/bin:/</span><span class="string">bin:</span><span class="regexp">/usr/</span><span class="string">sbin:</span><span class="regexp">/sbin:/</span>usr<span class="regexp">/local/</span>aria2/bin</div></pre></td></tr></table></figure></p>
+<p>然后我新开了一个 Terminal 会话，执行下面查看当前系统环境变量的命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ echo $PATH</div><div class="line">/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/aria2/bin</div></pre></td></tr></table></figure></p>
 <p>很奇怪，除了系统默认环境变量之外，还多了 <code>/usr/local/aria2/bin</code> 这个，要知道在我的 ‘.bash_profile’ 中并没有声明这个环境变量。</p>
 <p>以上我碰到的问题描述，这个问题花了我一个下午的时间，还好最终是解决了，花了一个晚上写了以下这个总结。</p>
 <hr>
@@ -111,37 +111,37 @@
 <h3 id="然而"><a href="#然而" class="headerlink" title="然而"></a>然而</h3><p>如果你没有修改过，上面的方法默认重启后就能生效。</p>
 <p>但是，现在的 mac 上有些使用 zsh 这个作为默认的 shell（比如我！！！），所以，在启动 shell 时，默认不会按上面的套路去加载。</p>
 <p>如果想要正常加载 <code>.bashrc</code> 文件时，就要找到用户目录下的 <code>.zshrc</code> 文件加入如下代码：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> [ -f ~/.bashrc ]; <span class="keyword">then</span></div><div class="line">   <span class="built_in">source</span> ~/.bashrc</div><div class="line"><span class="keyword">fi</span></div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">if [ -f ~/.bashrc ]; then</div><div class="line">   source ~/.bashrc</div><div class="line">fi</div></pre></td></tr></table></figure>
 <p>参考：<a href="http://www.joshstaiger.org/archives/2005/07/bash_profile_vs.html" target="_blank" rel="external">.bash_profile vs .bashrc</a>，建议读一下。</p>
 <p>According to the bash man page, .bash_profile is executed for <strong>login</strong> shells, while .bashrc is executed for <strong>interactive non-login</strong> shells.</p>
 <hr>
-<h2 id="二、设置-PATH-的语法"><a href="#二、设置-PATH-的语法" class="headerlink" title="二、设置 PATH 的语法"></a>二、设置 PATH 的语法</h2><figure class="highlight dos"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">//中间用冒号隔开</div><div class="line">export <span class="built_in">PATH</span>=$<span class="built_in">PATH</span>:&lt;<span class="built_in">PATH</span> <span class="number">1</span>&gt;:&lt;<span class="built_in">PATH</span> <span class="number">2</span>&gt;:&lt;<span class="built_in">PATH</span> <span class="number">3</span>&gt;:......:&lt;<span class="built_in">PATH</span> N&gt;</div></pre></td></tr></table></figure>
+<h2 id="二、设置-PATH-的语法"><a href="#二、设置-PATH-的语法" class="headerlink" title="二、设置 PATH 的语法"></a>二、设置 PATH 的语法</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">//中间用冒号隔开</div><div class="line">export PATH=$PATH:&lt;PATH 1&gt;:&lt;PATH 2&gt;:&lt;PATH 3&gt;:......:&lt;PATH N&gt;</div></pre></td></tr></table></figure>
 <h3 id="全局设置"><a href="#全局设置" class="headerlink" title="全局设置"></a>全局设置</h3><p>下面的几个文件设置是全局的，修改时需要 root 权限。</p>
 <ol>
 <li><code>/etc/paths</code> （全局建议修改这个文件）<br>编辑时一行一个路径。<br>注意：输入环境变量时，不用一个一个输入，只要拖拽文件夹到 Terminal 里就可以了。</li>
 <li><code>/etc/profile</code> （建议不修改这个文件）<br>全局（公有）配置，不管是哪个用户，登录时都会读取该文件。</li>
 <li><code>/etc/bashrc</code> （一般在这个文件中添加系统级环境变量）<br>全局（公有）配置，<code>bash shell</code> 执行时，不管是何种方式，都会读取此文件。</li>
 <li>分模块创建环境变量<ul>
-<li>1) 创建一个文件：<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> sudo touch /etc/paths.d/mysql</span></div></pre></td></tr></table></figure>
+<li>1) 创建一个文件：<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> sudo touch /etc/paths.d/mysql</div></pre></td></tr></table></figure>
 </li>
 </ul>
 </li>
 </ol>
 <ul>
 <li><p>2) 用 vim 打开这个文件（如果是以 open -t 的方式打开，则不允许编辑）：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> sudo vim /etc/paths.d/mysql</span></div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> sudo vim /etc/paths.d/mysql</div></pre></td></tr></table></figure>
 </li>
 <li><p>3) 编辑该文件，键入路径并保存（关闭该 Terminal 窗口并重新打开一个，就能使用 mysql 命令了）</p>
-<figure class="highlight awk"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="regexp">/usr/</span>local<span class="regexp">/mysql/</span>bin</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/usr/local/mysql/bin</div></pre></td></tr></table></figure>
 </li>
 </ul>
 <p>在我的 ‘/etc/paths.d’ 目录下已经存在了一个文件 <code>aria2c</code> ，这也说了为什么一开始打印系统环境变量时，在最后多出了一个 <code>/usr/local/aria2/bin</code> 目录，因为在我的 <code>.bash_profile</code> 中并没有设置这个路径。顿时豁然开朗，哈哈。</p>
 <p>还有就是，这样就不用把变量全放在 <code>paths</code> 文件里，方便管理。</p>
 <h3 id="单用户设置"><a href="#单用户设置" class="headerlink" title="单用户设置"></a>单用户设置</h3><ol>
-<li><strong><code>~/.bash_profile</code></strong> （任意一个文件中添加用户级环境变量）（注：<code>Linux</code> 里面是 <strong><code>.bashrc</code></strong> 而 <code>Mac</code> 是 <code>.bash_profile</code>）<br>若 bash shell 是以 login 方式执行时，才会读取此文件。该文件仅仅执行一次 <strong>1</strong> 默认情况下,它用来设置一些环境变量<br>设置命令别名:<figure class="highlight vim"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">alias <span class="keyword">ll</span>=’<span class="keyword">ls</span> -<span class="keyword">la</span>’</div></pre></td></tr></table></figure>
+<li><strong><code>~/.bash_profile</code></strong> （任意一个文件中添加用户级环境变量）（注：<code>Linux</code> 里面是 <strong><code>.bashrc</code></strong> 而 <code>Mac</code> 是 <code>.bash_profile</code>）<br>若 bash shell 是以 login 方式执行时，才会读取此文件。该文件仅仅执行一次 <strong>1</strong> 默认情况下,它用来设置一些环境变量<br>设置命令别名:<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">alias ll=’ls -la’</div></pre></td></tr></table></figure>
 </li>
 </ol>
-<p>设置环境变量:<br><figure class="highlight awk"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">export PATH=<span class="regexp">/opt/</span>local<span class="regexp">/bin:/</span>opt<span class="regexp">/local/</span>sbin:<span class="variable">$PATH</span></div></pre></td></tr></table></figure></p>
+<p>设置环境变量:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">export PATH=/opt/local/bin:/opt/local/sbin:$PATH</div></pre></td></tr></table></figure></p>
 <h3 id="生效"><a href="#生效" class="headerlink" title="生效"></a>生效</h3><p>如果想要立刻生效，则可以执行下面的语句：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">source ~/.bash_profile</div></pre></td></tr></table></figure></p>
 <p>一般环境变量更改后，重启后生效。</p>
 
@@ -151,9 +151,9 @@
     <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
   </script>
   <div class="busuanzi center">
-    页阅读量:&nbsp;<span id="busuanzi_value_page_pv"></span>&nbsp;・&nbsp;
-    站访问量:&nbsp;<span id="busuanzi_value_site_pv"></span>&nbsp;・&nbsp;
-    站访客数:&nbsp;<span id="busuanzi_value_site_uv"></span>
+    page PV:&nbsp;<span id="busuanzi_value_page_pv"></span>&nbsp;・&nbsp;
+    site PV:&nbsp;<span id="busuanzi_value_site_pv"></span>&nbsp;・&nbsp;
+    site UV:&nbsp;<span id="busuanzi_value_site_uv"></span>
   </div>
 
 
