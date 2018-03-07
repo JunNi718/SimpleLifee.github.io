@@ -8,9 +8,11 @@ dark: false
 menu:
   Home: /
   Archives: /archives
-  Programming: /programming
-  Categories: /categories
+  #Programming: /programming
+  #Categories: /categories
+  Resume: /resume
   About: /about
+  Blog: /blog
 rss: /atom.xml
 
 # Content

@@ -10,6 +10,26 @@ date: 2017-05-01 18:51:25
 
 
 
+08-17 添加Google自定义搜索
+
+---
+
+- [为自己博客添加站内搜索](http://devlu.me/2016/01/23/Hexo%E5%8D%9A%E5%AE%A2%E4%BC%98%E5%8C%96%E9%85%8D%E7%BD%AE%E4%B9%8B-%E4%B8%BA%E8%87%AA%E5%B7%B1%E5%8D%9A%E5%AE%A2%E6%B7%BB%E5%8A%A0%E7%AB%99%E5%86%85%E6%90%9C%E7%B4%A2/)
+- [Google 自定义搜索](https://cse.google.com/cse/all?hl=zh-CN)
+- [授之以鱼，不如授之以渔](http://www.jianshu.com/p/12279cabca81)
+- [LP's Blog](http://lupeng.me/)
+
+### 08-16 添加目录
+
+---
+相关链接
+- [为 Hexo 博客添加目录 by 况琪](http://kuangqi.me/tricks/enable-table-of-contents-on-hexo/)
+- [实现文章目录](http://blog.csdn.net/u013082989/article/details/70212008)
+
+### 08-15 添加 About 和 Resume 页
+
+
+
 ### 08-12 添加emoji表情
 
 - [**hexo-tag-emojis**](https://github.com/sergiolepore/hexo-tag-emojis)
@@ -85,7 +105,6 @@ date: 2017-05-01 18:51:25
 
 - 使用 [markdown图片实用工具](https://github.com/tiann/markdown-img-upload)，其中需要使用到 [requests](http://www.python-requests.org/en/master/user/install/#install) 库
 
-  ​
 
 ### 05-01 卸载
 

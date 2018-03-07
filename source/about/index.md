@@ -2,8 +2,7 @@
 title: 关于我？
 date: 2017-05-06 00:00:38
 type: "about"
-layout: "about"
-
+permalink: "http://about.iweeek.com"
 ---
 
 

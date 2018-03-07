@@ -4,8 +4,8 @@
 
 # Site
 title: SmartNi
-subtitle: code, mylife
-description: start from zero
+subtitle: 专注
+description: 写出来是为了更好的理解
 author: SmartNi
 language: zh-Hans
 #language: zh-CN
@@ -15,7 +15,7 @@ avatar: uploads/lovely.gif
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: http://nijun.me/
+url: http://www.iweeek.com/
 root: /
 permalink: :year/:month/:day/:title/
 permalink_defaults:
@@ -43,7 +43,7 @@ post_asset_folder: false
 relative_link: false
 future: true
 highlight:
-  enable: false
+  enable: true
   line_number: true
   auto_detect: false
   tab_replace:
@@ -76,7 +76,11 @@ pagination_dir: page
 #theme: one
 #theme: material
 #theme: scribble
-theme: typing
+#theme: typing
+#theme: yilia
+#theme: pln
+theme: melody
+
 
 
 # Extensions 
@@ -118,7 +122,7 @@ tag_generator:
 
 
 social:
-  github: https://github.com/
+  github: https://github.com/SmartNJ
   twitter: https://twitter.com/your-user-name
   weibo: http://weibo.com/your-user-name
   douban: http://douban.com/people/your-user-name
@@ -142,8 +146,16 @@ prism_plugin:
 search:
   path: search.xml
   field: post
+  format: html
+  limit: 10000
 
 # hexo-tag-emojis plugin configuration
 emojis:
   #image_dir: images/emojis
   cdn: http://ouk6v4oh8.bkt.clouddn.com/image/emojis
+
+toc:
+  maxDepth: 3
+  slugify: true
+
+

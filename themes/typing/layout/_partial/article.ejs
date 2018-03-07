@@ -1,3 +1,4 @@
+
 <article id="<%= post.layout %>-<%= post.slug %>" class="article article-type-<%= post.layout %>" itemscope itemprop="blogPost">
   <%- partial('_partial/header') %>
   <hr/>
@@ -9,6 +10,48 @@
       </header>
     <% } %>
     <div class="article-entry typo" itemprop="articleBody">
+
+<!-- <% if (!index && post.toc){ %>
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+        <%- toc(page.content, {
+        class: 'post-toc',  
+        list_number: false
+    })
+    %>
+  </div>
+<% } %> -->
+
+   <!-- 目录内容 -->
+        <% if (!index && post.toc){ %>
+            <p class="show-toc-btn" id="show-toc-btn" onclick="showToc();" style="display:none">
+            <span class="btn-bg"></span>
+            <span class="btn-text">文章导航</span>
+            </p>
+            <div id="toc-article" class="toc-article">
+                <span id="toc-close" class="toc-close" title="隐藏导航" onclick="showBtn();">×</span>
+                <strong class="toc-title">文章目录</strong>
+                <%- toc(post.content) %>
+           </div>
+           <script type="text/javascript">
+            function showToc(){
+                var toc_article = document.getElementById("toc-article");
+                var show_toc_btn = document.getElementById("show-toc-btn");
+                toc_article.setAttribute("style","display:block");
+                show_toc_btn.setAttribute("style","display:none");
+                };
+            function showBtn(){
+                var toc_article = document.getElementById("toc-article");
+                var show_toc_btn = document.getElementById("show-toc-btn");
+                toc_article.setAttribute("style","display:none");
+                show_toc_btn.setAttribute("style","display:block");
+                };
+           </script>
+        <% } %>     
+        <!-- 目录内容结束 -->
+
+
+
       <% if (post.excerpt && index){ %>
         <%- post.excerpt %>
         <% if (theme.excerpt_link){ %>
@@ -46,6 +89,21 @@
     <%- partial('post/nav') %>
   <% } %>
 </article>
+
+
+<!-- //2017年08月17日12:35:00  输入框彩虹 -->
+<center>
+<div class="widget widget-search">
+  <form class="navbar-form navbar-right" id="search" onsubmit="search(event);return false;" _lpchecked="1">
+    <div class="input-group">
+    <span class="input-group-addon" id="searchIcon" onclick="search(event);"><i class="fa fa-search"></i></span>
+    <input type="text" style="font-family: 'Helvetica Neue', 'PingFang SC', 'Microsoft YaHei', 'WenQuanYi Micro Hei', sans-serif;color:#6D7569;outline-color:#c05b4d;" placeholder="Enjoy" id="searchInput" class="form-control" value="">
+    </div>
+  </form>
+</div>
+</center>
+
+
 
 <% if (!index && post.comments && config.disqus_shortname){ %>
   <section id="comments" class="comments">
